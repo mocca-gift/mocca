@@ -1,0 +1,2 @@
+module AnstoevalsHelper
+end

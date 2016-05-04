@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>Question</title>
+    <script>
+      var num = 3;
+      var Question = {1:
+                          {question: "Who am I", answer1: "Me", answer2: "You"},
+                         2:
+                          {question: "Who are You", answer1: "Me", answer2: "You"},
+                         3:
+                          {question: "Whats this", answer1: "Me", answer2: "You"}
+                        };
+      function init(){
+        qnum = document.getElementById("qnum");
+        qtext = document.getElementById("qtext");
+        btn1 = document.getElementById("btn1");
+        btn2 = document.getElementById("btn2");
+        ans =  document.getElementById("ans");
+        var i = 1;
+        var j= 0;
+        var ansarray = [];
+        var anstext = "";
+        qnum.innerText = 'Question : '+i;
+        qtext.innerText = Question[i].question;
+        btn1.innerText = Question[i].answer1;
+        btn2.innerText = Question[i].answer2;
+      btn1.onclick = function(){
+        ansarray[j]={question: i, answer: 1};
+        anstext = anstext+"[Question:"+ansarray[j].question+",Answer:"+ansarray[j].answer+"]";
+        if(i==num){
+          i=1;
+        } else {
+          i++;
+        }
+        qnum.innerText = 'Question : '+i;
+        qtext.innerText = Question[i].question;
+        btn1.innerText = Question[i].answer1;
+        btn2.innerText = Question[i].answer2;
+        ans.innerText = anstext;
+        j++;
+      }
+      btn2.onclick = function(){
+        ansarray[j]={question: i, answer: 2};
+        anstext = anstext+"[Question:"+ansarray[j].question+",Answer:"+ansarray[j].answer+"]";
+        if(i==num){
+          i=1;
+        } else {
+          i++;
+        }
+        qnum.innerText = 'Question : '+i;
+        qtext.innerText = Question[i].question;
+        btn1.innerText = Question[i].answer1;
+        btn2.innerText = Question[i].answer2;
+        ans.innerText = "Question:"+ansarray[j].question;
+        ans.innerText = anstext;
+        j++;
+      }
+    }
+    </script>
+  </head>
+  <body onload="init()">
+    <h1 id="qnum"></h1>
+    <h2 id="qtext"></h2>
+    <button id="btn1"></button>
+    <button id="btn2"></button>
+    <div id="ans"></div>
+  </body>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GiftApp -result-</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <script>
+        window.onload = function(){
+          btn1 = document.getElementById("btn1");
+          btn2 = document.getElementById("btn2");
+          cat1 = document.getElementById("cat1");
+          cat2 = document.getElementById("cat2");
+          var btn1_num = 0;
+          var btn2_num = 0;
+          btn1.onclick = function(){
+            btn1_num++;
+            div_element = document.createElement("div");
+            div_element.setAttribute("id","gift1_"+btn1_num);
+            div_element.innerHTML = '<div class="row" ><div class="col-md-7 gift"><a href="#"><img src="image/gift.jpg" width="250px" height="250px"></a></div><div class="col-md-5 eval"><a href="#"><img src="image/heart.png" width="200px" height="200px"></a><h4>Do you like it?</h4></div></div><div><h3>Description if needed</h3></div></div>';
+            cat1.appendChild(div_element);
+            var target = document.getElementById("gift1_"+btn1_num);
+            var rect = target.getBoundingClientRect();
+            var positionY = rect.top+window.pageYOffset;
+            window.scrollTo(0,positionY-100);
+          }
+          btn2.onclick = function(){
+            btn2_num++;
+            div_element = document.createElement("div");
+            div_element.setAttribute("id","gift2_"+btn2_num);
+            div_element.innerHTML = '<div class="row" ><div class="col-md-7 gift"><a href="#"><img src="image/gift.jpg" width="250px" height="250px"></a></div><div class="col-md-5 eval"><a href="#"><img src="image/heart.png" width="200px" height="200px"></a><h4>Do you like it?</h4></div></div><div><h3>Description if needed</h3></div></div>';
+            cat2.appendChild(div_element);
+            var target = document.getElementById("gift2_"+btn2_num);
+            var rect = target.getBoundingClientRect();
+            var positionY = rect.top+window.pageYOffset;
+            window.scrollTo(0,positionY-100);
+          }
+        }
+    </script>
+    <style>
+      footer {
+        margin-top: 4%;
+        text-align: center;
+        padding: 10px;
+        background: #101010;
+      }
+     .smbtn {
+       text-align: center;
+     }
+     .main-contents {
+        margin-top: 10%;
+      }
+
+      .eval {
+        margin-top: 15px;
+        text-align: center;
+      }
+
+      .gift {
+        text-align: center;
+      }
+
+      .navbar {
+        background-color: rgba(255,0,0,0.9);
+      }
+      .tabtn {
+        text-align: center;
+        margin: 1%;
+      }
+
+      .tryagainbtn {
+        border: 1px solid rgba(0,0,255,1);
+        background-color: rgba(0,0,255,1);
+        color: rgba(255,255,255,1);
+        border-radius: 1;
+      }
+      .tryagainbtn:hover {
+       color: #0089ff;
+       border-color: #0089ff;
+     }
+      .seemorebtn{
+        border: 1px solid rgba(0,0,255,1);
+        color: rgba(0,0,255,1);
+        border-radius: 1;
+      }
+      .seemorebtn:hover {
+       color: #0089ff;
+       border-color: #0089ff;
+     }
+
+    </style>
+  </head>
+  <body>
+    <nav class="navbar  navbar-fixed-top">
+      <div class="container" >
+        <div class="row">
+          <div class="col-md-1"><a class="navbar-brand" href="index.html" text-align="center"><img src="image/logo.jpg" width="105px" height="70px"></a></div>
+          <div class="col-md-7"><p class="navbar-text" text-align="center"><font size=7>Gift Application</font></p></div>
+          <div class="col-md-3"></div>
+          <div class="col-md-1">
+            <div class="dropdown">
+              <a class="btn btn-lg dropdown-toggle" data-toggle="dropdown" href="">
+                <img src="image/toggle.png" width="70px" height="70px">
+              </a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Link1</a></li>
+                <li><a href="#">Link2</a></li>
+                <li><a href="#">Link3</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <div class="container main-contents">
+      <h1>Result:</h1>
+      <div class="row">
+        <div class="col-md-6">
+          <h2>Category1</h2>
+          <div id="cat1">
+            <div id="gift1_0"><!-- gift1 -->
+              <div class="row">
+                <div class="col-md-7 gift">
+                  <a href="#"><img src="image/gift.jpg" width="250px" height="250px"></a>
+                </div>
+                <div class="col-md-5 eval">
+                  <a href="#"><img src="image/heart.png" width="200px" height="200px"></a>
+                  <h4>Do you like it?</h4>
+                </div>
+              </div>
+              <div>
+                 <h3>Description if needed</h3>
+              </div>
+            </div><!-- gift1 -->
+          </div>
+            <div class="smbtn" id="btn1">
+               <a  class="btn btn-lg btn-block seemorebtn" role="button">&#9660;See more</a>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h2>Category2</h2>
+            <div id="cat2">
+              <div id="gift2_0"><!-- gift1 -->
+                <div class="row">
+                  <div class="col-md-7 gift">
+                    <a href="#"><img src="image/gift.jpg" width="250px" height="250px"></a>
+                  </div>
+                  <div class="col-md-5 eval">
+                    <a href="#"><img src="image/heart.png" width="200px" height="200px"></a>
+                    <h4>Do you like it?</h4>
+                  </div>
+                </div>
+                <div>
+                   <h3>Description if needed</h3>
+                </div>
+              </div><!-- gift1 -->
+            </div>
+            <div class="smbtn" id="btn2">
+               <a  class="btn btn-lg btn-block seemorebtn" role="button">&#9660;See more</a>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4"></div>
+      <div class="col-md-4 tabtn">
+        <p><a href="questionflow.html" class="btn btn-lg btn-block tryagainbtn" role="button">Try Again &raquo;</a></p>
+      </div>
+      <div class="col-md-4"></div>
+    </div>
+    <footer class="container-fluid">
+      <small><a href="#">Copyright (C) 2013-2014  All Rights Reserved.</a></small>
+    </footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+  </body>
+</html>

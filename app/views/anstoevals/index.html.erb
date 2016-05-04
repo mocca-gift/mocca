@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing anstoevals</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Question</th>
+      <th>Answer</th>
+      <th>Gift</th>
+      <th>Evaluation</th>
+      <th>Count</th>
+      <th colspan="1"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @anstoevals.each do |anstoeval| %>
+      <tr>
+        <td><%= anstoeval.answer.question.body %></td>
+        <td><%= anstoeval.answer.ansid %></td>
+        <td><%= anstoeval.evaluation.gift.id %></td>
+        <td><%= anstoeval.evaluation.evalid %></td>
+        <td><%= anstoeval.count %></td>
+        <td><%= link_to 'Edit', edit_anstoeval_path(anstoeval) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

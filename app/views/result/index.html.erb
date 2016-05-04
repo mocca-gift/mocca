@@ -1,0 +1,140 @@
+<script>
+    window.onload=init;
+    function init(){
+    btnup1=document.getElementById("btnup1");
+    btnup2=document.getElementById("btnup2");
+    btndown1=document.getElementById("btndown1");
+    btndown2=document.getElementById("btndown2");
+    btnup1.onclick = function(){
+        document.frmup1.submit();
+    }
+    btnup2.onclick = function(){
+        document.frmup2.submit();
+    }
+    btndown1.onclick = function(){
+        document.frmdown1.submit();
+    }
+    btndown2.onclick = function(){
+        document.frmdown2.submit();
+    }
+    }
+</script>
+<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+
+
+<%= @ansarray %><br>
+<%= @qarray %><br>
+
+<table>
+    <thead>
+        <tr>
+          <th>Questionid</th>
+          <th>Ansid</th>
+          <th>Count</th>  
+        </tr>
+    </thead>
+    <tbody>
+        <% @answers.each do |ans| %>
+        <tr>
+          <td><%= ans.question_id %></td>
+          <td><%= ans.ansid %></td>
+          <td><%= ans.count %></td>
+        </tr>
+        <% end %>
+    </tbody>
+</table>
+
+<table>
+    <thead>
+        <tr>
+          <th>Answerid</th>
+          <th>Evaluationid</th>
+          <th>Count</th>  
+        </tr>
+    </thead>
+    <tbody>
+        <% @anstoevals.each do |ae| %>
+        <tr>
+          <td><%= ae.answer_id %></td>
+          <td><%= ae.evaluation_id %></td>
+          <td><%= ae.count %></td>
+        </tr>
+        <% end %>
+    </tbody>
+</table>
+<br>
+
+<%= @bayes %>
+<%= @expectation %>
+<%= @dispersion %>
+<%= @intE %>
+<%= @intV %>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @gift1.name %>
+</p>
+
+<p>
+  <strong>Url:</strong>
+  <%= @gift1.url %>
+</p>
+
+<p>
+  <strong>Img:</strong>
+  <%= image_tag(img_gift_path(@gift1), :height => "100px") %>
+</p>
+
+<p>
+  <strong>Img content type:</strong>
+  <%= @gift1.img_content_type %>
+</p>
+
+<a class="btn" id="btnup1">heartup1</a>
+<a class="btn" id="btndown1">heartdown1</a>
+<p id="notice"><%= notice %></p>
+<%= form_tag({ controller: :result , action: :countup } , :name => :frmup1 , :remote => true, :authenticity_token => true ) do %>
+      <%= hidden_field_tag :gift, @intE %>
+      <%= hidden_field_tag :gift_ans, @ansarray %>
+      <%= hidden_field_tag :gift_q, @qarray %>
+<% end %>
+<%= form_tag({ controller: :result , action: :countdown } , :name => :frmdown1 , :remote => true, :authenticity_token => true) do %>
+      <%= hidden_field_tag :gift, @intE %>
+      <%= hidden_field_tag :gift_ans, @ansarray %>
+      <%= hidden_field_tag :gift_q, @qarray %>
+<% end %>
+<p>
+  <strong>Name:</strong>
+  <%= @gift2.name %>
+</p>
+
+<p>
+  <strong>Url:</strong>
+  <%= @gift2.url %>
+</p>
+
+<p>
+  <strong>Img:</strong>
+  <%= image_tag(img_gift_path(@gift2), :height => "100px") %>
+</p>
+
+<p>
+  <strong>Img content type:</strong>
+  <%= @gift2.img_content_type %>
+</p>
+<a class="btn" id="btnup2">heartup2</a>
+<a class="btn" id="btndown2">heartdown2</a>
+<%= form_tag({ controller: :result , action: :countup } , :name => :frmup2 , :remote => true, :authenticity_token => true ) do %>
+      <%= hidden_field_tag :gift, @intV %>
+      <%= hidden_field_tag :gift_ans, @ansarray %>
+      <%= hidden_field_tag :gift_q, @qarray %>
+<% end %>
+<%= form_tag({ controller: :result , action: :countdown } , :name => :frmdown2 , :remote => true, :authenticity_token => true ) do %>
+      <%= hidden_field_tag :gift, @intV %>
+      <%= hidden_field_tag :gift_ans, @ansarray %>
+      <%= hidden_field_tag :gift_q, @qarray %>
+<% end %>
+
+<p id="msg"></p>

@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @gift.name %>
+</p>
+
+<p>
+  <strong>Url:</strong>
+  <%= @gift.url %>
+</p>
+
+<p>
+  <strong>Img:</strong>
+  <%= image_tag(img_gift_path(@gift), :height => "100px") %>
+</p>
+
+<p>
+  <strong>Img content type:</strong>
+  <%= @gift.img_content_type %>
+</p>
+
+<%= link_to 'Edit', edit_gift_path(@gift) %> |
+<%= link_to 'Back', gifts_path %>

@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  gift_id: 
+  evalid: 1
+  count: 1
+
+two:
+  gift_id: 
+  evalid: 1
+  count: 1

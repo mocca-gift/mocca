@@ -1,0 +1,21 @@
+<%= form_for(@anstoeval) do |f| %>
+  <% if @anstoeval.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@anstoeval.errors.count, "error") %> prohibited this anstoeval from being saved:</h2>
+
+      <ul>
+      <% @anstoeval.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :count %><br>
+    <%= f.number_field :count %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

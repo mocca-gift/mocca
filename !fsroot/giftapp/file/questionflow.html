@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GiftApp -question-</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <script>
+      window.onload = init;
+      function init(){
+        var num = 3;
+        var Question = {1:
+                            {question: "Who am I ?", answer1: "Me", answer2: "You"},
+                           2:
+                            {question: "Who are You ?", answer1: "Me", answer2: "You"},
+                           3:
+                            {question: "Whats this ?", answer1: "Me", answer2: "You"}
+                          };
+        qnum = document.getElementById("qnum");
+        qtext = document.getElementById("qtext");
+        ans1 = document.getElementById("ans1");
+        ans2 = document.getElementById("ans2");
+        btn1 = document.getElementById("btn1");
+        btn2 = document.getElementById("btn2");
+        page = document.getElementById("page");
+        var i = 1;
+        var j = 0;
+        var ansarray = [];
+        var anstext = "";
+            qnum.innerText = 'Question : '+i;
+            qtext.innerText = Question[i].question;
+            ans1.innerText = Question[i].answer1;
+            ans2.innerText = Question[i].answer2;
+            i++;
+          btn1.onclick = function(){
+            if(i<=num){
+              var k=i-1;
+              qnum.innerText = 'Question : '+i;
+              qtext.innerText = Question[i].question;
+              ans1.innerText = Question[i].answer1;
+              ans2.innerText = Question[i].answer2;
+              ansarray[j]={question: k, answer: 1};
+              i++;
+              j++
+            } else {
+              var k=i-1;
+              ansarray[j]={question: k, answer: 1};
+              window.location.href="result2.html";
+            }
+          }
+          btn2.onclick = function(){
+            if(i<=num){
+              var k=i-1;
+              qnum.innerText = 'Question : '+i;
+              qtext.innerText = Question[i].question;
+              ans1.innerText = Question[i].answer1;
+              ans2.innerText = Question[i].answer2;
+              page.src = "image/"+i+".png";
+              ansarray[j]={question: k, answer: 2};
+              i++;
+              j++
+            } else {
+              var k=i-1;
+              ansarray[j]={question: k, answer: 1};
+              window.location.href="result2.html";
+            }
+          }
+        }
+    </script>
+    <style>
+    /*
+      .main-contents {
+        background: url("image/haikei.png");
+      }
+      */
+      @media screen and (max-width: 970px){
+        .sidebar {display:none;}
+        footer {
+          margin-top: 4%;
+          text-align: center;
+          padding: 10px;
+          background: #101010;
+        }
+       .choice {
+         text-align: center;
+
+       }
+
+       .cons {
+         margin-left: auto;
+         margin-right: auto;
+
+       }
+       .main-contents {
+          margin-top: 100px;
+          margin-left: auto;
+          margin-right: auto;
+        }
+
+
+        .navbar {
+          background-color: rgba(255,0,0,0.9);
+        }
+        #pageimg {
+          text-align: right;
+        }
+      }
+      footer {
+        margin-top: 4%;
+        text-align: center;
+        padding: 10px;
+        background: #101010;
+      }
+     .choice {
+       text-align: center;
+     }
+     .main-contents {
+        margin-top: 100px;
+      }
+
+
+      .navbar {
+        background-color: rgba(255,0,0,0.9);
+      }
+      #pageimg {
+        text-align: right;
+      }
+
+    </style>
+  </head>
+  <body>
+    <nav class="navbar  navbar-fixed-top">
+      <div class="container" >
+        <div class="row">
+          <div class="col-xs-1"><a class="navbar-brand" href="index.html" text-align="center"><img src="image/logo.jpg" width="105px" height="70px"></a></div>
+          <div class="col-xs-7"><p class="navbar-text" text-align="center"><font size=7>Gift Application</font></p></div>
+          <div class="col-xs-3"></div>
+          <div class="col-xs-1">
+            <div class="dropdown">
+              <a class="btn btn-lg dropdown-toggle" data-toggle="dropdown" href="">
+                <img src="image/toggle.png" width="70px" height="70px">
+              </a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Link1</a></li>
+                <li><a href="#">Link2</a></li>
+                <li><a href="#">Link3</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <div class="container main-contents">
+      <div class="row">
+        <div class="col-xs-2 sidebar">aaa</div>
+        <div class="col-xs-8">
+          <h1 id="qnum"></h1>
+          <h1 class="choice" id="qtext"></h1>
+          <div class="row">
+            <div class="col-xs-6 choice">
+              <h2 id="ans1"></h2>
+              <a class="btn btn-lg" role="button" id="btn1"><img src="image/door1.png" width="30%" height="50%"></a>
+            </div>
+            <div class="col-xs-6 choice">
+              <h2 id="ans2"></h2>
+              <a class="btn btn-lg" role="button" id="btn2"><img src="image/door2.png" width="30%" height="50%"></a>
+            </div>
+          </div>
+          <div id="pageimg"><img id="page" src="image/1.png" height="70px"></div>
+        </div>
+        <div class="col-xs-2 sidebar">aaa</div>
+      </div>
+    </div>
+    <footer class="container-fluid">
+      <small><a href="#">Copyright (C) 2013-2014  All Rights Reserved.</a></small>
+    </footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+  </body>
+</html>

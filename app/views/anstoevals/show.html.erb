@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+
+<p>
+  <strong>Answerid:</strong>
+  <%= @anstoeval.answer_id %>
+</p>
+
+<p>
+  <strong>Evaluationid:</strong>
+  <%= @anstoeval.evaluation_id %>
+</p>
+
+<p>
+  <strong>Count:</strong>
+  <%= @anstoeval.count %>
+</p>
+
+<%= link_to 'Edit', edit_anstoeval_path(@anstoeval) %> |
+<%= link_to 'Back', anstoevals_path %>

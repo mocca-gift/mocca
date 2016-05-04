@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GiftApp -result-</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <script>
+        window.onload = function(){
+          btn1 = document.getElementById("btn1");
+          btn2 = document.getElementById("btn2");
+          cat1 = document.getElementById("cat1");
+          cat2 = document.getElementById("cat2");
+          heart1_0 = document.getElementById("heart1_0");
+          heart2_0 = document.getElementById("heart2_0");
+          eval1_0 = document.getElementById("eval1_0");
+          eval2_0 = document.getElementById("eval2_0");
+          var btn1_num = 0;
+          var btn2_num = 0;
+          var h1 = 40;
+          var e1 = 1.0;
+          var h2 = 40;
+          var e2 = 1.0;
+          var n1 = 0;
+          var n2 = 0;
+          /*
+          while(document.getElementById("heart1_"+n1)){
+            document.getElementById("heart1_"+n1).onmousedown = function(){
+              eval("var h"+n1+"= 40");
+              eval("var e"+n1+"= 1.0");
+              if(eval("h1_"+n1+"<140")){
+                eval("h1_"+n1+"++");
+                eval("e1_"+n1+"= e1_"+n1+"+0.04");
+              } else {
+                eval("h1_"+n1"=140");
+                eval("e1_"+n1"=5.0");
+              }
+              document.getElementById("heart1_"+n1).height = h1;
+              document.getElementById("heart1_"+n1).width = h1;
+              document.getElementById("eval1_"+n1).innerText = eval("e1_"+n1).toFixed(1);
+            }
+            var id = setInterval(heartextend, 30);
+            window.onmouseup = function(){
+              clearInterval(id);
+            }
+            n1++;
+          }
+          */
+          heart1_0.onmousedown = function(){
+            function heartextend(){
+              if(h1<140){
+                h1++;
+                e1 = e1+0.04;
+              } else {
+                h1=40;
+                e1=5.0;
+              }
+              heart1_0.height = h1;
+              heart1_0.width = h1;
+              eval1_0.innerText = e1.toFixed(1);
+            }
+            var id = setInterval(heartextend, 10);
+            window.onmouseup = function(){
+              clearInterval(id);
+            }
+          }
+          heart2_0.onmousedown = function(){
+            function heartextend(){
+              /* if(h2<140){
+                h2++;
+                e2 = e2+0.04;
+              } else {
+                h2=140;
+                e2=5.0;
+              } */
+              h2++;
+              heart2_0.height = h2;
+              heart2_0.width = h2;
+              eval2_0.innerText = e2.toFixed(1);
+            }
+            var id = setInterval(heartextend, 10);
+            window.onmouseup = function(){
+              clearInterval(id);
+            }
+          }
+          btn1.onclick = function(){
+            btn1_num++;
+            div_element = document.createElement("div");
+            div_element.setAttribute("id","gift1_"+btn1_num);
+            div_element.innerHTML = '<div class="row" ><div class="col-md-7 gift"><a href="#"><img src="image/gift.jpg" width="250px" height="250px"></a></div><div class="col-md-5 eval"><div class="evalbtn"><img class="heart1" id="heart1_'+btn1_num+'" src="image/heart.png" width="40px" height="40px"><h2 class="eval1" id="eval1_'+btn1_num+'">1.0</h2></div><h4>Do you like it?</h4></div></div><div><h3>Description if needed</h3></div></div>';
+            cat1.appendChild(div_element);
+            var target = document.getElementById("gift1_"+btn1_num);
+            var rect = target.getBoundingClientRect();
+            var positionY = rect.top+window.pageYOffset;
+            window.scrollTo(0,positionY-100);
+          }
+          btn2.onclick = function(){
+            btn2_num++;
+            div_element = document.createElement("div");
+            div_element.setAttribute("id","gift2_"+btn2_num);
+            div_element.innerHTML = '<div class="row" ><div class="col-md-7 gift"><a href="#"><img src="image/gift.jpg" width="250px" height="250px"></a></div><div class="col-md-5 eval"><div class="evalbtn"><img class="heart2" id="heart2_'+btn2_num+'" src="image/heart.png" width="40px" height="40px"><h2  class="eval2" id="eval2_'+btn2_num+'">1.0</h2></div><h4>Do you like it?</h4></div></div><div><h3>Description if needed</h3></div></div>';
+            cat2.appendChild(div_element);
+            var target = document.getElementById("gift2_"+btn2_num);
+            var rect = target.getBoundingClientRect();
+            var positionY = rect.top+window.pageYOffset;
+            window.scrollTo(0,positionY-100);
+          }
+        }
+    </script>
+    <style>
+      footer {
+        margin-top: 4%;
+        text-align: center;
+        padding: 10px;
+        background: #101010;
+      }
+     .smbtn {
+       text-align: center;
+     }
+     .main-contents {
+        margin-top: 10%;
+      }
+
+      .eval {
+        margin-top: 15px;
+        text-align: center;
+      }
+
+      .evalbtn {
+        height: 200px;
+        width: 200px;
+        position: relative;
+      }
+
+      .heart1 {
+        position: absolute;
+      	top: 0;
+	      right: 0;
+      	bottom: 0;
+      	left: 0;
+      	margin: auto;
+      }
+
+      .heart2 {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin: auto;
+      }
+
+      .eval1 {
+      }
+
+      .eval2 {
+      }
+
+      .gift {
+        text-align: center;
+      }
+
+      .navbar {
+        background-color: rgba(255,0,0,0.9);
+      }
+      .tabtn {
+        text-align: center;
+        margin: 1%;
+      }
+
+      .tryagainbtn {
+        border: 1px solid rgba(0,0,255,1);
+        background-color: rgba(0,0,255,1);
+        color: rgba(255,255,255,1);
+        border-radius: 1;
+      }
+      .tryagainbtn:hover {
+       color: #0089ff;
+       border-color: #0089ff;
+     }
+      .seemorebtn{
+        border: 1px solid rgba(0,0,255,1);
+        color: rgba(0,0,255,1);
+        border-radius: 1;
+      }
+      .seemorebtn:hover {
+       color: #0089ff;
+       border-color: #0089ff;
+     }
+
+    </style>
+  </head>
+  <body>
+    <nav class="navbar  navbar-fixed-top">
+      <div class="container" >
+        <div class="row">
+          <div class="col-md-1"><a class="navbar-brand" href="index.html" text-align="center"><img src="image/logo.jpg" width="105px" height="70px"></a></div>
+          <div class="col-md-7"><p class="navbar-text" text-align="center"><font size=7>Gift Application</font></p></div>
+          <div class="col-md-3"></div>
+          <div class="col-md-1">
+            <div class="dropdown">
+              <a class="btn btn-lg dropdown-toggle" data-toggle="dropdown" href="">
+                <img src="image/toggle.png" width="70px" height="70px">
+              </a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Link1</a></li>
+                <li><a href="#">Link2</a></li>
+                <li><a href="#">Link3</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <div class="container main-contents">
+      <h1>Result:</h1>
+      <div class="row">
+        <div class="col-md-6">
+          <h2>Category1</h2>
+          <div id="cat1">
+            <div id="gift1_0"><!-- gift1 -->
+              <div class="row">
+                <div class="col-md-7 gift">
+                  <a href="#"><img src="image/gift.jpg" width="250px" height="250px"></a>
+                </div>
+                <div class="col-md-5 eval">
+                  <div class="evalbtn">
+                    <img class="heart1" id="heart1_0" src="image/heart.png" width="40px" height="40px">
+                     <!-- <h2 class="eval1" id="eval1_0">Push &darr;</h2> -->
+                  </div>
+                  <h4>Do you like it?</h4>
+                </div>
+              </div>
+              <div>
+                 <h3>Description if needed</h3>
+              </div>
+            </div><!-- gift1 -->
+          </div>
+            <div class="smbtn" id="btn1">
+               <a  class="btn btn-lg btn-block seemorebtn" role="button">&#9660;See more</a>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h2>Category2</h2>
+            <div id="cat2">
+              <div id="gift2_0"><!-- gift1 -->
+                <div class="row">
+                  <div class="col-md-7 gift">
+                    <a href="#"><img src="image/gift.jpg" width="250px" height="250px"></a>
+                  </div>
+                  <div class="col-md-5 eval">
+                    <div class="evalbtn">
+                      <img class="heart2" id="heart2_0" src="image/heart.png" width="40px" height="40px">
+                      <!-- <h2 class="eval2" id="eval2_0">Push &darr;</h2> -->
+                    </div>
+                    <h4>Do you like it?</h4>
+                  </div>
+                </div>
+                <div>
+                   <h3>Description if needed</h3>
+                </div>
+              </div><!-- gift1 -->
+            </div>
+            <div class="smbtn" id="btn2">
+               <a  class="btn btn-lg btn-block seemorebtn" role="button">&#9660;See more</a>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4"></div>
+      <div class="col-md-4 tabtn">
+        <p><a href="questionflow.html" class="btn btn-lg btn-block tryagainbtn" role="button">Try Again &raquo;</a></p>
+      </div>
+      <div class="col-md-4"></div>
+    </div>
+    <footer class="container-fluid">
+      <small><a href="#">Copyright (C) 2013-2014  All Rights Reserved.</a></small>
+    </footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+  </body>
+</html>

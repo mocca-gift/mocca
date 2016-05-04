@@ -1,4 +1,15 @@
 Rails.application.routes.draw do
+  resources :gifts do
+    member {get :img}
+    member {get :eval}
+  end
+  resources :questions
+  resources :anstoevals
+
+  get '/qflow' => 'qflow#index'
+  post '/result/index' => 'result#index'
+  post '/result/countup' => 'result#countup'
+  post '/result/countdown' => 'result#countdown'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
