@@ -1,140 +1,768 @@
-<script>
+
+<!DOCTYPE html>
+<html>
+<!-- MEMO: update me with `git checkout gh-pages && git merge master && git push origin gh-pages` -->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+
+  <title>Bootstrap Material</title>
+<%= javascript_tag do %>
     window.onload=init;
+    
     function init(){
+    function getXMLHttpRequestObject(){
+        var ajax=null;
+        if(window.XMLHttpRequest){
+            ajax=new XMLHttpRequest();
+        } else if (window.ActiveObject){
+            ajax=new ActiveObject('MSXML2.XMLHTTP.3.0');
+        }
+        return ajax;
+    }
+    function handleStateChange(){
+        if(ajax.readyState==4){
+            if((ajax.status>=200 && ajax.status<300) || (ajax.status==304)) {
+                document.getElementById('output').innerHTML=ajax.responseText;
+                document.getElementById('btnup1').src="/image/heart.png";
+            }
+            else {
+                document.getElementById('output').innerHTML=ajax.statusText;
+            }
+        }
+    }
+    var ajax=getXMLHttpRequestObject();
+    // ajax.onreadystatechange=handleStateChange;
+    
     btnup1=document.getElementById("btnup1");
     btnup2=document.getElementById("btnup2");
-    btndown1=document.getElementById("btndown1");
-    btndown2=document.getElementById("btndown2");
-    btnup1.onclick = function(){
-        document.frmup1.submit();
+    btnup3=document.getElementById("btnup3");
+    btnup4=document.getElementById("btnup4");
+    btnup5=document.getElementById("btnup5");
+    btnup6=document.getElementById("btnup6");
+    i= [0,0,0,0,0,0];
+    
+    btnup1.onclick = function() {
+        if(i[0]%2==0) {
+        ajax.onreadystatechange=function() {
+          if(ajax.readyState==4) {
+            if((ajax.status>=200 && ajax.status<300) || (ajax.status==304)) {
+                document.getElementById('output').innerHTML=ajax.responseText;
+                document.getElementById('btnup1').src="/image/heart.png";
+            }
+            else {
+                document.getElementById('output').innerHTML=ajax.statusText;
+            }
+          }
+        }
+        ajax.open('GET','/result/countup?gift=<%= @gift1Top3[0].id %>&gift_ans=<%= @ansarray %>&gift_q=<%= @qarray %>',true);
+        ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+        ajax.send(null);
+        i[0]++;
+        }
+        else{
+        ajax.onreadystatechange=function() {
+          if(ajax.readyState==4) {
+            if((ajax.status>=200 && ajax.status<300) || (ajax.status==304)) {
+                document.getElementById('output').innerHTML=ajax.responseText;
+                document.getElementById('btnup1').src="/image/emptyheart.png";
+            }
+            else {
+                document.getElementById('output').innerHTML=ajax.statusText;
+            }
+          }
+        }
+        ajax.open('GET','/result/countdown?gift=<%= @gift1Top3[0].id %>&gift_ans=<%= @ansarray %>&gift_q=<%= @qarray %>',true);
+        ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+        ajax.send(null);
+        i[0]++;
+        }
     }
     btnup2.onclick = function(){
-        document.frmup2.submit();
+        if(i[1]%2==0) {
+        ajax.onreadystatechange=function() {
+          if(ajax.readyState==4) {
+            if((ajax.status>=200 && ajax.status<300) || (ajax.status==304)) {
+                document.getElementById('output').innerHTML=ajax.responseText;
+                document.getElementById('btnup2').src="/image/heart.png";
+            }
+            else {
+                document.getElementById('output').innerHTML=ajax.statusText;
+            }
+          }
+        }
+        ajax.open('GET','/result/countup?gift=<%= @gift2Top3[0].id %>&gift_ans=<%= @ansarray %>&gift_q=<%= @qarray %>',true);
+        ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+        ajax.send(null);
+        i[1]++;
+        }
+        else{
+        ajax.onreadystatechange=function() {
+          if(ajax.readyState==4) {
+            if((ajax.status>=200 && ajax.status<300) || (ajax.status==304)) {
+                document.getElementById('output').innerHTML=ajax.responseText;
+                document.getElementById('btnup2').src="/image/emptyheart.png";
+            }
+            else {
+                document.getElementById('output').innerHTML=ajax.statusText;
+            }
+          }
+        }
+        ajax.open('GET','/result/countdown?gift=<%= @gift2Top3[0].id %>&gift_ans=<%= @ansarray %>&gift_q=<%= @qarray %>',true);
+        ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+        ajax.send(null);
+        i[1]++;
+        }
+        
     }
-    btndown1.onclick = function(){
-        document.frmdown1.submit();
+    btnup3.onclick = function() {
+        if(i[2]%2==0) {
+        ajax.onreadystatechange=function() {
+          if(ajax.readyState==4) {
+            if((ajax.status>=200 && ajax.status<300) || (ajax.status==304)) {
+                document.getElementById('output').innerHTML=ajax.responseText;
+                document.getElementById('btnup3').src="/image/heart.png";
+            }
+            else {
+                document.getElementById('output').innerHTML=ajax.statusText;
+            }
+          }
+        }
+        ajax.open('GET','/result/countup?gift=<%= @gift1Top3[1].id %>&gift_ans=<%= @ansarray %>&gift_q=<%= @qarray %>',true);
+        ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+        ajax.send(null);
+        i[2]++;
+        }
+        else{
+        ajax.onreadystatechange=function() {
+          if(ajax.readyState==4) {
+            if((ajax.status>=200 && ajax.status<300) || (ajax.status==304)) {
+                document.getElementById('output').innerHTML=ajax.responseText;
+                document.getElementById('btnup3').src="/image/emptyheart.png";
+            }
+            else {
+                document.getElementById('output').innerHTML=ajax.statusText;
+            }
+          }
+        }
+        ajax.open('GET','/result/countdown?gift=<%= @gift1Top3[1].id %>&gift_ans=<%= @ansarray %>&gift_q=<%= @qarray %>',true);
+        ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+        ajax.send(null);
+        i[2]++;
+        }
     }
-    btndown2.onclick = function(){
-        document.frmdown2.submit();
+    btnup4.onclick = function(){
+        if(i[3]%2==0) {
+        ajax.onreadystatechange=function() {
+          if(ajax.readyState==4) {
+            if((ajax.status>=200 && ajax.status<300) || (ajax.status==304)) {
+                document.getElementById('output').innerHTML=ajax.responseText;
+                document.getElementById('btnup4').src="/image/heart.png";
+            }
+            else {
+                document.getElementById('output').innerHTML=ajax.statusText;
+            }
+          }
+        }
+        ajax.open('GET','/result/countup?gift=<%= @gift2Top3[1].id %>&gift_ans=<%= @ansarray %>&gift_q=<%= @qarray %>',true);
+        ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+        ajax.send(null);
+        i[3]++;
+        }
+        else{
+        ajax.onreadystatechange=function() {
+          if(ajax.readyState==4) {
+            if((ajax.status>=200 && ajax.status<300) || (ajax.status==304)) {
+                document.getElementById('output').innerHTML=ajax.responseText;
+                document.getElementById('btnup4').src="/image/emptyheart.png";
+            }
+            else {
+                document.getElementById('output').innerHTML=ajax.statusText;
+            }
+          }
+        }
+        ajax.open('GET','/result/countdown?gift=<%= @gift2Top3[1].id %>&gift_ans=<%= @ansarray %>&gift_q=<%= @qarray %>',true);
+        ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+        ajax.send(null);
+        i[3]++;
+        }
+        
+    }
+    btnup5.onclick = function() {
+        if(i[4]%2==0) {
+        ajax.onreadystatechange=function() {
+          if(ajax.readyState==4) {
+            if((ajax.status>=200 && ajax.status<300) || (ajax.status==304)) {
+                document.getElementById('output').innerHTML=ajax.responseText;
+                document.getElementById('btnup5').src="/image/heart.png";
+            }
+            else {
+                document.getElementById('output').innerHTML=ajax.statusText;
+            }
+          }
+        }
+        ajax.open('GET','/result/countup?gift=<%= @gift1Top3[2].id %>&gift_ans=<%= @ansarray %>&gift_q=<%= @qarray %>',true);
+        ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+        ajax.send(null);
+        i[4]++;
+        }
+        else{
+        ajax.onreadystatechange=function() {
+          if(ajax.readyState==4) {
+            if((ajax.status>=200 && ajax.status<300) || (ajax.status==304)) {
+                document.getElementById('output').innerHTML=ajax.responseText;
+                document.getElementById('btnup5').src="/image/emptyheart.png";
+            }
+            else {
+                document.getElementById('output').innerHTML=ajax.statusText;
+            }
+          }
+        }
+        ajax.open('GET','/result/countdown?gift=<%= @gift1Top3[2].id %>&gift_ans=<%= @ansarray %>&gift_q=<%= @qarray %>',true);
+        ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+        ajax.send(null);
+        i[4]++;
+        }
+    }
+    btnup6.onclick = function(){
+        if(i[5]%2==0) {
+        ajax.onreadystatechange=function() {
+          if(ajax.readyState==4) {
+            if((ajax.status>=200 && ajax.status<300) || (ajax.status==304)) {
+                document.getElementById('output').innerHTML=ajax.responseText;
+                document.getElementById('btnup6').src="/image/heart.png";
+            }
+            else {
+                document.getElementById('output').innerHTML=ajax.statusText;
+            }
+          }
+        }
+        ajax.open('GET','/result/countup?gift=<%= @gift2Top3[2].id %>&gift_ans=<%= @ansarray %>&gift_q=<%= @qarray %>',true);
+        ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+        ajax.send(null);
+        i[5]++;
+        }
+        else{
+        ajax.onreadystatechange=function() {
+          if(ajax.readyState==4) {
+            if((ajax.status>=200 && ajax.status<300) || (ajax.status==304)) {
+                document.getElementById('output').innerHTML=ajax.responseText;
+                document.getElementById('btnup6').src="/image/emptyheart.png";
+            }
+            else {
+                document.getElementById('output').innerHTML=ajax.statusText;
+            }
+          }
+        }
+        ajax.open('GET','/result/countdown?gift=<%= @gift2Top3[2].id %>&gift_ans=<%= @ansarray %>&gift_q=<%= @qarray %>',true);
+        ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+        ajax.send(null);
+        i[5]++;
+        }
+        
     }
     }
-</script>
-<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-
-
-<%= @ansarray %><br>
-<%= @qarray %><br>
-
-<table>
-    <thead>
-        <tr>
-          <th>Questionid</th>
-          <th>Ansid</th>
-          <th>Count</th>  
-        </tr>
-    </thead>
-    <tbody>
-        <% @answers.each do |ans| %>
-        <tr>
-          <td><%= ans.question_id %></td>
-          <td><%= ans.ansid %></td>
-          <td><%= ans.count %></td>
-        </tr>
-        <% end %>
-    </tbody>
-</table>
-
-<table>
-    <thead>
-        <tr>
-          <th>Answerid</th>
-          <th>Evaluationid</th>
-          <th>Count</th>  
-        </tr>
-    </thead>
-    <tbody>
-        <% @anstoevals.each do |ae| %>
-        <tr>
-          <td><%= ae.answer_id %></td>
-          <td><%= ae.evaluation_id %></td>
-          <td><%= ae.count %></td>
-        </tr>
-        <% end %>
-    </tbody>
-</table>
-<br>
-
-<%= @bayes %>
-<%= @expectation %>
-<%= @dispersion %>
-<%= @intE %>
-<%= @intV %>
-
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @gift1.name %>
-</p>
-
-<p>
-  <strong>Url:</strong>
-  <%= @gift1.url %>
-</p>
-
-<p>
-  <strong>Img:</strong>
-  <%= image_tag(img_gift_path(@gift1), :height => "100px") %>
-</p>
-
-<p>
-  <strong>Img content type:</strong>
-  <%= @gift1.img_content_type %>
-</p>
-
-<a class="btn" id="btnup1">heartup1</a>
-<a class="btn" id="btndown1">heartdown1</a>
-<p id="notice"><%= notice %></p>
-<%= form_tag({ controller: :result , action: :countup } , :name => :frmup1 , :remote => true, :authenticity_token => true ) do %>
-      <%= hidden_field_tag :gift, @intE %>
-      <%= hidden_field_tag :gift_ans, @ansarray %>
-      <%= hidden_field_tag :gift_q, @qarray %>
 <% end %>
-<%= form_tag({ controller: :result , action: :countdown } , :name => :frmdown1 , :remote => true, :authenticity_token => true) do %>
-      <%= hidden_field_tag :gift, @intE %>
-      <%= hidden_field_tag :gift_ans, @ansarray %>
-      <%= hidden_field_tag :gift_q, @qarray %>
-<% end %>
-<p>
-  <strong>Name:</strong>
-  <%= @gift2.name %>
-</p>
+  <!-- Material Design fonts -->
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-<p>
-  <strong>Url:</strong>
-  <%= @gift2.url %>
-</p>
+  <!-- Bootstrap -->
+  <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-<p>
-  <strong>Img:</strong>
-  <%= image_tag(img_gift_path(@gift2), :height => "100px") %>
-</p>
+  <!-- Bootstrap Material Design -->
+  <link href="/dist/css/bootstrap-material-design.css" rel="stylesheet">
+  <link href="/dist/css/ripples.min.css" rel="stylesheet">
 
-<p>
-  <strong>Img content type:</strong>
-  <%= @gift2.img_content_type %>
-</p>
-<a class="btn" id="btnup2">heartup2</a>
-<a class="btn" id="btndown2">heartdown2</a>
-<%= form_tag({ controller: :result , action: :countup } , :name => :frmup2 , :remote => true, :authenticity_token => true ) do %>
-      <%= hidden_field_tag :gift, @intV %>
-      <%= hidden_field_tag :gift_ans, @ansarray %>
-      <%= hidden_field_tag :gift_q, @qarray %>
-<% end %>
-<%= form_tag({ controller: :result , action: :countdown } , :name => :frmdown2 , :remote => true, :authenticity_token => true ) do %>
-      <%= hidden_field_tag :gift, @intV %>
-      <%= hidden_field_tag :gift_ans, @ansarray %>
-      <%= hidden_field_tag :gift_q, @qarray %>
-<% end %>
+  <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+  <script src="/bootstrap/js/bootstrap.min.js"></script>
+  <script>
+    (function () {
 
-<p id="msg"></p>
+      var $button = $("<div id='source-button' class='btn btn-primary btn-xs'>&lt; &gt;</div>").click(function () {
+        var index = $('.bs-component').index($(this).parent());
+        $.get(window.location.href, function (data) {
+          var html = $(data).find('.bs-component').eq(index).html();
+          html = cleanSource(html);
+          $("#source-modal pre").text(html);
+          $("#source-modal").modal();
+        })
+
+      });
+
+      $('.bs-component [data-toggle="popover"]').popover();
+      $('.bs-component [data-toggle="tooltip"]').tooltip();
+
+      $(".bs-component").hover(function () {
+        $(this).append($button);
+        $button.show();
+      }, function () {
+        $button.hide();
+      });
+
+      function cleanSource(html) {
+        var lines = html.split(/\n/);
+
+        lines.shift();
+        lines.splice(-1, 1);
+
+        var indentSize = lines[0].length - lines[0].trim().length,
+            re = new RegExp(" {" + indentSize + "}");
+
+        lines = lines.map(function (line) {
+          if (line.match(re)) {
+            line = line.substring(indentSize);
+          }
+
+          return line;
+        });
+
+        lines = lines.join("\n");
+
+        return lines;
+      }
+
+      $(".icons-material .icon").each(function () {
+        $(this).after("<br><br><code>" + $(this).attr("class").replace("icon ", "") + "</code>");
+      });
+
+    })();
+    
+    $(function() {
+    $('.single-item').slick();
+    });
+
+  </script>
+  <!--<script>-->
+  <!--    window.onload = function(){-->
+  <!--      cat1 = document.getElementById("cat1");-->
+  <!--      cat2 = document.getElementById("cat2");-->
+  <!--      heart1 = document.getElementById("heart1");-->
+  <!--      heart2 = document.getElementById("heart2");-->
+  <!--      pm1 = document.getElementById("pm1");-->
+  <!--      pm2 = document.getElementById("pm2");-->
+  <!--      var h1 = 40;-->
+  <!--      var e1 = 1.0;-->
+  <!--      var h2 = 40;-->
+  <!--      var e2 = 1.0;-->
+  <!--      var n1 = 0;-->
+  <!--      var n2 = 0;-->
+  <!--      pm1.onmousedown = function(){-->
+  <!--        pm1.innerText = "";-->
+  <!--        function heartextend(){-->
+  <!--          if(h1<100){-->
+  <!--            h1++;-->
+  <!--            e1 = e1+0.04;-->
+  <!--          } else {-->
+  <!--            h1=40;-->
+  <!--            e1=5.0;-->
+  <!--          }-->
+  <!--          heart1.height = h1;-->
+  <!--          heart1.width = h1;-->
+  <!--        }-->
+  <!--        var id = setInterval(heartextend, 20);-->
+  <!--        window.onmouseup = function(){-->
+  <!--          clearInterval(id);-->
+  <!--        }-->
+  <!--      }-->
+  <!--      pm2.onmousedown = function(){-->
+  <!--        pm2.innerText = "";-->
+  <!--        function heartextend(){-->
+  <!--          if(h2<100){-->
+  <!--            h2++;-->
+  <!--            e2 = e2+0.04;-->
+  <!--          } else {-->
+  <!--            h2=100;-->
+  <!--            e2=5.0;-->
+  <!--          }-->
+  <!--          h2++;-->
+  <!--          heart2.height = h2;-->
+  <!--          heart2.width = h2;-->
+  <!--        }-->
+  <!--        var id = setInterval(heartextend, 20);-->
+  <!--        window.onmouseup = function(){-->
+  <!--          clearInterval(id);-->
+  <!--        }-->
+  <!--      }-->
+  <!--    }-->
+  <!--</script>-->
+  <script src="/dist/js/ripples.min.js"></script>
+  <script src="/dist/js/material.min.js"></script>
+  <script src="/snackbarjs-master/dist/snackbar.min.js"></script>
+  
+  <link href="/slick/slick.css" type="text/css" rel="stylesheet">
+  <link href="/slick/slick-theme.css" type="text/css" rel="stylesheet">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js" type="text/javascript" ></script>
+  <script src="/slick/slick.min.js"></script>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/6.2.0/jquery.nouislider.min.js"></script>
+  <script>
+    $(function () {
+      $.material.init();
+      $(".shor").noUiSlider({
+        start: 40,
+        connect: "lower",
+        range: {
+          min: 0,
+          max: 100
+        }
+      });
+
+      $(".svert").noUiSlider({
+        orientation: "vertical",
+        start: 40,
+        connect: "lower",
+        range: {
+          min: 0,
+          max: 100
+        }
+      });
+    });
+  </script>
+  <style>
+    .question {
+      margin-top: 5%;
+    }
+
+    body {
+      position: relative;
+      background-color: rgba(0,30,67,1);
+      /*グラデーション試してみた*/
+      /*background: linear-gradient(#1D62F0,#05FBFF) fixed;*/
+    }
+    .appname {
+      margin-left: auto;
+      margin-right: auto;
+
+      background: url("/image/s_backlogo3.png");
+      margin-top: 20px;;
+      height: 199px;
+      width: 400px;
+    }
+    .appname p {
+      line-height: 199px;
+      font-size: 5em;
+      text-align: center;
+      text-shadow: 1px 1px 10px #FFFFFF;
+      color: #000;
+    }
+
+    .eval {
+      margin-top: 30px;
+      /*text-align: center;*/
+    }
+
+    .evalbtn {
+      height: 30px;
+      width: 30px;
+      position: relative;
+    }
+
+    .heart1 {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      margin: auto;
+      z-index: 2;
+    }
+    .emptyheart {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      margin: auto;
+      z-index: 1;
+    }
+
+    .heart2 {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      margin: auto;
+      z-index: 2;
+    }
+    .pushmetext {
+      height: 30px;
+      width: 100px;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      margin: auto;
+      z-index: 3;
+      color: #FFFFFF;
+      text-shadow: 1px 1px 3px #FF0000;
+    }
+    
+    .gimg {
+      margin-left:auto;
+      margin-right:auto;
+    }
+
+    .tabtn {
+      text-align: center;
+    }
+    
+    .giftname {
+        text-align: center;
+    }
+    
+    .slick-prev:before,
+    .slick-next:before {
+        color: #000;
+    }
+    /*左右の矢印の位置を変える*/
+    .slick-next {
+        right: 20px;
+        z-index: 99;
+    }
+    .slick-prev {
+        left: 15px;
+        z-index: 100;
+    }
+    /*スライド数のドットの色を変える*/
+    .slick-dots li.slick-active button:before,
+    .slick-dots li button:before {
+        color: #fff;
+    }
+    /*スライド画像の横幅可変*/
+    .slick img {
+        max-width: 100%;
+        height: auto;
+    }
+    .slider {
+      background-color: #FFFFFF;
+    }
+    
+    .console {
+      background-color: #FFFFFF;
+    }
+  </style>
+</head>
+  <body>
+    <!-- <img class="homebtn" src="image/heart.png" height="50px" width="50px"> -->
+    <div class="appname">
+      <p><strong>Result</strong></p>
+    </div>
+    <div class="question">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-2">
+          </div>
+          <div class="col-xs-8 slider single-item">
+              <!------------------------------------------------------------------------>
+              <div class="row">
+                <div class="col-xs-6">
+                  <div class="row">
+                      <div class="col-xs-10">
+                          <h1 class="giftname"><strong><%= @gift1Top3[0].name %></strong></h1>
+                      </div>
+                      <div class="col-xs-2 eval">
+                          <div class="evalbtn">
+                            <img class="emptyheart" src="/image/emptyheart.png" width="30px" height="30px" id="btnup1">
+                            <!--<div class="pushmetext" id="pm1"><p><font size="4em"><strong>Push me!!</strong></font></p></div>-->
+                          </div>
+                      </div>
+                  </div>
+                  <!--<h2 class="giftname"><strong><%= @gift1Top3[0].name %></strong></h2>-->
+                  <br>
+                  <div id="cat1">
+                    <div id="gift1"><!-- gift1 -->
+                      <div class="row">
+                        <div class="col-xs-12 gift">
+                          <a href="<%= @gift1Top3[0].url %>"><%= image_tag(img_gift_path(@gift1Top3[0]), :height => "200px", :class => "gimg") %></a>
+                        </div>
+                        <!--<div class="col-xs-3 eval">-->
+                        <!--  <div class="evlbtn">-->
+                        <!--    <img class="heart1" id="heart1" src="/image/heart.png" width="10px" height="10px">-->
+                        <!--    <img class="emptyheart" src="/image/emptyheart.png" width="30px" height="30px">-->
+                            <!--<div class="pushmetext" id="pm1"><p><font size="4em"><strong>Push me!!</strong></font></p></div>-->
+                        <!--    </div>-->
+                          <!--<h4>Do you like it?</h4>-->
+                        <!--</div>-->
+                      </div>
+                      <div>
+                         <h3>Description if needed</h3>
+                      </div>
+                    </div><!-- gift1 -->
+                  </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="row">
+                      <div class="col-xs-10">
+                          <h1 class="giftname"><strong><%= @gift2Top3[0].name %></strong></h1>
+                      </div>
+                      <div class="col-xs-2 eval">
+                          <div class="evalbtn">
+                            <img class="emptyheart" src="/image/emptyheart.png" width="30px" height="30px" id="btnup2">
+                            <!--<div class="pushmetext" id="pm1"><p><font size="4em"><strong>Push me!!</strong></font></p></div>-->
+                          </div>
+                      </div>
+                  </div>
+                  <br>
+                  <div id="cat2">
+                    <div id="gift2"><!-- gift2 -->
+                      <div class="row">
+                        <div class="col-xs-12 gift">
+                          <a  href="<%= @gift2Top3[0].url %>"><%= image_tag(img_gift_path(@gift2Top3[0]), :height => "200px", :class => "gimg") %></a>
+                        </div>
+                        <!--<div class="col-xs-3 eval">-->
+                        <!--  <div class="evalbtn">-->
+                        <!--    <img class="heart1" id="heart1" src="/image/heart.png" width="10px" height="10px">-->
+                        <!--    <img class="emptyheart" src="/image/emptyheart.png" width="30px" height="30px">-->
+                            <!--<div class="pushmetext" id="pm1"><p><font size="4em"><strong>Push me!!</strong></font></p></div>-->
+                        <!--    </div>-->
+                          <!--<h4>Do you like it?</h4>-->
+                        <!--</div>-->
+                      </div>
+                      <div>
+                         <h3>Description if needed</h3>
+                      </div>
+                    </div><!-- gift2 -->
+                    </div>
+                  </div>
+                </div>
+              <!------------------------------------------------------------------------>
+              <div class="row">
+                <div class="col-xs-6">
+                  <div class="row">
+                      <div class="col-xs-10">
+                          <h1 class="giftname"><strong><%= @gift1Top3[1].name %></strong></h1>
+                      </div>
+                      <div class="col-xs-2 eval">
+                          <div class="evalbtn">
+                            <img class="emptyheart" src="/image/emptyheart.png" width="30px" height="30px" id="btnup3">
+                          </div>
+                      </div>
+                  </div>
+                  <!--<h2 class="giftname"><strong><%= @gift1Top3[1].name %></strong></h2>-->
+                  <br>
+                  <div id="cat1">
+                    <div id="gift1"><!-- gift1 -->
+                      <div class="row">
+                        <div class="col-xs-12 gift">
+                          <a  href="<%= @gift1Top3[1].url %>"><%= image_tag(img_gift_path(@gift1Top3[1]), :height => "200px", :class => "gimg") %></a>
+                        </div>
+                      </div>
+                      <div>
+                         <h3>Description if needed</h3>
+                      </div>
+                    </div><!-- gift1 -->
+                  </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="row">
+                      <div class="col-xs-10">
+                          <h1 class="giftname"><strong><%= @gift2Top3[1].name %></strong></h1>
+                      </div>
+                      <div class="col-xs-2 eval">
+                          <div class="evalbtn">
+                            <img class="emptyheart" src="/image/emptyheart.png" width="30px" height="30px" id="btnup4">
+                          </div>
+                      </div>
+                  </div>
+                  <br>
+                  <div id="cat2">
+                    <div id="gift2"><!-- gift2 -->
+                      <div class="row">
+                        <div class="col-xs-12 gift">
+                          <a  href="<%= @gift2Top3[1].url %>"><%= image_tag(img_gift_path(@gift2Top3[1]), :height => "200px", :class => "gimg") %></a>
+                        </div>
+                      </div>
+                      <div>
+                         <h3>Description if needed</h3>
+                      </div>
+                    </div><!-- gift2 -->
+                    </div>
+                  </div>
+                </div>
+              <!------------------------------------------------------------------------>
+              <div class="row">
+                <div class="col-xs-6">
+                  <div class="row">
+                      <div class="col-xs-10">
+                          <h1 class="giftname"><strong><%= @gift1Top3[2].name %></strong></h1>
+                      </div>
+                      <div class="col-xs-2 eval">
+                          <div class="evalbtn">
+                            <img class="emptyheart" src="/image/emptyheart.png" width="30px" height="30px" id="btnup5">
+                            <!--<div class="pushmetext" id="pm1"><p><font size="4em"><strong>Push me!!</strong></font></p></div>-->
+                          </div>
+                      </div>
+                  </div>
+                  <br>
+                  <div id="cat1">
+                    <div id="gift1"><!-- gift1 -->
+                      <div class="row">
+                        <div class="col-xs-12 gift">
+                          <a  href="<%= @gift1Top3[2].url %>"><%= image_tag(img_gift_path(@gift1Top3[2]), :height => "200px",  :class => "gimg") %></a>
+                        </div>
+                      </div>
+                      <div>
+                         <h3>Description if needed</h3>
+                      </div>
+                    </div><!-- gift1 -->
+                  </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="row">
+                      <div class="col-xs-10">
+                          <h1 class="giftname"><strong><%= @gift2Top3[2].name %></strong></h1>
+                      </div>
+                      <div class="col-xs-2 eval">
+                          <div class="evalbtn">
+                            <img class="emptyheart" src="/image/emptyheart.png" width="30px" height="30px" id="btnup6">
+                          </div>
+                      </div>
+                  </div>
+                  <br>
+                  <div id="cat2">
+                    <div id="gift2"><!-- gift2 -->
+                      <div class="row">
+                        <div class="col-xs-12 gift">
+                          <a href="<%= @gift2Top3[2].url %>"><%= image_tag(img_gift_path(@gift2Top3[2]), :height => "200px", :class => "gimg") %></a>
+                        </div>
+                      </div>
+                      <div>
+                         <h3>Description if needed</h3>
+                      </div>
+                    </div><!-- gift2 -->
+                    </div>
+                  </div>
+              </div>
+              <!------------------------------------------------------------------------>
+            </div>
+            <div class="col-xs-2">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-4"></div>
+            <div class="col-xs-4 tabtn">
+                <a href="/qflow" class="btn btn-default"><font size="5em" color="#FFFFFF">Try Again &raquo;</font></a>
+            </div>
+            <div class="col-xs-4">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="console">
+        ベイズ<%= @bayes.values %>
+      <BR>
+      期待値<%= @giftExp.values %>
+      <BR>
+      分散値<%= @giftDisp.values %>
+      <BR>
+      <p id="output"></p>
+      </div>
+</div>
+
+  </body>
+  </html>

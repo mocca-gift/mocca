@@ -8,8 +8,8 @@ Rails.application.routes.draw do
 
   get '/qflow' => 'qflow#index'
   post '/result/index' => 'result#index'
-  post '/result/countup' => 'result#countup'
-  post '/result/countdown' => 'result#countdown'
+  get '/result/countup' => 'result#countup'
+  get '/result/countdown' => 'result#countdown'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
