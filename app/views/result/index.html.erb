@@ -56,7 +56,7 @@
             }
           }
         }
-        ajax.open('GET','/result/countup?gift=<%= @gift1Top3[0].id %>&gift_ans=<%= @ansarray %>&gift_q=<%= @qarray %>',true);
+        ajax.open('GET','/result/countup?gift=<%= @expTop3[0].id %>&gift_ans=<%= @ansarray %>&gift_q=<%= @qarray %>',true);
         ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
         ajax.send(null);
         i[0]++;
@@ -73,7 +73,7 @@
             }
           }
         }
-        ajax.open('GET','/result/countdown?gift=<%= @gift1Top3[0].id %>&gift_ans=<%= @ansarray %>&gift_q=<%= @qarray %>',true);
+        ajax.open('GET','/result/countdown?gift=<%= @expTop3[0].id %>&gift_ans=<%= @ansarray %>&gift_q=<%= @qarray %>',true);
         ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
         ajax.send(null);
         i[0]++;
@@ -92,7 +92,7 @@
             }
           }
         }
-        ajax.open('GET','/result/countup?gift=<%= @gift2Top3[0].id %>&gift_ans=<%= @ansarray %>&gift_q=<%= @qarray %>',true);
+        ajax.open('GET','/result/countup?gift=<%= @dispTop3[0].id %>&gift_ans=<%= @ansarray %>&gift_q=<%= @qarray %>',true);
         ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
         ajax.send(null);
         i[1]++;
@@ -109,7 +109,7 @@
             }
           }
         }
-        ajax.open('GET','/result/countdown?gift=<%= @gift2Top3[0].id %>&gift_ans=<%= @ansarray %>&gift_q=<%= @qarray %>',true);
+        ajax.open('GET','/result/countdown?gift=<%= @dispTop3[0].id %>&gift_ans=<%= @ansarray %>&gift_q=<%= @qarray %>',true);
         ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
         ajax.send(null);
         i[1]++;
@@ -129,7 +129,7 @@
             }
           }
         }
-        ajax.open('GET','/result/countup?gift=<%= @gift1Top3[1].id %>&gift_ans=<%= @ansarray %>&gift_q=<%= @qarray %>',true);
+        ajax.open('GET','/result/countup?gift=<%= @expTop3[1].id %>&gift_ans=<%= @ansarray %>&gift_q=<%= @qarray %>',true);
         ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
         ajax.send(null);
         i[2]++;
@@ -146,7 +146,7 @@
             }
           }
         }
-        ajax.open('GET','/result/countdown?gift=<%= @gift1Top3[1].id %>&gift_ans=<%= @ansarray %>&gift_q=<%= @qarray %>',true);
+        ajax.open('GET','/result/countdown?gift=<%= @expTop3[1].id %>&gift_ans=<%= @ansarray %>&gift_q=<%= @qarray %>',true);
         ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
         ajax.send(null);
         i[2]++;
@@ -165,7 +165,7 @@
             }
           }
         }
-        ajax.open('GET','/result/countup?gift=<%= @gift2Top3[1].id %>&gift_ans=<%= @ansarray %>&gift_q=<%= @qarray %>',true);
+        ajax.open('GET','/result/countup?gift=<%= @dispTop3[1].id %>&gift_ans=<%= @ansarray %>&gift_q=<%= @qarray %>',true);
         ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
         ajax.send(null);
         i[3]++;
@@ -182,7 +182,7 @@
             }
           }
         }
-        ajax.open('GET','/result/countdown?gift=<%= @gift2Top3[1].id %>&gift_ans=<%= @ansarray %>&gift_q=<%= @qarray %>',true);
+        ajax.open('GET','/result/countdown?gift=<%= @dispTop3[1].id %>&gift_ans=<%= @ansarray %>&gift_q=<%= @qarray %>',true);
         ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
         ajax.send(null);
         i[3]++;
@@ -202,7 +202,7 @@
             }
           }
         }
-        ajax.open('GET','/result/countup?gift=<%= @gift1Top3[2].id %>&gift_ans=<%= @ansarray %>&gift_q=<%= @qarray %>',true);
+        ajax.open('GET','/result/countup?gift=<%= @expTop3[2].id %>&gift_ans=<%= @ansarray %>&gift_q=<%= @qarray %>',true);
         ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
         ajax.send(null);
         i[4]++;
@@ -219,7 +219,7 @@
             }
           }
         }
-        ajax.open('GET','/result/countdown?gift=<%= @gift1Top3[2].id %>&gift_ans=<%= @ansarray %>&gift_q=<%= @qarray %>',true);
+        ajax.open('GET','/result/countdown?gift=<%= @expTop3[2].id %>&gift_ans=<%= @ansarray %>&gift_q=<%= @qarray %>',true);
         ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
         ajax.send(null);
         i[4]++;
@@ -238,7 +238,7 @@
             }
           }
         }
-        ajax.open('GET','/result/countup?gift=<%= @gift2Top3[2].id %>&gift_ans=<%= @ansarray %>&gift_q=<%= @qarray %>',true);
+        ajax.open('GET','/result/countup?gift=<%= @dispTop3[2].id %>&gift_ans=<%= @ansarray %>&gift_q=<%= @qarray %>',true);
         ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
         ajax.send(null);
         i[5]++;
@@ -255,13 +255,14 @@
             }
           }
         }
-        ajax.open('GET','/result/countdown?gift=<%= @gift2Top3[2].id %>&gift_ans=<%= @ansarray %>&gift_q=<%= @qarray %>',true);
+        ajax.open('GET','/result/countdown?gift=<%= @dispTop3[2].id %>&gift_ans=<%= @ansarray %>&gift_q=<%= @qarray %>',true);
         ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
         ajax.send(null);
         i[5]++;
         }
         
     }
+    
     }
 <% end %>
   <!-- Material Design fonts -->
@@ -330,7 +331,7 @@
     })();
     
     $(function() {
-    $('.single-item').slick();
+    $('.single-item').slick({dots:true});
     });
 
   </script>
@@ -533,6 +534,11 @@
     .slick-dots li button:before {
         color: #fff;
     }
+    
+    .slick-dots {
+      top:102%;
+      left:-1%;
+    }
     /*スライド画像の横幅可変*/
     .slick img {
         max-width: 100%;
@@ -563,7 +569,7 @@
                 <div class="col-xs-6">
                   <div class="row">
                       <div class="col-xs-10">
-                          <h1 class="giftname"><strong><%= @gift1Top3[0].name %></strong></h1>
+                          <h1 class="giftname"><strong><%= @expTop3[0].name %></strong></h1>
                       </div>
                       <div class="col-xs-2 eval">
                           <div class="evalbtn">
@@ -572,13 +578,13 @@
                           </div>
                       </div>
                   </div>
-                  <!--<h2 class="giftname"><strong><%= @gift1Top3[0].name %></strong></h2>-->
+                  <!--<h2 class="giftname"><strong><%= @expTop3[0].name %></strong></h2>-->
                   <br>
                   <div id="cat1">
                     <div id="gift1"><!-- gift1 -->
                       <div class="row">
                         <div class="col-xs-12 gift">
-                          <a href="<%= @gift1Top3[0].url %>"><%= image_tag(img_gift_path(@gift1Top3[0]), :height => "200px", :class => "gimg") %></a>
+                          <a href="<%= @expTop3[0].url %>"><%= image_tag(img_gift_path(@expTop3[0]), :height => "200px", :class => "gimg") %></a>
                         </div>
                         <!--<div class="col-xs-3 eval">-->
                         <!--  <div class="evlbtn">-->
@@ -598,7 +604,7 @@
                 <div class="col-xs-6">
                     <div class="row">
                       <div class="col-xs-10">
-                          <h1 class="giftname"><strong><%= @gift2Top3[0].name %></strong></h1>
+                          <h1 class="giftname"><strong><%= @dispTop3[0].name %></strong></h1>
                       </div>
                       <div class="col-xs-2 eval">
                           <div class="evalbtn">
@@ -612,7 +618,7 @@
                     <div id="gift2"><!-- gift2 -->
                       <div class="row">
                         <div class="col-xs-12 gift">
-                          <a  href="<%= @gift2Top3[0].url %>"><%= image_tag(img_gift_path(@gift2Top3[0]), :height => "200px", :class => "gimg") %></a>
+                          <a  href="<%= @dispTop3[0].url %>"><%= image_tag(img_gift_path(@dispTop3[0]), :height => "200px", :class => "gimg") %></a>
                         </div>
                         <!--<div class="col-xs-3 eval">-->
                         <!--  <div class="evalbtn">-->
@@ -635,7 +641,7 @@
                 <div class="col-xs-6">
                   <div class="row">
                       <div class="col-xs-10">
-                          <h1 class="giftname"><strong><%= @gift1Top3[1].name %></strong></h1>
+                          <h1 class="giftname"><strong><%= @expTop3[1].name %></strong></h1>
                       </div>
                       <div class="col-xs-2 eval">
                           <div class="evalbtn">
@@ -643,13 +649,13 @@
                           </div>
                       </div>
                   </div>
-                  <!--<h2 class="giftname"><strong><%= @gift1Top3[1].name %></strong></h2>-->
+                  <!--<h2 class="giftname"><strong><%= @expTop3[1].name %></strong></h2>-->
                   <br>
                   <div id="cat1">
                     <div id="gift1"><!-- gift1 -->
                       <div class="row">
                         <div class="col-xs-12 gift">
-                          <a  href="<%= @gift1Top3[1].url %>"><%= image_tag(img_gift_path(@gift1Top3[1]), :height => "200px", :class => "gimg") %></a>
+                          <a  href="<%= @expTop3[1].url %>"><%= image_tag(img_gift_path(@expTop3[1]), :height => "200px", :class => "gimg") %></a>
                         </div>
                       </div>
                       <div>
@@ -661,7 +667,7 @@
                 <div class="col-xs-6">
                     <div class="row">
                       <div class="col-xs-10">
-                          <h1 class="giftname"><strong><%= @gift2Top3[1].name %></strong></h1>
+                          <h1 class="giftname"><strong><%= @dispTop3[1].name %></strong></h1>
                       </div>
                       <div class="col-xs-2 eval">
                           <div class="evalbtn">
@@ -674,7 +680,7 @@
                     <div id="gift2"><!-- gift2 -->
                       <div class="row">
                         <div class="col-xs-12 gift">
-                          <a  href="<%= @gift2Top3[1].url %>"><%= image_tag(img_gift_path(@gift2Top3[1]), :height => "200px", :class => "gimg") %></a>
+                          <a  href="<%= @dispTop3[1].url %>"><%= image_tag(img_gift_path(@dispTop3[1]), :height => "200px", :class => "gimg") %></a>
                         </div>
                       </div>
                       <div>
@@ -689,7 +695,7 @@
                 <div class="col-xs-6">
                   <div class="row">
                       <div class="col-xs-10">
-                          <h1 class="giftname"><strong><%= @gift1Top3[2].name %></strong></h1>
+                          <h1 class="giftname"><strong><%= @expTop3[2].name %></strong></h1>
                       </div>
                       <div class="col-xs-2 eval">
                           <div class="evalbtn">
@@ -703,7 +709,7 @@
                     <div id="gift1"><!-- gift1 -->
                       <div class="row">
                         <div class="col-xs-12 gift">
-                          <a  href="<%= @gift1Top3[2].url %>"><%= image_tag(img_gift_path(@gift1Top3[2]), :height => "200px",  :class => "gimg") %></a>
+                          <a  href="<%= @expTop3[2].url %>"><%= image_tag(img_gift_path(@expTop3[2]), :height => "200px",  :class => "gimg") %></a>
                         </div>
                       </div>
                       <div>
@@ -715,7 +721,7 @@
                 <div class="col-xs-6">
                     <div class="row">
                       <div class="col-xs-10">
-                          <h1 class="giftname"><strong><%= @gift2Top3[2].name %></strong></h1>
+                          <h1 class="giftname"><strong><%= @dispTop3[2].name %></strong></h1>
                       </div>
                       <div class="col-xs-2 eval">
                           <div class="evalbtn">
@@ -728,7 +734,7 @@
                     <div id="gift2"><!-- gift2 -->
                       <div class="row">
                         <div class="col-xs-12 gift">
-                          <a href="<%= @gift2Top3[2].url %>"><%= image_tag(img_gift_path(@gift2Top3[2]), :height => "200px", :class => "gimg") %></a>
+                          <a href="<%= @dispTop3[2].url %>"><%= image_tag(img_gift_path(@dispTop3[2]), :height => "200px", :class => "gimg") %></a>
                         </div>
                       </div>
                       <div>
@@ -743,16 +749,28 @@
             <div class="col-xs-2">
             </div>
           </div>
+          <br><br>
           <div class="row">
-            <div class="col-xs-4"></div>
+            <div class="col-xs-2"></div>
             <div class="col-xs-4 tabtn">
                 <a href="/qflow" class="btn btn-default"><font size="5em" color="#FFFFFF">Try Again &raquo;</font></a>
             </div>
-            <div class="col-xs-4">
+            <div class="col-xs-4 tabtn">
+                <a href="/qflow_continue" class="btn btn-default"><font size="5em" color="#FFFFFF">Continue &raquo;</font></a>
+            </div>
+            <div class="col-xs-2">
             </div>
           </div>
         </div>
       </div>
+      <div class="container slider single-item" id="likes">
+        <div><%= image_tag(img_gift_path(@Likes[0]), :height => "200px", :class => "gimg") %></div>
+        <div><%= image_tag(img_gift_path(@Likes[1]), :height => "200px", :class => "gimg") %></div>
+        <div><%= image_tag(img_gift_path(@Likes[2]), :height => "200px", :class => "gimg") %></div>
+        <div><%= image_tag(img_gift_path(@Likes[3]), :height => "200px", :class => "gimg") %></div>
+        <div><%= image_tag(img_gift_path(@Likes[4]), :height => "200px", :class => "gimg") %></div>
+      </div>
+      <br><br><br><br><br>
       <div class="console">
         ベイズ<%= @bayes.values %>
       <BR>

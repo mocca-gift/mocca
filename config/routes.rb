@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :anstoevals
 
   get '/qflow' => 'qflow#index'
+  get '/qflow_continue' => 'qflow#continue'
   post '/result/index' => 'result#index'
   get '/result/countup' => 'result#countup'
   get '/result/countdown' => 'result#countdown'
