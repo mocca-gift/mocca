@@ -56,7 +56,7 @@
             }
           }
         }
-        ajax.open('GET','/result/countup?gift=<%= @expTop3[0].id %>&gift_ans=<%= @ansarray %>&gift_q=<%= @qarray %>',true);
+        ajax.open('GET','/result/countup?gift=<%= @expTop3[0].id %>&gift_ans=<%= @ansarray.join(",") %>&gift_q=<%= @qarray.join(",") %>',true);
         ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
         ajax.send(null);
         i[0]++;
@@ -73,7 +73,7 @@
             }
           }
         }
-        ajax.open('GET','/result/countdown?gift=<%= @expTop3[0].id %>&gift_ans=<%= @ansarray %>&gift_q=<%= @qarray %>',true);
+        ajax.open('GET','/result/countdown?gift=<%= @expTop3[0].id %>&gift_ans=<%= @ansarray.join(",") %>&gift_q=<%= @qarray.join(",") %>',true);
         ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
         ajax.send(null);
         i[0]++;
@@ -92,7 +92,7 @@
             }
           }
         }
-        ajax.open('GET','/result/countup?gift=<%= @dispTop3[0].id %>&gift_ans=<%= @ansarray %>&gift_q=<%= @qarray %>',true);
+        ajax.open('GET','/result/countup?gift=<%= @dispTop3[0].id %>&gift_ans=<%= @ansarray.join(",") %>&gift_q=<%= @qarray.join(",") %>',true);
         ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
         ajax.send(null);
         i[1]++;
@@ -109,7 +109,7 @@
             }
           }
         }
-        ajax.open('GET','/result/countdown?gift=<%= @dispTop3[0].id %>&gift_ans=<%= @ansarray %>&gift_q=<%= @qarray %>',true);
+        ajax.open('GET','/result/countdown?gift=<%= @dispTop3[0].id %>&gift_ans=<%= @ansarray.join(",") %>&gift_q=<%= @qarray.join(",") %>',true);
         ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
         ajax.send(null);
         i[1]++;
@@ -129,7 +129,7 @@
             }
           }
         }
-        ajax.open('GET','/result/countup?gift=<%= @expTop3[1].id %>&gift_ans=<%= @ansarray %>&gift_q=<%= @qarray %>',true);
+        ajax.open('GET','/result/countup?gift=<%= @expTop3[1].id %>&gift_ans=<%= @ansarray.join(",") %>&gift_q=<%= @qarray.join(",") %>',true);
         ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
         ajax.send(null);
         i[2]++;
@@ -146,7 +146,7 @@
             }
           }
         }
-        ajax.open('GET','/result/countdown?gift=<%= @expTop3[1].id %>&gift_ans=<%= @ansarray %>&gift_q=<%= @qarray %>',true);
+        ajax.open('GET','/result/countdown?gift=<%= @expTop3[1].id %>&gift_ans=<%= @ansarray.join(",") %>&gift_q=<%= @qarray.join(",") %>',true);
         ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
         ajax.send(null);
         i[2]++;
@@ -165,7 +165,7 @@
             }
           }
         }
-        ajax.open('GET','/result/countup?gift=<%= @dispTop3[1].id %>&gift_ans=<%= @ansarray %>&gift_q=<%= @qarray %>',true);
+        ajax.open('GET','/result/countup?gift=<%= @dispTop3[1].id %>&gift_ans=<%= @ansarray.join(",") %>&gift_q=<%= @qarray.join(",") %>',true);
         ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
         ajax.send(null);
         i[3]++;
@@ -182,7 +182,7 @@
             }
           }
         }
-        ajax.open('GET','/result/countdown?gift=<%= @dispTop3[1].id %>&gift_ans=<%= @ansarray %>&gift_q=<%= @qarray %>',true);
+        ajax.open('GET','/result/countdown?gift=<%= @dispTop3[1].id %>&gift_ans=<%= @ansarray.join(",") %>&gift_q=<%= @qarray.join(",") %>',true);
         ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
         ajax.send(null);
         i[3]++;
@@ -202,7 +202,7 @@
             }
           }
         }
-        ajax.open('GET','/result/countup?gift=<%= @expTop3[2].id %>&gift_ans=<%= @ansarray %>&gift_q=<%= @qarray %>',true);
+        ajax.open('GET','/result/countup?gift=<%= @expTop3[2].id %>&gift_ans=<%= @ansarray.join(",") %>&gift_q=<%= @qarray.join(",") %>',true);
         ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
         ajax.send(null);
         i[4]++;
@@ -219,7 +219,7 @@
             }
           }
         }
-        ajax.open('GET','/result/countdown?gift=<%= @expTop3[2].id %>&gift_ans=<%= @ansarray %>&gift_q=<%= @qarray %>',true);
+        ajax.open('GET','/result/countdown?gift=<%= @expTop3[2].id %>&gift_ans=<%= @ansarray.join(",") %>&gift_q=<%= @qarray.join(",") %>',true);
         ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
         ajax.send(null);
         i[4]++;
@@ -238,7 +238,7 @@
             }
           }
         }
-        ajax.open('GET','/result/countup?gift=<%= @dispTop3[2].id %>&gift_ans=<%= @ansarray %>&gift_q=<%= @qarray %>',true);
+        ajax.open('GET','/result/countup?gift=<%= @dispTop3[2].id %>&gift_ans=<%= @ansarray.join(",") %>&gift_q=<%= @qarray.join(",") %>',true);
         ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
         ajax.send(null);
         i[5]++;
@@ -255,12 +255,21 @@
             }
           }
         }
-        ajax.open('GET','/result/countdown?gift=<%= @dispTop3[2].id %>&gift_ans=<%= @ansarray %>&gift_q=<%= @qarray %>',true);
+        ajax.open('GET','/result/countdown?gift=<%= @dispTop3[2].id %>&gift_ans=<%= @ansarray.join(",") %>&gift_q=<%= @qarray.join(",") %>',true);
         ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
         ajax.send(null);
         i[5]++;
         }
         
+    }
+    continuebtn=document.getElementById("continuebtn");
+    if (<%= @continue_display %>==1 ) {
+      continuebtn.href="javascript:void(0)";
+      continuebtn.onclick = function() {
+          continuebtn.innerHTML="<font size='5em' color='#FFFFFF'>No Question Left</font>";
+      }
+    }
+    else {
     }
     
     }
@@ -429,9 +438,13 @@
 
     body {
       position: relative;
-      background-color: rgba(0,30,67,1);
+      /*background-color: rgba(0,30,67,1);*/
       /*グラデーション試してみた*/
       /*background: linear-gradient(#1D62F0,#05FBFF) fixed;*/
+      background: #ee9ca7; /* fallback for old browsers */
+      background: -webkit-linear-gradient(#ee9ca7 , #ffdde1); /* Chrome 10-25, Safari 5.1-6 */
+      background: linear-gradient(#ee9ca7 , #ffdde1); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        
     }
     .appname {
       margin-left: auto;
@@ -447,7 +460,8 @@
       font-size: 5em;
       text-align: center;
       text-shadow: 1px 1px 10px #FFFFFF;
-      color: #000;
+      /*color: #000;*/
+      color: #FFFFFF;
     }
 
     .eval {
@@ -506,6 +520,8 @@
     .gimg {
       margin-left:auto;
       margin-right:auto;
+      /*Gift Imageの隅*/
+      border-radius: 70px;
     }
 
     .tabtn {
@@ -514,6 +530,7 @@
     
     .giftname {
         text-align: center;
+        color: #FFFFFF;
     }
     
     .slick-prev:before,
@@ -545,7 +562,7 @@
         height: auto;
     }
     .slider {
-      background-color: #FFFFFF;
+      background-color: rgba(255,255,255,0);
     }
     
     .console {
@@ -561,9 +578,9 @@
     <div class="question">
       <div class="container">
         <div class="row">
-          <div class="col-xs-2">
+          <div class="col-xs-1">
           </div>
-          <div class="col-xs-8 slider single-item">
+          <div class="col-xs-10 slider single-item">
               <!------------------------------------------------------------------------>
               <div class="row">
                 <div class="col-xs-6">
@@ -584,7 +601,7 @@
                     <div id="gift1"><!-- gift1 -->
                       <div class="row">
                         <div class="col-xs-12 gift">
-                          <a href="<%= @expTop3[0].url %>"><%= image_tag(img_gift_path(@expTop3[0]), :height => "200px", :class => "gimg") %></a>
+                          <a href="<%= @expTop3[0].url %>"><%= image_tag(img_gift_path(@expTop3[0]), :height => "400px", :class => "gimg") %></a>
                         </div>
                         <!--<div class="col-xs-3 eval">-->
                         <!--  <div class="evlbtn">-->
@@ -746,7 +763,7 @@
               </div>
               <!------------------------------------------------------------------------>
             </div>
-            <div class="col-xs-2">
+            <div class="col-xs-1">
             </div>
           </div>
           <br><br>
@@ -756,7 +773,7 @@
                 <a href="/qflow" class="btn btn-default"><font size="5em" color="#FFFFFF">Try Again &raquo;</font></a>
             </div>
             <div class="col-xs-4 tabtn">
-                <a href="/qflow_continue" class="btn btn-default"><font size="5em" color="#FFFFFF">Continue &raquo;</font></a>
+                <a href="/qflow_continue" class="btn btn-default" id="continuebtn" ><font size="5em" color="#FFFFFF">Continue &raquo;</font></a>
             </div>
             <div class="col-xs-2">
             </div>
@@ -778,6 +795,7 @@
       <BR>
       分散値<%= @giftDisp.values %>
       <BR>
+      Question<%= @qarray.join(",") %>
       <p id="output"></p>
       </div>
 </div>

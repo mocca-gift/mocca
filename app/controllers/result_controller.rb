@@ -5,28 +5,25 @@
 # 4.結果のviewを呼ぶ
 class ResultController < ApplicationController
     def index
-        @ansarray=params[:postdata1]
-        @qarray=params[:postdata2]
+        @ansarray=params[:postdata1].split(",")
+        @qarray=params[:postdata2].split(",")
+        
         # answerモデルに結果を代入
-        for i in 0..4 do
-            @answer=Answer.where(question_id: @qarray[2*i]).find_by_ansid(@ansarray[2*i]) || Answer.new(question_id: @qarray[2*i], ansid: @ansarray[2*i], count: 0)
-            @answer.save
-            n=@answer.count
-            @answer.update(count: n+1)
+        # for i in 0..4 do
+        for i in 0..(@ansarray.length-1) do
+            answer=Answer.where(question_id: @qarray[i]).find_by_ansid(@ansarray[i]) || Answer.new(question_id: @qarray[i], ansid: @ansarray[i], count: 0)
+            answer.save
+            #n=answer.count
+            answer.update(count: answer.count+1)
         end
         
-        # @gs=Gift.all
         
         #ベイズ
         #ベイズ確率の配列作成
         if session[:bayes]
             @bayes=decode_session(session[:bayes])
         else
-            @bayes=Hash.new(0.5)
-            @gs=Gift.all
-            @gs.each do |g|
-                @bayes[g]=0.5
-            end
+        @bayes=Hash.new(0.5)
         end
         
         
@@ -34,32 +31,24 @@ class ResultController < ApplicationController
         if session[:gifts]
             @hGifts=decode_session(session[:gifts])
         else
-            @hGifts=Hash.new("default")
-            @gs=Gift.all
-            @gs.each do |g|
-                @hGifts[g]=0
-            end
+        @hGifts=Hash.new(0)
         end
-        
-        #hGiftでバリューが0のgiftの配列
-        # @gifts=[]
-        # @gifts=@hGifts.select {|k, v| v == 0 }.keys
+
         @gifts=Gift.all
-        
         
         #ベイズ計算
         for i in 0..4 do
           @gifts.each do |gift|
-            @answer=Answer.where(question_id: @qarray[2*i]).find_by_ansid(@ansarray[2*i])
-            @evaluation1=Evaluation.where(gift_id: gift.id).find_by_evalid(1) || Evaluation.new(gift_id: gift.id, evalid: 1, count: 0)
-            @evaluation1.save
-            @evaluation2=Evaluation.where(gift_id: gift.id).find_by_evalid(2) || Evaluation.new(gift_id: gift.id, evalid: 2, count: 0)
-            @evaluation2.save
-            @anstoeval1=Anstoeval.where(answer_id: @answer.id).find_by_evaluation_id(@evaluation1.id) || Anstoeval.new(answer_id: @answer.id, evaluation_id: @evaluation1.id, count: 1)
-            @anstoeval1.save
-            @anstoeval2=Anstoeval.where(answer_id: @answer.id).find_by_evaluation_id(@evaluation2.id) || Anstoeval.new(answer_id: @answer.id, evaluation_id: @evaluation2.id, count: 1)
-            @anstoeval2.save
-            p1=1.0*@anstoeval1.count/(@anstoeval1.count + @anstoeval2.count)
+            answer=Answer.where(question_id: @qarray[i]).find_by_ansid(@ansarray[i])
+            evaluation1=Evaluation.where(gift_id: gift.id).find_by_evalid(1) || Evaluation.new(gift_id: gift.id, evalid: 1, count: 0)
+            evaluation1.save
+            evaluation2=Evaluation.where(gift_id: gift.id).find_by_evalid(2) || Evaluation.new(gift_id: gift.id, evalid: 2, count: 0)
+            evaluation2.save
+            anstoeval1=Anstoeval.where(answer_id: answer.id).find_by_evaluation_id(evaluation1.id) || Anstoeval.new(answer_id: answer.id, evaluation_id: evaluation1.id, count: 1)
+            anstoeval1.save
+            anstoeval2=Anstoeval.where(answer_id: answer.id).find_by_evaluation_id(evaluation2.id) || Anstoeval.new(answer_id: answer.id, evaluation_id: evaluation2.id, count: 1)
+            anstoeval2.save
+            p1=1.0*anstoeval1.count/(anstoeval1.count + anstoeval2.count)
             @bayes[gift] = @bayes[gift]*p1/(@bayes[gift]*p1+(1-@bayes[gift])*(1-p1))
           end
         end
@@ -78,107 +67,95 @@ class ResultController < ApplicationController
             @giftDisp[gift] = @bayes[gift]*(-1-@giftExp[gift])**2+(1-@bayes[gift])*(1-@giftExp[gift])**2
         end
         
-        # #　期待値最大のgiftオブジェクト
-        # @gift1 = (@giftExp.sort_by{|key, value| -value}).to_a[0][0]
-        # #　分散値最大のgiftオブジェクト
-        # @gift2 = (@giftDisp.sort_by{|key, value| -value}).to_a[0][0]
         
-        
-        #いいねボタンを押した商品
-        @Likes=[]
-        @like_num=@hGifts.select {|k, v| v == 2 }.size
-        if @like_num==0 then
-            for i in 0..4
-            @Likes[i]=Gift.find_by_id(1)
-            end
-        else
-            for i in 0..(@like_num-1)
-            @Likes[i]=@hGifts.select {|k, v| v == 2 }.keys[i]
-            end
-            for i in @like_num..4
-            @Likes[i]=Gift.find_by_id(1)
-            end
+        #前回までに結果画面で♥が押された商品を表示
+        # @Likes=[]
+        # #♥が押された
+        # @like_num=@hGifts.select {|k, v| v == 2 }.size
+        # @Likes[0..4]=Gift.find_by_id(1)
+        #     # TODO: @Likes=Array.new(4,Gift.find_by_id(1)) #もしくはこれ
+        #     # 下のTODO:も参照
+        # @Likes[0..(@like_num-1)]
+        #     @Likes[i]=@hGifts.select {|k, v| v == 2 }.keys[i]
+        #     end
+        #     for i in @like_num..4
+        #     @Likes[i]=Gift.find_by_id(1)
+        #     end
+        # end
+        # TODO:これは違いそう？OKDS!MJD?TBN!大丈夫かな..上も残しとこう
+        # Gift.find_by_id(1)で初期化→後から評価高いギフトで上書き
+        # @Likes[0..4] = Gift.find_by_id(1)
+        @Likes = Array.new(5,Gift.find_by_id(1))
+        likeGifts = @hGifts.select {|k, v| v == 2 }
+        for i in 0..(likeGifts.size-1) do
+            @Likes[i]=likeGifts.keys[i]
         end
         
         #期待値上位3件取得
-        @expTop3=[]
-        for i in 0..2
-        if (@giftExp.sort_by{|key, value| -value}).to_a[i][0]!=nil then
-            @expTop3[i] = (@giftExp.sort_by{|key, value| -value}).to_a[i][0]
-        else
-            @expTop3[i] = Gift.find(1)
-        end
+        @expTop3=Array.new(3,Gift.find_by_id(1))
+        for i in 0..(@expTop3.length-1) do
+            # @expTop3[i]=@giftExp.sort_by{|key, value| -value}.keys[i]
+            @expTop3[i]=@giftExp.sort_by{|key, value| -value}[i][0]
         end
         
         #分散値上位3件を期待値上位3件と被らないように取得
-        @dispTop3=[]
-        n=0
-        for i in 0..2
-         while @expTop3[0]==(@giftDisp.sort_by{|key, value| -value}).to_a[n][0] || @expTop3[1]==(@giftDisp.sort_by{|key, value| -value}).to_a[n][0] || @expTop3[2]==(@giftDisp.sort_by{|key, value| -value}).to_a[n][0] do
-          n+=1
-         end
-         if (@giftDisp.sort_by{|key, value| -value}).to_a[n]!=nil then
-            @dispTop3[i] = (@giftDisp.sort_by{|key, value| -value}).to_a[n][0]
-         else
-            @dispTop3[i] = Gift.find(1)
-         end
-         n+=1
+        @dispTop3=Array.new(3,Gift.find_by_id(1))
+        @giftDisp.except!(@expTop3[0],@expTop3[1],@expTop3[2])
+        for i in 0..(@dispTop3.length-1) do
+            @dispTop3[i]=@giftDisp.sort_by{|key, value| -value}[i][0]
         end
         
         #デフォルトでgiftの評価は1(bad)にする
-        # for i in 0..4 do
-        #     @answer=Answer.where(question_id: @qarray[2*i]).find_by_ansid(@ansarray[2*i])
-        #     @expTop3.each do |exp|
-        #     e1up(exp,@answer)
-        #     end
-        #     @dispTop3.each do |disp|
-        #     e1up(disp,@answer)
-        #     end
-        # end
+        for i in 0..(@ansarray.length-1) do
+            answer=Answer.where(question_id: @qarray[i]).find_by_ansid(@ansarray[i])
+            
+            @expTop3.each do |exp|
+                e1up(exp,answer)
+            end
+            
+            @dispTop3.each do |disp|
+                e1up(disp,answer)
+            end
+        end
         
+        #*********************************************************************
+        # 一度評価がbadだったら再表示しない
         # @gifts.each do |gift|
         #     if @expTop3.include?(gift) || @dispTop3.include?(gift)
         #         @hGifts[gift]=1
         #     else
         #     end
         # end
-        
-        # puts "*****************" + @bayes.to_s + "*******************"
-        # puts "*****************" + @gifts.to_s + "*******************"
-        puts "*****************" + @Likes.to_s + "*******************"
+        #********************************************************************
         
         # sessionの保管
         session[:gifts]=code_session(@hGifts)
         session[:bayes]=code_session(@bayes)
-        #***************************************************************
         
-        
-        # @evaluation1=Evaluation.where(gift_id: @gift1.id).find_by_evalid(1)
-        # @evaluation2=Evaluation.where(gift_id: @gift2.id).find_by_evalid(1)
-        # for i in 0..4 do
-        #   @answer=Answer.where(question_id: @qarray[2*i]).find_by_ansid(@ansarray[2*i])
-        #   @anstoeval1=Anstoeval.where(answer_id: @answer.id).find_by_evaluation_id(@evaluation1.id)
-        #   @anstoeval2=Anstoeval.where(answer_id: @answer.id).find_by_evaluation_id(@evaluation2.id)
-        #   cntup(@anstoeval1)
-        #   cntup(@anstoeval2)
-        # end
-        
-        
+        #残りの質問数が5問未満になったらContinue出来なくなる
+        @continue_display=0
+        @hQuestions=session[:questions]
+        if @hQuestions.select {|k, v| v == 0 }.size < 5 then
+            @continue_display=1
+        else
+        end
         
     end
     
     
     def countup
         gid=params[:gift]
-        gans=params[:gift_ans]
-        gq=params[:gift_q]
+        gans=params[:gift_ans].split(",")
+        gq=params[:gift_q].split(",")
         hGifts=decode_session(session[:gifts])
         hGifts[Gift.find(gid)]=2
+        
         for i in 0..4
-          @answer=Answer.where(question_id: gq[2*i]).find_by_ansid(gans[2*i])
-          e1down(Gift.find(gid),@answer)
-          e2up(Gift.find(gid),@answer)
-         end
+          answer=Answer.where(question_id: gq[i]).find_by_ansid(gans[i])
+          
+          e1down(Gift.find(gid),answer)
+          e2up(Gift.find(gid),answer)
+        end
          session[:gifts]=code_session(hGifts)
         
         render text: "Succeedup! Gift"+gid
@@ -187,14 +164,14 @@ class ResultController < ApplicationController
     
     def countdown
         gid=params[:gift]
-        gans=params[:gift_ans]
-        gq=params[:gift_q]
+        gans=params[:gift_ans].split(",")
+        gq=params[:gift_q].split(",")
         hGifts=decode_session(session[:gifts])
         hGifts[Gift.find(gid)]=1
         for i in 0..4
-          @answer=Answer.where(question_id: gq[2*i]).find_by_ansid(gans[2*i])
-          e2down(Gift.find(gid),@answer)
-          e1up(Gift.find(gid),@answer)
+          answer=Answer.where(question_id: gq[i]).find_by_ansid(gans[i])
+          e2down(Gift.find(gid),answer)
+          e1up(Gift.find(gid),answer)
         end
         session[:gifts]=code_session(hGifts)
         render text: "Succeeddown! Gift"+gid
@@ -204,26 +181,23 @@ class ResultController < ApplicationController
         def e2up(gift,answer)
             evaluation=Evaluation.where(gift_id: gift.id).find_by_evalid(2)
             anstoeval=Anstoeval.where(answer_id: answer.id).find_by_evaluation_id(evaluation.id)
-            n=anstoeval.count
-            anstoeval.update(count: n+1)
+            anstoeval.update(count: anstoeval.count+1)
         end
         def e2down(gift,answer)
             evaluation=Evaluation.where(gift_id: gift.id).find_by_evalid(2)
             anstoeval=Anstoeval.where(answer_id: answer.id).find_by_evaluation_id(evaluation.id)
-            n=anstoeval.count
-            anstoeval.update(count: n-1)
+            anstoeval.update(count: anstoeval.count-1)
         end
+        
         def e1up(gift,answer)
             evaluation=Evaluation.where(gift_id: gift.id).find_by_evalid(1)
             anstoeval=Anstoeval.where(answer_id: answer.id).find_by_evaluation_id(evaluation.id)
-            n=anstoeval.count
-            anstoeval.update(count: n+1)
+            anstoeval.update(count: anstoeval.count+1)
         end
         def e1down(gift,answer)
             evaluation=Evaluation.where(gift_id: gift.id).find_by_evalid(1)
             anstoeval=Anstoeval.where(answer_id: answer.id).find_by_evaluation_id(evaluation.id)
-            n=anstoeval.count
-            anstoeval.update(count: n-1)
+            anstoeval.update(count: anstoeval.count-1)
         end
     
         def code_session(hash)

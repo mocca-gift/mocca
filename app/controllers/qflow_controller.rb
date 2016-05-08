@@ -27,6 +27,7 @@ class QflowController < ApplicationController
         @hQuestions=decode_session(session[:questions])
         
         @q_notused=@hQuestions.select {|k, v| v == 0 }.keys
+
         @questions=@q_notused.sample(5)
         
         @qs.each do |q|
@@ -41,8 +42,7 @@ class QflowController < ApplicationController
             else
             end
         end
-        puts "*******"+@questions.to_s+"*******"
-        puts "*******"+session[:questions].to_s+"*******"
+
         session[:questions]=code_session(@hQuestions)
         render 'index'
         
