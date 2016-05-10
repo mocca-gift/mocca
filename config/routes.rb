@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :calendars
   resources :gifts do
     member {get :img}
     member {get :eval}
@@ -15,7 +16,7 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  # root 'welcome#index'
+  root 'welcome#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
@@ -43,7 +44,6 @@ Rails.application.routes.draw do
   #     resources :comments, :sales
   #     resource :seller
   #   end
-  root 'application#hello'
 
   # Example resource route with more complex sub-resources:
   #   resources :products do
