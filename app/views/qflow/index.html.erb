@@ -14,6 +14,9 @@
   <!--Pointer-->
   <script src="/pointer/pointer.js"></script>
   
+  <!--Shuffle Letters-->
+  <script src="/shuffleLetters/jquery.shuffleLetters.js"></script>
+  
   <!-- Material Design fonts -->
   <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -100,12 +103,11 @@
       var j = 0;
       var ansarray = [];
       
-      qtext.innerText = "Q"+(i+1)+". "+Question[i];
+      qtext.innerText="Q"+(i+1)+". "+Question[i]
       i++;
         btn1.onclick = function(){
           if(i<num){
-            qtext.innerText = "Q"+(i+1)+". "+Question[i];
-            <!--ansarray[j]={question: k, answer: 1};-->
+            qtext.innerText="Q"+(i+1)+". "+Question[i]
             ansarray[j]=1;
             i++;
             j++;
@@ -118,7 +120,7 @@
         }
         btn2.onclick = function(){
           if(i<num){
-            qtext.innerText = "Q"+(i+1)+". "+Question[i];
+            qtext.innerText="Q"+(i+1)+". "+Question[i]
             ansarray[j] = 2 ;
             i++;
             j++;
@@ -170,6 +172,10 @@
     color: #0089ff;
     border-color: #0089ff;
     background-color: rgba(0,0,0,0);
+    -webkit-transform: scale(1.5);
+    -moz-transform: scale(1.5);
+    -ms-transform: scale(1.5);
+    -o-transform: scale(1.5);
     }
 
     .appname {
