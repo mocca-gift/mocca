@@ -8,19 +8,20 @@
 
   <title>Gift App -question-</title>
 
+  <!--Jquery-->
+  <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+  
+  <!--Pointer-->
+  <script src="/pointer/pointer.js"></script>
+  
   <!-- Material Design fonts -->
   <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
   <!-- Bootstrap -->
   <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Bootstrap Material Design -->
-  <!--<link href="/dist/css/bootstrap-material-design.css" rel="stylesheet">-->
-  <!--<link href="/dist/css/ripples.min.css" rel="stylesheet">-->
-
-  <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
   <script src="/bootstrap/js/bootstrap.min.js"></script>
+
   <script>
     (function () {
 
@@ -74,33 +75,8 @@
     })();
 
   </script>
-  <script src="/dist/js/ripples.min.js"></script>
-  <!--<script src="/dist/js/material.min.js"></script>-->
-
-  <script>
-    $(function () {
-      $.material.init();
-      $(".shor").noUiSlider({
-        start: 40,
-        connect: "lower",
-        range: {
-          min: 0,
-          max: 100
-        }
-      });
-
-      $(".svert").noUiSlider({
-        orientation: "vertical",
-        start: 40,
-        connect: "lower",
-        range: {
-          min: 0,
-          max: 100
-        }
-      });
-    });
-  </script>
  
+  <!--Main Script-->
   
   <%= javascript_tag do %>
     window.onload = init;
@@ -158,6 +134,7 @@
 
   <% end %>
 
+  <!--Main Script-->
 
   <style>
     html {
