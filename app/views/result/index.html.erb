@@ -17,6 +17,9 @@
     <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <script src="/bootstrap/js/bootstrap.min.js"></script>
     
+    <!--Pointer-->
+    <script src="/pointer/pointer.1.js"></script>
+  
     <!-- Bootstrap Material Design -->
     <link href="/dist/css/bootstrap-material-design.css" rel="stylesheet">
     <link href="/dist/css/ripples.min.css" rel="stylesheet">
@@ -91,7 +94,7 @@
       });
       
       $(function() {
-      $('.triple-item').slick({dots: true, autoplay: true, autoplaySpeed: 2000});
+      $('.triple-item').slick({dots: true, autoplay: true, autoplaySpeed: 2000, slidesToShow: 3});
       });
     </script>
     
@@ -184,12 +187,13 @@
         }
     
         }
-  <% end %>
+    <% end %>
   <!--**********Main Script End**********-->
     
-    <style>
-    
-      body {
+  
+  <style>
+
+    body {
       position: relative;
       /*background-color: rgba(0,30,67,1);*/
       /*グラデーション試してみた*/
@@ -252,7 +256,7 @@
     
     .giftheader {
         text-align: center;
-        color: #FFFFFF;
+        /*color: #FFFFFF;*/
         position: relative;
     }
     
@@ -443,10 +447,10 @@
         <div class="row">
           <div class="col-xs-2"></div>
           <div class="col-xs-4 tabtn">
-            <a href="/qflow" class="btn btn-default"><font size="5em" color="#FFFFFF">Try Again &raquo;</font></a>
+            <a href="/qflow" class="btn btn-default"><font size="5em">Try Again &raquo;</font></a>
           </div>
           <div class="col-xs-4 tabtn">
-            <a href="/qflow_continue" class="btn btn-default" id="continuebtn" ><font size="5em" color="#FFFFFF">Continue &raquo;</font></a>
+            <a href="/qflow_continue" class="btn btn-default" id="continuebtn" ><font size="5em">Continue &raquo;</font></a>
           </div>
           <div class="col-xs-2">
           </div>
