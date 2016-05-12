@@ -90,6 +90,9 @@
       $('.single-item').slick({dots: true});
       });
       
+      $(function() {
+      $('.triple-item').slick({dots: true, autoplay: true, autoplaySpeed: 2000});
+      });
     </script>
     
     <title>GiftApp Res</title>
@@ -108,247 +111,68 @@
             }
             return ajax;
         }
-        function handleStateChange(){
-            if(ajax.readyState==4){
-                if((ajax.status>=200 && ajax.status<300) || (ajax.status==304)) {
-                    document.getElementById('output').innerHTML=ajax.responseText;
-                    document.getElementById('btnup1').src="/image/heart.png";
-                }
-                else {
-                    document.getElementById('output').innerHTML=ajax.statusText;
-                }
-            }
-        }
+    
         var ajax=getXMLHttpRequestObject();
-        // ajax.onreadystatechange=handleStateChange;
+            
+        var hearts     = document.getElementsByClassName("heart");
+        var giftnames  = document.getElementsByClassName("giftname");
+        var gifturls   = document.getElementsByClassName("gifturl");
+        var giftimgs   = document.getElementsByClassName("giftimg");
         
-        btnup1=document.getElementById("btnup1");
-        btnup2=document.getElementById("btnup2");
-        btnup3=document.getElementById("btnup3");
-        btnup4=document.getElementById("btnup4");
-        btnup5=document.getElementById("btnup5");
-        btnup6=document.getElementById("btnup6");
-        i= [0,0,0,0,0,0];
+        i=1;
+        <% @giftRes.each do |exp| %>
+        giftnames[i].innerText= "<%= exp.name %>";
+        gifturls[i].href = "<%= exp.url %>";
+        giftimgs[i].src = "/gifts/<%= exp.id %>/img";
+        i++;
+        <% end %>
         
-        btnup1.onclick = function() {
-            if(i[0]%2==0) {
-            ajax.onreadystatechange=function() {
-              if(ajax.readyState==4) {
-                if((ajax.status>=200 && ajax.status<300) || (ajax.status==304)) {
-                    document.getElementById('output').innerHTML=ajax.responseText;
-                    document.getElementById('btnup1').src="/image/heart.png";
+        j=1;
+        elm_num=[];
+        
+        <% @giftRes.each do |exp| %>
+          hearts[j].onclick=function(s) {
+            return function(){
+              if(elm_num[s]%2==0) {
+                ajax.onreadystatechange=function() {
+                  if(ajax.readyState==4) {
+                    if((ajax.status>=200 && ajax.status<300) || (ajax.status==304)) {
+                        document.getElementById('output').innerHTML=ajax.responseText;
+                        hearts[s].src = "/image/heart.png";
+                    }
+                    else {
+                        document.getElementById('output').innerHTML=ajax.statusText;
+                    }
+                  }
                 }
-                else {
-                    document.getElementById('output').innerHTML=ajax.statusText;
+                ajax.open('GET','/result/countup?gift=<%= exp.id %>&gift_ans=<%= @ansarray.join(",") %>&gift_q=<%= @qarray.join(",") %>',true);
+                ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+                ajax.send(null);
+                elm_num[s]++;
+              }
+              else{
+                ajax.onreadystatechange = function() {
+                  if(ajax.readyState==4) {
+                    if((ajax.status>=200 && ajax.status<300) || (ajax.status==304)) {
+                        document.getElementById('output').innerHTML=ajax.responseText;
+                        hearts[s].src= "/image/emptyheart.png";
+                    }
+                    else {
+                        document.getElementById('output').innerHTML=ajax.statusText;
+                    }
+                  }
                 }
+                ajax.open('GET','/result/countdown?gift=<%= exp.id %>&gift_ans=<%= @ansarray.join(",") %>&gift_q=<%= @qarray.join(",") %>',true);
+                ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+                ajax.send(null);
+                elm_num[s]++;
               }
             }
-            ajax.open('GET','/result/countup?gift=<%= @expTop3[0].id %>&gift_ans=<%= @ansarray.join(",") %>&gift_q=<%= @qarray.join(",") %>',true);
-            ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
-            ajax.send(null);
-            i[0]++;
-            }
-            else{
-            ajax.onreadystatechange=function() {
-              if(ajax.readyState==4) {
-                if((ajax.status>=200 && ajax.status<300) || (ajax.status==304)) {
-                    document.getElementById('output').innerHTML=ajax.responseText;
-                    document.getElementById('btnup1').src="/image/emptyheart.png";
-                }
-                else {
-                    document.getElementById('output').innerHTML=ajax.statusText;
-                }
-              }
-            }
-            ajax.open('GET','/result/countdown?gift=<%= @expTop3[0].id %>&gift_ans=<%= @ansarray.join(",") %>&gift_q=<%= @qarray.join(",") %>',true);
-            ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
-            ajax.send(null);
-            i[0]++;
-            }
-        }
-        btnup2.onclick = function(){
-            if(i[1]%2==0) {
-            ajax.onreadystatechange=function() {
-              if(ajax.readyState==4) {
-                if((ajax.status>=200 && ajax.status<300) || (ajax.status==304)) {
-                    document.getElementById('output').innerHTML=ajax.responseText;
-                    document.getElementById('btnup2').src="/image/heart.png";
-                }
-                else {
-                    document.getElementById('output').innerHTML=ajax.statusText;
-                }
-              }
-            }
-            ajax.open('GET','/result/countup?gift=<%= @dispTop3[0].id %>&gift_ans=<%= @ansarray.join(",") %>&gift_q=<%= @qarray.join(",") %>',true);
-            ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
-            ajax.send(null);
-            i[1]++;
-            }
-            else{
-            ajax.onreadystatechange=function() {
-              if(ajax.readyState==4) {
-                if((ajax.status>=200 && ajax.status<300) || (ajax.status==304)) {
-                    document.getElementById('output').innerHTML=ajax.responseText;
-                    document.getElementById('btnup2').src="/image/emptyheart.png";
-                }
-                else {
-                    document.getElementById('output').innerHTML=ajax.statusText;
-                }
-              }
-            }
-            ajax.open('GET','/result/countdown?gift=<%= @dispTop3[0].id %>&gift_ans=<%= @ansarray.join(",") %>&gift_q=<%= @qarray.join(",") %>',true);
-            ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
-            ajax.send(null);
-            i[1]++;
-            }
-            
-        }
-        btnup3.onclick = function() {
-            if(i[2]%2==0) {
-            ajax.onreadystatechange=function() {
-              if(ajax.readyState==4) {
-                if((ajax.status>=200 && ajax.status<300) || (ajax.status==304)) {
-                    document.getElementById('output').innerHTML=ajax.responseText;
-                    document.getElementById('btnup3').src="/image/heart.png";
-                }
-                else {
-                    document.getElementById('output').innerHTML=ajax.statusText;
-                }
-              }
-            }
-            ajax.open('GET','/result/countup?gift=<%= @expTop3[1].id %>&gift_ans=<%= @ansarray.join(",") %>&gift_q=<%= @qarray.join(",") %>',true);
-            ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
-            ajax.send(null);
-            i[2]++;
-            }
-            else{
-            ajax.onreadystatechange=function() {
-              if(ajax.readyState==4) {
-                if((ajax.status>=200 && ajax.status<300) || (ajax.status==304)) {
-                    document.getElementById('output').innerHTML=ajax.responseText;
-                    document.getElementById('btnup3').src="/image/emptyheart.png";
-                }
-                else {
-                    document.getElementById('output').innerHTML=ajax.statusText;
-                }
-              }
-            }
-            ajax.open('GET','/result/countdown?gift=<%= @expTop3[1].id %>&gift_ans=<%= @ansarray.join(",") %>&gift_q=<%= @qarray.join(",") %>',true);
-            ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
-            ajax.send(null);
-            i[2]++;
-            }
-        }
-        btnup4.onclick = function(){
-            if(i[3]%2==0) {
-            ajax.onreadystatechange=function() {
-              if(ajax.readyState==4) {
-                if((ajax.status>=200 && ajax.status<300) || (ajax.status==304)) {
-                    document.getElementById('output').innerHTML=ajax.responseText;
-                    document.getElementById('btnup4').src="/image/heart.png";
-                }
-                else {
-                    document.getElementById('output').innerHTML=ajax.statusText;
-                }
-              }
-            }
-            ajax.open('GET','/result/countup?gift=<%= @dispTop3[1].id %>&gift_ans=<%= @ansarray.join(",") %>&gift_q=<%= @qarray.join(",") %>',true);
-            ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
-            ajax.send(null);
-            i[3]++;
-            }
-            else{
-            ajax.onreadystatechange=function() {
-              if(ajax.readyState==4) {
-                if((ajax.status>=200 && ajax.status<300) || (ajax.status==304)) {
-                    document.getElementById('output').innerHTML=ajax.responseText;
-                    document.getElementById('btnup4').src="/image/emptyheart.png";
-                }
-                else {
-                    document.getElementById('output').innerHTML=ajax.statusText;
-                }
-              }
-            }
-            ajax.open('GET','/result/countdown?gift=<%= @dispTop3[1].id %>&gift_ans=<%= @ansarray.join(",") %>&gift_q=<%= @qarray.join(",") %>',true);
-            ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
-            ajax.send(null);
-            i[3]++;
-            }
-            
-        }
-        btnup5.onclick = function() {
-            if(i[4]%2==0) {
-            ajax.onreadystatechange=function() {
-              if(ajax.readyState==4) {
-                if((ajax.status>=200 && ajax.status<300) || (ajax.status==304)) {
-                    document.getElementById('output').innerHTML=ajax.responseText;
-                    document.getElementById('btnup5').src="/image/heart.png";
-                }
-                else {
-                    document.getElementById('output').innerHTML=ajax.statusText;
-                }
-              }
-            }
-            ajax.open('GET','/result/countup?gift=<%= @expTop3[2].id %>&gift_ans=<%= @ansarray.join(",") %>&gift_q=<%= @qarray.join(",") %>',true);
-            ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
-            ajax.send(null);
-            i[4]++;
-            }
-            else{
-            ajax.onreadystatechange=function() {
-              if(ajax.readyState==4) {
-                if((ajax.status>=200 && ajax.status<300) || (ajax.status==304)) {
-                    document.getElementById('output').innerHTML=ajax.responseText;
-                    document.getElementById('btnup5').src="/image/emptyheart.png";
-                }
-                else {
-                    document.getElementById('output').innerHTML=ajax.statusText;
-                }
-              }
-            }
-            ajax.open('GET','/result/countdown?gift=<%= @expTop3[2].id %>&gift_ans=<%= @ansarray.join(",") %>&gift_q=<%= @qarray.join(",") %>',true);
-            ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
-            ajax.send(null);
-            i[4]++;
-            }
-        }
-        btnup6.onclick = function(){
-            if(i[5]%2==0) {
-            ajax.onreadystatechange=function() {
-              if(ajax.readyState==4) {
-                if((ajax.status>=200 && ajax.status<300) || (ajax.status==304)) {
-                    document.getElementById('output').innerHTML=ajax.responseText;
-                    document.getElementById('btnup6').src="/image/heart.png";
-                }
-                else {
-                    document.getElementById('output').innerHTML=ajax.statusText;
-                }
-              }
-            }
-            ajax.open('GET','/result/countup?gift=<%= @dispTop3[2].id %>&gift_ans=<%= @ansarray.join(",") %>&gift_q=<%= @qarray.join(",") %>',true);
-            ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
-            ajax.send(null);
-            i[5]++;
-            }
-            else{
-            ajax.onreadystatechange=function() {
-              if(ajax.readyState==4) {
-                if((ajax.status>=200 && ajax.status<300) || (ajax.status==304)) {
-                    document.getElementById('output').innerHTML=ajax.responseText;
-                    document.getElementById('btnup6').src="/image/emptyheart.png";
-                }
-                else {
-                    document.getElementById('output').innerHTML=ajax.statusText;
-                }
-              }
-            }
-            ajax.open('GET','/result/countdown?gift=<%= @dispTop3[2].id %>&gift_ans=<%= @ansarray.join(",") %>&gift_q=<%= @qarray.join(",") %>',true);
-            ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
-            ajax.send(null);
-            i[5]++;
-            }
-            
-        }
+          }(j)
+          j++;
+        <% end %>
+        
+        // 質問がなくなった際に，Continueできなくする
         continuebtn=document.getElementById("continuebtn");
         if (<%= @continue_display %>==1 ) {
           continuebtn.href="javascript:void(0)";
@@ -358,253 +182,307 @@
         }
         else {
         }
-        
+    
         }
-    <% end %>
-    <!--**********Main Script End**********-->
+  <% end %>
+  <!--**********Main Script End**********-->
     
     <style>
-      .question {
-        margin-top: 5%;
-      }
     
       body {
-        position: relative;
-        /*background-color: rgba(0,30,67,1);*/
-        /*グラデーション試してみた*/
-        /*background: linear-gradient(#1D62F0,#05FBFF) fixed;*/
-        background: #ee9ca7; /* fallback for old browsers */
-        background: -webkit-linear-gradient(#ee9ca7 , #ffdde1); /* Chrome 10-25, Safari 5.1-6 */
-        background: linear-gradient(#ee9ca7 , #ffdde1); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-          
-      }
+      position: relative;
+      /*background-color: rgba(0,30,67,1);*/
+      /*グラデーション試してみた*/
+      /*background: linear-gradient(#1D62F0,#05FBFF) fixed;*/
+      /*background: #ee9ca7; /* fallback for old browsers */
+      /*background: -webkit-linear-gradient(#ee9ca7 , #ffdde1); /* Chrome 10-25, Safari 5.1-6 */
+      /*background: linear-gradient(#ee9ca7 , #ffdde1); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
       
-      /*Apprication Name*/
-      .appname {
-        margin-left: auto;
-        margin-right: auto;
+    }
     
-        background: url("/image/s_backlogo3.png");
-        margin-top: 20px;;
-        height: 199px;
-        width: 400px;
-      }
-      .appname p {
-        line-height: 199px;
-        font-size: 5em;
+    /*Header*/
+    
+    .appname {
+      margin-left: auto;
+      margin-right: auto;
+      padding: 3%;
+      /*background: url("/image/s_backlogo3.png");*/
+      height: 20%;
+      background-color : rgb(0,30,67);
+      position: relative;
+    }
+    .appname p {
+      /*line-height: 10%;*/
+      font-size: 3em;
+      text-align: center;
+      text-shadow: 1px 1px 10px #FFFFFF;
+      /*color: #000;*/
+      color: #FFFFFF;
+    }
+    
+    .home {
+      height: 80%;
+      width: 20%;
+      padding:;
+      position: absolute;
+      right: 3%;
+      top: 10%;
+    }
+    
+    .home:hover {
+      background-color: rgba(0,0,0,0);
+      transform: scale(1.5);
+    }
+    .logo {
+      height: 100%;
+    }
+    
+    
+    .giftimg {
+      margin-left:auto;
+      margin-right:auto;
+      /*Gift Imageの隅*/
+      border-radius: 30px;
+      height: 300px;
+    }
+
+    .tabtn {
+      text-align: center;
+    }
+    
+    .giftheader {
         text-align: center;
-        text-shadow: 1px 1px 10px #FFFFFF;
-        /*color: #000;*/
         color: #FFFFFF;
-      }
-      
-      /*Gift*/
-      .evalbtn {
-        width: 30px;
-        height: 30px;
-        float:right;
-        margin-top: auto;
-        margin-bottom: auto;
-      }
-      .heart {
-        width: 30px;
-        height: 30px;
-      }
-      
-      .giftname {
-          text-align: center;
-          color: #FFFFFF;
-      }
-      
-      .giftimg {
-        margin-left:auto;
-        margin-right:auto;
-        /*Gift Imageの隅*/
-        border-radius: 70px;
-        height: 200px;
-      }
-      
-      /* TryAgain,Continue Button */
+        position: relative;
+    }
     
-      .nextbtn {
-        text-align: center;
-      }
-      
-      /* Slick */
-      .slider {
-        background-color: rgba(0,0,0,0);
-      }
-      
-    </style>
+    .giftname h1{
+      margin-top: 0;
+    }
+    
+    .heart {
+      height: 30px;
+      width: 30px;
+      position: absolute;
+      top: 5px;
+      right: 25%;
+    }
+    
+    .likes {
+      padding-bottom: 5%;
+      background-color: rgb(0,30,67);
+    }
+    .like_text {
+      text-align: center;
+      color: #FFFFFF;
+    }
+    .like {
+      height: 30%;
+      width: 30%;
+    }
+    .likeimg {
+      margin-left: auto;
+      margin-right: auto;
+      height: 30%;
+      width: 100%;
+    }
+    
+    .slick-prev:before,
+    .slick-next:before {
+        color: #000;
+    }
+    /*左右の矢印の位置を変える*/
+    .slick-next {
+        right: 20px;
+        z-index: 99;
+    }
+    .slick-prev {
+        left: 15px;
+        z-index: 100;
+    }
+    /*スライド数のドットの色を変える*/
+    .slick-dots li.slick-active button:before,
+    .slick-dots li button:before {
+        color: #fff;
+    }
+    
+    .slick-dots {
+      top:102%;
+      left:-1%;
+    }
+    /*スライド画像の横幅可変*/
+    .slick img {
+        max-width: 100%;
+        height: auto;
+    }
+    .slider {
+      background-color: rgba(255,255,255,0);
+    }
+    
+    .console {
+      background-color: #FFFFFF;
+    }
+  </style>
   
   </head>
-  <body>
+    <body>
+    <!-- <img class="homebtn" src="image/heart.png" height="50px" width="50px"> -->
     <div class="appname">
       <p><strong>Result</strong></p>
+      <a href="/" class="home"><img class="logo" src="/image/galogo.png"></a>
+      </div>
     </div>
-    <div class="question">
+    <div class="result">
       <div class="container">
         <div class="row">
           <div class="col-xs-1">
           </div>
           <div class="col-xs-10 slider single-item">
-              <!------------------------------------------------------------------------>
-              <div class="row">
-                <!-- Exp Gift Start -->
-                <div class="col-xs-6">
-                  <!-- Header Start -->
-                  <div class="giftheader">
-                    <h1 class="giftname name1">
-                      <strong><%= @expTop3[0].name %></strong>
-                      <div class="evalbtn">
-                        <img class="heart" src="/image/emptyheart.png">
-                      </div>
-                    </h1>
-                  </div>
-                  <!-- Header End -->
-                  <!-- Gift Content Start -->
-                  <div class="giftcontent">
-                    <div class="gift">
-                      <a href="<%= @expTop3[0].url %>"><%= image_tag(img_gift_path(@expTop3[0]), :class => "giftimg") %></a>
-                    </div>
-                  </div>
-                  <!-- Gift Content End -->
-                </div>
-                <!-- Exp Gift End -->
-                <!-- Disp Gift Start -->
-                <div class="col-xs-6">
-                  <!-- Header -->
-                  <div class="giftheader">
-                    <h1 class="giftname name1">
-                      <strong><%= @dispTop3[0].name %></strong>
-                      <div class="evalbtn">
-                        <img class="heart" src="/image/emptyheart.png">
-                      </div>
-                    </h1>
-                  </div>
-                  <!-- Header End -->
-                  <div class="giftcontent">
-                    <div class="gift">
-                      <a href="<%= @dispTop3[0].url %>"><%= image_tag(img_gift_path(@dispTop3[0]), :class => "giftimg") %></a>
-                    </div>
-                  </div>
-                </div>
-                <!-- Disp Gift End -->
+            <!------------------------------------------------------------------------>
+            <!-- Gift Start -->
+            <div class="gift">
+              <!-- Header Start -->
+              <div class="giftheader">
+                <h1 class="giftname"></h1>
+                <img class="heart" src="/image/emptyheart.png">
               </div>
-              <!------------------------------------------------------------------------>
-              <div class="row">
-                <!-- Exp Gift Start -->
-                <div class="col-xs-6">
-                  <!-- Header Start -->
-                  <div class="giftheader">
-                    <h1 class="giftname name1"><strong><%= @expTop3[1].name %></strong></h1>
-                    <div class="evalbtn">
-                      <img class="heart" src="/image/emptyheart.png">
-                    </div>
-                  </div>
-                  <!-- Header End -->
-                  <!-- Gift Content Start -->
-                  <div class="giftcontent">
-                    <div class="gift">
-                      <a href="<%= @expTop3[1].url %>"><%= image_tag(img_gift_path(@expTop3[1]), :class => "giftimg") %></a>
-                    </div>
-                  </div>
-                  <!-- Gift Content End -->
-                </div>
-                <!-- Exp Gift End -->
-                <!-- Disp Gift Start -->
-                <div class="col-xs-6">
-                  <!-- Header -->
-                  <div class="giftheader">
-                    <h1 class="giftname"><strong><%= @dispTop3[1].name %></strong></h1>
-                    <div class="evalbtn">
-                      <img class="heart" src="/image/emptyheart.png">
-                    </div>
-                  </div>
-                  <!-- Header End -->
-                  <div class="giftcontent">
-                    <div class="gift">
-                      <a href="<%= @dispTop3[1].url %>"><%= image_tag(img_gift_path(@dispTop3[1]), :class => "giftimg") %></a>
-                    </div>
-                  </div>
-                </div>
-                <!-- Disp Gift End -->
+              <!-- Header End -->
+              <!-- Gift Content Start -->
+              <div class="giftcontent">
+                <a class="gifturl"><img class="giftimg"></a>
               </div>
-              <!------------------------------------------------------------------------>
-              <div class="row">
-                <!-- Exp Gift Start -->
-                <div class="col-xs-6">
-                  <!-- Header Start -->
-                  <div class="giftheader">
-                    <h1 class="giftname name1"><strong><%= @expTop3[2].name %></strong></h1>
-                    <div class="evalbtn">
-                      <img class="heart" src="/image/emptyheart.png">
-                    </div>
-                  </div>
-                  <!-- Header End -->
-                  <!-- Gift Content Start -->
-                  <div class="giftcontent">
-                    <div class="gift">
-                      <a href="<%= @expTop3[2].url %>"><%= image_tag(img_gift_path(@expTop3[2]), :class => "giftimg") %></a>
-                    </div>
-                  </div>
-                  <!-- Gift Content End -->
-                </div>
-                <!-- Exp Gift End -->
-                <!-- Disp Gift Start -->
-                <div class="col-xs-6">
-                  <!-- Header -->
-                  <div class="giftheader">
-                    <h1 class="giftname"><strong><%= @dispTop3[0].name %></strong></h1>
-                    <div class="evalbtn">
-                      <img class="heart" src="/image/emptyheart.png">
-                    </div>
-                  </div>
-                  <!-- Header End -->
-                  <div class="giftcontent">
-                    <div class="gift">
-                      <a href="<%= @dispTop3[2].url %>"><%= image_tag(img_gift_path(@dispTop3[2]), :class => "giftimg") %></a>
-                    </div>
-                  </div>
-                </div>
-                <!-- Disp Gift End -->
-              </div>
-              <!------------------------------------------------------------------------>
+              <!-- Gift Content End -->
             </div>
-            <div class="col-xs-1">
+            <!-- Gift End -->
+            <!------------------------------------------------------------------------>
+            <!-- Gift Start -->
+            <div class="gift">
+              <!-- Header Start -->
+              <div class="giftheader">
+                <h1 class="giftname"></h1>
+                <img class="heart" src="/image/emptyheart.png">
+              </div>
+              <!-- Header End -->
+              <!-- Gift Content Start -->
+              <div class="giftcontent">
+                <a class="gifturl"><img class="giftimg"></a>
+              </div>
+              <!-- Gift Content End -->
             </div>
+            <!-- Gift End -->
+            <!------------------------------------------------------------------------>
+            <!-- Gift Start -->
+            <div class="gift">
+              <!-- Header Start -->
+              <div class="giftheader">
+                <h1 class="giftname"></h1>
+                <img class="heart" src="/image/emptyheart.png">
+              </div>
+              <!-- Header End -->
+              <!-- Gift Content Start -->
+              <div class="giftcontent">
+                <a class="gifturl"><img class="giftimg"></a>
+              </div>
+              <!-- Gift Content End -->
+            </div>
+            <!-- Gift End -->
+            <!------------------------------------------------------------------------>
+            <!-- Gift Start -->
+            <div class="gift">
+              <!-- Header Start -->
+              <div class="giftheader">
+                <h1 class="giftname"></h1>
+                <img class="heart" src="/image/emptyheart.png">
+              </div>
+              <!-- Header End -->
+              <!-- Gift Content Start -->
+              <div class="giftcontent">
+                <a class="gifturl"><img class="giftimg"></a>
+              </div>
+              <!-- Gift Content End -->
+            </div>
+            <!-- Gift End -->
+            <!------------------------------------------------------------------------>
+            <!-- Gift Start -->
+            <div class="gift">
+              <!-- Header Start -->
+              <div class="giftheader">
+                <h1 class="giftname"></h1>
+                <img class="heart" src="/image/emptyheart.png">
+              </div>
+              <!-- Header End -->
+              <!-- Gift Content Start -->
+              <div class="giftcontent">
+                <a class="gifturl"><img class="giftimg"></a>
+              </div>
+              <!-- Gift Content End -->
+            </div>
+            <!-- Gift End -->
+            <!------------------------------------------------------------------------>
+            <!-- Gift Start -->
+            <div class="gift">
+              <!-- Header Start -->
+              <div class="giftheader">
+                <h1 class="giftname"></h1>
+                <img class="heart" src="/image/emptyheart.png">
+              </div>
+              <!-- Header End -->
+              <!-- Gift Content Start -->
+              <div class="giftcontent">
+                <a class="gifturl"><img class="giftimg"></a>
+              </div>
+              <!-- Gift Content End -->
+            </div>
+            <!-- Gift End -->
+            <!------------------------------------------------------------------------>
           </div>
-          <br><br>
-          <div class="row">
-            <div class="col-xs-2"></div>
-            <div class="col-xs-4 nextbtn">
-                <a href="/qflow" class="btn btn-default"><font size="5em" color="#FFFFFF">Try Again &raquo;</font></a>
-            </div>
-            <div class="col-xs-4 nextbtn">
-                <a href="/qflow_continue" class="btn btn-default" id="continuebtn" ><font size="5em" color="#FFFFFF">Continue &raquo;</font></a>
-            </div>
-            <div class="col-xs-2">
-            </div>
+          <div class="col-xs-1">
           </div>
         </div>
-      <div class="container slider single-item" id="likes">
-        <div><%= image_tag(img_gift_path(@Likes[0]), :height => "200px", :class => "giftimg") %></div>
-        <div><%= image_tag(img_gift_path(@Likes[1]), :height => "200px", :class => "giftimg") %></div>
-        <div><%= image_tag(img_gift_path(@Likes[2]), :height => "200px", :class => "giftimg") %></div>
-        <div><%= image_tag(img_gift_path(@Likes[3]), :height => "200px", :class => "giftimg") %></div>
-        <div><%= image_tag(img_gift_path(@Likes[4]), :height => "200px", :class => "giftimg") %></div>
-      </div>
-      <br><br><br><br><br>
-      <div class="console">
-        ベイズ<%= @bayes.values %>
-      <BR>
-      期待値<%= @giftExp.values %>
-      <BR>
-      分散値<%= @giftDisp.values %>
-      <BR>
-      Question<%= @qarray.join(",") %>
-      <p id="output"></p>
+        <br><br>
+        <div class="row">
+          <div class="col-xs-2"></div>
+          <div class="col-xs-4 tabtn">
+            <a href="/qflow" class="btn btn-default"><font size="5em" color="#FFFFFF">Try Again &raquo;</font></a>
+          </div>
+          <div class="col-xs-4 tabtn">
+            <a href="/qflow_continue" class="btn btn-default" id="continuebtn" ><font size="5em" color="#FFFFFF">Continue &raquo;</font></a>
+          </div>
+          <div class="col-xs-2">
+          </div>
+        </div>
       </div>
     </div>
+    <div class="likes">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-1"></div>
+          <div class="col-xs-10">
+            <h1 class="like_text">Here are gifts you choose!!</h1>
+            <div class="slider triple-item">
+              <div class="like"><%= image_tag(img_gift_path(@Likes[0]),  :class => "likeimg") %></div>
+              <div class="like"><%= image_tag(img_gift_path(@Likes[1]),  :class => "likeimg") %></div>
+              <div class="like"><%= image_tag(img_gift_path(@Likes[2]),  :class => "likeimg") %></div>
+              <div class="like"><%= image_tag(img_gift_path(@Likes[3]),  :class => "likeimg") %></div>
+              <div class="like"><%= image_tag(img_gift_path(@Likes[4]),  :class => "likeimg") %></div>
+            </div>
+          </div>
+          <div class="col-xs-1"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br><br><br><br><br>
+    <div class="console">
+      ベイズ<%= @bayes.values %>
+    <BR>
+    期待値<%= @giftExp.values %>
+    <BR>
+    期待値_new<%= @giftExp_new.values %>
+    <BR>
+    Question<%= @qarray.join(",") %>
+    <p id="output"></p>
+    </div>
+
   </body>
 </html>

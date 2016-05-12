@@ -26,6 +26,8 @@ class ResultController < ApplicationController
         @bayes=Hash.new(0.5)
         end
         
+        #ベイズ確率の新しい配列作成
+        @bayes_new=Hash.new(0.5)
         
         #hGift[gift,0 or 1]
         if session[:gifts]
@@ -50,71 +52,57 @@ class ResultController < ApplicationController
             anstoeval2.save
             p1=1.0*anstoeval1.count/(anstoeval1.count + anstoeval2.count)
             @bayes[gift] = @bayes[gift]*p1/(@bayes[gift]*p1+(1-@bayes[gift])*(1-p1))
+            @bayes_new[gift] = @bayes_new[gift]*p1/(@bayes_new[gift]*p1+(1-@bayes_new[gift])*(1-p1))
           end
         end
         
-        #期待値と分散値の配列作成
+        #期待値の配列作成
         
-        @giftExp  = Hash.new(1.0/2.0)
-        @giftDisp = Hash.new(1.0/2.0)
+        @giftExp     = Hash.new(1.0/2.0)
+        @giftExp_new = Hash.new(1.0/2.0)
         
         #期待値と分散値の配列に値を代入
         
         @gifts.each do |gift|
-            # gift毎に[giftオブジェクト,期待値]のhash作成
+            # gift毎に[giftオブジェクト,期待値(Bayes更新あり)]のhash作成
             @giftExp[gift] = 1-2*@bayes[gift]
-            # gift毎に[giftオブジェクト,分散値]のhash作成
-            @giftDisp[gift] = @bayes[gift]*(-1-@giftExp[gift])**2+(1-@bayes[gift])*(1-@giftExp[gift])**2
+            # gift毎に[giftオブジェクト,期待値(Bayes更新なし)]のhash作成
+            @giftExp_new[gift] = 1-2*@bayes_new[gift]
         end
         
         
         #前回までに結果画面で♥が押された商品を表示
-        # @Likes=[]
-        # #♥が押された
-        # @like_num=@hGifts.select {|k, v| v == 2 }.size
-        # @Likes[0..4]=Gift.find_by_id(1)
-        #     # TODO: @Likes=Array.new(4,Gift.find_by_id(1)) #もしくはこれ
-        #     # 下のTODO:も参照
-        # @Likes[0..(@like_num-1)]
-        #     @Likes[i]=@hGifts.select {|k, v| v == 2 }.keys[i]
-        #     end
-        #     for i in @like_num..4
-        #     @Likes[i]=Gift.find_by_id(1)
-        #     end
-        # end
-        # TODO:これは違いそう？OKDS!MJD?TBN!大丈夫かな..上も残しとこう
-        # Gift.find_by_id(1)で初期化→後から評価高いギフトで上書き
-        # @Likes[0..4] = Gift.find_by_id(1)
         @Likes = Array.new(5,Gift.find_by_id(1))
         likeGifts = @hGifts.select {|k, v| v == 2 }
         for i in 0..(likeGifts.size-1) do
             @Likes[i]=likeGifts.keys[i]
         end
         
-        #期待値上位3件取得
+        #Bayes更新ありの期待値上位3件取得
         @expTop3=Array.new(3,Gift.find_by_id(1))
         for i in 0..(@expTop3.length-1) do
-            # @expTop3[i]=@giftExp.sort_by{|key, value| -value}.keys[i]
             @expTop3[i]=@giftExp.sort_by{|key, value| -value}[i][0]
         end
-        
-        #分散値上位3件を期待値上位3件と被らないように取得
-        @dispTop3=Array.new(3,Gift.find_by_id(1))
-        @giftDisp.except!(@expTop3[0],@expTop3[1],@expTop3[2])
-        for i in 0..(@dispTop3.length-1) do
-            @dispTop3[i]=@giftDisp.sort_by{|key, value| -value}[i][0]
+
+        #Bayes更新なしの期待値上位3件取得
+        @expTop3_new = Array.new(3,Gift.find_by_id(1))
+        @giftExp_new.except!(@expTop3[0],@expTop3[1],@expTop3[2])
+        for i in 0..(@expTop3_new.length-1) do
+            @expTop3_new[i]=@giftExp_new.sort_by{|key, value| -value}[i][0]
         end
+        
+        #Bayes更新ありとなしを結合
+        @giftRes=@expTop3+@expTop3_new
+        
+        #Shuffle
+        @giftRes.shuffle!
         
         #デフォルトでgiftの評価は1(bad)にする
         for i in 0..(@ansarray.length-1) do
             answer=Answer.where(question_id: @qarray[i]).find_by_ansid(@ansarray[i])
             
-            @expTop3.each do |exp|
-                e1up(exp,answer)
-            end
-            
-            @dispTop3.each do |disp|
-                e1up(disp,answer)
+            @giftRes.each do |gift|
+                e1up(gift,answer)
             end
         end
         
