@@ -162,6 +162,7 @@
       width: 100%;
       
       background: linear-gradient(#FF0022,rgb(0,30,67)) fixed;
+      /*background-color: #FF0000;*/
       
       /*ストライプ，ボーダー*/
       /*background-color:#ff0040;*/
@@ -171,7 +172,7 @@
       /*background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0.3) 50%, transparent 50%, transparent);*/
       
       /*円形グラデーション*/
-      /*background-image: radial-gradient(ellipse farthest-corner at 50% 25% , rgba(255,255,255,0.5) 20%, rgba(255,255,255,0.3) 30%, rgba(255,255,255,0) 60%);*/
+      /*background-image: radial-gradient(ellipse farthest-corner at 50% 25% , rgba(0,0,0,0) 20%, rgba(0,0,0,0.5) 25%, rgba(0,0,0,0.9) 30%);*/
       
       /*グラデーション*/
       /*background: #C9FFBF; /* fallback for old browsers */ 
@@ -185,9 +186,6 @@
       <!--background: -webkit-linear-gradient(#C9FFBF , #FFAFBD); /* Chrome 10-25, Safari 5.1-6 */-->
       <!--background: linear-gradient(#C9FFBF , #FFAFBD); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */-->
       <!--/*background-color:rgba(0,30,67,1);*/-->
-    }
-    .question {
-      margin-top: 5%;
     }
 
     body {
@@ -214,24 +212,55 @@
     .appname {
       margin-left: auto;
       margin-right: auto;
-
-      background: url("/image/s_backlogo2.png");
-      margin-top: 120px;;
-      height: 199px;
-      width: 400px;
+      padding: 3%;
+      /*background: url("/image/s_backlogo3.png");*/
+      height: 20%;
+      background-color : rgba(0,30,67,0);
+      position: relative;
     }
     .appname p {
-      line-height: 199px;
-      font-size: 5em;
+      /*line-height: 10%;*/
+      font-size: 3em;
       text-align: center;
       text-shadow: 1px 1px 10px #FFFFFF;
       /*color: #000;*/
-      color: #FFFFFF;
     }
+    
+    .home {
+      height: 80%;
+      width: 20%;
+      padding:;
+      position: absolute;
+      right: 3%;
+      top: 10%;
+    }
+    
+    .home:hover {
+      background-color: rgba(0,0,0,0);
+      transform: scale(1.5);
+    }
+    .logo {
+      height: 100%;
+    }
+    
+    .question{
+      height: 500px;
+      background-image: url("/image/questionback.png");
+      background-size: cover;
+      background-position: center;
+    }
+    
+    .qs {
+      background-color: rgba(255,255,255,0.5);
+      height: 300px;
+      margin-top: 100px;
+    }
+    
     
     #qtext {
       <!--color: #FFFFFF;-->
       color: #000000;
+      padding: 50px;
     }
     
   	<!--曇りガラス START-->
@@ -279,19 +308,21 @@
   </style>
 </head>
   <body>
-    <p id="ans"></p>
     <div class="appname">
       <p><strong>Question</strong></p>
+      <a href="/" class="home"><img class="logo" src="/image/galogo.png"></a>
+      </div>
     </div>
-    <div class="question panel">
-      <div class="container panel-in">
-        <div class="row panel-main">
+    <div class="question">
+      <div class="container">
+        <div class="row">
           <div class="col-xs-2">
           </div>
-          <div class="col-xs-8">
+          <div class="col-xs-8 qs">
             <!--<div class="well infobox">-->
             <div>
               <h1 id="qtext"></h1>
+              <BR><BR>
                   <div class="row bs-component">
                     <div class="col-xs-1"></div>
                     <a class="col-xs-4 btn btn-lg btn-choice" id="btn1">YES</a>
