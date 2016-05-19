@@ -119,12 +119,25 @@
         var giftnames  = document.getElementsByClassName("giftname");
         var gifturls   = document.getElementsByClassName("gifturl");
         var giftimgs   = document.getElementsByClassName("giftimg");
+        var giftcontents = document.getElementsByClassName("giftcontent");
         
         i=1;
+        hiduke=new Date();
         <% @giftRes.each do |exp| %>
         giftnames[i].innerText= "<%= exp.name %>";
         gifturls[i].href = "<%= exp.url %>";
         gifturls[i].style ="background-image: url('/gifts/<%= exp.id %>/img');";
+        var h1y=hiduke.getFullYear();
+        var h1d=hiduke.getDate()+hiduke.getMonth()*30.5;
+        var h2y=<%= exp.created_at.year %>;
+        var h2d=<%= exp.created_at.yday %>;
+        var sa=h1y*365+h1d-h2y*365-h2d;
+        if(sa<30){
+        element=document.createElement("span");
+        element.className="new";
+        element.innerHTML="NEW";
+        giftcontents[i].appendChild(element);
+        } else {}
         i++;
         <% end %>
         
@@ -367,6 +380,29 @@
       padding-bottom: 50px;
     }
     
+    .giftcontent {
+      overflow: hidden;
+      height: 300px;
+      width: 300px;
+      position: relative;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .new {
+        width: 100px;
+        padding: 3px 10px;
+        background: #d43131;
+        color: #fff;
+        text-align: center;
+        display: inline-block;
+        position: absolute;
+        top: 15px;
+        left: -25px;
+        text-transform: uppercase;
+        transform: rotate(315deg);
+      }
+    
     .gifturl {
       display: block;
       background-size: contain;
@@ -588,6 +624,7 @@
               <!-- Gift Content Start -->
               <div class="giftcontent">
                 <a class="gifturl" target="_blank"></a>
+                
               </div>
               <!-- Gift Content End -->
             </div>
@@ -658,6 +695,7 @@
         </div>
       </div>
     </div>
+
     <!--<div class="likes">-->
     <!--  <div class="container">-->
     <!--    <div class="row">-->
