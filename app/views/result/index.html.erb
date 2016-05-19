@@ -14,11 +14,8 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     
     <!-- Bootstrap -->
-    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/bootstrap/css/bootstrap.css" rel="stylesheet">
     <script src="/bootstrap/js/bootstrap.min.js"></script>
-    
-    <!--Pointer-->
-    <script src="/pointer/pointer.1.js"></script>
   
     <!-- Bootstrap Material Design -->
     <link href="/dist/css/bootstrap-material-design.css" rel="stylesheet">
@@ -127,7 +124,7 @@
         <% @giftRes.each do |exp| %>
         giftnames[i].innerText= "<%= exp.name %>";
         gifturls[i].href = "<%= exp.url %>";
-        giftimgs[i].src = "/gifts/<%= exp.id %>/img";
+        gifturls[i].style ="background-image: url('/gifts/<%= exp.id %>/img');";
         i++;
         <% end %>
         
@@ -179,10 +176,7 @@
         // 質問がなくなった際に，Continueできなくする
         continuebtn=document.getElementById("continuebtn");
         if (<%= @continue_display %>==1 ) {
-          continuebtn.href="javascript:void(0)";
-          continuebtn.onclick = function() {
-              continuebtn.innerHTML="<font size='5em' color='#FFFFFF'>No Question Left</font>";
-          }
+          continuebtn.style="display: none;";
         }
         else {
         }
@@ -193,53 +187,173 @@
     
   
   <style>
+    html {
+      height: 100%;
+    }
     body {
-      position: relative;
-      /*background-image: url("/image/background.jpg");*/
-      /*background-size: cover;*/
-      /*グラデーション試してみた*/
-      background: linear-gradient(#FF0022,rgb(0,30,67)) fixed;
-      /*background: #ee9ca7; /* fallback for old browsers */
-      /*background: -webkit-linear-gradient(#ee9ca7 , #ffdde1); /* Chrome 10-25, Safari 5.1-6 */
-      /*background: linear-gradient(#ee9ca7 , #ffdde1); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+      background-image: url("/image/ribbon.png");
+      background-size: cover;
+      background-position: center;
+      font-family: "Meiryo UI", メイリオ, Osaka, 'MS PGothic', arial, helvetica, sans-serif;
       
     }
     
-    /*Header*/
+     /* Homepanels */
+      li {
+        list-style: none;
+      }
+      
+      .headerPanels li {
+        float: left;
+      }
+      
+      .li-home {
+        margin-top: 1%;
+        height: 100px;
+        width: 300px;
+        float: left;
+      }
+      
+      .li-home a {
+        background-image: url("/image/smalllogo.png");
+        background-size: cover;
+        display: block;
+        height: 85px;
+        width: 270px;
+        margin: auto;
+        text-indent: -9999px;
+      }
+      
+      .li-home a:hover {
+        -webkit-transition: none;
+        -moz-transition: none;
+        -ms-transition: none;
+        -o-transition: none;
+        transition: none;
+        opacity: 0.6;
+        filter: alpha(opacity=60);
+        -webkit-transition: opacity 0.5s ease-out;
+        -moz-transition: opacity 0.5s ease-out;
+        -ms-transition: opacity 0.5s ease-out;
+        transition: opacity 0.5s ease-out;
+      }
+      
+      .li-btn {
+        margin-top: 1%;
+        height: 85px;
+        width: 85px;
+        float: left;
+      }
     
-    .appname {
-      margin-left: auto;
-      margin-right: auto;
-      padding: 3%;
-      /*background: url("/image/s_backlogo3.png");*/
-      height: 20%;
-      background-color : rgba(0,30,67,0);
-      position: relative;
-    }
-    .appname p {
-      /*line-height: 10%;*/
-      font-size: 3em;
-      text-align: center;
-      text-shadow: 1px 1px 10px #FFFFFF;
-      /*color: #000;*/
-    }
-    
-    .home {
-      height: 80%;
-      width: 20%;
-      padding:;
-      position: absolute;
-      right: 3%;
-      top: 10%;
-    }
-    
-    .home:hover {
-      background-color: rgba(0,0,0,0);
-      transform: scale(1.5);
-    }
-    .logo {
-      height: 100%;
-    }
+      .li-btn a {
+        background-size: 85px 85px;
+        display: block;
+        height: 85px;
+        width: 85px;
+        margin: auto;
+        text-indent: -9999px;
+      }
+      
+      .menu-q a {
+        background-image: url("/image/q.png");
+        border-bottom: double 10px #000000;
+      }
+      .menu-n a {
+        background-image: url("/image/n.png");
+      }
+      .menu-i a {
+        background-image: url("/image/i.png");
+      }
+      
+      .none {
+        height: 128px;
+        width: 128px;
+        float: left;
+      }
+      
+      a:link {
+        text-decoration: none;
+      }
+      
+      a:visited {
+        text-decoration: none;
+      }
+      
+      .n_description {
+        position: relative;
+        margin-top: 10px;
+        margin-left: -55px;
+        height: auto;
+        width: 200px;
+        padding: 5px;
+        border: solid 3px;
+        
+      }
+      
+      .n_description:before {
+      	content: "";
+      	position: absolute;
+      	top: -8px; left: 50%;
+      	margin-left: -9px;
+      	display: block;
+      	width: 0px;
+      	height: 0px;
+      	border-style: solid;
+      	border-width: 0 9px 9px 9px;
+      	border-color: transparent transparent #F6F6F6 transparent;
+      	z-index: 0;
+      }
+      .n_description:after {
+      	content: "";
+      	position: absolute;
+      	top: -12px; left: 50%;
+      	margin-left: -10px;
+      	display: block;
+      	width: 0px;
+      	height: 0px;
+      	border-style: solid;
+      	border-width: 0 10px 10px 10px;
+      	border-color: transparent transparent #19283C transparent;
+      	z-index: -1;
+      }
+      
+      .i_description {
+        margin-top: 10px;
+        margin-left: -55px;
+        height: auto;
+        width: 200px;
+        padding: 5px;
+        border: solid 3px;
+        position:relative;
+        
+      }
+      
+      .i_description:before {
+      	content: "";
+      	position: absolute;
+      	top: -8px; left: 50%;
+      	margin-left: -9px;
+      	display: block;
+      	width: 0px;
+      	height: 0px;
+      	border-style: solid;
+      	border-width: 0 9px 9px 9px;
+      	border-color: transparent transparent #F6F6F6 transparent;
+      	z-index: 0;
+      }
+      .i_description:after {
+      	content: "";
+      	position: absolute;
+      	top: -12px; left: 50%;
+      	margin-left: -10px;
+      	display: block;
+      	width: 0px;
+      	height: 0px;
+      	border-style: solid;
+      	border-width: 0 10px 10px 10px;
+      	border-color: transparent transparent #19283C transparent;
+      	z-index: -1;
+      }
     
     .result {
       /*background-color: rgba(0,30,67,0.5);*/
@@ -248,22 +362,21 @@
     }
     
     .gift {
-      margin-top: 1%;
+      margin-top: 0.5%;
       background-color: rgba(255,255,255,0.5);
       padding-bottom: 50px;
     }
     
-    .giftimg {
-      margin-left:auto;
-      margin-right:auto;
-      /*Gift Imageの隅*/
-      border-radius: 30px;
+    .gifturl {
+      display: block;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
       height: 300px;
+      width: 300px;
+      margin: auto;
     }
 
-    .tabtn {
-      text-align: center;
-    }
     
     .giftheader {
         text-align: center;
@@ -285,6 +398,32 @@
     
     .heart:hover {
       transform: scale(2.5);
+    }
+    
+    .tabtn {
+      display: block;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      height: 100px;
+      width: 200px;
+      margin: auto;
+      border-bottom: solid 3px #006B01;
+    }
+    .continue {
+      background-image: url("/image/continue.png");
+    }
+    
+    .continue:hover {
+      background-image: url("/image/continuechange.png");
+    }
+    
+    .findfor {
+      background-image: url("/image/findfor.png");
+    }
+    
+    .findfor:hover {
+      background-image: url("/image/findforchange.png");
     }
     
     .likes {
@@ -343,13 +482,60 @@
     }
 
   </style>
-  
+  <script>
+    
+  $(document).ready(function(){
+     $('.menu-n > a').hover(
+         function(){
+             $( '.n_description' ).fadeIn();
+         },
+         function(){
+             $( '.n_description' ).fadeOut();
+         }
+     );
+     
+     $('.menu-i > a').hover(
+         function(){
+             $( '.i_description' ).fadeIn();
+         },
+         function(){
+             $( '.i_description' ).fadeOut();
+         }
+     );
+    
+     $('.choice').on('click',
+         function(){
+             $( '.i_description' ).fadeIn();
+         }
+     );
+    
+              
+  });
+
+  </script>
   </head>
     <body>
-    <!-- <img class="homebtn" src="image/heart.png" height="50px" width="50px"> -->
-    <div class="appname">
-      <p><strong>Result</strong></p>
-      <a href="/" class="home"><img class="logo" src="/image/galogo.png"></a>
+    <div class="container">
+      <ul class="headerPanels">
+        <li class="li-home">
+          <a href="/">Home</a>
+        </li>
+        <li class="none"></li>
+        <li class="li-btn menu-q">
+          <a>Questions</a>
+        </li>
+        <li class="li-btn menu-n">
+          <a href="/new_arrival">New gifts</a>
+          <div class="n_description" style="display: none;">
+            New Items<BR>新しいアイテムを表示します
+          </div>
+        </li>
+        <li class="li-btn menu-i">
+          <a href="#">Information</a>
+          <div class="i_description" style="display: none;">
+            Information<BR>お問い合わせはこちらから
+          </div>
+        </li>
       </div>
     </div>
     <div class="result">
@@ -369,7 +555,7 @@
               <!-- Header End -->
               <!-- Gift Content Start -->
               <div class="giftcontent">
-                <a class="gifturl"><img class="giftimg"></a>
+                <a class="gifturl" target="_blank"></a>
               </div>
               <!-- Gift Content End -->
             </div>
@@ -385,7 +571,7 @@
               <!-- Header End -->
               <!-- Gift Content Start -->
               <div class="giftcontent">
-                <a class="gifturl"><img class="giftimg"></a>
+                <a class="gifturl" target="_blank"></a>
               </div>
               <!-- Gift Content End -->
             </div>
@@ -401,7 +587,7 @@
               <!-- Header End -->
               <!-- Gift Content Start -->
               <div class="giftcontent">
-                <a class="gifturl"><img class="giftimg"></a>
+                <a class="gifturl" target="_blank"></a>
               </div>
               <!-- Gift Content End -->
             </div>
@@ -417,7 +603,7 @@
               <!-- Header End -->
               <!-- Gift Content Start -->
               <div class="giftcontent">
-                <a class="gifturl"><img class="giftimg"></a>
+                <a class="gifturl" target="_blank"></a>
               </div>
               <!-- Gift Content End -->
             </div>
@@ -433,7 +619,7 @@
               <!-- Header End -->
               <!-- Gift Content Start -->
               <div class="giftcontent">
-                <a class="gifturl"><img class="giftimg"></a>
+                <a class="gifturl" target="_blank"></a>
               </div>
               <!-- Gift Content End -->
             </div>
@@ -449,7 +635,7 @@
               <!-- Header End -->
               <!-- Gift Content Start -->
               <div class="giftcontent">
-                <a class="gifturl"><img class="giftimg"></a>
+                <a class="gifturl" target="_blank"></a>
               </div>
               <!-- Gift Content End -->
             </div>
@@ -459,50 +645,49 @@
           <div class="col-xs-1">
           </div>
         </div>
-        <br><br>
         <div class="row">
           <div class="col-xs-2"></div>
-          <div class="col-xs-4 tabtn">
-            <a href="/qflow" class="btn btn-default"><font size="5em">Try Again &raquo;</font></a>
+          <div class="col-xs-4">
+            <a href="/qflow_continue" data-no-turbolink="1" class="tabtn continue" id="continuebtn"></a>
           </div>
-          <div class="col-xs-4 tabtn">
-            <a href="/qflow_continue" class="btn btn-default" id="continuebtn" ><font size="5em">Continue &raquo;</font></a>
+          <div class="col-xs-4">
+            <a href="/qflow" data-no-turbolink="1" class="tabtn findfor"></a>
           </div>
           <div class="col-xs-2">
           </div>
         </div>
       </div>
     </div>
-    <div class="likes">
-      <div class="container">
-        <div class="row">
-          <div class="col-xs-1"></div>
-          <div class="col-xs-10">
-            <h1 class="like_text">Here are gifts you choose!!</h1>
-            <div class="slider triple-item">
-              <div class="like"><%= image_tag(img_gift_path(@Likes[0]),  :class => "likeimg") %></div>
-              <div class="like"><%= image_tag(img_gift_path(@Likes[1]),  :class => "likeimg") %></div>
-              <div class="like"><%= image_tag(img_gift_path(@Likes[2]),  :class => "likeimg") %></div>
-              <div class="like"><%= image_tag(img_gift_path(@Likes[3]),  :class => "likeimg") %></div>
-              <div class="like"><%= image_tag(img_gift_path(@Likes[4]),  :class => "likeimg") %></div>
-            </div>
-          </div>
-          <div class="col-xs-1"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <br><br><br><br><br>
-    <div class="console">
-      ベイズ<%= @bayes.values %>
-    <BR>
-    期待値<%= @giftExp.values %>
-    <BR>
-    期待値_new<%= @giftExp_new.values %>
-    <BR>
-    Question<%= @qarray.join(",") %>
-    <p id="output"></p>
-    </div>
+    <!--<div class="likes">-->
+    <!--  <div class="container">-->
+    <!--    <div class="row">-->
+    <!--      <div class="col-xs-1"></div>-->
+    <!--      <div class="col-xs-10">-->
+    <!--        <h1 class="like_text">Here are gifts you choose!!</h1>-->
+    <!--        <div class="slider triple-item">-->
+    <!--          <div class="like"><%= image_tag(img_gift_path(@Likes[0]),  :class => "likeimg") %></div>-->
+    <!--          <div class="like"><%= image_tag(img_gift_path(@Likes[1]),  :class => "likeimg") %></div>-->
+    <!--          <div class="like"><%= image_tag(img_gift_path(@Likes[2]),  :class => "likeimg") %></div>-->
+    <!--          <div class="like"><%= image_tag(img_gift_path(@Likes[3]),  :class => "likeimg") %></div>-->
+    <!--          <div class="like"><%= image_tag(img_gift_path(@Likes[4]),  :class => "likeimg") %></div>-->
+    <!--        </div>-->
+    <!--      </div>-->
+    <!--      <div class="col-xs-1"></div>-->
+    <!--      </div>-->
+    <!--    </div>-->
+    <!--  </div>-->
+    <!--</div>-->
+    <!--<br><br><br><br><br>-->
+    <!--<div class="console">-->
+    <!--  ベイズ<%= @bayes.values %>-->
+    <!--<BR>-->
+    <!--期待値<%= @giftExp.values %>-->
+    <!--<BR>-->
+    <!--期待値_new<%= @giftExp_new.values %>-->
+    <!--<BR>-->
+    <!--Question<%= @qarray.join(",") %>-->
+    <!--<p id="output"></p>-->
+    <!--</div>-->
 
   </body>
 </html>

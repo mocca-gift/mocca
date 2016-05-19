@@ -8,7 +8,7 @@ class QflowController < ApplicationController
         @questions=Question.order("RANDOM()").limit(5)
         @qs=Question.all
         #質問で使用されてたら1されてなければ0のバリューを持つ
-        @hQuestions=Hash.new("default")
+        @hQuestions=Hash.new
         @qs.each do |q|
             if @questions.include?(q) then
                 @hQuestions[q]=1
