@@ -55,6 +55,8 @@
             i++;
             j++;
           } else {
+            qtext.style.border="none";
+            qtext.innerHTML="<img src='/image/loader.gif'>";
             ansarray[j]=1;
             postdata1.value=ansarray;
             postdata2.value=Questionid;
@@ -68,6 +70,8 @@
             i++;
             j++;
           } else {
+            qtext.style.border="none";
+            qtext.innerHTML="<img src='/image/loader.gif'>";
             ansarray[j] = 2 ;
             postdata1.value=ansarray;
             postdata2.value=Questionid;
@@ -306,12 +310,22 @@
         border-bottom: solid 1px;
       }
       
+      #qtext img {
+        display: block;
+        margin: auto;
+        margin-top: 50px;
+      }
+      
       .question {
         margin-top: 3%;
       }
       
       .frame {
         background-color: rgba(255,255,255,0.5);
+      }
+      
+      .slideOutRight {
+        animation-duration: 1s;
       }
   </style>
   <script>
@@ -334,7 +348,15 @@
              $( '.i_description' ).fadeOut();
          }
      );
-    
+     
+     $('.choice').on('click', 
+         function(e){
+             e.preventDefault();
+             $('#qtext').removeClass().addClass('fadeIn'+' animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+               $(this).removeClass();
+         });
+        }
+      );
               
   });
 
@@ -358,7 +380,7 @@
           </div>
         </li>
         <li class="li-btn menu-i">
-          <a href="#">Information</a>
+          <a href="/info" data-no-turbolink="1">Information</a>
           <div class="i_description" style="display: none;">
             Information<BR>お問い合わせはこちらから
           </div>
@@ -374,7 +396,7 @@
               <img class="qimage" src="/image/q_trans.png">                        
             </div>
             <div class="col-xs-9 qtext">
-              <div id="qtext"></div>                        
+              <div id="qtext" class></div>                        
             </div>
           </div>
           <div class="row choices">

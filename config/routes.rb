@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get '/result/countup' => 'result#countup'
   get '/result/countdown' => 'result#countdown'
   get '/new_arrival' => 'welcome#new'
+  get '/info' => 'welcome#info'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
