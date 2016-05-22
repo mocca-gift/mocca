@@ -19,6 +19,11 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   root 'welcome#index'
+  
+  # for Line Bot
+  Rails.application.routes.draw do
+    post '/callback' => 'webhook#callback'
+  end
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
