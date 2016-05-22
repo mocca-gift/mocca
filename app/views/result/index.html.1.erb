@@ -1,0 +1,184 @@
+//likes=document.getElementById("likes");
+    //likes_num = <%= @Likes.size %>;
+    //if( likes_num==0 ){}
+    //else {
+    //  for(i=0 ; i<likes_num ; i++){
+    //  element=document.createElement("div");
+    //  element.innerHTML='<h1 class="giftname"><strong><%= @Likes['+i+'].name %></strong></h1><a href="<%= Lies['+i+'].url %>"><%= image_tag(img_gift_path(@Likes['+i+']), :height => "200px", :class => "gimg") %></a>';
+    //  likes.appendChild(element);
+    //  }
+    //}
+
+<%= javascript_tag do %>
+    window.onload=init;
+    
+    function init(){
+    function getXMLHttpRequestObject(){
+        var ajax=null;
+        if(window.XMLHttpRequest){
+            ajax=new XMLHttpRequest();
+        } else if (window.ActiveObject){
+            ajax=new ActiveObject('MSXML2.XMLHTTP.3.0');
+        }
+        return ajax;
+    }
+    function handleStateChange(){
+        if(ajax.readyState==4){
+            if((ajax.status>=200 && ajax.status<300) || (ajax.status==304)) {
+                document.getElementById('output').innerHTML=ajax.responseText;
+            }
+            else {
+                document.getElementById('output').innerHTML=ajax.statusText;
+            }
+        }
+    }
+    var ajax=getXMLHttpRequestObject();
+    ajax.onreadystatechange=handleStateChange;
+    
+    btnup1=document.getElementById("btnup1");
+    btnup2=document.getElementById("btnup2");
+    btndown1=document.getElementById("btndown1");
+    btndown2=document.getElementById("btndown2");
+    btnup1.onclick = function() {
+        ajax.open('GET','/result/countup?gift=<%= @intE %>&gift_ans=<%= @ansarray %>&gift_q=<%= @qarray %>',true);
+        ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+        ajax.send(null);
+    }
+    btnup2.onclick = function(){
+        ajax.open('GET','/result/countup?gift=<%= @intV %>&gift_ans=<%= @ansarray %>&gift_q=<%= @qarray %>',true);
+        ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+        ajax.send(null);
+        // document.frmup2.submit();
+    }
+    btndown1.onclick = function(){
+        ajax.open('GET','/result/countdown?gift=<%= @intE %>&gift_ans=<%= @ansarray %>&gift_q=<%= @qarray %>',true);
+        ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+        ajax.send(null);
+        // document.frmdown1.submit();
+    }
+    btndown2.onclick = function(){
+        ajax.open('GET','/result/countdown?gift=<%= @intV %>&gift_ans=<%= @ansarray %>&gift_q=<%= @qarray %>',true);
+        ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+        ajax.send(null);
+        // document.frmdown2.submit();
+    }
+    }
+<% end %>
+
+<%= @ansarray %><br>
+<%= @qarray %><br>
+
+<table>
+    <thead>
+        <tr>
+          <th>Questionid</th>
+          <th>Ansid</th>
+          <th>Count</th>  
+        </tr>
+    </thead>
+    <tbody>
+        <% @answers.each do |ans| %>
+        <tr>
+          <td><%= ans.question_id %></td>
+          <td><%= ans.ansid %></td>
+          <td><%= ans.count %></td>
+        </tr>
+        <% end %>
+    </tbody>
+</table>
+
+<table>
+    <thead>
+        <tr>
+          <th>Answerid</th>
+          <th>Evaluationid</th>
+          <th>Count</th>  
+        </tr>
+    </thead>
+    <tbody>
+        <% @anstoevals.each do |ae| %>
+        <tr>
+          <td><%= ae.answer_id %></td>
+          <td><%= ae.evaluation_id %></td>
+          <td><%= ae.count %></td>
+        </tr>
+        <% end %>
+    </tbody>
+</table>
+<br>
+
+<%= @bayes %>
+<%= @expectation %>
+<%= @dispersion %>
+<%= @intE %>
+<%= @intV %>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @gift1.name %>
+</p>
+
+<p>
+  <strong>Url:</strong>
+  <%= @gift1.url %>
+</p>
+
+<p>
+  <strong>Img:</strong>
+  <%= image_tag(img_gift_path(@gift1), :height => "100px") %>
+</p>
+
+<p>
+  <strong>Img content type:</strong>
+  <%= @gift1.img_content_type %>
+</p>
+
+<a class="btn" id="btnup1">heartup1</a>
+<a class="btn" id="btndown1">heartdown1</a>
+<p id="notice"><%= notice %></p>
+<%= form_tag({ controller: :result , action: :countup } , :name => :frmup1 , data: {:remote => true} , :authenticity_token => true ) do %>
+      <%= hidden_field_tag :gift, @intE %>
+      <%= hidden_field_tag :gift_ans, @ansarray %>
+      <%= hidden_field_tag :gift_q, @qarray %>
+<% end %>
+<%= form_tag({ controller: :result , action: :countdown } , :name => :frmdown1 , data: {:remote => true} , :authenticity_token => true) do %>
+      <%= hidden_field_tag :gift, @intE %>
+      <%= hidden_field_tag :gift_ans, @ansarray %>
+      <%= hidden_field_tag :gift_q, @qarray %>
+<% end %>
+<p>
+  <strong>Name:</strong>
+  <%= @gift2.name %>
+</p>
+
+<p>
+  <strong>Url:</strong>
+  <%= @gift2.url %>
+</p>
+
+<p>
+  <strong>Img:</strong>
+  <%= image_tag(img_gift_path(@gift2), :height => "100px") %>
+</p>
+
+<p>
+  <strong>Img content type:</strong>
+  <%= @gift2.img_content_type %>
+</p>
+<a class="btn" id="btnup2">heartup2</a>
+<a class="btn" id="btndown2">heartdown2</a>
+<%= form_tag({ controller: :result , action: :countup } , :name => :frmup2 , data: {:remote => true} , :authenticity_token => true ) do %>
+      <%= hidden_field_tag :gift, @intV %>
+      <%= hidden_field_tag :gift_ans, @ansarray %>
+      <%= hidden_field_tag :gift_q, @qarray %>
+<% end %>
+<%= form_tag({ controller: :result , action: :countdown } , :name => :frmdown2 , data: {:remote => true} , :authenticity_token => true ) do %>
+      <%= hidden_field_tag :gift, @intV %>
+      <%= hidden_field_tag :gift_ans, @ansarray %>
+      <%= hidden_field_tag :gift_q, @qarray %>
+<% end %>
+
+<p id="output"></p>
+<p id="msg"></p>

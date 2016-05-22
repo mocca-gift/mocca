@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+<!-- MEMO: update me with `git checkout gh-pages && git merge master && git push origin gh-pages` -->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+
+  <title>Gift App -question-</title>
+
+  <!--Jquery-->
+  <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+  
+  <!--Pointer-->
+  <!--<script src="/pointer/pointer.2.js"></script>-->
+  
+  <!--Animation-->
+  <link rel="stylesheet" href="/animation/animate.css">
+
+  <!-- Bootstrap -->
+  <link href="/bootstrap/css/bootstrap.css" rel="stylesheet">
+  <script src="/bootstrap/js/bootstrap.min.js"></script>
+
+
+  <style>
+    html {
+      height: 100%;
+    }
+    body {
+      background-image: url("/image/ribbon.png");
+      background-size: cover;
+      background-position: center;
+      font-family:  "Meiryo UI", メイリオ, Osaka, 'MS PGothic', arial, helvetica, sans-serif;
+    }
+    
+     /* Homepanels */
+      li {
+        list-style: none;
+      }
+      
+      .container {
+      }
+      
+      .headerPanels li {
+        float: left;
+      }
+      
+      .li-home {
+        margin-top: 1%;
+        height: 100px;
+        width: 300px;
+        float: left;
+      }
+      
+      .li-home a {
+        background-image: url("/image/smalllogo.png");
+        background-size: cover;
+        display: block;
+        height: 85px;
+        width: 270px;
+        margin: auto;
+        text-indent: -9999px;
+      }
+      
+      .li-home a:hover {
+        -webkit-transition: none;
+        -moz-transition: none;
+        -ms-transition: none;
+        -o-transition: none;
+        transition: none;
+        opacity: 0.6;
+        filter: alpha(opacity=60);
+        -webkit-transition: opacity 0.5s ease-out;
+        -moz-transition: opacity 0.5s ease-out;
+        -ms-transition: opacity 0.5s ease-out;
+        transition: opacity 0.5s ease-out;
+      }
+      
+      .li-btn {
+        margin-top: 1%;
+        height: 85px;
+        width: 85px;
+        float: left;
+      }
+    
+      .li-btn a {
+        background-size: 85px 85px;
+        display: block;
+        height: 85px;
+        width: 85px;
+        margin: auto;
+        text-indent: -9999px;
+      }
+      
+      .menu-q a {
+        background-image: url("/image/q.png");
+      }
+      .menu-n a {
+        background-image: url("/image/n.png");
+      }
+      .menu-i a {
+        background-image: url("/image/i.png");
+        border-bottom: double 10px #000000;
+      }
+      
+      .none {
+        height: 128px;
+        width: 128px;
+        float: left;
+      }
+      
+      a:link {
+        text-decoration: none;
+      }
+      
+      a:visited {
+        text-decoration: none;
+      }
+      
+      .q_description {
+        position: relative;
+        margin-top: 10px;
+        margin-left: -55px;
+        height: auto;
+        width: 200px;
+        padding: 5px;
+        border: solid 3px;
+        
+      }
+      
+      .q_description:before {
+      	content: "";
+      	position: absolute;
+      	top: -8px; left: 50%;
+      	margin-left: -9px;
+      	display: block;
+      	width: 0px;
+      	height: 0px;
+      	border-style: solid;
+      	border-width: 0 9px 9px 9px;
+      	border-color: transparent transparent #F6F6F6 transparent;
+      	z-index: 0;
+      }
+      .q_description:after {
+      	content: "";
+      	position: absolute;
+      	top: -12px; left: 50%;
+      	margin-left: -10px;
+      	display: block;
+      	width: 0px;
+      	height: 0px;
+      	border-style: solid;
+      	border-width: 0 10px 10px 10px;
+      	border-color: transparent transparent #19283C transparent;
+      	z-index: -1;
+      }
+      
+      .n_description {
+        margin-top: 10px;
+        margin-left: -55px;
+        height: auto;
+        width: 200px;
+        padding: 5px;
+        border: solid 3px;
+        position:relative;
+        
+      }
+      
+      .n_description:before {
+      	content: "";
+      	position: absolute;
+      	top: -8px; left: 50%;
+      	margin-left: -9px;
+      	display: block;
+      	width: 0px;
+      	height: 0px;
+      	border-style: solid;
+      	border-width: 0 9px 9px 9px;
+      	border-color: transparent transparent #F6F6F6 transparent;
+      	z-index: 0;
+      }
+      .n_description:after {
+      	content: "";
+      	position: absolute;
+      	top: -12px; left: 50%;
+      	margin-left: -10px;
+      	display: block;
+      	width: 0px;
+      	height: 0px;
+      	border-style: solid;
+      	border-width: 0 10px 10px 10px;
+      	border-color: transparent transparent #19283C transparent;
+      	z-index: -1;
+      }
+      
+      .contents {
+          text-align: center;
+          padding: 30px;
+      }
+      
+      .amcontents {
+          background-color: rgba(255,255,255,0.5);
+          margin-top: 3%;
+      }
+      
+      .maintitle {
+          text-align: center;
+          font-size: 4em;
+          border-top: solid 10px;
+          border-bottom: solid 5px;
+      }
+      
+      .title {
+          font-size: 2em;
+      }
+      
+      .contentsimg {
+          float: left;
+      }
+      
+      .maincontents {
+          float: right;
+          width: 80%;
+      }
+    
+    
+  </style>
+  <script>
+    
+  $(document).ready(function(){
+     $('.menu-q > a').hover(
+         function(){
+             $( '.q_description' ).fadeIn();
+         },
+         function(){
+             $( '.q_description' ).fadeOut();
+         }
+     );
+     
+     $('.menu-n > a').hover(
+         function(){
+             $( '.n_description' ).fadeIn();
+         },
+         function(){
+             $( '.n_description' ).fadeOut();
+         }
+     );
+              
+  });
+
+  </script>
+</head>
+
+  <body>
+    <div class="container">
+      <ul class="headerPanels">
+        <li class="li-home">
+          <a href="/">Home</a>
+        </li>
+        <li class="none"></li>
+        <li class="li-btn menu-q">
+          <a href="/qflow" data-no-turbolink="1">Questions</a>
+          <div class="q_description" style="display: none;">
+            Questions<BR>5つの質問でギフトを提案します
+          </div>
+        </li>
+        <li class="li-btn menu-n">
+          <a href="/new_arrival" data-no-turbolink="1">New gifts</a>
+          <div class="n_description" style="display: none;">
+            New Items<BR>新しいアイテムを表示します
+          </div>
+        </li>
+        <li class="li-btn menu-i">
+          <a>Information</a>
+        </li>
+      </div>
+    </div>
+    <div class="container amcontents">
+      <div class="about_us">
+          <div class="maintitle">
+              プレゼントの3箇条
+          </div>
+          <div class="row">
+              <div class="col-xs-9">
+                  <div class="title">
+                      <font size="10em">1.</font> プレゼントを渡したいと思う気持ちを大切に!!!
+                  </div>
+                  <div class="maincontents">
+                      プレゼントにおいて最も重要なのは，プレゼントを渡したいという気持ちです．
+                      理由など考えず，渡したいという気持ちのままにプレゼントを渡しましょう．
+                  </div>
+              </div>
+              <div class="col-xs-3"></div>
+          </div>
+          <div class="row">
+              <div class="col-xs-3"></div>
+              <div class="col-xs-9">
+                  <div class="title">
+                      <font size="10em">2.</font> プレゼントを渡したいと思ったら絶対渡そう!!!
+                  </div>
+                  <div class="maincontents">
+                      プレゼントを渡したいという気持ちがあるのに渡さないのはもったいないです．
+                      Moccaはそんな人に対して手軽にプレゼントを選べるようなサービスを提供しています．
+                  </div>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-xs-9">
+                  <div class="title">
+                      <font size="10em">3.</font> 自分の納得の行くプレゼントを渡そう!!!
+                  </div>
+                  <div class="maincontents">
+                      相手が満足いくプレゼントを考えるのは至難の業です．そうではなく，自分が渡したいものを渡したらどうでしょうか？
+                      プレゼントで重要なのはプレゼントの中身と，それに伴って生じる相手の満足ではありません．
+                  </div>
+              </div>
+              <div class="col-xs-3"></div>
+          </div>
+      </div>
+      <div class="contents">
+          <h3>ご意見・ご要望などございましたらこちらのメールアドレス宛までお願い致します．</h3>
+          <a href="mailto:mocca@example.com"><h3>(仮)mocca@example.com</h3></a>
+      </div>
+    </div>
+    
+  </body>
+  </html>

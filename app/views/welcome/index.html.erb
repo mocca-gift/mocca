@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GiftApp</title>
+    
+    <!--Jquery-->
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    
+    <!--Animation-->
+    <!--<link rel="stylesheet" href="/animation/animate.css">-->
+    
+
+    
+    <style>
+    
+    html {
+      height:100%;
+    }
+    
+     body {
+      background-image: url("/image/ribbon.png");
+      background-size: cover;
+      background-position: center;
+    } 
+      /*Header*/
+      .header .logo {
+        display: block;
+        height: 140px;
+        width: 433px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 5%;
+      }
+      
+      /* Homepanels */
+      li {
+        list-style: none;
+      }
+      
+      .homePanels li {
+        margin-top: 15%;
+        width: 20%;
+        height: 182px;
+        float: left;
+      }
+      
+      .homePanels li a {
+        display: block;
+        height: 182px;
+        width: 182px;
+        margin: auto;
+        border-bottom: 1px solid #ada59f;
+        text-indent: -9999px;
+      }
+      
+      a:hover {
+        -webkit-transition: none;
+        -moz-transition: none;
+        -ms-transition: none;
+        -o-transition: none;
+        transition: none;
+        opacity: 0.6;
+        filter: alpha(opacity=60);
+        -webkit-transition: opacity 0.5s ease-out;
+        -moz-transition: opacity 0.5s ease-out;
+        -ms-transition: opacity 0.5s ease-out;
+        transition: opacity 0.5s ease-out;
+      }
+      
+      a:link {
+        text-decoration: none;
+      }
+      
+      a:visited {
+        text-decoration: none;
+      }
+      
+      
+      @media screen and (max-width: 1000px ) {
+        .none {
+          display: none;
+        }
+        .homePanels li {
+          width: 33%;
+        }
+        
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <img class="logo" src="/image/largelogo.png">
+    </div>
+    <div>
+      <ul class="homePanels">
+        <li class="none"></li>
+        <li class="li-btn">
+          <a href="/qflow" data-no-turbolink="1" style="background-image: url('/image/top_q.png')">Questions</a>
+        </li>
+        <li class="li-btn">
+          <a href="/new_arrival" data-no-turbolink="1" style="background-image: url('/image/top_n.png')">New gifts</a>
+        </li>
+        <li class="li-btn">
+          <a href="/info" data-no-turbolink="1" style="background-image: url('/image/top_i.png')">Information</a>
+        </li>
+        <li class="none"></li>
+      </ul>
+    </div>
+    
+  </body>
+</html>
