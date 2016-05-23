@@ -55,7 +55,7 @@ class WebhookController < ApplicationController
         
         # answerモデルに結果を代入
         # for i in 0..4 do
-        for i in 1..(@ansarray.length-1) do
+        for i in 1..(@ansarray.length) do
             answer=Answer.where(question_id: @qarray[i]).find_by_ansid(@ansarray[i]) || Answer.new(question_id: @qarray[i], ansid: @ansarray[i], count: 0)
             answer.save
             #n=answer.count
