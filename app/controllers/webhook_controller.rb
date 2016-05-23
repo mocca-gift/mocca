@@ -23,33 +23,35 @@ class WebhookController < ApplicationController
       case text_message.upcase
       when "Q" then
         @questions=Question.order("RANDOM()").limit(5)
-        qarray=""
+        qarray="0"
         @questions.each do |q|
-          qarray+=q.id.to_s
           qarray+=","
+          qarray+=q.id.to_s
         end
         message=@questions[0].body+"\nYESの場合は1をNOの場合は2を返して下さい．\n"+qarray
-        @talk=Talk.create(:user => from_mid, :text => "", :question => qarray)
+        @talk=Talk.create(:user => from_mid, :text => "0", :question => qarray)
       else
         message="質問を始めたい時はQと送って下さい．"
       end
       
     else
-      if Talk.where(:user => from_mid).count<5 then
+      @talk=Talk.find_by(:user => from_mid)
+      qarray=@talk.question.split(",")
+      ansarray=@talk.text.split(",")
+      i=ansarray.count
+      if i<6 then
         case text_message
         when "1" then
-          @question=Question.offset( rand(Question.count) ).first
-          message=@question.body+"\nYESの場合は1をNOの場合は2を返して下さい．"
-          @talk=Talk.create(:user => from_mid, :text => text_message)
+          message=Question.find_by_id(qarray[i]).body+"\nYESの場合は1をNOの場合は2を返して下さい．"
+          @talk.update(:text => @talk.text+","+text_message)
         when "2" then
-          @question=Question.offset( rand(Question.count) ).first
-          message=@question.body+"\nYESの場合は1をNOの場合は2を返して下さい．"
-          @talk=Talk.create(:user => from_mid, :text => text_message)
+          message=Question.find_by_id(qarray[i]).body+"\nYESの場合は1をNOの場合は2を返して下さい．"
+          @talk.update(:text => @talk.text+","+text_message)
         else
           message="1か2で答えてください"
         end
       else
-        message="Result should come"
+        message=@talk.question+@talk.text
         Talk.destroy_all(:user => from_mid)
       end
     end
