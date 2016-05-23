@@ -20,8 +20,8 @@ class WebhookController < ApplicationController
     from_mid =result['content']['from']
     
     
-    @line=Talk.new(:user => from_mid, :text => text_message)
-    prev_message=@line.text_message
+    @talk=Talk.new(:user => from_mid, :text => text_message)
+    prev_message=@talk.text+"by"+@talk.user
     
     client = LineClient.new(CHANNEL_ID, CHANNEL_SECRET, CHANNEL_MID, OUTBOUND_PROXY)
     res = client.send([from_mid], prev_message)
