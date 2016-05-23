@@ -25,7 +25,7 @@ class WebhookController < ApplicationController
         @questions=Question.order("RANDOM()").limit(5)
         qarray=""
         @questions.each do |q|
-          qarray+=q.id
+          qarray+=q.id.to_s
           qarray+=","
         end
         message=@questions[0].body+"\nYESの場合は1をNOの場合は2を返して下さい．\n"+qarray
