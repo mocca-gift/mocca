@@ -42,15 +42,16 @@ class WebhookController < ApplicationController
       if i<5 then
         case text_message
         when "1" then
-          message=Question.find_by_id(qarray[i]).body+"\nYESの場合は1をNOの場合は2を返して下さい．"
+          message=Question.find_by_id(qarray[i+1]).body+"\nYESの場合は1をNOの場合は2を返して下さい．"
           @talk.update(:text => @talk.text+","+text_message)
         when "2" then
-          message=Question.find_by_id(qarray[i]).body+"\nYESの場合は1をNOの場合は2を返して下さい．"
+          message=Question.find_by_id(qarray[i+1]).body+"\nYESの場合は1をNOの場合は2を返して下さい．"
           @talk.update(:text => @talk.text+","+text_message)
         else
           message="1か2で答えてください"
         end
       else
+        @talk.update(:text => @talk.text+","+text_message)
         message=@talk.question+@talk.text
         Talk.destroy_all(:user => from_mid)
       end
