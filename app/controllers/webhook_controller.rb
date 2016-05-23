@@ -33,11 +33,11 @@ class WebhookController < ApplicationController
       if Talk.where(:user => from_mid).count<5 then
         case text_message
         when "1" then
-          @question=Question.order("RANDOM()").limit(1)
+          @question=Question.offset( rand(Question.count) ).first
           message=@question.body+"\n YESの場合は1をNOの場合は2を返して下さい．"
           @talk=Talk.create(:user => from_mid, :text => text_message)
         when "2" then
-          @question=Question.order("RANDOM()").limit(1)
+          @question=Question.offset( rand(Question.count) ).first
           message=@question.body+"\n YESの場合は1をNOの場合は2を返して下さい．"
           @talk=Talk.create(:user => from_mid, :text => text_message)
         else
