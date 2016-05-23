@@ -38,7 +38,7 @@ class WebhookController < ApplicationController
       @talk=Talk.find_by(:user => from_mid)
       @qarray=@talk.question.split(",")
       @ansarray=@talk.text.split(",")
-      i=ansarray.count
+      i=@ansarray.count
       if i<5 then
         case text_message
         when "1" then
