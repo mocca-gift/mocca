@@ -16,12 +16,13 @@ class WebhookController < ApplicationController
     result = params[:result][0]
     logger.info({from_line: result})
     
-    text_message = result['content']['from']
+    text_message = result['content']['text']
     from_mid =result['content']['from']
     
     
-    @talk=Question.new(:body => from_mid+text_message)
-    prev_message=@talk.body
+    
+    @talk=Talk.create(:user => from_mid, :text => text_message)
+    prev_message=@talk.text
     
     client = LineClient.new(CHANNEL_ID, CHANNEL_SECRET, CHANNEL_MID, OUTBOUND_PROXY)
     res = client.send([from_mid], prev_message)
