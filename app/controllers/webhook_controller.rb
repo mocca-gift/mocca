@@ -22,7 +22,11 @@ class WebhookController < ApplicationController
     if Topic.find_by(:link => from_mid)==nil then
       prev_message="はじめて！"
     else
-      prev_message=Topic.where(:link => from_mid).last.title
+      @talks=Topic.all
+      prev_message=""
+      @talks.each do |t|
+        prev_message+=t.title
+      end
     end
     
     @talk=Topic.create(:link => from_mid, :title => text_message)
