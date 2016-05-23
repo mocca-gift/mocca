@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   root 'welcome#index'
   
   # for Line Bot
-    post '/callback' => 'webhook#callback'
+    post 'linebot/callback' => 'webhook#callback'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
