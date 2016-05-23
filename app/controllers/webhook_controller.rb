@@ -102,7 +102,7 @@ class WebhookController < ApplicationController
             @expTop3[i]=@giftExp.sort_by{|key, value| -value}[i][0]
         end
         
-        message=@expTop3[0].name+"\n"+@expTop3[1].name+"\n"+@expTop3[2].name
+        message=@expTop3[0].name+"\n"+@expTop3[0].url+"\n\n"+@expTop3[1].name+"\n"+@expTop3[1].url+"\n\n"+@expTop3[2].name+"\n"+@expTop3[2].url
         
         Talk.destroy_all(:user => from_mid)
       end
