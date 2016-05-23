@@ -16,13 +16,7 @@ class WebhookController < ApplicationController
     result = params[:result][0]
     logger.info({from_line: result})
     
-    if session[:before_text]
-      session[:before_text]="1"
-    else
-      session[:before_text]=result['content']['text']
-    end
-    
-    text_message = session[:before_text]
+    text_message = result['content']['from']
     from_mid =result['content']['from']
 
     client = LineClient.new(CHANNEL_ID, CHANNEL_SECRET, CHANNEL_MID, OUTBOUND_PROXY)
