@@ -20,10 +20,7 @@ class WebhookController < ApplicationController
     from_mid =result['content']['from']
     
     
-    @line=Line.new(user: from_mid, text: text_message)
-    @line.save
-    
-    prev_message=@line.text
+    prev_message=@Gift.find(1).name
     
     client = LineClient.new(CHANNEL_ID, CHANNEL_SECRET, CHANNEL_MID, OUTBOUND_PROXY)
     res = client.send([from_mid], prev_message)
