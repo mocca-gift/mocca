@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
   get '/qflow' => 'qflow#index'
   get '/qflow_continue' => 'qflow#continue'
-  post '/result/index' => 'result#index'
+  post '/result' => 'result#index'
   get '/result/countup' => 'result#countup'
   get '/result/countdown' => 'result#countdown'
   get '/new_arrival' => 'welcome#new'

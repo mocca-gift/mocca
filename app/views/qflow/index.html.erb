@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <!-- MEMO: update me with `git checkout gh-pages && git merge master && git push origin gh-pages` -->
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
 
-  <title>Gift App -question-</title>
+  <title>Mocca-Q-</title>
 
   <!--Jquery-->
   <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
@@ -414,7 +414,7 @@
         <div class="col-xs-2"></div>
       </div>
     
-    <%= form_tag('result/index' , :name => :frm , :method => :post) do %>
+    <%= form_tag('/result' , :name => :frm , :method => :post) do %>
       <%= hidden_field_tag :postdata1 %>
       <%= hidden_field_tag :postdata2 %>
     <% end %>

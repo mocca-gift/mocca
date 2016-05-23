@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>GiftApp</title>
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <title>Mocca</title>
     
     <!--Jquery-->
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
@@ -24,12 +24,12 @@
       background-image: url("/image/ribbon.png");
       background-size: cover;
       background-position: center;
+      background-repeat: no-repeat;
     } 
       /*Header*/
       .header .logo {
         display: block;
-        height: 140px;
-        width: 433px;
+        width: 80vmin;
         margin-left: auto;
         margin-right: auto;
         margin-top: 5%;
@@ -38,19 +38,25 @@
       /* Homepanels */
       li {
         list-style: none;
+        width: 100%;
       }
       
       .homePanels li {
-        margin-top: 15%;
-        width: 20%;
-        height: 182px;
+        margin-top: 12%;
+        width: 18vmax;
+        height: 18vmax;
+        position: relative;
         float: left;
       }
       
       .homePanels li a {
         display: block;
-        height: 182px;
-        width: 182px;
+        position: absolute;
+        top: 5%;
+        left: 5%;
+        height: 90%;
+        width: 90%;
+        background-size: 100% 100%;
         margin: auto;
         border-bottom: 1px solid #ada59f;
         text-indent: -9999px;
@@ -84,8 +90,12 @@
           display: none;
         }
         .homePanels li {
-          width: 33%;
-        }
+        margin-top: 12%;
+        width: 30vmax;
+        height: 30vmax;
+        position: relative;
+        float: left;
+      }
         
       }
     </style>
