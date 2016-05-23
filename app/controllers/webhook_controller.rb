@@ -19,10 +19,13 @@ class WebhookController < ApplicationController
     text_message = result['content']['text']
     from_mid =result['content']['from']
     
-    
+    if Topic.find_by(:link => from_mid)==nil then
+      prev_message="はじめて！"
+    else
+      prev_message=Topic.where(:link => from_mid).last.title
+    end
     
     @talk=Topic.create(:link => from_mid, :title => text_message)
-    prev_message=@talk.title
     
     client = LineClient.new(CHANNEL_ID, CHANNEL_SECRET, CHANNEL_MID, OUTBOUND_PROXY)
     res = client.send([from_mid], prev_message)
