@@ -17,7 +17,7 @@ class WebhookController < ApplicationController
     logger.info({from_line: result})
     
     if session[:before_text]
-      session[:before_text]+=result['content']['text']
+      session[:before_text]="1"
     else
       session[:before_text]=result['content']['text']
     end
