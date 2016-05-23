@@ -20,19 +20,37 @@ class WebhookController < ApplicationController
     from_mid =result['content']['from']
     
     if Talk.find_by(:user => from_mid)==nil then
-      prev_message="はじめて！"
+      case text_message.upcase
+      when "Q" then
+        @question=Question.order("RANDOM()").limit(1)
+        message=@question.body+"\n YESの場合は1をNOの場合は2を返して下さい．"
+        @talk=Talk.create(:user => from_mid, :text => text_message)
+      else
+        message="質問を始めたい時はQと送って下さい．"
+      end
+      
     else
-      @talks=Talk.where(:user => from_mid)
-      prev_message=""
-      @talks.each do |t|
-        prev_message+=t.text
+      if Talk.where(:user => from_mid).count<5 then
+        case text_message
+        when "1" then
+          @question=Question.order("RANDOM()").limit(1)
+          message=@question.body+"\n YESの場合は1をNOの場合は2を返して下さい．"
+          @talk=Talk.create(:user => from_mid, :text => text_message)
+        when "2" then
+          @question=Question.order("RANDOM()").limit(1)
+          message=@question.body+"\n YESの場合は1をNOの場合は2を返して下さい．"
+          @talk=Talk.create(:user => from_mid, :text => text_message)
+        else
+          message="1か2で答えてください"
+        end
+      else
+        message="Result should come"
+        Talk.destroy_all(:user => from_mid)
       end
     end
     
-    @talk=Talk.create(:user => from_mid, :text => text_message)
-    
     client = LineClient.new(CHANNEL_ID, CHANNEL_SECRET, CHANNEL_MID, OUTBOUND_PROXY)
-    res = client.send([from_mid], prev_message)
+    res = client.send([from_mid], message)
 
     if res.status == 200
       logger.info({success: res})
