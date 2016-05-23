@@ -22,7 +22,7 @@ class WebhookController < ApplicationController
     if Talk.find_by(:user => from_mid)==nil then
       prev_message="はじめて！"
     else
-      @talks=Topic.where(:user => from_mid)
+      @talks=Talk.where(:user => from_mid)
       prev_message=""
       @talks.each do |t|
         prev_message+=t.text
