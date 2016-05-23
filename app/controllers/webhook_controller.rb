@@ -39,7 +39,7 @@ class WebhookController < ApplicationController
       qarray=@talk.question.split(",")
       ansarray=@talk.text.split(",")
       i=ansarray.count
-      if i<6 then
+      if i<5 then
         case text_message
         when "1" then
           message=Question.find_by_id(qarray[i]).body+"\nYESの場合は1をNOの場合は2を返して下さい．"
