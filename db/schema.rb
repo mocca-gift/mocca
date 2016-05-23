@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160523154637) do
+ActiveRecord::Schema.define(version: 20160523194053) do
 
   create_table "anstoevals", force: :cascade do |t|
     t.integer  "answer_id"
@@ -81,6 +81,7 @@ ActiveRecord::Schema.define(version: 20160523154637) do
     t.string   "text"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "question"
   end
 
   create_table "topics", force: :cascade do |t|

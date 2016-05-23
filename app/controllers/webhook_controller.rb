@@ -22,9 +22,14 @@ class WebhookController < ApplicationController
     if Talk.find_by(:user => from_mid)==nil then
       case text_message.upcase
       when "Q" then
-        @question=Question.offset( rand(Question.count) ).first
-        message=@question.body+"\nYESの場合は1をNOの場合は2を返して下さい．"
-        @talk=Talk.create(:user => from_mid, :text => text_message)
+        @questions=Question.order("RANDOM()").limit(5)
+        qarray=""
+        @questions.each do |q|
+          qarray+=q.id
+          qarray+=","
+        end
+        message=@questions[0].body+"\nYESの場合は1をNOの場合は2を返して下さい．\n"+qarray
+        @talk=Talk.create(:user => from_mid, :text => "", :question => qarray)
       else
         message="質問を始めたい時はQと送って下さい．"
       end
