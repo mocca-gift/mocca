@@ -18,9 +18,17 @@ class WebhookController < ApplicationController
     
     text_message = result['content']['from']
     from_mid =result['content']['from']
-
+    
+    if Line.find_by(user: from_mid)==nil then
+      prev_message="This is first Message"
+    else
+      prev_message=Line.find_by(user: from_mid)
+    end
+    
+    @line=Line.new(user: from_mid, text: text_message)
+    
     client = LineClient.new(CHANNEL_ID, CHANNEL_SECRET, CHANNEL_MID, OUTBOUND_PROXY)
-    res = client.send([from_mid], text_message)
+    res = client.send([from_mid], prev_message)
 
     if res.status == 200
       logger.info({success: res})
