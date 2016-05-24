@@ -51,6 +51,8 @@ class WebhookController < ApplicationController
           message="1か2で答えてください"
         end
       else
+        client1 = LineClient.new(CHANNEL_ID, CHANNEL_SECRET, CHANNEL_MID, OUTBOUND_PROXY)
+        res = client1.send([from_mid], "今考えてるよ")
         @talk.update(:text => @talk.text+","+text_message)
         
         # answerモデルに結果を代入
