@@ -107,7 +107,7 @@ class WebhookController < ApplicationController
         end
         
         message=@expTop3[0].name+"\n"+@expTop3[0].url+"\n\n"+@expTop3[1].name+"\n"+@expTop3[1].url+"\n\n"+@expTop3[2].name+"\n"+@expTop3[2].url
-        res = client.sendImage([from_mid], "http://up.gc-img.net/post_img_web/2015/10/nBUYNKRa5eDCuvQ_3692.jpeg", "http://up.gc-img.net/post_img_web/2015/10/nBUYNKRa5eDCuvQ_3692.jpeg" )
+        res = client.sendImage([from_mid], "/gifts/8/img", "/gifts/8/img" )
         Talk.destroy_all(:user => from_mid)
       end
     end
