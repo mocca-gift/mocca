@@ -107,7 +107,7 @@ class WebhookController < ApplicationController
         end
         
         message=@expTop3[0].name+"\n"+@expTop3[0].url+"\n\n"+@expTop3[1].name+"\n"+@expTop3[1].url+"\n\n"+@expTop3[2].name+"\n"+@expTop3[2].url
-        res = client.sendImage([from_mid], "https://guarded-reaches-70446.herokuapp.com/gifts/8/img", "https://guarded-reaches-70446.herokuapp.com/gifts/8/img" )
+        res = client.sendImage([from_mid], "https://guarded-reaches-70446.herokuapp.com/gifts/"+@expTop3[0].id.to_s+"/img", "https://guarded-reaches-70446.herokuapp.com/gifts/"+@expTop3[0].id.to_s+"/img" )
         Talk.destroy_all(:user => from_mid)
       end
     end
