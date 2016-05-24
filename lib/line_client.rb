@@ -61,4 +61,18 @@ class LineClient
         eventType: EVENT_TYPE
     })
   end
+  
+  def sendImage(line_ids, url, imageurl)
+    post('/v1/events', {
+        to: line_ids,
+        content: {
+            contentType: ContentType::IMAGE,
+            toType: ToType::USER,
+            originalContentUrl: url,
+            previewImageUrl: imageurl
+        },
+        toChannel: TO_CHANNEL,
+        eventType: EVENT_TYPE
+    })
+  end
 end

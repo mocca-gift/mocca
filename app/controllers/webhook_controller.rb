@@ -19,6 +19,8 @@ class WebhookController < ApplicationController
     text_message = result['content']['text']
     from_mid =result['content']['from']
     
+    client = LineClient.new(CHANNEL_ID, CHANNEL_SECRET, CHANNEL_MID, OUTBOUND_PROXY)
+    
     if Talk.find_by(:user => from_mid)==nil then
       case text_message.upcase
       when "Q" then
@@ -28,7 +30,8 @@ class WebhookController < ApplicationController
           qarray+=","
           qarray+=q.id.to_s
         end
-        message=@questions[0].body+"\nYESの場合は1をNOの場合は2を返して下さい．\n"+qarray
+        res = client.send([from_mid], "「はい」か「いいえ」で答えてください")
+        message=@questions[0].body
         @talk=Talk.create(:user => from_mid, :text => "0", :question => qarray)
       else
         message="質問を始めたい時はQと送って下さい．"
@@ -41,18 +44,17 @@ class WebhookController < ApplicationController
       i=@ansarray.count
       if i<5 then
         case text_message
-        when "1" then
-          message=Question.find_by_id(@qarray[i+1]).body+"\nYESの場合は1をNOの場合は2を返して下さい．"
-          @talk.update(:text => @talk.text+","+text_message)
-        when "2" then
-          message=Question.find_by_id(@qarray[i+1]).body+"\nYESの場合は1をNOの場合は2を返して下さい．"
-          @talk.update(:text => @talk.text+","+text_message)
+        when "はい" then
+          message=Question.find_by_id(@qarray[i+1]).body
+          @talk.update(:text => @talk.text+",1")
+        when "いいえ" then
+          message=Question.find_by_id(@qarray[i+1]).body
+          @talk.update(:text => @talk.text+",2")
         else
-          message="1か2で答えてください"
+          message="「はい」か「いいえ」で答えてください"
         end
       else
-        client1 = LineClient.new(CHANNEL_ID, CHANNEL_SECRET, CHANNEL_MID, OUTBOUND_PROXY)
-        res = client1.send([from_mid], "今考えてるよ")
+        res = client.send([from_mid], "あなたに最適なギフトは...")
         @talk.update(:text => @talk.text+","+text_message)
         
         # answerモデルに結果を代入
@@ -105,12 +107,11 @@ class WebhookController < ApplicationController
         end
         
         message=@expTop3[0].name+"\n"+@expTop3[0].url+"\n\n"+@expTop3[1].name+"\n"+@expTop3[1].url+"\n\n"+@expTop3[2].name+"\n"+@expTop3[2].url
-        # res = client1.send([from_mid], @expTop3[0].img)
+        res = client.sendImage([from_mid], @expTop3[0].url, "/gifts/"+@expTop3[0].id+"/img" )
         Talk.destroy_all(:user => from_mid)
       end
     end
     
-    client = LineClient.new(CHANNEL_ID, CHANNEL_SECRET, CHANNEL_MID, OUTBOUND_PROXY)
     res = client.send([from_mid], message)
 
     if res.status == 200
