@@ -3,7 +3,6 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Mocca</title>
     
     <!--Jquery-->
@@ -21,18 +20,27 @@
     }
     
      body {
+      height: 100%;
+      margin: 0;
+      background-color: rgb(0,30,67);
+    } 
+    
+    .wrapper {
+      width: 1024px;
+      height: 100%;
+      margin: auto;
       background-image: url("/image/ribbon.png");
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
-    } 
+    }
       /*Header*/
       .header .logo {
         display: block;
-        width: 80vmin;
+        width: 60%;
         margin-left: auto;
         margin-right: auto;
-        margin-top: 5%;
+        padding-top: 5%;
       }
       
       /* Homepanels */
@@ -43,8 +51,8 @@
       
       .homePanels li {
         margin-top: 12%;
-        width: 18vmax;
-        height: 18vmax;
+        width: 20%;
+        height: 200px;
         position: relative;
         float: left;
       }
@@ -85,23 +93,24 @@
       }
       
       
-      @media screen and (max-width: 1000px ) {
-        .homePanels li {
-          margin-top: 12%;
-          width: 30vmin;
-          height: 30vmin;
-          position: relative;
-          float: left;
-        }
+      /*@media screen and (max-width: 1000px ) {*/
+      /*  .homePanels li {*/
+      /*    margin-top: 12%;*/
+      /*    width: 30vmin;*/
+      /*    height: 30vmin;*/
+      /*    position: relative;*/
+      /*    float: left;*/
+      /*  }*/
         
-        .none {
-          display: none;
-        }
+      /*  .none {*/
+      /*    display: none;*/
+      /*  }*/
         
-      }
+      /*}*/
     </style>
   </head>
   <body>
+    <div class="wrapper">
     <div class="header">
       <img class="logo" src="/image/largelogo.png">
     </div>
@@ -120,6 +129,6 @@
         <li class="none"></li>
       </ul>
     </div>
-    
+    </div>
   </body>
 </html>

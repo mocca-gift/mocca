@@ -23,14 +23,21 @@
 
 
   <style>
-    html {
+   html {
       height: 100%;
     }
     body {
+      height:100%;
+      background-color: rgb(0,30,67);
+      font-family:  "Meiryo UI", メイリオ, Osaka, 'MS PGothic', arial, helvetica, sans-serif;
+    }
+    .wrapper {
+      width: 1024px;
+      margin:auto;
       background-image: url("/image/ribbon.png");
       background-size: cover;
       background-position: center;
-      font-family:  "Meiryo UI", メイリオ, Osaka, 'MS PGothic', arial, helvetica, sans-serif;
+      background-attachment: fixed;
     }
     
      /* Homepanels */
@@ -38,7 +45,8 @@
         list-style: none;
       }
       
-      .container {
+      ul  {
+        padding-bottom: 150px;
       }
       
       .headerPanels li {
@@ -253,7 +261,7 @@
 </head>
 
   <body>
-    <div class="container">
+    <div class="wrapper">
       <ul class="headerPanels">
         <li class="li-home">
           <a href="/">Home</a>
@@ -274,9 +282,8 @@
         <li class="li-btn menu-i">
           <a>Information</a>
         </li>
-      </div>
-    </div>
-    <div class="container amcontents">
+      </ul>
+    <div class="amcontents">
       <div class="about_us">
           <div class="maintitle">
               プレゼントの3箇条
@@ -323,6 +330,7 @@
           <a href="mailto:mocca@example.com"><h3>(仮)mocca@example.com</h3></a>
       </div>
     </div>
+  </div>
     
   </body>
   </html>

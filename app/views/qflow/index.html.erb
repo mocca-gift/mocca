@@ -90,15 +90,26 @@
       height: 100%;
     }
     body {
+      height:100%;
+      background-color: rgb(0,30,67);
+      font-family:  "Meiryo UI", メイリオ, Osaka, 'MS PGothic', arial, helvetica, sans-serif;
+    }
+    .wrapper {
+      width: 1024px;
+      height:100%;
+      margin:auto;
       background-image: url("/image/ribbon.png");
       background-size: cover;
       background-position: center;
-      font-family:  "Meiryo UI", メイリオ, Osaka, 'MS PGothic', arial, helvetica, sans-serif;
     }
     
      /* Homepanels */
       li {
         list-style: none;
+      }
+      
+      ul  {
+        padding-bottom: 100px;
       }
       
       .headerPanels li {
@@ -164,8 +175,8 @@
       }
       
       .none {
-        height: 128px;
-        width: 128px;
+        height: 85px;
+        width: 85px;
         float: left;
       }
       
@@ -254,12 +265,16 @@
       }
     
       .qheader {
-        width: 100%;
         padding: 30px;
+        height: 150px;
       }
       
       .choices {
-        padding: 30px;
+        padding-left: 30px;
+        padding-right: 30px;
+        padding-top: 60px;
+        padding-bottom: 30px;
+        height: 250px;
       }
       
       .choice {
@@ -267,7 +282,6 @@
         display: block;
         height: 100px;
         width: 100px;
-        margin: auto;
         text-indent: -9999px;
       }
       
@@ -289,14 +303,27 @@
         display: block;
       }
       
-      .qcontent {
-        width: 500px;
+      .frame {
+        width: 80%;
+        margin: auto;
+        background-color: rgba(255,255,255,0.5);
+      }
+      
+      .qframe {
+        height: 110px;
+        width: 110px;
+        float: left;
+      }
+      
+      .qtextframe {
+        height: auto;
+        width: 84%;
+        float:left;
       }
       
       .qimage{
         display: block;
         width: 100px;
-        height: 100px;
         margin: auto;
       }
       
@@ -320,8 +347,19 @@
         margin-top: 3%;
       }
       
-      .frame {
-        background-color: rgba(255,255,255,0.5);
+      .choiceframe1{
+        width: 100px;
+        height: 100px;
+        margin-left: 200px;
+        margin-right: 60px;
+        float:left;
+      }
+      .choiceframe2{
+        width: 100px;
+        height: 100px;
+        margin-left: 60px;
+        margin-right: 200px;
+        float:left;
       }
       
       .slideOutRight {
@@ -398,7 +436,7 @@
 </head>
 
   <body>
-    <div class="container">
+    <div class="wrapper">
       <ul class="headerPanels">
         <li class="li-home">
           <a href="/">Home</a>
@@ -419,33 +457,27 @@
             Information<BR>お問い合わせはこちらから
           </div>
         </li>
-      </div>
-    </div>
-    <div class="container question">
-      <div class="row">
-        <div class="col-xs-2"></div>
-        <div class="col-xs-8 frame">
-          <div class="qheader row">
-            <div class="col-xs-3">
+        </ul>
+    <div class="question">
+        <div class="frame">
+          <div class="qheader">
+            <div class="qframe">
               <img class="qimage" src="/image/q_trans.png">                        
             </div>
-            <div class="col-xs-9 qtext">
+            <div class="qtextframe">
               <div id="qtext" class></div>                        
             </div>
           </div>
-          <div class="row choices">
-            <div class="col-xs-2"></div>
-            <div class="col-xs-3">
+          <div class="choices">
+            <div class="choiceframe1">
               <a href="javascript:void(0)" class="choice yes-btn" id="btn1">YES</a>
             </div>
-            <div class="col-xs-2"></div>
-            <div class="col-xs-3">
+            <div class="choiceframe2">
               <a href="javascript:void(0)" class="choice no-btn" id="btn2">NO</a>
             </div>
-            <div class="col-xs-2"></div>
           </div>
         </div>
-        <div class="col-xs-2"></div>
+      </div>
       </div>
       <div class="pop" style="display:block;">
       <div class="pop-in">

@@ -123,11 +123,17 @@
       height: 100%;
     }
     body {
+      height:100%;
+      background-color: rgb(0,30,67);
+      font-family:  "Meiryo UI", メイリオ, Osaka, 'MS PGothic', arial, helvetica, sans-serif;
+    }
+    .wrapper {
+      width: 1024px;
+      height:100%;
+      margin:auto;
       background-image: url("/image/ribbon.png");
       background-size: cover;
       background-position: center;
-      font-family: "Meiryo UI", メイリオ, Osaka, 'MS PGothic', arial, helvetica, sans-serif;
-      
     }
     
      /* Homepanels */
@@ -135,9 +141,9 @@
         list-style: none;
       }
       
-      /*.headerPanels li {*/
-      /*  float: left;*/
-      /*}*/
+      ul  {
+        padding-bottom: 100px;
+      }
       
       .li-home {
         margin-top: 1%;
@@ -191,8 +197,8 @@
       }
       
       .none {
-        height: 128px;
-        width: 128px;
+        height: 85px;
+        width: 85px;
         float: left;
       }
       
@@ -286,6 +292,7 @@
       background-color: rgba(255,255,255,0.5);
       padding-bottom: 50px;
       outline: none;
+      margin-left: 180px;
     }
     
     .giftcontent {
@@ -391,6 +398,10 @@
     .slick {
       background-color: rgba(255,255,255,0);
     }
+    
+    .row {
+      width: 100%;
+    }
 
     .slick-prev, .slick-next {
       width:50px;
@@ -436,31 +447,6 @@
       }
     }
     
-    @media screen and (max-width: 999px){
-      .li-home {
-        margin-left:auto;
-        margin-right:auto;
-      }
-      .li-btn {
-        height: 85px;
-        width: 33%;
-        float: left;
-      }
-      .none {
-        display: none;
-      }
-      .tabtn {
-        height: 75px;
-        width: 150px;
-      }
-    }
-    
-    @media screen and (max-width: 500px){
-      .tabtn {
-        height: 50px;
-        width: 100px;
-      }
-    }
     
 
   </style>
@@ -507,7 +493,7 @@
   </script>
   </head>
     <body>
-    <div class="container">
+    <div class="wrapper">
       <ul class="headerPanels">
         <li class="li-home">
           <a href="/">Home</a>
@@ -528,15 +514,12 @@
             Information<BR>お問い合わせはこちらから
           </div>
         </li>
-      </div>
-    </div>
+      </ul>
+  
     <div class="result">
-      <div class="container">
         <div class="row">
-          <div class="col-xs-1">
-          </div>
           <div id="slick_container">
-          <div class="col-xs-10 slider single-item">
+          <div class="col-xs-10 sliick single-item">
             <!------------------------------------------------------------------------>
             <!-- Gift Start -->
             <div class="gift">
@@ -644,8 +627,6 @@
               <img src="/image/right.png"  height="200px" width="50px" alt="">
             </div>
           </div>
-          </div>
-          <div class="col-xs-1">
           </div>
         </div>
         <div class="row">
