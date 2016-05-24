@@ -105,9 +105,16 @@ class WebhookController < ApplicationController
         for i in 0..(@expTop3.length-1) do
             @expTop3[i]=@giftExp.sort_by{|key, value| -value}[i][0]
         end
-        
-        message=@expTop3[0].name+"\n"+@expTop3[0].url+"\n\n"+@expTop3[1].name+"\n"+@expTop3[1].url+"\n\n"+@expTop3[2].name+"\n"+@expTop3[2].url
+        message=message=@expTop3[0].name+"\n"+@expTop3[0].url
+        res = client.send([from_mid], message)
         res = client.sendImage([from_mid], "https://guarded-reaches-70446.herokuapp.com/gifts/"+@expTop3[0].id.to_s+"/img", "https://guarded-reaches-70446.herokuapp.com/gifts/"+@expTop3[0].id.to_s+"/img" )
+        message=message=@expTop3[1].name+"\n"+@expTop3[1].url
+        res = client.send([from_mid], message)
+        res = client.sendImage([from_mid], "https://guarded-reaches-70446.herokuapp.com/gifts/"+@expTop3[1].id.to_s+"/img", "https://guarded-reaches-70446.herokuapp.com/gifts/"+@expTop3[1].id.to_s+"/img" )
+        message=message=@expTop3[2].name+"\n"+@expTop3[2].url
+        res = client.send([from_mid], message)
+        res = client.sendImage([from_mid], "https://guarded-reaches-70446.herokuapp.com/gifts/"+@expTop3[2].id.to_s+"/img", "https://guarded-reaches-70446.herokuapp.com/gifts/"+@expTop3[2].id.to_s+"/img" )
+        message="気に入りましたか？"
         Talk.destroy_all(:user => from_mid)
       end
     end
