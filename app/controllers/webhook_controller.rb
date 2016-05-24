@@ -105,7 +105,7 @@ class WebhookController < ApplicationController
         end
         
         message=@expTop3[0].name+"\n"+@expTop3[0].url+"\n\n"+@expTop3[1].name+"\n"+@expTop3[1].url+"\n\n"+@expTop3[2].name+"\n"+@expTop3[2].url
-        res = client1.send_data([from_mid], @expTop3[0].img, type: @expTop3[0].img_content_type, disposition: :inline)
+        res = client1.send([from_mid], @expTop3[0].img)
         Talk.destroy_all(:user => from_mid)
       end
     end
