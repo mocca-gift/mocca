@@ -101,16 +101,31 @@
       background-image: url("/image/ribbon.png");
       background-size: cover;
       background-position: center;
+      background-attachment: fixed;
+      position: relative;
     }
     
      /* Homepanels */
+     
+      /*.headerPanels {*/
+      /*  position: absolute;*/
+      /*  top: 50%;*/
+      /*  margin-top: -340px;*/
+      /*  padding-bottom: 100px;*/
+      /*  width: 1024px;*/
+      /*}*/
+      
+      .question {
+        position: absolute;
+        top: 50%;
+        margin-top: -150px;
+        width: 1024px;
+      }
+      
       li {
         list-style: none;
       }
       
-      ul  {
-        padding-bottom: 100px;
-      }
       
       .headerPanels li {
         float: left;
@@ -210,7 +225,7 @@
       	border-style: solid;
       	border-width: 0 9px 9px 9px;
       	border-color: transparent transparent #F6F6F6 transparent;
-      	z-index: 0;
+      	z-index: 1;
       }
       .n_description:after {
       	content: "";
@@ -223,7 +238,7 @@
       	border-style: solid;
       	border-width: 0 10px 10px 10px;
       	border-color: transparent transparent #19283C transparent;
-      	z-index: -1;
+      	z-index: 0;
       }
       
       .i_description {
@@ -248,7 +263,7 @@
       	border-style: solid;
       	border-width: 0 9px 9px 9px;
       	border-color: transparent transparent #F6F6F6 transparent;
-      	z-index: 0;
+      	z-index: 1;
       }
       .i_description:after {
       	content: "";
@@ -261,7 +276,7 @@
       	border-style: solid;
       	border-width: 0 10px 10px 10px;
       	border-color: transparent transparent #19283C transparent;
-      	z-index: -1;
+      	z-index: 0;
       }
     
       .qheader {
@@ -342,10 +357,7 @@
         margin: auto;
         margin-top: 50px;
       }
-      
-      .question {
-        margin-top: 3%;
-      }
+    
       
       .choiceframe1{
         width: 100px;
@@ -457,7 +469,7 @@
             Information<BR>お問い合わせはこちらから
           </div>
         </li>
-        </ul>
+      </ul>
     <div class="question">
         <div class="frame">
           <div class="qheader">

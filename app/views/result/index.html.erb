@@ -134,7 +134,24 @@
       background-image: url("/image/ribbon.png");
       background-size: cover;
       background-position: center;
+      background-attachment: fixed;
+      position: relative;
     }
+    
+    /*.headerPanels {*/
+    /*    position: absolute;*/
+    /*    top: 50%;*/
+    /*    margin-top: -340px;*/
+    /*    padding-bottom: 100px;*/
+    /*    width: 1024px;*/
+    /*  }*/
+      
+      .result {
+        position: absolute;
+        top: 50%;
+        margin-top: -250px;
+        width: 1024px;
+      }
     
      /* Homepanels */
       li {
@@ -236,7 +253,7 @@
       	border-style: solid;
       	border-width: 0 9px 9px 9px;
       	border-color: transparent transparent #F6F6F6 transparent;
-      	z-index: 0;
+      	z-index: 1;
       }
       .n_description:after {
       	content: "";
@@ -249,7 +266,7 @@
       	border-style: solid;
       	border-width: 0 10px 10px 10px;
       	border-color: transparent transparent #19283C transparent;
-      	z-index: -1;
+      	z-index: 0;
       }
       
       .i_description {
@@ -274,7 +291,7 @@
       	border-style: solid;
       	border-width: 0 9px 9px 9px;
       	border-color: transparent transparent #F6F6F6 transparent;
-      	z-index: 0;
+      	z-index: 1;
       }
       .i_description:after {
       	content: "";
@@ -287,12 +304,9 @@
       	border-style: solid;
       	border-width: 0 10px 10px 10px;
       	border-color: transparent transparent #19283C transparent;
-      	z-index: -1;
+      	z-index: 0;
       }
       
-      .result {
-        width: 100%;
-      }
       
     
     .gift {
@@ -403,9 +417,6 @@
       background-color: rgba(255,255,255,0);
     }
     
-    .slick {
-      background-color: rgba(255,255,255,0);
-    }
     
     .row {
       width: 100%;
@@ -424,13 +435,13 @@
     
     .slick-prev {
       position: absolute;
-      top: 230px;
+      top: 270px;
       left: 10%;
     }
     
     .slick-next {
       position: absolute;
-      top: 230px;
+      top: 270px;
       right: 10%;
     }
     
@@ -527,7 +538,7 @@
     <div class="result">
         <div class="row">
           <div id="slick_container">
-          <div class="col-xs-10 sliick single-item">
+          <div class="col-xs-10 slick single-item">
             <!------------------------------------------------------------------------>
             <!-- Gift Start -->
             <div class="gift">
