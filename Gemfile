@@ -14,6 +14,8 @@ gem 'jquery-turbolinks'
 gem "faraday"
 gem "faraday_middleware"
 
+gem "jpmobile"
+
 group :development, :test do
   gem 'sqlite3',     '1.3.9'
   gem 'byebug',      '3.4.0'
