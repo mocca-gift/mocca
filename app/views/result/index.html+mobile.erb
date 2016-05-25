@@ -301,12 +301,12 @@
     
   $(document).ready(function(){
   
-      $('.btns').on('touchstart touchend', function(e) {
-        if (e.type === 'touchstart') {
+     $('.btns').on('touchstart', function(e) {
           $(this).addClass('tapStyle');
-        } else {
+      });
+      
+    $('.btns').on('touchend', function(e) {
           $(this).removeClass('tapStyle');
-        }
       });
  
      
