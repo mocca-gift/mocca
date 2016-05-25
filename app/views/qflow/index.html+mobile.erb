@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>Mocca</title></title>
+<meta name="viewport" content="width=device-width,
+ initial-scale=1.0,user-scalable=yes" />
+
+
+  <title>Mocca-Q-</title>
+
+  <!--Jquery-->
+  <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+
+  <!--Animation-->
+  <link rel="stylesheet" href="/animation/animate.css">
+
+  <!-- Bootstrap -->
+  <link href="/bootstrap/css/bootstrap.css" rel="stylesheet">
+  <script src="/bootstrap/js/bootstrap.min.js"></script>
+
+
+  <!--Main Script-->
+  
+  <%= javascript_tag do %>
+    window.onload = init;
+    function init(){
+      var Question=[];
+      var Questionid=[];
+      var n=0;
+      <% @questions.each do |q| %>
+        Question[n]= "<%= q.body %>";
+        Questionid[n]= <%= q.id %>;
+        n++;
+      <% end %>
+      qtext = document.getElementById("qtext");
+      btn1 = document.getElementById("btn1");
+      btn2 = document.getElementById("btn2");
+      ans = document.getElementById("ans");
+      postdata1 = document.getElementById("postdata1");
+      postdata2 = document.getElementById("postdata2");
+      var num=5;
+      var i = 0;
+      var j = 0;
+      var ansarray = [];
+      
+      qtext.innerText=Question[i];
+      i++;
+        btn1.onclick = function(){
+          if(i<num){
+            qtext.innerText=Question[i];
+            ansarray[j]=1;
+            i++;
+            j++;
+          } else {
+            qtext.style.border="none";
+            qtext.innerHTML="<img src='/image/loader.gif'>";
+            ansarray[j]=1;
+            postdata1.value=ansarray;
+            postdata2.value=Questionid;
+            document.frm.submit();
+          }
+        }
+        btn2.onclick = function(){
+          if(i<num){
+            qtext.innerText=Question[i];
+            ansarray[j] = 2 ;
+            i++;
+            j++;
+          } else {
+            qtext.style.border="none";
+            qtext.innerHTML="<img src='/image/loader.gif'>";
+            ansarray[j] = 2 ;
+            postdata1.value=ansarray;
+            postdata2.value=Questionid;
+            document.frm.submit();
+          }
+        }
+    }
+
+
+  <% end %>
+
+  <!--Main Script-->
+
+  <style>
+    html {
+      height: 100%;
+    }
+    body {
+      height: 100%;
+      font-family:  "Meiryo UI", メイリオ, Osaka, 'MS PGothic', arial, helvetica, sans-serif;
+      background-image: url("/image/ribbon.png");
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      background-attachment: fixed;
+      position: relative;
+    }
+    .navbar {
+      background-color: #FFFFFF;
+    }
+    
+      
+    .question {
+      width: 90%;
+      margin-left: 5%;
+      background-color: rgba(255,255,255,0.5);
+      padding: 10px;
+      position: absolute;
+      top: 50%;
+      margin-top: -150px;
+      
+      
+     }
+      
+      .qheader {
+        width: 100%;
+        padding: 30px;
+      }
+      
+      .qimage {
+        display: block;
+        margin: auto;
+        height: 50px;
+        width: 50px;
+      }
+      
+      #qtext {
+        width: 100%;
+        margin: auto;
+        height: 100px;
+        text-align: center;
+        line-height: 100px;
+        border-bottom: solid 1px;
+      }
+      
+      .btn {
+        border: solid 1px;
+        color: #FFFFFF;
+        background-color: rgba(0,30,67,1);
+      }
+      
+      
+      .pop {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.68);
+      z-index: 9999;
+      top: 0;
+      left: 0;
+    }
+    
+    .pop-in {
+      position: absolute;
+      top: 50%;
+      background: #fff;
+      width: 550px;
+      height: 430px;
+      left: 50%;
+      margin-left: -275px;
+      margin-top: -215px;
+      text-align: center;
+      box-shadow: 0 0 10px 0 rgba(0,0,0,0.74);
+      border-radius: 8px;
+    }
+    
+    .pop-in-text {
+      font-size: 2em;
+      display: block;
+      height: 50px;
+      text-align: center;
+      margin-top: 100px;
+    }
+  </style>
+  <script>
+    
+  $(document).ready(function(){
+      setTimeout(function(){$( '.pop' ).fadeOut();},2500);
+    
+     $('.choices').on('click', 
+         function(e){
+             e.preventDefault();
+             $('#qtext').removeClass().addClass('fadeIn'+' animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+               $(this).removeClass();
+         });
+        }
+      );
+              
+  });
+
+  </script>
+</head>
+
+  <body>
+    <nav class="navbar navbar-fixed-top">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="/"><img src="/image/largelogo.png" height="30px"></a>
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav-content">
+          <span class="icon-bar" style="background-color:#000000;"></span>
+          <span class="icon-bar" style="background-color:#000000;"></span>
+          <span class="icon-bar" style="background-color:#000000;"></span>
+        </button>
+      </div>  
+      <div id="nav-content" class="collapse navbar-collapse">
+    
+    <!--リンクのリスト メニューリスト-->
+        <ul class="nav navbar-nav">
+          <li><a href="/qflow" data-no-turbolink="1">Question<BR>質問で探す</a></li>
+          <li><a href="">New<BR>新しいアイテム</a></li>
+          <li><a href="">Information<BR>お問い合わせ</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div class="question">
+          <div class="qheader">
+            <img class="qimage" src="/image/q_trans.png">                        
+            <div id="qtext" class></div>                        
+          </div>
+          <div class="choices">
+            <a href="javascript:void(0)" class="btn btn-lg btn-block" id="btn1">YES</a>
+            <a href="javascript:void(0)" class="btn btn-lg btn-block" id="btn2">NO</a>
+          </div>
+          
+    </div>
+    <div class="pop" style="display:block;">
+      <div class="pop-in">
+        <div class="pop-in-text">
+          これからの質問は<BR>ギフトを渡す<BR><strong><font size="10em">"相手の事"</font></strong><BR>を考えて答えてください
+        </div>
+      </div>
+    </div>
+    
+    <%= form_tag('/result' , :name => :frm , :method => :post) do %>
+      <%= hidden_field_tag :postdata1 %>
+      <%= hidden_field_tag :postdata2 %>
+    <% end %>
+
+  </body>
+  </html>
