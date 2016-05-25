@@ -28,9 +28,9 @@ class WebhookController < ApplicationController
     if Talk.find_by(:user => from_mid)==nil then
       res = client.send([from_mid], "ようこそMOCCAへ\n誰かにギフトをあげたい...\nそんな時に良質なギフトを提案します")
       res = client.send([from_mid], "5つの質問に答えてギフトを探す場合は「Q」を\n運に任せてランダムにギフトを探す場合は「R」を送って下さい")
-      @talk=Talk.create(:user => from_mid, :text => "0")
+      @talk=Talk.create(:user => from_mid, :text => "")
     else
-      if Talk.find_by(:user => from_mid).text=="0" then
+      if Talk.find_by(:user => from_mid).text=="" then
         #メッセージが"Q"なら質問フローを開始する
         case text_message.upcase
         when "Q" then
@@ -45,7 +45,7 @@ class WebhookController < ApplicationController
           res = client.send([from_mid], "「はい」か「いいえ」で答えてください")
           message=@questions[0].body
           @talk=Talk.find_by(:user => from_mid)
-          @talk.update(:question => qarray)
+          @talk.update(:text => "0",:question => qarray)
           res = client.send([from_mid], message)
         when "R" then
           res = client.send([from_mid], "今日の運はどうでしょう？")
@@ -155,7 +155,7 @@ class WebhookController < ApplicationController
         message="Web版もお試し下さい\nhttps://guarded-reaches-70446.herokuapp.com/"
         res = client.send([from_mid], message)
         
-        @talk.update(:text => "0")
+        @talk.update(:text => "")
           
         when "いいえ" then
           res = client.send([from_mid], "あなたに最適なギフトは...")
@@ -227,7 +227,7 @@ class WebhookController < ApplicationController
         message="Web版もお試し下さい\nhttps://guarded-reaches-70446.herokuapp.com/"
         res = client.send([from_mid], message)
         
-        @talk.update(:text => "0")
+        @talk.update(:text => "")
         
         else
           message="「はい」か「いいえ」で答えてください"
