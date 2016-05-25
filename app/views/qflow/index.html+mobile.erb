@@ -209,11 +209,11 @@
   $(document).ready(function(){
       setTimeout(function(){$( '.pop' ).fadeOut();},2500);
       
-    $('.btns').on('touchstart', function(e) {
+    $('.btns').on('mousedown', function(e) {
           $(this).addClass('tapStyle');
       });
       
-    $('.btns').on('touched', function(e) {
+    $('.btns').on('mouseup', function(e) {
           $(this).removeClass('tapStyle');
       });
       
