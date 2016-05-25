@@ -4,7 +4,13 @@ class WelcomeController < ApplicationController
         if request.user_agent.include?("Mobile") then
             request.variant = :mobile
         else
-        end  
+        end
+        # case params[:device]
+        # when 'tablet'
+        #   request.variant = :tablet
+        # when 'mobile'
+        #   request.variant = :mobile
+        # end
     end
     
     def index
