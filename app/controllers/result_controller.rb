@@ -4,6 +4,20 @@
 # 3.推定結果で結果（商品）を取得
 # 4.結果のviewを呼ぶ
 class ResultController < ApplicationController
+    before_action do
+        #端末によってViewファイルを振り分ける
+        if request.user_agent.include?("Mobile") then
+            request.variant = :mobile
+        else
+        end
+        # case params[:device]
+        # when 'tablet'
+        #   request.variant = :tablet
+        # when 'mobile'
+        #   request.variant = :mobile
+        # end
+    end
+    
     def index
         @ansarray=params[:postdata1].split(",")
         @qarray=params[:postdata2].split(",")

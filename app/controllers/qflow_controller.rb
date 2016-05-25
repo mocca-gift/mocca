@@ -3,6 +3,21 @@
   # 2.質問の型を変換
   # 3.Questionのviewを呼ぶ
 class QflowController < ApplicationController
+    
+    before_action do
+        #端末によってViewファイルを振り分ける
+        if request.user_agent.include?("Mobile") then
+            request.variant = :mobile
+        else
+        end
+        # case params[:device]
+        # when 'tablet'
+        #   request.variant = :tablet
+        # when 'mobile'
+        #   request.variant = :mobile
+        # end
+    end
+    
     def index
         reset_session
         @questions=Question.order("RANDOM()").limit(5)
