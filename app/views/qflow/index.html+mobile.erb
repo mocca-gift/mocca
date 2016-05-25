@@ -149,9 +149,9 @@
       }
       
       .btns:link {
-        border: solid 1px;
-        color: #FFFFFF;
-        background-color: rgba(0,30,67,1);
+        /*border: solid 1px;*/
+        /*color: #FFFFFF;*/
+        /*background-color: rgba(0,30,67,1);*/
         text-align:center;
       }
       /*.btns:hover {*/
@@ -163,10 +163,10 @@
       /*  background-color: rgba(0,30,67,1);*/
       /*}*/
       
-      .btns:visited {
-        color: #FFFFFF;
-        background-color: rgba(0,30,67,1);
-      }
+      /*.btns:visited {*/
+      /*  color: #FFFFFF;*/
+      /*  background-color: rgba(0,30,67,1);*/
+      /*}*/
       .tapStyle {
       color: #FFFFFF;
       background-color: rgba(0,0,0,1);
@@ -209,13 +209,15 @@
   $(document).ready(function(){
       setTimeout(function(){$( '.pop' ).fadeOut();},2500);
       
-    $('.btns').on('touchstart touchend', function(e) {
-        if (e.type === 'touchstart') {
+    $('.btns').on('touchstart', function(e) {
           $(this).addClass('tapStyle');
-        } else {
-          $(this).removeClass('tapStyle');
-        }
       });
+    $('.btns').on('touched', function(e) {
+          $(this).removeClass('tapStyle');
+          $(this).trigger('touched');
+      });
+      
+      
     
      $('.choices').on('click', 
          function(e){
