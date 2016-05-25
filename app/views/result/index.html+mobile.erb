@@ -1,11 +1,12 @@
 
 <!DOCTYPE html>
 <html lang="ja">
-<!-- MEMO: update me with `git checkout gh-pages && git merge master && git push origin gh-pages` -->
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+<head>
+<meta charset="UTF-8">
+<title>Mocca</title></title>
+<meta name="viewport" content="width=device-width,
+ initial-scale=1.0,user-scalable=yes" />
+ 
     <!--JQuery-->
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     
@@ -123,204 +124,43 @@
       height: 100%;
     }
     body {
-      height:100%;
-      background-color: rgb(0,30,67);
+      height: 100%;
       font-family:  "Meiryo UI", メイリオ, Osaka, 'MS PGothic', arial, helvetica, sans-serif;
-    }
-    .wrapper {
-      width: 1024px;
-      height:100%;
-      margin:auto;
       background-image: url("/image/ribbon.png");
       background-size: cover;
       background-position: center;
+      position: relative;
       background-attachment: fixed;
       position: relative;
     }
+    .navbar {
+      background-color: #FFFFFF;
+    }
     
-    /*.headerPanels {*/
-    /*    position: absolute;*/
-    /*    top: 50%;*/
-    /*    margin-top: -340px;*/
-    /*    padding-bottom: 100px;*/
-    /*    width: 1024px;*/
-    /*  }*/
       
-      .result {
-        position: absolute;
-        top: 50%;
-        margin-top: -250px;
-        width: 1024px;
-      }
-    
-     /* Homepanels */
-      li {
-        list-style: none;
-      }
+    .result {
+      width: 90%;
+      margin-left: 5%;
+      background-color: rgba(255,255,255,0.5);
+      padding: 10px;
+      position: absolute;
+      top: 50%;
+      margin-top: -250px;
       
-      ul  {
-        padding-bottom: 100px;
-      }
-      
-      .headerPanels li {
-        float: left;
-      }
-      
-      .li-home {
-        margin-top: 1%;
-        height: 100px;
-        width: 300px;
-      }
-      
-      .li-home a {
-        background-image: url("/image/smalllogo.png");
-        background-size: cover;
-        display: block;
-        height: 85px;
-        width: 270px;
-        margin: auto;
-        text-indent: -9999px;
-      }
-      
-      .li-home a:hover {
-        -webkit-transition: none;
-        -moz-transition: none;
-        -ms-transition: none;
-        -o-transition: none;
-        transition: none;
-        opacity: 0.6;
-        filter: alpha(opacity=60);
-        -webkit-transition: opacity 0.5s ease-out;
-        -moz-transition: opacity 0.5s ease-out;
-        -ms-transition: opacity 0.5s ease-out;
-        transition: opacity 0.5s ease-out;
-      }
-      
-    
-      .li-btn a {
-        background-size: 85px 85px;
-        display: block;
-        height: 85px;
-        width: 85px;
-        margin: 0;
-        text-indent: -9999px;
-      }
-      
-      .menu-q a {
-        background-image: url("/image/q.png");
-        border-bottom: double 10px #000000;
-      }
-      .menu-n a {
-        background-image: url("/image/n.png");
-      }
-      .menu-i a {
-        background-image: url("/image/i.png");
-      }
-      
-      .none {
-        height: 85px;
-        width: 85px;
-        float: left;
-      }
-      
-      a:link {
-        text-decoration: none;
-      }
-      
-      a:visited {
-        text-decoration: none;
-      }
-      
-      .n_description {
-        position: relative;
-        margin-top: 10px;
-        margin-left: -55px;
-        height: auto;
-        width: 200px;
-        padding: 5px;
-        border: solid 3px;
-        
-      }
-      
-      .n_description:before {
-      	content: "";
-      	position: absolute;
-      	top: -8px; left: 50%;
-      	margin-left: -9px;
-      	display: block;
-      	width: 0px;
-      	height: 0px;
-      	border-style: solid;
-      	border-width: 0 9px 9px 9px;
-      	border-color: transparent transparent #F6F6F6 transparent;
-      	z-index: 1;
-      }
-      .n_description:after {
-      	content: "";
-      	position: absolute;
-      	top: -12px; left: 50%;
-      	margin-left: -10px;
-      	display: block;
-      	width: 0px;
-      	height: 0px;
-      	border-style: solid;
-      	border-width: 0 10px 10px 10px;
-      	border-color: transparent transparent #19283C transparent;
-      	z-index: 0;
-      }
-      
-      .i_description {
-        margin-top: 10px;
-        margin-left: -55px;
-        height: auto;
-        width: 200px;
-        padding: 5px;
-        border: solid 3px;
-        position:relative;
-        
-      }
-      
-      .i_description:before {
-      	content: "";
-      	position: absolute;
-      	top: -8px; left: 50%;
-      	margin-left: -9px;
-      	display: block;
-      	width: 0px;
-      	height: 0px;
-      	border-style: solid;
-      	border-width: 0 9px 9px 9px;
-      	border-color: transparent transparent #F6F6F6 transparent;
-      	z-index: 1;
-      }
-      .i_description:after {
-      	content: "";
-      	position: absolute;
-      	top: -12px; left: 50%;
-      	margin-left: -10px;
-      	display: block;
-      	width: 0px;
-      	height: 0px;
-      	border-style: solid;
-      	border-width: 0 10px 10px 10px;
-      	border-color: transparent transparent #19283C transparent;
-      	z-index: 0;
-      }
-      
-      
+     }
     
     .gift {
+      width: 100%;
       margin-top: 1%;
-      background-color: rgba(255,255,255,0.5);
       padding-bottom: 50px;
       outline: none;
-      margin-left: 180px;
+      
     }
     
     .giftcontent {
       overflow: hidden;
-      height: 300px;
-      width: 300px;
+      height: 250px;
+      width: 250px;
       position: relative;
       margin-left: auto;
       margin-right: auto;
@@ -345,8 +185,8 @@
       background-size: contain;
       background-repeat: no-repeat;
       background-position: center;
-      height: 300px;
-      width: 300px;
+      height: 250px;
+      width: 250px;
       margin: auto;
     }
 
@@ -357,8 +197,9 @@
         position: relative;
     }
     
-    .giftname h1{
+    .giftname h3{
       margin-top: 0;
+      font-size: 4em;
     }
     
     .heart {
@@ -372,33 +213,11 @@
     .heart:hover {
       transform: scale(2.5);
     }
-    
-    .tabtn {
-      display: block;
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center;
-      height: 100px;
-      width: 200px;
-      margin: auto;
-      border-bottom: solid 3px #006B01;
-    }
-    .continue {
-      background-image: url("/image/continue.png");
-    }
-    
-    .continue:hover {
-      background-image: url("/image/continuechange.png");
-    }
-    
-    .findfor {
-      background-image: url("/image/findfor.png");
-    }
-    
-    .findfor:hover {
-      background-image: url("/image/findforchange.png");
-    }
-    
+    .btn {
+        border: solid 1px;
+        color: #FFFFFF;
+        background-color: rgba(0,30,67,1);
+      }
     
     
     /*スライド画像の横幅可変*/
@@ -408,23 +227,16 @@
         border: 0;
     }
     
-    a img {
-      border: none;
-    }
-    
     #slick_container {
       position:relative;
-      background-color: rgba(255,255,255,0);
-    }
-    
-    
-    .row {
       width: 100%;
+      margin: auto;
+      background-color: rgba(255,255,255,0);
     }
 
     .slick-prev, .slick-next {
-      width:50px;
-      height:200px;
+      width:15px;
+      height:60px;
     }
     div.slick-prev, div.slick-next {
       z-index: 1;
@@ -435,14 +247,14 @@
     
     .slick-prev {
       position: absolute;
-      top: 270px;
-      left: 10%;
+      top: 180px;
+      left: 5px;
     }
     
     .slick-next {
       position: absolute;
-      top: 270px;
-      right: 10%;
+      top: 180px;
+      right: 5px;
     }
     
     .slick-prev:before, .slick-next:before {
@@ -454,47 +266,11 @@
     }
     
     
-    @media screen and (min-width: 1000px){
-      .li-home {
-        float: left;
-      }
-      .li-btn {
-        margin-top: 1%;
-        height: 85px;
-        width: 85px;
-        float: left;
-      }
-    }
-    
-    
 
   </style>
   <script>
     
   $(document).ready(function(){
-     $('.menu-n > a').hover(
-         function(){
-             $( '.n_description' ).fadeIn();
-         },
-         function(){
-             $( '.n_description' ).fadeOut();
-         }
-     );
-     
-     $('.menu-i > a').hover(
-         function(){
-             $( '.i_description' ).fadeIn();
-         },
-         function(){
-             $( '.i_description' ).fadeOut();
-         }
-     );
-    
-     $('.choice').on('click',
-         function(){
-             $( '.i_description' ).fadeIn();
-         }
-     );
      
      $('.single-item').slick({
         appendArrows: $('#arrows')
@@ -512,39 +288,35 @@
   </script>
   </head>
     <body>
-    <div class="wrapper">
-      <ul class="headerPanels">
-        <li class="li-home">
-          <a href="/">Home</a>
-        </li>
-        <li class="none"></li>
-        <li class="li-btn menu-q">
-          <a>Questions</a>
-        </li>
-        <li class="li-btn menu-n">
-          <a href="/new_arrival">New gifts</a>
-          <div class="n_description" style="display: none;">
-            New Items<BR>新しいアイテムを表示します
-          </div>
-        </li>
-        <li class="li-btn menu-i">
-          <a href="/info" data-no-turbolink="1">Information</a>
-          <div class="i_description" style="display: none;">
-            Information<BR>お問い合わせはこちらから
-          </div>
-        </li>
-      </ul>
-  
+    <nav class="navbar navbar-fixed-top">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#"><img src="/image/largelogo.png" height="30px"></a>
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav-content">
+          <span class="icon-bar" style="background-color:#000000;"></span>
+          <span class="icon-bar" style="background-color:#000000;"></span>
+          <span class="icon-bar" style="background-color:#000000;"></span>
+        </button>
+      </div>  
+      <div id="nav-content" class="collapse navbar-collapse">
+    
+    <!--リンクのリスト メニューリスト-->
+        <ul class="nav navbar-nav">
+          <li><a href="">Question<BR>質問で探す</a></li>
+          <li><a href="">New<BR>新しいアイテム</a></li>
+          <li><a href="">Information<BR>お問い合わせ</a></li>
+        </ul>
+      </div>
+    </nav>
     <div class="result">
         <div class="row">
           <div id="slick_container">
-          <div class="col-xs-10 slick single-item">
+          <div class="slick single-item">
             <!------------------------------------------------------------------------>
             <!-- Gift Start -->
             <div class="gift">
               <!-- Header Start -->
               <div class="giftheader">
-                <h1 class="giftname"></h1>
+                <h3 class="giftname"></h3>
                 <img class="heart" src="/image/emptyheart2.png">
               </div>
               <!-- Header End -->
@@ -560,7 +332,7 @@
             <div class="gift">
               <!-- Header Start -->
               <div class="giftheader">
-                <h1 class="giftname"></h1>
+                <h3 class="giftname"></h3>
                 <img class="heart" src="/image/emptyheart2.png">
               </div>
               <!-- Header End -->
@@ -576,7 +348,7 @@
             <div class="gift">
               <!-- Header Start -->
               <div class="giftheader">
-                <h1 class="giftname"></h1>
+                <h3 class="giftname"></h3>
                 <img class="heart" src="/image/emptyheart2.png">
               </div>
               <!-- Header End -->
@@ -593,7 +365,7 @@
             <div class="gift">
               <!-- Header Start -->
               <div class="giftheader">
-                <h1 class="giftname"></h1>
+                <h3 class="giftname"></h3>
                 <img class="heart" src="/image/emptyheart2.png">
               </div>
               <!-- Header End -->
@@ -609,7 +381,7 @@
             <div class="gift">
               <!-- Header Start -->
               <div class="giftheader">
-                <h1 class="giftname"></h1>
+                <h3 class="giftname"></h3>
                 <img class="heart" src="/image/emptyheart2.png">
               </div>
               <!-- Header End -->
@@ -625,7 +397,7 @@
             <div class="gift">
               <!-- Header Start -->
               <div class="giftheader">
-                <h1 class="giftname"></h1>
+                <h3 class="giftname"></h3>
                 <img class="heart" src="/image/emptyheart2.png">
               </div>
               <!-- Header End -->
@@ -640,26 +412,17 @@
           </div>
           <div id="arrows">
             <div class="slick-prev">
-              <img src="/image/left.png" height="200px" width="50px" alt="">
+              <img src="/image/left.png" height="60px" width="15px" alt="">
             </div>
             <div class="slick-next">
-              <img src="/image/right.png"  height="200px" width="50px" alt="">
+              <img src="/image/right.png"  height="60px" width="15px" alt="">
             </div>
           </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-xs-2"></div>
-          <div class="col-xs-4">
-            <a href="/qflow_continue" data-no-turbolink="1" class="tabtn continue" id="continuebtn"></a>
-          </div>
-          <div class="col-xs-4">
-            <a href="/qflow" data-no-turbolink="1" class="tabtn findfor"></a>
-          </div>
-          <div class="col-xs-2">
-          </div>
-        </div>
+        
+        <a href="/qflow_continue" data-no-turbolink="1" class="btn btn-lg btn-block" id="continuebtn">Continue</a>
+        <a href="/qflow" data-no-turbolink="1" class="btn btn-lg btn-block">Find For<BR>Another Person</a>
       </div>
-    </div>
   </body>
 </html>
