@@ -1,8 +1,7 @@
 class WelcomeController < ApplicationController
     before_action do
-        # 動作確認しやすくするために params[:device] の値で分岐する.
-        # 通常は request.user_agent など値で判定する.
-        case params[:device]
+        #端末によってViewファイルを振り分ける
+        case request.user_agent
           when 'tablet'
             request.variant = :tablet
           when 'mobile'
