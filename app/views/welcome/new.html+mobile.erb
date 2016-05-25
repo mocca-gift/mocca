@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>Mocca</title></title>
+<meta name="viewport" content="width=device-width,
+ initial-scale=1.0,user-scalable=yes" />
+ 
+    <!--JQuery-->
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    
+    <!-- Bootstrap -->
+    <link href="/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
+  
+    <!--Slick-->
+    <link href="/slick/slick.css" type="text/css" rel="stylesheet">
+    <link href="/slick/slick-theme.css" type="text/css" rel="stylesheet">
+    <script src="/slick/slick.js"></script>
+    
+    <title>Mocca-Q-</title>
+    
+   <%= javascript_tag do %>
+        window.onload=init;
+        
+        function init(){
+        function getXMLHttpRequestObject(){
+            var ajax=null;
+            if(window.XMLHttpRequest){
+                ajax=new XMLHttpRequest();
+            } else if (window.ActiveObject){
+                ajax=new ActiveObject('MSXML2.XMLHTTP.3.0');
+            }
+            return ajax;
+        }
+    
+        var ajax=getXMLHttpRequestObject();
+            
+        var gifts   = document.getElementsByClassName("gift");
+        var contents = document.getElementsByClassName("content");
+        
+        i=0;
+        hiduke=new Date();
+        <% @gifts.each do |gift| %>
+        gifts[i].style.backgroundImage="url(https://guarded-reaches-70446.herokuapp.com/gifts/<%= gift.id %>/img)";
+        gifts[i].href = "<%= gift.url %>";
+        var h1y=hiduke.getFullYear();
+        var h1d=hiduke.getDate()+hiduke.getMonth()*30.5;
+        var h2y=<%= gift.created_at.year %>;
+        var h2d=<%= gift.created_at.yday %>;
+        var sa=h1y*365+h1d-h2y*365-h2d;
+        if(sa<30){
+        element=document.createElement("span");
+        element.className="new";
+        element.innerHTML="NEW";
+        contents[i].appendChild(element);
+        } else {}
+        i++;
+        <% end %>
+    }
+        
+    <% end %>
+  <!--**********Main Script End**********-->
+    
+  
+  <style>
+    html {
+      height: 100%;
+    }
+    body {
+      height: 100%;
+      font-family:  "Meiryo UI", メイリオ, Osaka, 'MS PGothic', arial, helvetica, sans-serif;
+      background-image: url("/image/ribbon.png");
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      background-attachment: fixed;
+      position: relative;
+    }
+    
+    a:link {
+      text-decoration: none;
+      color: #000000;
+    }
+    a:visited {
+      text-decoration: none;
+      color: #000000;
+    }
+    a:active {
+      text-decoration: none;
+      color: #000000;
+    }
+    .navbar {
+      background-color: #FFFFFF;
+    }
+    
+    .new {
+        width: 100px;
+        padding: 3px 10px;
+        background: #d43131;
+        color: #fff;
+        text-align: center;
+        display: inline-block;
+        position: absolute;
+        top: 15px;
+        left: -25px;
+        text-transform: uppercase;
+        transform: rotate(315deg);
+      }
+    .header {
+        width: 100%;
+        margin-top: 100px;
+    }
+    .nalg {
+        width: 100%;
+    }
+    .wrapper {
+        position: relative;
+        width: 50%;
+        float:left;
+    }
+    .wrapper:after{
+        padding-top: 100%;
+        display: block;
+        content: "";
+    }
+    .content{
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        bottom: 0px;
+        right: 0px;
+    }
+    .gift {
+        display:block;
+        width: 100%;
+        height: 100%;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-color: #FFFFFF;
+        margin: auto;
+    }
+
+    
+    
+
+  </style>
+  </head>
+    <body>
+    <nav class="navbar navbar-fixed-top">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="/"><i class="glyphicon glyphicon-home"></i> MOCCA</a>
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav-content">
+          <span class="icon-bar" style="background-color:#000000;"></span>
+          <span class="icon-bar" style="background-color:#000000;"></span>
+          <span class="icon-bar" style="background-color:#000000;"></span>
+        </button>
+      </div>  
+      <div id="nav-content" class="collapse navbar-collapse">
+    
+    <!--リンクのリスト メニューリスト-->
+        <ul class="nav navbar-nav">
+          <li><a href="/qflow" data-no-turbolink="1">Question<BR>質問で探す</a></li>
+          <li><a href="" data-no-turbolink="1">New<BR>新しいアイテム</a></li>
+          <li><a href="">Information<BR>お問い合わせ</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div class="header"><img class="nalg" src="/image/na.png"></div>
+    <div class="wrapper">
+        <div class="content">
+            <a class="gift"></a>
+        </div>
+    </div>
+    <div class="wrapper">
+        <div class="content">
+            <a class="gift"></a>
+        </div>
+    </div>
+    <div class="wrapper">
+        <div class="content">
+            <a class="gift"></a>
+        </div>
+    </div>
+    <div class="wrapper">
+        <div class="content">
+            <a class="gift"></a>
+        </div>
+    </div>
+    <div class="wrapper">
+        <div class="content">
+            <a class="gift"></a>
+        </div>
+    </div>
+    <div class="wrapper">
+        <div class="content">
+            <a class="gift"></a>
+        </div>
+    </div>
+  </body>
+</html>
