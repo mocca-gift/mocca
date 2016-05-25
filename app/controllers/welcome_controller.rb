@@ -1,12 +1,10 @@
 class WelcomeController < ApplicationController
     before_action do
         #端末によってViewファイルを振り分ける
-        case request.user_agent
-          when 'tablet'
-            request.variant = :tablet
-          when 'mobile'
+        if request.user_agent.include?("Mobile") then
             request.variant = :mobile
-        end
+        else
+        end  
     end
     
     def index
