@@ -133,6 +133,19 @@
       background-attachment: fixed;
       position: relative;
     }
+    
+    a:link {
+      text-decoration: none;
+      color: #FFFFFF;
+    }
+    a:visited {
+      text-decoration: none;
+      color: #FFFFFF;
+    }
+    a:active {
+      text-decoration: none;
+      color: #FFFFFF;
+    }
     .navbar {
       background-color: #FFFFFF;
     }
@@ -213,12 +226,19 @@
     .heart:hover {
       transform: scale(2.5);
     }
-    .btn {
+    .btns {
         border: solid 1px;
         color: #FFFFFF;
         background-color: rgba(0,30,67,1);
       }
-    
+    .btns:hover {
+        color: #FFFFFF;
+        background-color: rgba(0,30,67,1);
+      }
+      .btns:active {
+        color: #FFFFFF;
+        background-color: rgba(0,20,40,1);
+      }
     
     /*スライド画像の横幅可変*/
     .slick img {
@@ -421,8 +441,8 @@
           </div>
         </div>
         
-        <a href="/qflow_continue" data-no-turbolink="1" class="btn btn-lg btn-block" id="continuebtn">Continue</a>
-        <a href="/qflow" data-no-turbolink="1" class="btn btn-lg btn-block">Find For<BR>Another Person</a>
+        <a href="/qflow_continue" data-no-turbolink="1" class="btns btn-lg btn-block" id="continuebtn">質問を続ける</a>
+        <a href="/qflow" data-no-turbolink="1" class="btns btn-lg btn-block">他の人のギフトを探す</a>
       </div>
   </body>
 </html>
