@@ -26,7 +26,9 @@ class WebhookController < ApplicationController
     
     #メッセージ送信者の履歴が過去になければ(質問フローの中にいないなら)
     if Talk.find_by(:user => from_mid)==nil then
-      res = client.send([from_mid], "ようこそMOCCAへ\n誰かにギフトをあげたい...そんな時に良質なギフトを提案します")
+      res = client.send([from_mid], "ようこそMOCCAへ\n誰かにギフトをあげたい...\nそんな時に良質なギフトを提案します")
+      res = client.send([from_mid], "5つの質問に答えてギフトを探す場合は「Q」を\n運に任せてランダムにギフトを探す場合は「R」を送って下さい")
+      @talk=Talk.create(:user => from_mid, :text => "0")
     else
       if Talk.find_by(:user => from_mid).text=="0" then
         #メッセージが"Q"なら質問フローを開始する
@@ -44,6 +46,15 @@ class WebhookController < ApplicationController
           message=@questions[0].body
           @talk=Talk.find_by(:user => from_mid)
           @talk.update(:question => qarray)
+          res = client.send([from_mid], message)
+        when "R" then
+          res = client.send([from_mid], "今日の運はどうでしょう？")
+          @gift=Gift.offset( rand(Gift.count) ).first
+          message=message=@expTop3[2].name+"\n"+@expTop3[2].url
+          res = client.sendImage([from_mid], "https://guarded-reaches-70446.herokuapp.com/gifts/"+@gift.id.to_s+"/img", "https://guarded-reaches-70446.herokuapp.com/gifts/"+@gift.id.to_s+"/img" )
+          res = client.send([from_mid], message)
+          
+          message="Web版もお試し下さい\nhttps://guarded-reaches-70446.herokuapp.com/"
           res = client.send([from_mid], message)
         else
           #"Q"以外のメッセージが来た場合
