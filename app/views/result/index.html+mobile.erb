@@ -1,0 +1,665 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<!-- MEMO: update me with `git checkout gh-pages && git merge master && git push origin gh-pages` -->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <!--JQuery-->
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    
+    <!-- Bootstrap -->
+    <link href="/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
+  
+    <!--Slick-->
+    <link href="/slick/slick.css" type="text/css" rel="stylesheet">
+    <link href="/slick/slick-theme.css" type="text/css" rel="stylesheet">
+    <script src="/slick/slick.js"></script>
+    
+    <title>Mocca-Q-</title>
+    
+    <!--**********Main Script Start**********-->
+    <%= javascript_tag do %>
+        window.onload=init;
+        
+        function init(){
+        function getXMLHttpRequestObject(){
+            var ajax=null;
+            if(window.XMLHttpRequest){
+                ajax=new XMLHttpRequest();
+            } else if (window.ActiveObject){
+                ajax=new ActiveObject('MSXML2.XMLHTTP.3.0');
+            }
+            return ajax;
+        }
+    
+        var ajax=getXMLHttpRequestObject();
+            
+        var hearts     = document.getElementsByClassName("heart");
+        var giftnames  = document.getElementsByClassName("giftname");
+        var gifturls   = document.getElementsByClassName("gifturl");
+        var giftimgs   = document.getElementsByClassName("giftimg");
+        var giftcontents = document.getElementsByClassName("giftcontent");
+        
+        i=1;
+        hiduke=new Date();
+        <% @giftRes.each do |exp| %>
+        giftnames[i].innerText= "<%= exp.name %>";
+        gifturls[i].href = "<%= exp.url %>";
+        gifturls[i].style ="background-image: url('/gifts/<%= exp.id %>/img');";
+        var h1y=hiduke.getFullYear();
+        var h1d=hiduke.getDate()+hiduke.getMonth()*30.5;
+        var h2y=<%= exp.created_at.year %>;
+        var h2d=<%= exp.created_at.yday %>;
+        var sa=h1y*365+h1d-h2y*365-h2d;
+        if(sa<30){
+        element=document.createElement("span");
+        element.className="new";
+        element.innerHTML="NEW";
+        giftcontents[i].appendChild(element);
+        } else {}
+        i++;
+        <% end %>
+        
+        j=1;
+        elm_num=[0,0,0,0,0,0,0,0];
+        
+        <% @giftRes.each do |exp| %>
+          hearts[j].onclick=function(s) {
+            return function(){
+              hearts[s].src= "/image/heartloader.gif";
+              if(elm_num[s]%2==0) {
+                ajax.onreadystatechange=function() {
+                  if(ajax.readyState==4) {
+                    if((ajax.status>=200 && ajax.status<300) || (ajax.status==304)) {
+                        hearts[s].src = "/image/heart.png";
+                    }
+                    else {
+                    }
+                  }
+                }
+                ajax.open('GET','/result/countup?gift=<%= exp.id %>&gift_ans=<%= @ansarray.join(",") %>&gift_q=<%= @qarray.join(",") %>',true);
+                ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+                ajax.send(null);
+                elm_num[s]++;
+              }
+              else{
+                ajax.onreadystatechange = function() {
+                  if(ajax.readyState==4) {
+                    if((ajax.status>=200 && ajax.status<300) || (ajax.status==304)) {
+                        hearts[s].src= "/image/emptyheart2.png";
+                    }
+                    else {
+                    }
+                  }
+                }
+                ajax.open('GET','/result/countdown?gift=<%= exp.id %>&gift_ans=<%= @ansarray.join(",") %>&gift_q=<%= @qarray.join(",") %>',true);
+                ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+                ajax.send(null);
+                elm_num[s]++;
+              }
+            }
+          }(j)
+          j++;
+        <% end %>
+        
+        // 質問がなくなった際に，Continueできなくする
+        continuebtn=document.getElementById("continuebtn");
+        if (<%= @continue_display %>==1 ) {
+          continuebtn.style="display: none;";
+        }
+        else {
+        }
+    
+        }
+    <% end %>
+  <!--**********Main Script End**********-->
+    
+  
+  <style>
+    html {
+      height: 100%;
+    }
+    body {
+      height:100%;
+      background-color: rgb(0,30,67);
+      font-family:  "Meiryo UI", メイリオ, Osaka, 'MS PGothic', arial, helvetica, sans-serif;
+    }
+    .wrapper {
+      width: 1024px;
+      height:100%;
+      margin:auto;
+      background-image: url("/image/ribbon.png");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      position: relative;
+    }
+    
+    /*.headerPanels {*/
+    /*    position: absolute;*/
+    /*    top: 50%;*/
+    /*    margin-top: -340px;*/
+    /*    padding-bottom: 100px;*/
+    /*    width: 1024px;*/
+    /*  }*/
+      
+      .result {
+        position: absolute;
+        top: 50%;
+        margin-top: -250px;
+        width: 1024px;
+      }
+    
+     /* Homepanels */
+      li {
+        list-style: none;
+      }
+      
+      ul  {
+        padding-bottom: 100px;
+      }
+      
+      .headerPanels li {
+        float: left;
+      }
+      
+      .li-home {
+        margin-top: 1%;
+        height: 100px;
+        width: 300px;
+      }
+      
+      .li-home a {
+        background-image: url("/image/smalllogo.png");
+        background-size: cover;
+        display: block;
+        height: 85px;
+        width: 270px;
+        margin: auto;
+        text-indent: -9999px;
+      }
+      
+      .li-home a:hover {
+        -webkit-transition: none;
+        -moz-transition: none;
+        -ms-transition: none;
+        -o-transition: none;
+        transition: none;
+        opacity: 0.6;
+        filter: alpha(opacity=60);
+        -webkit-transition: opacity 0.5s ease-out;
+        -moz-transition: opacity 0.5s ease-out;
+        -ms-transition: opacity 0.5s ease-out;
+        transition: opacity 0.5s ease-out;
+      }
+      
+    
+      .li-btn a {
+        background-size: 85px 85px;
+        display: block;
+        height: 85px;
+        width: 85px;
+        margin: 0;
+        text-indent: -9999px;
+      }
+      
+      .menu-q a {
+        background-image: url("/image/q.png");
+        border-bottom: double 10px #000000;
+      }
+      .menu-n a {
+        background-image: url("/image/n.png");
+      }
+      .menu-i a {
+        background-image: url("/image/i.png");
+      }
+      
+      .none {
+        height: 85px;
+        width: 85px;
+        float: left;
+      }
+      
+      a:link {
+        text-decoration: none;
+      }
+      
+      a:visited {
+        text-decoration: none;
+      }
+      
+      .n_description {
+        position: relative;
+        margin-top: 10px;
+        margin-left: -55px;
+        height: auto;
+        width: 200px;
+        padding: 5px;
+        border: solid 3px;
+        
+      }
+      
+      .n_description:before {
+      	content: "";
+      	position: absolute;
+      	top: -8px; left: 50%;
+      	margin-left: -9px;
+      	display: block;
+      	width: 0px;
+      	height: 0px;
+      	border-style: solid;
+      	border-width: 0 9px 9px 9px;
+      	border-color: transparent transparent #F6F6F6 transparent;
+      	z-index: 1;
+      }
+      .n_description:after {
+      	content: "";
+      	position: absolute;
+      	top: -12px; left: 50%;
+      	margin-left: -10px;
+      	display: block;
+      	width: 0px;
+      	height: 0px;
+      	border-style: solid;
+      	border-width: 0 10px 10px 10px;
+      	border-color: transparent transparent #19283C transparent;
+      	z-index: 0;
+      }
+      
+      .i_description {
+        margin-top: 10px;
+        margin-left: -55px;
+        height: auto;
+        width: 200px;
+        padding: 5px;
+        border: solid 3px;
+        position:relative;
+        
+      }
+      
+      .i_description:before {
+      	content: "";
+      	position: absolute;
+      	top: -8px; left: 50%;
+      	margin-left: -9px;
+      	display: block;
+      	width: 0px;
+      	height: 0px;
+      	border-style: solid;
+      	border-width: 0 9px 9px 9px;
+      	border-color: transparent transparent #F6F6F6 transparent;
+      	z-index: 1;
+      }
+      .i_description:after {
+      	content: "";
+      	position: absolute;
+      	top: -12px; left: 50%;
+      	margin-left: -10px;
+      	display: block;
+      	width: 0px;
+      	height: 0px;
+      	border-style: solid;
+      	border-width: 0 10px 10px 10px;
+      	border-color: transparent transparent #19283C transparent;
+      	z-index: 0;
+      }
+      
+      
+    
+    .gift {
+      margin-top: 1%;
+      background-color: rgba(255,255,255,0.5);
+      padding-bottom: 50px;
+      outline: none;
+      margin-left: 180px;
+    }
+    
+    .giftcontent {
+      overflow: hidden;
+      height: 300px;
+      width: 300px;
+      position: relative;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .new {
+        width: 100px;
+        padding: 3px 10px;
+        background: #d43131;
+        color: #fff;
+        text-align: center;
+        display: inline-block;
+        position: absolute;
+        top: 15px;
+        left: -25px;
+        text-transform: uppercase;
+        transform: rotate(315deg);
+      }
+    
+    .gifturl {
+      display: block;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      height: 300px;
+      width: 300px;
+      margin: auto;
+    }
+
+    
+    .giftheader {
+        text-align: center;
+        /*color: #FFFFFF;*/
+        position: relative;
+    }
+    
+    .giftname h1{
+      margin-top: 0;
+    }
+    
+    .heart {
+      height: 30px;
+      width: 30px;
+      position: absolute;
+      top: 5px;
+      right: 25%;
+    }
+    
+    .heart:hover {
+      transform: scale(2.5);
+    }
+    
+    .tabtn {
+      display: block;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      height: 100px;
+      width: 200px;
+      margin: auto;
+      border-bottom: solid 3px #006B01;
+    }
+    .continue {
+      background-image: url("/image/continue.png");
+    }
+    
+    .continue:hover {
+      background-image: url("/image/continuechange.png");
+    }
+    
+    .findfor {
+      background-image: url("/image/findfor.png");
+    }
+    
+    .findfor:hover {
+      background-image: url("/image/findforchange.png");
+    }
+    
+    
+    
+    /*スライド画像の横幅可変*/
+    .slick img {
+        max-width: 100%;
+        height: auto;
+        border: 0;
+    }
+    
+    a img {
+      border: none;
+    }
+    
+    #slick_container {
+      position:relative;
+      background-color: rgba(255,255,255,0);
+    }
+    
+    
+    .row {
+      width: 100%;
+    }
+
+    .slick-prev, .slick-next {
+      width:50px;
+      height:200px;
+    }
+    div.slick-prev, div.slick-next {
+      z-index: 1;
+    }
+    button {
+      z-index: 2;
+    }
+    
+    .slick-prev {
+      position: absolute;
+      top: 270px;
+      left: 10%;
+    }
+    
+    .slick-next {
+      position: absolute;
+      top: 270px;
+      right: 10%;
+    }
+    
+    .slick-prev:before, .slick-next:before {
+      content:"";
+    }
+    
+    .slick-active {
+      border: 0;
+    }
+    
+    
+    @media screen and (min-width: 1000px){
+      .li-home {
+        float: left;
+      }
+      .li-btn {
+        margin-top: 1%;
+        height: 85px;
+        width: 85px;
+        float: left;
+      }
+    }
+    
+    
+
+  </style>
+  <script>
+    
+  $(document).ready(function(){
+     $('.menu-n > a').hover(
+         function(){
+             $( '.n_description' ).fadeIn();
+         },
+         function(){
+             $( '.n_description' ).fadeOut();
+         }
+     );
+     
+     $('.menu-i > a').hover(
+         function(){
+             $( '.i_description' ).fadeIn();
+         },
+         function(){
+             $( '.i_description' ).fadeOut();
+         }
+     );
+    
+     $('.choice').on('click',
+         function(){
+             $( '.i_description' ).fadeIn();
+         }
+     );
+     
+     $('.single-item').slick({
+        appendArrows: $('#arrows')
+      });
+      
+      $('.slick-next').on('click', function () {
+        slickNext();
+      });
+      
+      $('.slick-prev').on('click', function () {
+        slickPrev();
+      });
+  });
+
+  </script>
+  </head>
+    <body>
+    <div class="wrapper">
+      <ul class="headerPanels">
+        <li class="li-home">
+          <a href="/">Home</a>
+        </li>
+        <li class="none"></li>
+        <li class="li-btn menu-q">
+          <a>Questions</a>
+        </li>
+        <li class="li-btn menu-n">
+          <a href="/new_arrival">New gifts</a>
+          <div class="n_description" style="display: none;">
+            New Items<BR>新しいアイテムを表示します
+          </div>
+        </li>
+        <li class="li-btn menu-i">
+          <a href="/info" data-no-turbolink="1">Information</a>
+          <div class="i_description" style="display: none;">
+            Information<BR>お問い合わせはこちらから
+          </div>
+        </li>
+      </ul>
+  
+    <div class="result">
+        <div class="row">
+          <div id="slick_container">
+          <div class="col-xs-10 slick single-item">
+            <!------------------------------------------------------------------------>
+            <!-- Gift Start -->
+            <div class="gift">
+              <!-- Header Start -->
+              <div class="giftheader">
+                <h1 class="giftname"></h1>
+                <img class="heart" src="/image/emptyheart2.png">
+              </div>
+              <!-- Header End -->
+              <!-- Gift Content Start -->
+              <div class="giftcontent">
+                <a class="gifturl" target="_blank"></a>
+              </div>
+              <!-- Gift Content End -->
+            </div>
+            <!-- Gift End -->
+            <!------------------------------------------------------------------------>
+            <!-- Gift Start -->
+            <div class="gift">
+              <!-- Header Start -->
+              <div class="giftheader">
+                <h1 class="giftname"></h1>
+                <img class="heart" src="/image/emptyheart2.png">
+              </div>
+              <!-- Header End -->
+              <!-- Gift Content Start -->
+              <div class="giftcontent">
+                <a class="gifturl" target="_blank"></a>
+              </div>
+              <!-- Gift Content End -->
+            </div>
+            <!-- Gift End -->
+            <!------------------------------------------------------------------------>
+            <!-- Gift Start -->
+            <div class="gift">
+              <!-- Header Start -->
+              <div class="giftheader">
+                <h1 class="giftname"></h1>
+                <img class="heart" src="/image/emptyheart2.png">
+              </div>
+              <!-- Header End -->
+              <!-- Gift Content Start -->
+              <div class="giftcontent">
+                <a class="gifturl" target="_blank"></a>
+                
+              </div>
+              <!-- Gift Content End -->
+            </div>
+            <!-- Gift End -->
+            <!------------------------------------------------------------------------>
+            <!-- Gift Start -->
+            <div class="gift">
+              <!-- Header Start -->
+              <div class="giftheader">
+                <h1 class="giftname"></h1>
+                <img class="heart" src="/image/emptyheart2.png">
+              </div>
+              <!-- Header End -->
+              <!-- Gift Content Start -->
+              <div class="giftcontent">
+                <a class="gifturl" target="_blank"></a>
+              </div>
+              <!-- Gift Content End -->
+            </div>
+            <!-- Gift End -->
+            <!------------------------------------------------------------------------>
+            <!-- Gift Start -->
+            <div class="gift">
+              <!-- Header Start -->
+              <div class="giftheader">
+                <h1 class="giftname"></h1>
+                <img class="heart" src="/image/emptyheart2.png">
+              </div>
+              <!-- Header End -->
+              <!-- Gift Content Start -->
+              <div class="giftcontent">
+                <a class="gifturl" target="_blank"></a>
+              </div>
+              <!-- Gift Content End -->
+            </div>
+            <!-- Gift End -->
+            <!------------------------------------------------------------------------>
+            <!-- Gift Start -->
+            <div class="gift">
+              <!-- Header Start -->
+              <div class="giftheader">
+                <h1 class="giftname"></h1>
+                <img class="heart" src="/image/emptyheart2.png">
+              </div>
+              <!-- Header End -->
+              <!-- Gift Content Start -->
+              <div class="giftcontent">
+                <a class="gifturl" target="_blank"></a>
+              </div>
+              <!-- Gift Content End -->
+            </div>
+            <!-- Gift End -->
+            <!------------------------------------------------------------------------>
+          </div>
+          <div id="arrows">
+            <div class="slick-prev">
+              <img src="/image/left.png" height="200px" width="50px" alt="">
+            </div>
+            <div class="slick-next">
+              <img src="/image/right.png"  height="200px" width="50px" alt="">
+            </div>
+          </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-2"></div>
+          <div class="col-xs-4">
+            <a href="/qflow_continue" data-no-turbolink="1" class="tabtn continue" id="continuebtn"></a>
+          </div>
+          <div class="col-xs-4">
+            <a href="/qflow" data-no-turbolink="1" class="tabtn findfor"></a>
+          </div>
+          <div class="col-xs-2">
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
