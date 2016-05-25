@@ -50,7 +50,7 @@ class WebhookController < ApplicationController
         when "R" then
           res = client.send([from_mid], "今日の運はどうでしょう？")
           @gift=Gift.offset( rand(Gift.count) ).first
-          message=message=@expTop3[2].name+"\n"+@expTop3[2].url
+          message=message=@gift.name+"\n"+@gift.url
           res = client.sendImage([from_mid], "https://guarded-reaches-70446.herokuapp.com/gifts/"+@gift.id.to_s+"/img", "https://guarded-reaches-70446.herokuapp.com/gifts/"+@gift.id.to_s+"/img" )
           res = client.send([from_mid], message)
           
