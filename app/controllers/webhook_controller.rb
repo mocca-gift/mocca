@@ -235,8 +235,9 @@ class WebhookController < ApplicationController
         end
         
       end
+      
+      end
     end
-  end
 
     if res.status == 200
       logger.info({success: res})
@@ -257,4 +258,15 @@ class WebhookController < ApplicationController
     signature_answer = Base64.strict_encode64(hash)
     signature == signature_answer
   end
+
+  private
+  # 回答のメッセージに幅を持たせる
+  # ("はい！！"とか"No"に対応)
+  def is_yes(str)
+    # "はい〜"と"Yes"と"Y"と"1"
+    @yes_array = ["/はい.*/"]
+    # arrayじゃない！
+  end
+  
+  
 end
