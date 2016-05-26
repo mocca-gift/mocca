@@ -21,6 +21,7 @@ class WelcomeController < ApplicationController
     end
     
     def info
+        @infos=Info.order("created_at DESC").limit(1)
     end
     
 end

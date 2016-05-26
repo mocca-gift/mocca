@@ -18,43 +18,24 @@
     <link href="/slick/slick-theme.css" type="text/css" rel="stylesheet">
     <script src="/slick/slick.js"></script>
     
-    <title>Mocca-Q-</title>
+    <title>Mocca-I-</title>
     
    <%= javascript_tag do %>
         window.onload=init;
         
         function init(){
-        function getXMLHttpRequestObject(){
-            var ajax=null;
-            if(window.XMLHttpRequest){
-                ajax=new XMLHttpRequest();
-            } else if (window.ActiveObject){
-                ajax=new ActiveObject('MSXML2.XMLHTTP.3.0');
-            }
-            return ajax;
-        }
-    
-        var ajax=getXMLHttpRequestObject();
-            
-        var gifts   = document.getElementsByClassName("gift");
-        var contents = document.getElementsByClassName("content");
+        
+        var newstitles = document.getElementsByClassName("newstitle");   
+        var newsimgs   = document.getElementsByClassName("newsimg");
+        var newscontents = document.getElementsByClassName("newscontent");
+        var newsdates   = document.getElementsByClassName("newsdate");
         
         i=0;
-        hiduke=new Date();
-        <% @gifts.each do |gift| %>
-        gifts[i].style.backgroundImage="url(https://guarded-reaches-70446.herokuapp.com/gifts/<%= gift.id %>/img)";
-        gifts[i].href = "<%= gift.url %>";
-        var h1y=hiduke.getFullYear();
-        var h1d=hiduke.getDate()+hiduke.getMonth()*30.5;
-        var h2y=<%= gift.created_at.year %>;
-        var h2d=<%= gift.created_at.yday %>;
-        var sa=h1y*365+h1d-h2y*365-h2d;
-        if(sa<30){
-        element=document.createElement("span");
-        element.className="new";
-        element.innerHTML="NEW";
-        contents[i].appendChild(element);
-        } else {}
+        <% @infos.each do |info| %>
+        newstitles[i].innerHTML = "<%= info.title %>";
+        newsimgs[i].style.backgroundImage="url(https://guarded-reaches-70446.herokuapp.com/infos/<%= info.id %>/img)";
+        newscontents[i].innerHTML= "<%= info.content %>";
+        newsdates[i].innerHTML = "<%= info.created_at %>";
         i++;
         <% end %>
     }
@@ -78,18 +59,18 @@
       position: relative;
     }
     
-    a:link {
-      text-decoration: none;
-      color: #000000;
-    }
-    a:visited {
-      text-decoration: none;
-      color: #000000;
-    }
-    a:active {
-      text-decoration: none;
-      color: #000000;
-    }
+    /*a:link {*/
+    /*  text-decoration: none;*/
+    /*  color: #000000;*/
+    /*}*/
+    /*a:visited {*/
+    /*  text-decoration: none;*/
+    /*  color: #000000;*/
+    /*}*/
+    /*a:active {*/
+    /*  text-decoration: none;*/
+    /*  color: #000000;*/
+    /*}*/
     .navbar {
       background-color: #FFFFFF;
     }
@@ -109,6 +90,10 @@
         margin-right: 5%;
         margin-top: 10px;
         background-color: rgba(255,255,255,0.5);
+    }
+    
+    .newstitle {
+        text-align: center;
     }
     .wrapper1 {
         position: relative;
@@ -164,6 +149,33 @@
         right: 0px;
         overflow: hidden;
     }
+    .wrapper4 {
+        position: relative;
+        width: 100%;
+        float:left;
+    }
+    .wrapper4:after{
+        padding-top: 100%;
+        display: block;
+        content: "";
+    }
+    .content4{
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        bottom: 0px;
+        right: 0px;
+        overflow: hidden;
+    }
+    .col {
+        width: 50%;
+        float: left;
+    }
+    .line {
+        width: 90%;
+        margin: auto;
+        text-align: center;
+    }
     .newsimg {
         display:block;
         width: 100%;
@@ -178,18 +190,17 @@
         display:block;
         width: 100%;
         height: 100%;
-        padding: 5px;
+        padding: 10px;
     }
     .newsdate {
         display:block;
         width: 100%;
         height: 100%;
-        padding: 5px;
+        padding: 10px;
+        text-align:right;
     }
     .sns {
-        width: 90%;
-        margin-left: 5%;
-        margin-right: 5%;
+        width: 100%;
     }
     .sns .header {
         width: 90%;
@@ -201,6 +212,7 @@
         margin-left: 5%;
         margin-right: 5%;
         text-align:center;
+        padding: 10px;
     }
     
     
@@ -224,24 +236,25 @@
         <ul class="nav navbar-nav">
           <li><a href="/qflow" data-no-turbolink="1">Question<BR>質問で探す</a></li>
           <li><a href="/new_arrival" data-no-turbolink="1">New<BR>新しいアイテム</a></li>
-          <li><a href="">Information<BR>お問い合わせ</a></li>
+          <li><a href="/info">Information<BR>お問い合わせ</a></li>
         </ul>
       </div>
     </nav>
     <div class="shintyaku">
         <div class="header">新着情報</div>
         <div class="news">
+            <h3 class="newstitle"></h3>
             <div class="wrapper1">
                 <div class="content1">
                     <div class="newsimg"></div>
                 </div>
             </div>
-            <div class="wapper2">
+            <div class="wrapper2">
                 <div class="content2">
                     <div class="newscontent"></div>
                 </div>
             </div>
-            <div class="wapper3">
+            <div class="wrapper3">
                 <div class="content3">
                     <div class="newsdate"></div>
                 </div>
@@ -250,6 +263,25 @@
     </div>
     <div class="sns">
         <div class="header">SNSでもMOCCAを使えます！</div>
+        <div class="line">
+            <h3>LINE版のMOCCAはこちらから！</h3>
+            <div class="col">
+                <p>クリックして友達に追加！</p>
+                <div class="wrapper4">
+                  <div class="content4">
+                    <a href="http://line.me/ti/p/%40qdb5785p">LINE版MOCCAはこちら！</a>  
+                  </div>
+                </div>
+            </div>
+            <div class="col">
+                <p>QRコードで友達に追加！</p>
+                <div class="wrapper4">
+                  <div class="content4">
+                    <img src="/image/line.png">  
+                  </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="otoiawase">
         お問い合わせはこちらまでお願いいたします<BR><BR>

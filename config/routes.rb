@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :infos do
+    member {get :img}
+  end
   resources :calendars
   resources :gifts do
     member {get :img}
