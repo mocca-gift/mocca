@@ -5,6 +5,7 @@
 <table>
   <thead>
     <tr>
+      <th>ID</th>
       <th>Name</th>
       <th>Url</th>
       <th>Img</th>
@@ -16,6 +17,7 @@
   <tbody>
     <% @gifts.each do |gift| %>
       <tr>
+        <td><%= gift.id %></td>
         <td><%= gift.name %></td>
         <td><%= gift.url %></td>
         <td><%= image_tag(img_gift_path(gift), :height => "100px") %></td>
