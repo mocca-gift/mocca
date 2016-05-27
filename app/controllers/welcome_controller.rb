@@ -1,6 +1,6 @@
 class WelcomeController < ApplicationController
     before_action do
-        端末によってViewファイルを振り分ける
+        # 端末によってViewファイルを振り分ける
         if request.user_agent.include?("Mobile") || request.user_agent.include?("iPhone") then
             request.variant = :mobile
         else
