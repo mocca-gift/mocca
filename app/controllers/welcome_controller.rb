@@ -1,16 +1,16 @@
 class WelcomeController < ApplicationController
     before_action do
-        #端末によってViewファイルを振り分ける
-        # if request.user_agent.include?("Mobile") || request.user_agent.include?("iPhone") then
-        #     request.variant = :mobile
-        # else
-        # end
-        case params[:device]
-        when 'tablet'
-          request.variant = :tablet
-        when 'mobile'
-          request.variant = :mobile
+        端末によってViewファイルを振り分ける
+        if request.user_agent.include?("Mobile") || request.user_agent.include?("iPhone") then
+            request.variant = :mobile
+        else
         end
+        # case params[:device]
+        # when 'tablet'
+        #   request.variant = :tablet
+        # when 'mobile'
+        #   request.variant = :mobile
+        # end
     end
     
     def index
@@ -21,7 +21,7 @@ class WelcomeController < ApplicationController
     end
     
     def info
-        @infos=Info.order("created_at DESC").limit(2)
+        @infos=Info.order("created_at DESC").limit(3)
     end
     
 end
