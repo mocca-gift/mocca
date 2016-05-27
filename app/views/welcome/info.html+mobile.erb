@@ -51,11 +51,24 @@
     body {
       height: 100%;
       font-family:  "Meiryo UI", メイリオ, Osaka, 'MS PGothic', arial, helvetica, sans-serif;
-      background-image: url("/image/ribbon.png");
+      /*background-image: url("/image/ribbon.png");*/
+      /*background-size: cover;*/
+      /*background-position: center;*/
+      position: relative;
+      /*background-attachment: fixed;*/
+    }
+    body::before {
+      background-image: url("/image/ribbon.png") no-repeat left top;
       background-size: cover;
       background-position: center;
-      position: relative;
-      background-attachment: fixed;
+      display: block;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      content: "";
+      z-index: -1;
     }
     
     /*a:link {*/
@@ -368,7 +381,7 @@
     </div>
     <div class="otoiawase">
         <h3 class="header1">お問い合わせ</h3>
-        <h4>お問い合わせはこちらまでお願いいたします</h4>
+        <h5>お問い合わせはこちらまでお願いいたします</h5>
         <BR>
         <a href="mailto:mocca@example.com">(仮)mocca@example.com</a>
     </div>
