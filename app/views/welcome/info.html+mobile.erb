@@ -33,7 +33,7 @@
         i=0;
         <% @infos.each do |info| %>
         newstitles[i].innerHTML = "<%= info.title %>";
-        newsimgs[i].style.backgroundImage="url(https://guarded-reaches-70446.herokuapp.com/infos/<%= info.id %>/img)";
+        newsimgs[i].style.backgroundImage="url(https://mocca-giftfinder.herokuapp.com/infos/<%= info.id %>/img)";
         newscontents[i].innerHTML= "<%= info.content %>";
         newsdates[i].innerHTML = "<%= info.created_at.year %>-<%= info.created_at.month %>-<%= info.created_at.day %> <%= info.created_at.hour %>:<%= info.created_at.min %>";
         i++;

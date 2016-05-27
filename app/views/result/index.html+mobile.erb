@@ -49,7 +49,7 @@
         <% @giftRes.each do |exp| %>
         giftnames[i].innerText= "<%= exp.name %>";
         gifturls[i].href = "<%= exp.url %>";
-        gifturls[i].style.backgroundImage= 'url(https://guarded-reaches-70446.herokuapp.com/gifts/<%= exp.id %>/img)';
+        gifturls[i].style.backgroundImage= 'url(https://mocca-giftfinder.herokuapp.com/gifts/<%= exp.id %>/img)';
         var h1y=hiduke.getFullYear();
         var h1d=hiduke.getDate()+hiduke.getMonth()*30.5;
         var h2y=<%= exp.created_at.year %>;

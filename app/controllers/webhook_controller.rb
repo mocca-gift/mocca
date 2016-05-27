@@ -51,10 +51,10 @@ class WebhookController < ApplicationController
           res = client.send([from_mid], "今日の運はどうでしょう？")
           @gift=Gift.offset( rand(Gift.count) ).first
           message=message=@gift.name+"\n"+@gift.url
-          res = client.sendImage([from_mid], "https://guarded-reaches-70446.herokuapp.com/gifts/"+@gift.id.to_s+"/img", "https://guarded-reaches-70446.herokuapp.com/gifts/"+@gift.id.to_s+"/img" )
+          res = client.sendImage([from_mid], "https://mocca-giftfinder.herokuapp.com/gifts/"+@gift.id.to_s+"/img", "https://mocca-giftfinder.herokuapp.com/gifts/"+@gift.id.to_s+"/img" )
           res = client.send([from_mid], message)
           
-          message="Web版もお試し下さい\nhttps://guarded-reaches-70446.herokuapp.com/"
+          message="Web版もお試し下さい\nhttps://mocca-giftfinder.herokuapp.com/"
           res = client.send([from_mid], message)
         else
           #"Q"以外のメッセージが来た場合
@@ -141,18 +141,18 @@ class WebhookController < ApplicationController
         
         #@expTop3のギフトに関して，その画像と名前，URLを送信する
         message=message=@expTop3[0].name+"\n"+@expTop3[0].url
-        res = client.sendImage([from_mid], "https://guarded-reaches-70446.herokuapp.com/gifts/"+@expTop3[0].id.to_s+"/img", "https://guarded-reaches-70446.herokuapp.com/gifts/"+@expTop3[0].id.to_s+"/img" )
+        res = client.sendImage([from_mid], "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop3[0].id.to_s+"/img", "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop3[0].id.to_s+"/img" )
         res = client.send([from_mid], message)
         
         message=message=@expTop3[1].name+"\n"+@expTop3[1].url
-        res = client.sendImage([from_mid], "https://guarded-reaches-70446.herokuapp.com/gifts/"+@expTop3[1].id.to_s+"/img", "https://guarded-reaches-70446.herokuapp.com/gifts/"+@expTop3[1].id.to_s+"/img" )
+        res = client.sendImage([from_mid], "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop3[1].id.to_s+"/img", "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop3[1].id.to_s+"/img" )
         res = client.send([from_mid], message)
         
         message=message=@expTop3[2].name+"\n"+@expTop3[2].url
-        res = client.sendImage([from_mid], "https://guarded-reaches-70446.herokuapp.com/gifts/"+@expTop3[2].id.to_s+"/img", "https://guarded-reaches-70446.herokuapp.com/gifts/"+@expTop3[2].id.to_s+"/img" )
+        res = client.sendImage([from_mid], "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop3[2].id.to_s+"/img", "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop3[2].id.to_s+"/img" )
         res = client.send([from_mid], message)
         
-        message="Web版もお試し下さい\nhttps://guarded-reaches-70446.herokuapp.com/"
+        message="Web版もお試し下さい\nhttps://mocca-giftfinder.herokuapp.com/"
         res = client.send([from_mid], message)
         
         @talk.update(:text => "")
@@ -213,18 +213,18 @@ class WebhookController < ApplicationController
         
         #@expTop3のギフトに関して，その画像と名前，URLを送信する
         message=message=@expTop3[0].name+"\n"+@expTop3[0].url
-        res = client.sendImage([from_mid], "https://guarded-reaches-70446.herokuapp.com/gifts/"+@expTop3[0].id.to_s+"/img", "https://guarded-reaches-70446.herokuapp.com/gifts/"+@expTop3[0].id.to_s+"/img" )
+        res = client.sendImage([from_mid], "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop3[0].id.to_s+"/img", "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop3[0].id.to_s+"/img" )
         res = client.send([from_mid], message)
         
         message=message=@expTop3[1].name+"\n"+@expTop3[1].url
-        res = client.sendImage([from_mid], "https://guarded-reaches-70446.herokuapp.com/gifts/"+@expTop3[1].id.to_s+"/img", "https://guarded-reaches-70446.herokuapp.com/gifts/"+@expTop3[1].id.to_s+"/img" )
+        res = client.sendImage([from_mid], "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop3[1].id.to_s+"/img", "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop3[1].id.to_s+"/img" )
         res = client.send([from_mid], message)
         
         message=message=@expTop3[2].name+"\n"+@expTop3[2].url
-        res = client.sendImage([from_mid], "https://guarded-reaches-70446.herokuapp.com/gifts/"+@expTop3[2].id.to_s+"/img", "https://guarded-reaches-70446.herokuapp.com/gifts/"+@expTop3[2].id.to_s+"/img" )
+        res = client.sendImage([from_mid], "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop3[2].id.to_s+"/img", "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop3[2].id.to_s+"/img" )
         res = client.send([from_mid], message)
         
-        message="Web版もお試し下さい\nhttps://guarded-reaches-70446.herokuapp.com/"
+        message="Web版もお試し下さい\nhttps://mocca-giftfinder.herokuapp.com/"
         res = client.send([from_mid], message)
         
         @talk.update(:text => "")
