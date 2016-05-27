@@ -47,7 +47,7 @@
         i=1;
         hiduke=new Date();
         <% @giftRes.each do |exp| %>
-        giftnames[i].innerText= "<%= exp.name %>";
+        giftnames[i].innerHTML= "<%= exp.name %>";
         gifturls[i].href = "<%= exp.url %>";
         gifturls[i].style.backgroundImage= 'url(https://mocca-giftfinder.herokuapp.com/gifts/<%= exp.id %>/img)';
         var h1y=hiduke.getFullYear();
