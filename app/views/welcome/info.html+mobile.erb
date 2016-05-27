@@ -35,7 +35,7 @@
         newstitles[i].innerHTML = "<%= info.title %>";
         newsimgs[i].style.backgroundImage="url(https://guarded-reaches-70446.herokuapp.com/infos/<%= info.id %>/img)";
         newscontents[i].innerHTML= "<%= info.content %>";
-        newsdates[i].innerHTML = "<%= info.created_at %>";
+        newsdates[i].innerHTML = "<%= info.created_at.year %>-<%= info.created_at.month %>-<%= info.created_at.day %> <%= info.created_at.hour %>:<%= info.created_at.min %>";
         i++;
         <% end %>
     }
@@ -51,17 +51,17 @@
     body {
       height: 100%;
       font-family:  "Meiryo UI", メイリオ, Osaka, 'MS PGothic', arial, helvetica, sans-serif;
-      /*background-image: url("/image/ribbon.png");*/
-      /*background-size: cover;*/
-      /*background-position: center;*/
-      /*position: relative;*/
+      background-image: url("/image/ribbon.png");
+      background-size: cover;
+      background-position: center;
+      position: relative;
       background-attachment: fixed;
     }
     
-    a:link {
-      text-decoration: none;
-      color: #000000;
-    }
+    /*a:link {*/
+    /*  text-decoration: none;*/
+    /*  color: #000000;*/
+    /*}*/
     a:visited {
       text-decoration: none;
       color: #000000;
@@ -82,23 +82,28 @@
         margin: auto;
         text-align: center;
         margin-top: 70px;
+        border: double 10px;
+        border-radius: 10px;
     }
     .news {
         width: 90%;
         margin-left: 5%;
         margin-right: 5%;
         margin-top: 10px;
+        background-color: rgba(255,255,255,0.5);
     }
     
     .newstitle {
         text-align: center;
+        padding-bottom: 5px;
+        border-bottom: solid 2px;
     }
     .wrapper1 {
         position: relative;
         width: 33%;
         float:left;
     }
-    .wrapper1:after{
+    .wrapper1:before{
         padding-top: 100%;
         display: block;
         content: "";
@@ -116,7 +121,7 @@
         width: 66%;
         float:left;
     }
-    .wrapper2:after{
+    .wrapper2:before{
         padding-top: 35%;
         display: block;
         content: "";
@@ -134,7 +139,7 @@
         width: 66%;
         float:left;
     }
-    .wrapper3:after{
+    .wrapper3:before{
         padding-top: 15%;
         display: block;
         content: "";
@@ -152,7 +157,7 @@
         width: 100%;
         float:left;
     }
-    .wrapper4:after{
+    .wrapper4:before{
         padding-top: 100%;
         display: block;
         content: "";
@@ -165,6 +170,12 @@
         right: 0px;
         overflow: hidden;
     }
+    
+    .news:after{
+       content:"";
+       display:block;
+       clear:both;
+    }
     .col {
         width: 50%;
         float: left;
@@ -173,7 +184,14 @@
         width: 90%;
         margin: auto;
         text-align: center;
+        background-color: rgba(255,255,255,0.5);
     }
+    .line:after{
+        content:"";
+        display:block;
+        clear:both;
+    }
+    
     .newsimg {
         display:block;
         width: 100%;
@@ -200,11 +218,30 @@
     .sns {
         width: 100%;
     }
+    
+    .sns:after{
+        content:"";
+        display:block;
+        clear:both;
+    }
     .header1 {
         width: 90%;
         margin: auto;
         text-align: center;
-        /*border: double 2px;*/
+        border: double 10px;
+        border-radius: 10px;
+    }
+    
+    .lineimg {
+        display: block;
+        width: 100%;
+        height: 100%;
+        background-image: url("/image/lineplus.png");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-color: #FFFFFF;
+        margin: auto;
     }
     .qrimg {
         width: 100%;
@@ -216,6 +253,7 @@
         background-color: #FFFFFF;
         margin: auto;
     }
+    
     .otoiawase {
         width: 90%;
         margin-left: 5%;
@@ -250,9 +288,27 @@
       </div>
     </nav>
     <div class="shintyaku">
-        <div class="header">新着情報</div>
+        <h3 class="header">新着情報</h3>
         <div class="news">
-            <h3 class="newstitle"></h3>
+            <h4 class="newstitle"></h4>
+            <div class="wrapper1">
+                <div class="content1">
+                    <div class="newsimg"></div>
+                </div>
+            </div>
+            <div class="wrapper2">
+                <div class="content2">
+                    <div class="newscontent"></div>
+                </div>
+            </div>
+            <div class="wrapper3">
+                <div class="content3">
+                    <div class="newsdate"></div>
+                </div>
+            </div>
+        </div>
+        <div class="news">
+            <h4 class="newstitle"></h4>
             <div class="wrapper1">
                 <div class="content1">
                     <div class="newsimg"></div>
@@ -271,19 +327,19 @@
         </div>
     </div>
     <div class="sns">
-        <div class="header1">SNSでもMOCCAを使えます！</div>
+        <h3 class="header1">SNS連携</h3>
         <div class="line">
-            <h4>LINE版のMOCCAはこちらから！</h4>
+            <h4 class="newstitle">MOCCA with LINE</h4>
             <div class="col">
-                <p>クリックして友達に追加！</p>
+                <p>タップして友達に追加</p>
                 <div class="wrapper4">
                   <div class="content4">
-                    <a href="http://line.me/ti/p/%40qdb5785p">LINE版MOCCAはこちら！</a>  
+                    <a class="lineimg" href="http://line.me/ti/p/%40qdb5785p"></a>  
                   </div>
                 </div>
             </div>
             <div class="col">
-                <p>QRコードで友達に追加！</p>
+                <p>QRコードで友達に追加</p>
                 <div class="wrapper4">
                   <div class="content4">
                     <div class="qrimg"></div>  
@@ -293,7 +349,9 @@
         </div>
     </div>
     <div class="otoiawase">
-        お問い合わせはこちらまでお願いいたします<BR><BR>
+        <h3 class="header1">お問い合わせ</h3>
+        <h4>お問い合わせはこちらまでお願いいたします</h4>
+        <BR>
         <a href="mailto:mocca@example.com">(仮)mocca@example.com</a>
     </div>
   </body>
