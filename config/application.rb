@@ -25,14 +25,3 @@ module Workspace
     config.autoload_paths += Dir["#{config.root}/lib"]
   end
 end
-
-module Sample
-  class Application < Rails::Application
-
-   config.middleware.use Rack::Access, {
-      "/gifts" => ["127.0.0.1", "119.104.104.23"],
-      "/questions" => ["127.0.0.1", "119.104.104.23"],
-    }
-
-  end
-end

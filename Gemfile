@@ -13,7 +13,6 @@ gem 'jquery-turbolinks'
 # for Line Bot
 gem "faraday"
 gem "faraday_middleware"
-gem "rack-contrib", require: "rack/contrib"
 
 group :development, :test do
   gem 'sqlite3',     '1.3.9'
