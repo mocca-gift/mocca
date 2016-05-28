@@ -1,7 +1,5 @@
 class GiftsController < ApplicationController
   before_action :set_gift, only: [:show, :edit, :update, :destroy, :img]
-  before_action :restrict_remote_ip
-
 
   # GET /gifts
   # GET /gifts.json
@@ -96,13 +94,5 @@ class GiftsController < ApplicationController
     def gift_params
       params.require(:gift).permit(:name,:url)
     end
-    
-    PERMIT_ADDRESSES = ['127.0.0.1', '::1', '119.104.104.23'].freeze
-
-    def restrict_remote_ip
-      unless PERMIT_ADDRESSES.include?(request.remote_ip)
-      render text: 'Service Unavailable', status: 503
-    end
-  end
 end
 
