@@ -18,7 +18,6 @@ class QflowController < ApplicationController
         # end
     end
     
-    
     def index
         reset_session
         @questions=Question.order("RANDOM()").limit(5)
@@ -78,6 +77,5 @@ class QflowController < ApplicationController
         end
         return nhash
     end
-    
     
 end

@@ -71,11 +71,11 @@ class WebhookController < ApplicationController
       #答えた質問が5個未満なら
       if i<5 then
         case text_message
-        when はい.*/ then
+        when "はい" then
           message=Question.find_by_id(@qarray[i+1]).body
           @talk.update(:text => @talk.text+",1")
           res = client.send([from_mid], message)
-        when いいえ.*/ then
+        when "いいえ" then
           message=Question.find_by_id(@qarray[i+1]).body
           @talk.update(:text => @talk.text+",2")
           res = client.send([from_mid], message)
