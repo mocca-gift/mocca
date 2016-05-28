@@ -1,5 +1,6 @@
 class InfosController < ApplicationController
   before_action :set_info, only: [:show, :edit, :update, :destroy, :img]
+  before_action :restrict_remote_ip
 
   # GET /infos
   # GET /infos.json
@@ -93,5 +94,12 @@ class InfosController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def info_params
       params.require(:info).permit(:title,:content)
+    end
+    
+    PERMIT_ADDRESSES = ['127.0.0.1', '::1', '119.104.104.23','103.54.211.10'].freeze
+
+    def restrict_remote_ip
+      unless PERMIT_ADDRESSES.include?(request.remote_ip)
+      render text: 'Service Unavailable', status: 503
     end
 end

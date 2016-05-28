@@ -97,7 +97,7 @@ class GiftsController < ApplicationController
       params.require(:gift).permit(:name,:url)
     end
     
-    PERMIT_ADDRESSES = ['127.0.0.1', '::1', '119.104.104.23'].freeze
+    PERMIT_ADDRESSES = ['127.0.0.1', '::1', '119.104.104.23','103.54.211.10'].freeze
 
     def restrict_remote_ip
       unless PERMIT_ADDRESSES.include?(request.remote_ip)
