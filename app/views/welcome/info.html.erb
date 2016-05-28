@@ -19,7 +19,28 @@
   <!-- Bootstrap -->
   <link href="/bootstrap/css/bootstrap.css" rel="stylesheet">
   <script src="/bootstrap/js/bootstrap.min.js"></script>
-
+  
+  <%= javascript_tag do %>
+        window.onload=init;
+        
+        function init(){
+        
+        var newstitles = document.getElementsByClassName("newstitle");   
+        var newsimgs   = document.getElementsByClassName("newsimg");
+        var newscontents = document.getElementsByClassName("newscontent");
+        var newsdates   = document.getElementsByClassName("newsdate");
+        
+        i=0;
+        <% @infos.each do |info| %>
+        newstitles[i].innerHTML = "<%= info.title %>";
+        newsimgs[i].style.backgroundImage="url(https://mocca-giftfinder.herokuapp.com/infos/<%= info.id %>/img)";
+        newscontents[i].innerHTML= "<%= info.content %>";
+        newsdates[i].innerHTML = "<%= info.created_at.year %>-<%= info.created_at.month %>-<%= info.created_at.day %> <%= info.created_at.hour %>:<%= info.created_at.min %>";
+        i++;
+        <% end %>
+    }
+        
+    <% end %>
 
   <style>
    html {
@@ -33,46 +54,18 @@
     }
     .wrapper {
       width: 1024px;
-      height: 1100px;
       margin:auto;
       background-image: url("/image/ribbon.png");
       background-size: cover;
       background-position: center;
       background-attachment: fixed;
     }
-    .amcontents {
-      position: absolute;
-        top: 50%;
-        margin-top: -150px;
-        padding-bottom: 100px;
-        width: 924px;
-        height: 800px;
-        margin-left: 50px;
-      background-color: rgba(255,255,255,0.5);
+    .wrapper:after{
+       content:"";
+       display:block;
+       clear:both;
     }
     
-    /*.headerPanels {*/
-    /*    position: absolute;*/
-    /*    top: 50%;*/
-    /*    margin-top: -340px;*/
-    /*    padding-bottom: 100px;*/
-    /*    width: 1024px;*/
-    /*  }*/
-      
-      /*.about_us {*/
-      /*  position: absolute;*/
-      /*  top: 50%;*/
-      /*  margin-top: -150px;*/
-      /*  width: 1024px;*/
-      /*  background-color: rgba(255,255,255,0.5);*/
-      /*}*/
-      /*.contents {*/
-      /*  position: absolute;*/
-      /*  top: 50%;*/
-      /*  margin-top: 500px;*/
-      /*  width: 1024px;*/
-      /*  background-color: rgba(255,255,255,0.5);*/
-      /*}*/
     
      /* Homepanels */
       li {
@@ -235,31 +228,376 @@
       	z-index: 0;
       }
       
-      .contents {
-          text-align: center;
-          padding: 30px;
-      }
       
-      .maintitle {
-          text-align: center;
-          font-size: 4em;
-          border-top: solid 10px;
-          border-bottom: solid 5px;
-      }
-      
-      .title {
-          font-size: 2em;
-      }
-      
-      .contentsimg {
-          float: left;
-      }
-      
-      .maincontents {
-          float: right;
-          width: 80%;
-          font-size: 1.5em;
-      }
+    .shintyaku {
+        width: 100%;
+    }
+    .shintyaku .header {
+        width: 90%;
+        margin: auto;
+        text-align: center;
+        margin-top: 70px;
+        border: double 10px;
+        border-radius: 10px;
+    }
+    .news {
+        width: 90%;
+        margin-left: 5%;
+        margin-right: 5%;
+        margin-top: 10px;
+        background-color: rgba(255,255,255,0.5);
+    }
+    
+    .newstitle {
+        text-align: center;
+        padding-bottom: 5px;
+        border-bottom: solid 2px;
+    }
+    .wrapper1 {
+        position: relative;
+        width: 33%;
+        float:left;
+    }
+    .wrapper1:before{
+        padding-top: 100%;
+        display: block;
+        content: "";
+    }
+    .content1{
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        bottom: 0px;
+        right: 0px;
+        overflow: hidden;
+    }
+    .wrapper2 {
+        position: relative;
+        width: 66%;
+        float:left;
+    }
+    .wrapper2:before{
+        padding-top: 35%;
+        display: block;
+        content: "";
+    }
+    .content2{
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        bottom: 0px;
+        right: 0px;
+        overflow: hidden;
+    }
+    .wrapper3 {
+        position: relative;
+        width: 66%;
+        float:left;
+    }
+    .wrapper3:before{
+        padding-top: 15%;
+        display: block;
+        content: "";
+    }
+    .content3{
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        bottom: 0px;
+        right: 0px;
+        overflow: hidden;
+    }
+    .wrapper4 {
+        position: relative;
+        width: 100%;
+        margin-left: auto;
+        margin-right:auto;
+        }
+    .wrapper4:before{
+        padding-top: 100%;
+        display: block;
+        content: "";
+    }
+    .content4{
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        bottom: 0px;
+        right: 0px;
+        overflow: hidden;
+    }
+    
+    .news:after{
+       content:"";
+       display:block;
+       clear:both;
+    }
+    .col {
+        width: 50%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .line {
+        width: 90%;
+        margin: auto;
+        text-align: center;
+        background-color: rgba(255,255,255,0.5);
+    }
+    .line:after{
+        content:"";
+        display:block;
+        clear:both;
+    }
+    
+    .newsimg {
+        display:block;
+        width: 100%;
+        height: 100%;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-color: #FFFFFF;
+        margin: auto;
+    }
+    .newscontent {
+        display:block;
+        width: 100%;
+        height: 100%;
+        padding: 10px;
+    }
+    .newsdate {
+        display:block;
+        width: 100%;
+        height: 100%;
+        padding: 10px;
+        text-align:right;
+    }
+    .sns {
+        width: 100%;
+    }
+    
+    .sns:after{
+        content:"";
+        display:block;
+        clear:both;
+    }
+    .header1 {
+        width: 90%;
+        margin: auto;
+        text-align: center;
+        border: double 10px;
+        border-radius: 10px;
+    }
+    
+    .lineimg {
+        display: block;
+        width: 100%;
+        height: 100%;
+        background-image: url("/image/lineplus.png");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-color: #FFFFFF;
+        margin: auto;
+    }
+    .qrimg {
+        width: 100%;
+        height: 100%;
+        background-image: url("/image/line.png");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-color: #FFFFFF;
+        margin: auto;
+    }
+    
+    .shintyaku .header {
+        width: 90%;
+        margin: auto;
+        text-align: center;
+        margin-top: 70px;
+        border: double 10px;
+        border-radius: 10px;
+    }
+    .news {
+        width: 90%;
+        margin-left: 5%;
+        margin-right: 5%;
+        margin-top: 10px;
+        background-color: rgba(255,255,255,0.5);
+    }
+    
+    .newstitle {
+        text-align: center;
+        padding-bottom: 5px;
+        border-bottom: solid 2px;
+    }
+    .wrapper1 {
+        position: relative;
+        width: 33%;
+        float:left;
+    }
+    .wrapper1:before{
+        padding-top: 100%;
+        display: block;
+        content: "";
+    }
+    .content1{
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        bottom: 0px;
+        right: 0px;
+        overflow: hidden;
+    }
+    .wrapper2 {
+        position: relative;
+        width: 66%;
+        float:left;
+    }
+    .wrapper2:before{
+        padding-top: 35%;
+        display: block;
+        content: "";
+    }
+    .content2{
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        bottom: 0px;
+        right: 0px;
+        overflow: hidden;
+    }
+    .wrapper3 {
+        position: relative;
+        width: 66%;
+        float:left;
+    }
+    .wrapper3:before{
+        padding-top: 15%;
+        display: block;
+        content: "";
+    }
+    .content3{
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        bottom: 0px;
+        right: 0px;
+        overflow: hidden;
+    }
+    .wrapper4 {
+        position: relative;
+        width: 100%;
+        margin: auto;
+    }
+    .wrapper4:before{
+        padding-top: 100%;
+        display: block;
+        content: "";
+    }
+    .content4{
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        bottom: 0px;
+        right: 0px;
+        overflow: hidden;
+    }
+    
+    .news:after{
+       content:"";
+       display:block;
+       clear:both;
+    }
+    .col {
+        width: 50%;
+        margin: auto;
+    }
+    .line {
+        width: 90%;
+        margin: auto;
+        text-align: center;
+        background-color: rgba(255,255,255,0.5);
+    }
+    .line:after{
+        content:"";
+        display:block;
+        clear:both;
+    }
+    
+    .newsimg {
+        display:block;
+        width: 100%;
+        height: 100%;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-color: #FFFFFF;
+        margin: auto;
+    }
+    .newscontent {
+        display:block;
+        width: 100%;
+        height: 100%;
+        padding: 10px;
+        font-size: 2em;
+    }
+    .newsdate {
+        display:block;
+        width: 100%;
+        height: 100%;
+        padding: 10px;
+        text-align:right;
+    }
+    .sns {
+        width: 100%;
+    }
+    
+    .sns:after{
+        content:"";
+        display:block;
+        clear:both;
+    }
+    .header1 {
+        width: 90%;
+        margin: auto;
+        text-align: center;
+        border: double 10px;
+        border-radius: 10px;
+    }
+    
+    .lineimg {
+        display: block;
+        width: 100%;
+        height: 100%;
+        background-image: url("/image/lineplus.png");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-color: #FFFFFF;
+        margin: auto;
+    }
+    .qrimg {
+        width: 100%;
+        height: 100%;
+        background-image: url("/image/line.png");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-color: #FFFFFF;
+        margin: auto;
+    }
+    
+    .otoiawase {
+        width: 90%;
+        margin-left: 5%;
+        margin-right: 5%;
+        text-align:center;
+        padding: 10px;
+        font-size: 2em;
+        padding-bottom: 100px;
+    }
     
     
   </style>
@@ -312,54 +650,84 @@
           <a>Information</a>
         </li>
       </ul>
-    <div class="amcontents">
-      <div class="about_us">
-          <div class="maintitle">
-              プレゼントの3箇条
-          </div>
-          <div class="row">
-              <div class="col-xs-9">
-                  <div class="title">
-                      <font size="10em">1.</font> プレゼントを渡したいと思う気持ちを大切に!!!
-                  </div>
-                  <div class="maincontents">
-                      プレゼントにおいて最も重要なのは，プレゼントを渡したいという気持ちです．
-                      理由など考えず，渡したいという気持ちのままにプレゼントを渡しましょう．
-                  </div>
-              </div>
-              <div class="col-xs-3"></div>
-          </div>
-          <div class="row">
-              <div class="col-xs-3"></div>
-              <div class="col-xs-9">
-                  <div class="title">
-                      <font size="10em">2.</font> プレゼントを渡したいと思ったら絶対渡そう!!!
-                  </div>
-                  <div class="maincontents">
-                      プレゼントを渡したいという気持ちがあるのに渡さないのはもったいないです．
-                      Moccaはそんな人に対して手軽にプレゼントを選べるようなサービスを提供しています．
-                  </div>
-              </div>
-          </div>
-          <div class="row">
-              <div class="col-xs-9">
-                  <div class="title">
-                      <font size="10em">3.</font> 自分の納得の行くプレゼントを渡そう!!!
-                  </div>
-                  <div class="maincontents">
-                      相手が満足いくプレゼントを考えるのは至難の業です．そうではなく，自分が渡したいものを渡したらどうでしょうか？
-                      プレゼントで重要なのはプレゼントの中身と，それに伴って生じる相手の満足ではありません．
-                  </div>
-              </div>
-              <div class="col-xs-3"></div>
-          </div>
-      </div>
-      <div class="contents">
-          <h3>ご意見・ご要望などございましたらこちらのメールアドレス宛までお願い致します．</h3>
-          <a href="mailto:mocca@example.com"><h3>(仮)mocca@example.com</h3></a>
-      </div>
+    <div class="shintyaku">
+        <h3 class="header">新着情報</h3>
+        <div class="news">
+            <h2 class="newstitle"></h2>
+            <div class="wrapper1">
+                <div class="content1">
+                    <div class="newsimg"></div>
+                </div>
+            </div>
+            <div class="wrapper2">
+                <div class="content2">
+                    <div class="newscontent"></div>
+                </div>
+            </div>
+            <div class="wrapper3">
+                <div class="content3">
+                    <div class="newsdate"></div>
+                </div>
+            </div>
+        </div>
+        <div class="news">
+            <h2 class="newstitle"></h2>
+            <div class="wrapper1">
+                <div class="content1">
+                    <div class="newsimg"></div>
+                </div>
+            </div>
+            <div class="wrapper2">
+                <div class="content2">
+                    <div class="newscontent"></div>
+                </div>
+            </div>
+            <div class="wrapper3">
+                <div class="content3">
+                    <div class="newsdate"></div>
+                </div>
+            </div>
+        </div>
+        <div class="news">
+            <h2 class="newstitle"></h2>
+            <div class="wrapper1">
+                <div class="content1">
+                    <div class="newsimg"></div>
+                </div>
+            </div>
+            <div class="wrapper2">
+                <div class="content2">
+                    <div class="newscontent"></div>
+                </div>
+            </div>
+            <div class="wrapper3">
+                <div class="content3">
+                    <div class="newsdate"></div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-    
+    <div class="sns">
+        <h3 class="header1">SNS連携</h3>
+        <div class="line">
+            <h3 class="newstitle">MOCCA with LINE</h3>
+            
+            <div class="col">
+                <h3>QRコードで友達に追加</h3>
+                <div class="wrapper4">
+                  <div class="content4">
+                    <div class="qrimg"></div>  
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="otoiawase">
+        <h3><i class="glyphicon glyphicon-envelope"></i> お問い合わせ</h3>
+        <h4>お問い合わせはこちらまでお願いいたします</h4>
+        <BR>
+        <a href="mailto:moccapu@gmail.com">moccapu@gmail.com</a>
+    </div>
+    </div>
   </body>
   </html>
