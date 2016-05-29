@@ -157,6 +157,7 @@ class WebhookController < ApplicationController
         # message=message=@expTop3[2].name+"\n"+@expTop3[2].url
         # res = client.sendImage([from_mid], "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop3[2].id.to_s+"/img", "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop3[2].id.to_s+"/img" )
         # res = client.send([from_mid], message)
+        bayes_calc
         
         message="Web版もお試し下さい\nhttps://mocca-giftfinder.herokuapp.com/"
         res = client.send([from_mid], message)
