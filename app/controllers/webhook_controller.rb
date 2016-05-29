@@ -26,8 +26,8 @@ class WebhookController < ApplicationController
     
     #メッセージ送信者の履歴が過去になければ(質問フローの中にいないなら)
     if Talk.find_by(:user => from_mid)==nil then
-      res = client.send([from_mid], "ようこそMOCCAへ\n誰かにギフトをあげたい...\nそんな時に良質なギフトを提案します")
-      res = client.send([from_mid], "5つの質問に答えてギフトを探す場合は「Q」を\n運に任せてランダムにギフトを探す場合は「R」を送って下さい")
+      res = client.send([from_mid], "ようこそMOCCAへ\n素敵なプレゼントを\n一緒に探してみませんか")
+      res = client.send([from_mid], "Q:質問に答えてギフトを探す!\nR:運に任せてランダムにギフトを探す!")
       @talk=Talk.create(:user => from_mid, :text => "")
     else
       if Talk.find_by(:user => from_mid).text=="" then
@@ -41,8 +41,9 @@ class WebhookController < ApplicationController
             qarray+=","
             qarray+=q.id.to_s
           end
-          res = client.send([from_mid], "ギフトを渡す相手に関する質問です")
-          res = client.send([from_mid], "「はい」か「いいえ」で答えてください")
+          res = client.send([from_mid], "プレゼントを渡す相手を想像してください")
+          res = client.send([from_mid], "直感で「はい」か「いいえ」で答えてね")
+          res = client.send([from_mid], "まずは5問！")
           message=@questions[0].body
           @talk=Talk.find_by(:user => from_mid)
           @talk.update(:text => "0",:question => qarray)
@@ -57,7 +58,7 @@ class WebhookController < ApplicationController
           message="Web版もお試し下さい\nhttps://mocca-giftfinder.herokuapp.com/"
           res = client.send([from_mid], message)
         else
-          #"Q"以外のメッセージが来た場合
+          #"Q""R"以外のメッセージが来た場合
           res = client.send([from_mid], "5つの質問に答えてギフトを探す場合は「Q」を\n運に任せてランダムにギフトを探す場合は「R」を送って下さい")
         end
         
@@ -68,14 +69,17 @@ class WebhookController < ApplicationController
       @qarray=@talk.question.split(",")
       @ansarray=@talk.text.split(",")
       i=@ansarray.count
+      # はいと判断するメッセージ
+      yes_array=[/はい！*/, /はい!*/,/YES!*/i,/1/]
+      no_array=[/いいえ！*/, /いいえ!*/,/いえ!*/,/NO!*/i,/2/]
       #答えた質問が5個未満なら
       if i<5 then
         case text_message
-        when /はい！*/ then
+        when yes_array then
           message=Question.find_by_id(@qarray[i+1]).body
           @talk.update(:text => @talk.text+",1")
           res = client.send([from_mid], message)
-        when /いいえ！*/ then
+        when no_array then
           message=Question.find_by_id(@qarray[i+1]).body
           @talk.update(:text => @talk.text+",2")
           res = client.send([from_mid], message)
@@ -83,10 +87,11 @@ class WebhookController < ApplicationController
           message="「はい」か「いいえ」で答えてください"
           res = client.send([from_mid], message)
         end
+        
       else
         case text_message
-        when /はい！*/ then
-          res = client.send([from_mid], "あなたに最適なギフトは...")
+        when yes_array then
+          res = client.send([from_mid], "こんなプレゼントはどうかな...")
           @talk.update(:text => @talk.text+",1")
           @qarray=@talk.question.split(",")
           @ansarray=@talk.text.split(",")
@@ -156,84 +161,84 @@ class WebhookController < ApplicationController
         res = client.send([from_mid], message)
         
         @talk.update(:text => "")
-          
-        when /いいえ！*/ then
-          res = client.send([from_mid], "あなたに最適なギフトは...")
+# ↓NO----------------------------------------------------------------------------
+        when no_array then
+          res = client.send([from_mid], "こんなプレゼントはどうかな...")
           @talk.update(:text => @talk.text+",2")
-          @qarray=@talk.question.split(",")
-          @ansarray=@talk.text.split(",")
+        #   @qarray=@talk.question.split(",")
+        #   @ansarray=@talk.text.split(",")
           
-          # answerモデルに結果を代入
-        # for i in 0..4 do
-        for i in 1..(@ansarray.length-1) do
-            answer=Answer.where(question_id: @qarray[i]).find_by_ansid(@ansarray[i]) || Answer.new(question_id: @qarray[i], ansid: @ansarray[i], count: 0)
-            answer.save
-            answer.update(count: answer.count+1)
-        end
+        #   # answerモデルに結果を代入
+        # for i in 1..(@ansarray.length-1) do
+        #     answer=Answer.where(question_id: @qarray[i]).find_by_ansid(@ansarray[i]) || Answer.new(question_id: @qarray[i], ansid: @ansarray[i], count: 0)
+        #     answer.save
+        #     answer.update(count: answer.count+1)
+        # end
         
-        
-        #ベイズ
-        #ベイズ確率の配列作成
-        @bayes=Hash.new(0.5)
+        # #ベイズ
+        # #ベイズ確率の配列作成
+        # @bayes=Hash.new(0.5)
       
-        @gifts=Gift.all
+        # @gifts=Gift.all
         
-        #ベイズ計算
-        for i in 1..5 do
-          @gifts.each do |gift|
-            answer=Answer.where(question_id: @qarray[i]).find_by_ansid(@ansarray[i])
-            evaluation1=Evaluation.where(gift_id: gift.id).find_by_evalid(1) || Evaluation.new(gift_id: gift.id, evalid: 1, count: 0)
-            evaluation1.save
-            evaluation2=Evaluation.where(gift_id: gift.id).find_by_evalid(2) || Evaluation.new(gift_id: gift.id, evalid: 2, count: 0)
-            evaluation2.save
-            anstoeval1=Anstoeval.where(answer_id: answer.id).find_by_evaluation_id(evaluation1.id) || Anstoeval.new(answer_id: answer.id, evaluation_id: evaluation1.id, count: 1)
-            anstoeval1.save
-            anstoeval2=Anstoeval.where(answer_id: answer.id).find_by_evaluation_id(evaluation2.id) || Anstoeval.new(answer_id: answer.id, evaluation_id: evaluation2.id, count: 1)
-            anstoeval2.save
-            p1=1.0*anstoeval1.count/(anstoeval1.count + anstoeval2.count)
-            @bayes[gift] = @bayes[gift]*p1/(@bayes[gift]*p1+(1-@bayes[gift])*(1-p1))
-          end
-        end
+        # #ベイズ計算
+        # for i in 1..5 do
+        #   @gifts.each do |gift|
+        #     answer=Answer.where(question_id: @qarray[i]).find_by_ansid(@ansarray[i])
+        #     evaluation1=Evaluation.where(gift_id: gift.id).find_by_evalid(1) || Evaluation.new(gift_id: gift.id, evalid: 1, count: 0)
+        #     evaluation1.save
+        #     evaluation2=Evaluation.where(gift_id: gift.id).find_by_evalid(2) || Evaluation.new(gift_id: gift.id, evalid: 2, count: 0)
+        #     evaluation2.save
+        #     anstoeval1=Anstoeval.where(answer_id: answer.id).find_by_evaluation_id(evaluation1.id) || Anstoeval.new(answer_id: answer.id, evaluation_id: evaluation1.id, count: 1)
+        #     anstoeval1.save
+        #     anstoeval2=Anstoeval.where(answer_id: answer.id).find_by_evaluation_id(evaluation2.id) || Anstoeval.new(answer_id: answer.id, evaluation_id: evaluation2.id, count: 1)
+        #     anstoeval2.save
+        #     p1=1.0*anstoeval1.count/(anstoeval1.count + anstoeval2.count)
+        #     @bayes[gift] = @bayes[gift]*p1/(@bayes[gift]*p1+(1-@bayes[gift])*(1-p1))
+        #   end
+        # end
         
-        #期待値の配列作成
+        # #期待値の配列作成
         
-        @giftExp     = Hash.new(1.0/2.0)
+        # @giftExp     = Hash.new(1.0/2.0)
         
-        #期待値と分散値の配列に値を代入
+        # #期待値と分散値の配列に値を代入
         
-        @gifts.each do |gift|
-            # gift毎に[giftオブジェクト,期待値(Bayes更新あり)]のhash作成
-            @giftExp[gift] = 1-2*@bayes[gift]
-        end
+        # @gifts.each do |gift|
+        #     # gift毎に[giftオブジェクト,期待値(Bayes更新あり)]のhash作成
+        #     @giftExp[gift] = 1-2*@bayes[gift]
+        # end
         
-        @expTop3=Array.new(3,Gift.find_by_id(1))
-        for i in 0..(@expTop3.length-1) do
-            @expTop3[i]=@giftExp.sort_by{|key, value| -value}[i][0]
-        end
+        # @expTop3=Array.new(3,Gift.find_by_id(1))
+        # for i in 0..(@expTop3.length-1) do
+        #     @expTop3[i]=@giftExp.sort_by{|key, value| -value}[i][0]
+        # end
         
-        #@expTop3のギフトに関して，その画像と名前，URLを送信する
-        message=message=@expTop3[0].name+"\n"+@expTop3[0].url
-        res = client.sendImage([from_mid], "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop3[0].id.to_s+"/img", "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop3[0].id.to_s+"/img" )
-        res = client.send([from_mid], message)
+        # #@expTop3のギフトに関して，その画像と名前，URLを送信する
+        # message=message=@expTop3[0].name+"\n"+@expTop3[0].url
+        # res = client.sendImage([from_mid], "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop3[0].id.to_s+"/img", "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop3[0].id.to_s+"/img" )
+        # res = client.send([from_mid], message)
         
-        message=message=@expTop3[1].name+"\n"+@expTop3[1].url
-        res = client.sendImage([from_mid], "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop3[1].id.to_s+"/img", "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop3[1].id.to_s+"/img" )
-        res = client.send([from_mid], message)
+        # message=message=@expTop3[1].name+"\n"+@expTop3[1].url
+        # res = client.sendImage([from_mid], "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop3[1].id.to_s+"/img", "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop3[1].id.to_s+"/img" )
+        # res = client.send([from_mid], message)
         
-        message=message=@expTop3[2].name+"\n"+@expTop3[2].url
-        res = client.sendImage([from_mid], "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop3[2].id.to_s+"/img", "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop3[2].id.to_s+"/img" )
-        res = client.send([from_mid], message)
+        # message=message=@expTop3[2].name+"\n"+@expTop3[2].url
+        # res = client.sendImage([from_mid], "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop3[2].id.to_s+"/img", "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop3[2].id.to_s+"/img" )
+        # res = client.send([from_mid], message)
+        
+        bayes_calc()
         
         message="Web版もお試し下さい\nhttps://mocca-giftfinder.herokuapp.com/"
         res = client.send([from_mid], message)
         
         @talk.update(:text => "")
         
+# ↑NO----------------------------------------------------------------------------
         else
           message="「はい」か「いいえ」で答えてください"
           res = client.send([from_mid], message)
         end
-        
       end
       
       end
@@ -258,16 +263,80 @@ class WebhookController < ApplicationController
     signature_answer = Base64.strict_encode64(hash)
     signature == signature_answer
   end
-
+  
   private
-  # 回答のメッセージに幅を持たせる
-  # ("はい！！"とか"No"に対応)
-  def is_yes(str)
-    # "はい〜"と"Yes"と"Y"と"1"
-    @yes_array = ["/はい.*/"]
-    # arrayじゃない！
+  # ベイズ計算切り出し
+  def bayes_calc
+          @qarray=@talk.question.split(",")
+          @ansarray=@talk.text.split(",")
+          
+          # answerモデルに結果を代入
+        for i in 1..(@ansarray.length-1) do
+            answer=Answer.where(question_id: @qarray[i]).find_by_ansid(@ansarray[i]) || Answer.new(question_id: @qarray[i], ansid: @ansarray[i], count: 0)
+            answer.save
+            answer.update(count: answer.count+1)
+        end
+        
+        #ベイズ
+        #ベイズ確率の配列作成
+        @bayes=Hash.new(0.5)
+      
+        @gifts=Gift.all
+        
+        #ベイズ計算
+        for i in 1..5 do
+          @gifts.each do |gift|
+            answer=Answer.where(question_id: @qarray[i]).find_by_ansid(@ansarray[i])
+            evaluation1=Evaluation.where(gift_id: gift.id).find_by_evalid(1) || Evaluation.new(gift_id: gift.id, evalid: 1, count: 0)
+            evaluation1.save
+            evaluation2=Evaluation.where(gift_id: gift.id).find_by_evalid(2) || Evaluation.new(gift_id: gift.id, evalid: 2, count: 0)
+            evaluation2.save
+            anstoeval1=Anstoeval.where(answer_id: answer.id).find_by_evaluation_id(evaluation1.id) || Anstoeval.new(answer_id: answer.id, evaluation_id: evaluation1.id, count: 1)
+            anstoeval1.save
+            anstoeval2=Anstoeval.where(answer_id: answer.id).find_by_evaluation_id(evaluation2.id) || Anstoeval.new(answer_id: answer.id, evaluation_id: evaluation2.id, count: 1)
+            anstoeval2.save
+            p1=1.0*anstoeval1.count/(anstoeval1.count + anstoeval2.count)
+            @bayes[gift] = @bayes[gift]*p1/(@bayes[gift]*p1+(1-@bayes[gift])*(1-p1))
+          end
+        end
+        
+        #期待値の配列作成
+        
+        @giftExp     = Hash.new(1.0/2.0)
+        
+        #期待値と分散値の配列に値を代入
+        
+        @gifts.each do |gift|
+            # gift毎に[giftオブジェクト,期待値(Bayes更新あり)]のhash作成
+            @giftExp[gift] = 1-2*@bayes[gift]
+        end
+        # 一旦1つだけ出力するようにする
+        # @expTop3=Array.new(3,Gift.find_by_id(1))
+        # for i in 0..(@expTop3.length-1) do
+        #     @expTop3[i]=@giftExp.sort_by{|key, value| -value}[i][0]
+        # end
+        @expTop1=Gift.find_by_id(1)
+        @expTop1=@giftExp.sort_by{|key, value| -value}[0][0]
+        
+        #@expTop3のギフトに関して，その画像と名前，URLを送信する
+        # message=message=@expTop3[0].name+"\n"+@expTop3[0].url
+        # res = client.sendImage([from_mid], "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop3[0].id.to_s+"/img", "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop3[0].id.to_s+"/img" )
+        # res = client.send([from_mid], message)
+        
+        # message=message=@expTop3[1].name+"\n"+@expTop3[1].url
+        # res = client.sendImage([from_mid], "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop3[1].id.to_s+"/img", "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop3[1].id.to_s+"/img" )
+        # res = client.send([from_mid], message)
+        
+        # message=message=@expTop3[2].name+"\n"+@expTop3[2].url
+        # res = client.sendImage([from_mid], "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop3[2].id.to_s+"/img", "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop3[2].id.to_s+"/img" )
+        # res = client.send([from_mid], message)
+        
+        #@expTop1のギフトに関して，その画像と名前，URLを送信する
+        message=message=@expTop1.name+"\n"+@expTop1.url
+        res = client.sendImage([from_mid], "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img", "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img" )
+        res = client.send([from_mid], message)
+        # 中身だけ空文字にしても容量削減にはあまり効果ないかも。。。
+        @talk.update(:text => "")
   end
-  
-  
   
 end
