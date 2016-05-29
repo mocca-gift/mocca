@@ -158,6 +158,10 @@ class WebhookController < ApplicationController
         # res = client.sendImage([from_mid], "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop3[2].id.to_s+"/img", "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop3[2].id.to_s+"/img" )
         # res = client.send([from_mid], message)
         bayes_calc
+        #@expTop1のギフトに関して，その画像と名前，URLを送信する
+        message=message=@expTop1.name+"\n"+@expTop1.url
+        res = client.sendImage([from_mid], "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img", "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img" )
+        res = client.send([from_mid], message)
         
         message="Web版もお試し下さい\nhttps://mocca-giftfinder.herokuapp.com/"
         res = client.send([from_mid], message)
@@ -226,12 +230,17 @@ class WebhookController < ApplicationController
         # res = client.sendImage([from_mid], "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop3[1].id.to_s+"/img", "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop3[1].id.to_s+"/img" )
         # res = client.send([from_mid], message)
         
+        
         # message=message=@expTop3[2].name+"\n"+@expTop3[2].url
         # res = client.sendImage([from_mid], "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop3[2].id.to_s+"/img", "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop3[2].id.to_s+"/img" )
         # res = client.send([from_mid], message)
         
         # ん？これで呼べてるの？
         bayes_calc
+        #@expTop1のギフトに関して，その画像と名前，URLを送信する
+        message=message=@expTop1.name+"\n"+@expTop1.url
+        res = client.sendImage([from_mid], "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img", "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img" )
+        res = client.send([from_mid], message)
         
         message="Web版もお試し下さい\nhttps://mocca-giftfinder.herokuapp.com/"
         res = client.send([from_mid], message)
@@ -335,10 +344,11 @@ class WebhookController < ApplicationController
         # res = client.sendImage([from_mid], "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop3[2].id.to_s+"/img", "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop3[2].id.to_s+"/img" )
         # res = client.send([from_mid], message)
         
-        #@expTop1のギフトに関して，その画像と名前，URLを送信する
-        message=message=@expTop1.name+"\n"+@expTop1.url
-        res = client.sendImage([from_mid], "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img", "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img" )
-        res = client.send([from_mid], message)
+        # res はただの変数！
+        # #@expTop1のギフトに関して，その画像と名前，URLを送信する
+        # message=message=@expTop1.name+"\n"+@expTop1.url
+        # res = client.sendImage([from_mid], "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img", "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img" )
+        # res = client.send([from_mid], message)
   end
   
 end
