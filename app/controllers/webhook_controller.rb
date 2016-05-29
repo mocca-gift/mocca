@@ -59,7 +59,7 @@ class WebhookController < ApplicationController
           res = client.send([from_mid], message)
         else
           #"Q""R"以外のメッセージが来た場合
-          res = client.send([from_mid], "5つの質問に答えてギフトを探す場合は「Q」を\n運に任せてランダムにギフトを探す場合は「R」を送って下さい")
+          res = client.send([from_mid], "Q:質問に答えてギフトを探す!\nR:運に任せてランダムにギフトを探す!")
         end
         
       else
@@ -71,7 +71,7 @@ class WebhookController < ApplicationController
       i=@ansarray.count
       # はいと判断するメッセージ
       yes_array=[/はい！*/, /はい!*/,/YES!*/i,/y/i,/1/]
-      no_array=[/いいえ！*/, /いいえ!*/,/いえ!*/,/NO!*/i,/n/i,/2/]
+      no_array=[/いいえ！*/, /いいえ!*/,/いーえ!*/,/NO!*/i,/n/i,/2/]
       #答えた質問が5個未満なら
       if i<5 then
         case text_message
