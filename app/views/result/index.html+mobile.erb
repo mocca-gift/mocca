@@ -327,7 +327,7 @@
   );
    
   jQuery.event.add(window,"load",function() { // 全ての読み込み完了後に呼ばれる関数
-      var pageH = $(".result").height();
+      var pageH = $(".result").height()+100;
    
       $("#fade").css("height", pageH).delay(1000).fadeOut(1000);
       $("#loader").delay(1000).fadeOut(1000);
