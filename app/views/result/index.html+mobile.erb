@@ -294,10 +294,45 @@
       border: 0;
     }
     
+    #loader {
+        width: 200px;
+        height: 200px;
+        text-align: center;
+        /*display: none;*/
+        position: fixed;
+        _position: absolute; /* IE6対策 */
+        top: 50%;
+        left: 50%;
+        margin-top: -150px; /* heightの半分のマイナス値 */
+        margin-left: -100px; /* widthの半分のマイナス値 */
+        z-index: 100;
+    }
+     
+    #fade {
+        width: 100%;
+        height: 100%;
+        /*display: none;*/
+        background-color: #FFFFFF;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        z-index: 50;
+    }
     
 
   </style>
   <script>
+  $('head').append(
+      '<style type="text/css">.result { display: none; } #fade, #loader { display: block; }</style>'
+  );
+   
+  jQuery.event.add(window,"load",function() { // 全ての読み込み完了後に呼ばれる関数
+      var pageH = $(".result").height();
+   
+      $("#fade").css("height", pageH).delay(1000).fadeOut(1000);
+      $("#loader").delay(1000).fadeOut(1000);
+      $(".result").css("display", "block");
+  });
     
   $(document).ready(function(){
   
@@ -347,6 +382,8 @@
         </ul>
       </div>
     </nav>
+    <div id="loader"><img src="/image/gif05.gif" height="200px" width="200px"><BR>Loading...</div>
+    <div id="fade"></div>
     <div class="result">
         <div class="row">
           <div id="slick_container">
