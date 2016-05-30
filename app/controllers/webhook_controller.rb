@@ -70,8 +70,8 @@ class WebhookController < ApplicationController
       @ansarray=@talk.text.split(",")
       i=@ansarray.count
       # はいと判断するメッセージ
-      yes_array=[/はい！*/, /はい!*/,/YES!*/i,/y/i,/1/]
-      no_array=[/いいえ！*/, /いいえ!*/,/いーえ!*/,/NO!*/i,/n/i,/2/]
+      yes_array=[/はい！*/, /はい!*/,/うん！*/, /うん!*/,/YES!*/i,/y/i,/1/]
+      no_array=[/いいえ！*/, /いいえ!*/,/いーえ!*/,/いや！*/, /いや!*/,/NO!*/i,/n/i,/2/]
       #答えた質問が5個未満なら
       if i<5 then
         case text_message
