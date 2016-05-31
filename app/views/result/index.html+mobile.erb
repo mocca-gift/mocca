@@ -72,6 +72,45 @@
         touchMoveY=[0,0,0,0,0,0,0,0];
         
         <% @giftRes.each do |exp| %>
+          hearts[j].onclick = function(s) {
+            return function(event){
+              hearts[s].src= "/image/heartloader.gif";
+                    switch(elm_num[s]) {
+                      case -1:
+                       ajax.onreadystatechange=function() {
+                          if(ajax.readyState==4) {
+                            if((ajax.status>=200 && ajax.status<300) || (ajax.status==304)) {
+                                hearts[s].src = "/image/emptyheart2.png";
+                            }
+                            else {
+                            }
+                          }
+                        }
+                        ajax.open('GET','/result/countup?gift=<%= exp.id %>&gift_ans=<%= @ansarray.join(",") %>&gift_q=<%= @qarray.join(",") %>',true);
+                        ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+                        ajax.send(null);
+                        elm_num[s]=0;
+                        break;
+                      case 0:
+                        break;
+                      case 1:
+                        ajax.onreadystatechange=function() {
+                          if(ajax.readyState==4) {
+                            if((ajax.status>=200 && ajax.status<300) || (ajax.status==304)) {
+                                hearts[s].src = "/image/emptyheart2.png";
+                            }
+                            else {
+                            }
+                          }
+                        }
+                        ajax.open('GET','/result/countdown?gift=<%= exp.id %>&gift_ans=<%= @ansarray.join(",") %>&gift_q=<%= @qarray.join(",") %>',true);
+                        ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+                        ajax.send(null);
+                        elm_num[s]=0;
+                        break;
+                      }
+            }
+          }(j)
           hearts[j].ontouchstart = function(s) {
             return function(event){
               event.preventDefault();
@@ -163,41 +202,6 @@
                         break;
                       }
                   } else {
-                    hearts[s].src= "/image/heartloader.gif";
-                    switch(elm_num[s]) {
-                      case -1:
-                       ajax.onreadystatechange=function() {
-                          if(ajax.readyState==4) {
-                            if((ajax.status>=200 && ajax.status<300) || (ajax.status==304)) {
-                                hearts[s].src = "/image/emptyheart2.png";
-                            }
-                            else {
-                            }
-                          }
-                        }
-                        ajax.open('GET','/result/countup?gift=<%= exp.id %>&gift_ans=<%= @ansarray.join(",") %>&gift_q=<%= @qarray.join(",") %>',true);
-                        ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
-                        ajax.send(null);
-                        elm_num[s]=0;
-                        break;
-                      case 0:
-                        break;
-                      case 1:
-                        ajax.onreadystatechange=function() {
-                          if(ajax.readyState==4) {
-                            if((ajax.status>=200 && ajax.status<300) || (ajax.status==304)) {
-                                hearts[s].src = "/image/emptyheart2.png";
-                            }
-                            else {
-                            }
-                          }
-                        }
-                        ajax.open('GET','/result/countdown?gift=<%= exp.id %>&gift_ans=<%= @ansarray.join(",") %>&gift_q=<%= @qarray.join(",") %>',true);
-                        ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
-                        ajax.send(null);
-                        elm_num[s]=0;
-                        break;
-                      }
                   }
                 }
             }
