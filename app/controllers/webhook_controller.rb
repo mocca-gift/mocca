@@ -106,7 +106,7 @@ class WebhookController < ApplicationController
             # message="Web版も試してね！\nhttps://mocca-giftfinder.herokuapp.com/"
             res = client.send([from_mid], message)
             
-            @talk.update(:question => @talk.question+","+@expTop1.id)
+            @talk.update(:question => @talk.question+","+@expTop1.id.to_s)
             # @talk.update(:text => "")
     # ↑YES--------------------------------------------------------------------------
     # ↓NO----------------------------------------------------------------------------
@@ -124,7 +124,7 @@ class WebhookController < ApplicationController
             # message="Web版もお試し下さい\nhttps://mocca-giftfinder.herokuapp.com/"
             res = client.send([from_mid], message)
             
-            @talk.update(:question => @talk.question+","+@expTop1.id)
+            @talk.update(:question => @talk.question+","+@expTop1.id.to_s)
             # @talk.update(:text => "")
           
     # ↑NO----------------------------------------------------------------------------
@@ -245,7 +245,7 @@ class WebhookController < ApplicationController
   def up_calc
     for i in 1..5
       answer=Answer.where(question_id: @qarray[i]).find_by_ansid(@ansarray[i])
-      evaluation=Evaluation.where(gift_id: @qarray[5]).find_by_evalid(1)
+      evaluation=Evaluation.where(gift_id: 1).find_by_evalid(1)
       anstoeval=Anstoeval.where(answer_id: answer.id).find_by_evaluation_id(evaluation.id)
       anstoeval.update(count: anstoeval.count+1)
     end
@@ -254,7 +254,7 @@ class WebhookController < ApplicationController
   def down_calc
     for i in 1..5
       answer=Answer.where(question_id: @qarray[i]).find_by_ansid(@ansarray[i])
-      evaluation=Evaluation.where(gift_id: @qarray[5]).find_by_evalid(2)
+      evaluation=Evaluation.where(gift_id: 1).find_by_evalid(2)
       anstoeval=Anstoeval.where(answer_id: answer.id).find_by_evaluation_id(evaluation.id)
       anstoeval.update(count: anstoeval.count+1)
     end
