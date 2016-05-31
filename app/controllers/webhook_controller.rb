@@ -103,7 +103,7 @@ class WebhookController < ApplicationController
             res = client.sendImage([from_mid], "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img", "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img" )
             res = client.send([from_mid], message)
             
-            message="このプレゼントどう？"
+            message="このプレゼントどう？いいかな？"
             # message="Web版も試してね！\nhttps://mocca-giftfinder.herokuapp.com/"
             res = client.send([from_mid], message)
             
@@ -123,7 +123,7 @@ class WebhookController < ApplicationController
             res = client.sendImage([from_mid], "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img", "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img" )
             res = client.send([from_mid], message)
             
-            message="このプレゼントどう？"
+            message="このプレゼントどう？いいかな？"
             # message="Web版もお試し下さい\nhttps://mocca-giftfinder.herokuapp.com/"
             res = client.send([from_mid], message)
             
