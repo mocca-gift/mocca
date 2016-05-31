@@ -74,7 +74,6 @@
         <% @giftRes.each do |exp| %>
           gifturls[j].onclick = function(s) {
             return function(event){
-              event.preventDefault();
               window.open("<%= exp.url %>");
             }
           }(j)
@@ -128,6 +127,7 @@
                         elm_num[s]=1;
                         break;
                       case 1:
+                        hearts[s].src = "/image/heart.png";
                         break;
                       }
                 }
@@ -136,6 +136,7 @@
                     hearts[s].src= "/image/heartloader.gif";
                     switch(elm_num[s]) {
                       case -1:
+                        hearts[s].src = "/image/dislike.jpg";
                         break;
                       case 0:
                         ajax.onreadystatechange=function() {
