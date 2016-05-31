@@ -65,9 +65,10 @@
         j=1;
         elm_num=[0,0,0,0,0,0,0,0];
         
+        
         <% @giftRes.each do |exp| %>
           hearts[j].onclick=function(s) {
-            return function(){
+            return function() {
               hearts[s].src= "/image/heartloader.gif";
               if(elm_num[s]%2==0) {
                 ajax.onreadystatechange=function() {

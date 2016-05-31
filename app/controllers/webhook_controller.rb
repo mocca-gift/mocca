@@ -72,7 +72,7 @@ class WebhookController < ApplicationController
         # はいと判断するメッセージ
         yes_array=[/はい！*/, /はい!*/,/うん！*/, /うん!*/,/YES!*/i,/y/i,/1/]
         no_array=[/いいえ！*/, /いいえ!*/,/いーえ!*/,/いや！*/, /いや!*/,/NO!*/i,/n/i,/2/]
-        up_array=[/.*いい.*/,/.*最高.*/,/.*さいこー.*/]
+        up_array=[/.*いい.*/,/.*最高.*/,/.*さいこー.*/,/.*good.*/i,/.*よい.*/,/.*良.*/,]
         #答えた質問が5個未満なら
         case i
         when 0,1,2,3,4 then
@@ -96,6 +96,7 @@ class WebhookController < ApplicationController
           when *yes_array then
             res = client.send([from_mid], "こんなプレゼントはどうかな...")
             @talk.update(:text => @talk.text+",1")
+            # ベイズ計算をする。というか@expTop1を生成する
             bayes_calc
             #@expTop1のギフトに関して，その画像と名前，URLを送信する
             message=message=@expTop1.name+"\n"+@expTop1.url
@@ -115,7 +116,7 @@ class WebhookController < ApplicationController
           when *no_array then
             res = client.send([from_mid], "こんなプレゼントはどうかな...")
             @talk.update(:text => @talk.text+",2")
-            # ん？これで呼べてるの？
+            # ベイズ計算をする。というか@expTop1を生成する
             bayes_calc
             #@expTop1のギフトに関して，その画像と名前，URLを送信する
             message=message=@expTop1.name+"\n"+@expTop1.url
@@ -141,15 +142,17 @@ class WebhookController < ApplicationController
           case text_message
           when *up_array then
           up_calc
-          res = client.send([from_mid], "ありがとう！\nWeb版も試してね！\nhttps://mocca-giftfinder.herokuapp.com/")
+          res = client.send([from_mid], "ありがとう！\nWeb版はこちら！\nhttps://mocca-giftfinder.herokuapp.com/")
           @talk.update(:text => "")
           message=@qarray[6].to_s+"up"
           res = client.send([from_mid], message)
           else
           down_calc
-          res = client.send([from_mid], "そっか...またチャレンジしてね！\nWeb版も試してね！\nhttps://mocca-giftfinder.herokuapp.com/")
-          message=@qarray[6].to_s+"down"
+          # res = client.send([from_mid], "そっか...またチャレンジしてね！\nWeb版も試してね！\nhttps://mocca-giftfinder.herokuapp.com/")
+          res = client.send([from_mid], "もう一回やってみて！質問が変わるよ！")
           @talk.update(:text => "")
+          message=@qarray[6].to_s+"down"
+          res = client.send([from_mid], message)
           end
         end
       end

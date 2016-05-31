@@ -66,41 +66,39 @@
         
         j=1;
         elm_num=[0,0,0,0,0,0,0,0];
+        touchStartX=[0,0,0,0,0,0,0,0];
+        touchStartY=[0,0,0,0,0,0,0,0];
+        touchMoveX=[0,0,0,0,0,0,0,0];
+        touchMoveY=[0,0,0,0,0,0,0,0];
         
         <% @giftRes.each do |exp| %>
-          hearts[j].onclick=function(s) {
-            return function(){
-              hearts[s].src= "/image/heartloader.gif";
-              if(elm_num[s]%2==0) {
-                ajax.onreadystatechange=function() {
-                  if(ajax.readyState==4) {
-                    if((ajax.status>=200 && ajax.status<300) || (ajax.status==304)) {
-                        hearts[s].src = "/image/heart.png";
-                    }
-                    else {
-                    }
+          hearts[j].ontouchstart = function(s) {
+            return function(event){
+              event.preventDefault();
+              touchStartX[s] = event.touches[0].pageX;
+              touchStartY[s] = event.touches[0].pageY;
+            }
+          }(j)
+          hearts[j].ontouchmove = function(s) {
+            return function(event){
+              event.preventDefault();
+              touchMoveX[s] = event.changedTouches[0].pageX;
+              touchMoveY[s] = event.changedTouches[0].pageY;
+            }
+          }(j)
+          hearts[j].ontouchend = function(s) {
+            return function(event) {
+                if (touchStartY[s] > (touchMoveY[s])) {
+                   hearts[s].src = "/image/heart.png";
+                }
+                else {
+                  if ((touchStartY[s]) < touchMoveY[s]) {
+                    hearts[s].src = "/image/i.png";
+                  }
+                  else {
+                    hearts[s].src= "/image/emptyheart2.png";
                   }
                 }
-                ajax.open('GET','/result/countup?gift=<%= exp.id %>&gift_ans=<%= @ansarray.join(",") %>&gift_q=<%= @qarray.join(",") %>',true);
-                ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
-                ajax.send(null);
-                elm_num[s]++;
-              }
-              else{
-                ajax.onreadystatechange = function() {
-                  if(ajax.readyState==4) {
-                    if((ajax.status>=200 && ajax.status<300) || (ajax.status==304)) {
-                        hearts[s].src= "/image/emptyheart2.png";
-                    }
-                    else {
-                    }
-                  }
-                }
-                ajax.open('GET','/result/countdown?gift=<%= exp.id %>&gift_ans=<%= @ansarray.join(",") %>&gift_q=<%= @qarray.join(",") %>',true);
-                ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
-                ajax.send(null);
-                elm_num[s]++;
-              }
             }
           }(j)
           j++;
