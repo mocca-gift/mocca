@@ -72,6 +72,12 @@
         touchMoveY=[0,0,0,0,0,0,0,0];
         
         <% @giftRes.each do |exp| %>
+          gifturls[j].onclick = function(s) {
+            return function(event){
+              event.preventDefault();
+              window.open("<%= exp.url %>");
+            }
+          }(j)
           gifturls[j].ontouchstart = function(s) {
             return function(event){
               event.preventDefault();
@@ -163,9 +169,6 @@
                         break;
                       }
                   } else {
-                      if((touchStartX[s] < (touchMoveX[s]+50)) && ((touchStartX[s]+50) > touchMoveX[s])) {
-                      window.open("<%= exp.url %>");
-                      } else {}
                   }
                 }
             }
