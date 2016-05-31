@@ -33,7 +33,7 @@ class WebhookController < ApplicationController
       if Talk.find_by(:user => from_mid).text=="" then
         #メッセージが"Q"なら質問フローを開始する
         case text_message.upcase
-        when "Q" then
+        when "Q","Ｑ" then
           #ランダムに質問5個を取ってきてTalkモデルに送信者IDと共に格納
           @questions=Question.order("RANDOM()").limit(5)
           qarray="0"
@@ -48,7 +48,7 @@ class WebhookController < ApplicationController
           @talk=Talk.find_by(:user => from_mid)
           @talk.update(:text => "0",:question => qarray)
           res = client.send([from_mid], message)
-        when "R" then
+        when "R","Ｒ" then
           res = client.send([from_mid], "今日の運はどうでしょう？")
           @gift=Gift.offset( rand(Gift.count) ).first
           message=message=@gift.name+"\n"+@gift.url
@@ -103,7 +103,7 @@ class WebhookController < ApplicationController
             res = client.sendImage([from_mid], "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img", "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img" )
             res = client.send([from_mid], message)
             
-            message="このプレゼントどう？いいかな？"
+            message="このプレゼントどう？"
             # message="Web版も試してね！\nhttps://mocca-giftfinder.herokuapp.com/"
             res = client.send([from_mid], message)
             
@@ -123,7 +123,7 @@ class WebhookController < ApplicationController
             res = client.sendImage([from_mid], "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img", "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img" )
             res = client.send([from_mid], message)
             
-            message="このプレゼントどう？いいかな？"
+            message="このプレゼントどう？"
             # message="Web版もお試し下さい\nhttps://mocca-giftfinder.herokuapp.com/"
             res = client.send([from_mid], message)
             
