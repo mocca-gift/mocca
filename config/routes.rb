@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   post '/result' => 'result#index'
   get '/result/countup' => 'result#countup'
   get '/result/countdown' => 'result#countdown'
+  get '/result/countdown2' => 'result#countdown2'
   get '/new_arrival' => 'welcome#new'
   get '/info' => 'welcome#info'
   # The priority is based upon order of creation: first created -> highest priority.

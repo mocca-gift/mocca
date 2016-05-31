@@ -180,6 +180,21 @@ class ResultController < ApplicationController
         render text: "Succeeddown! Gift"+gid
     end
     
+    def countdown2
+        gid=params[:gift]
+        gans=params[:gift_ans].split(",")
+        gq=params[:gift_q].split(",")
+        hGifts=decode_session(session[:gifts])
+        hGifts[Gift.find(gid)]=1
+        for i in 0..4
+          answer=Answer.where(question_id: gq[i]).find_by_ansid(gans[i])
+          e2downdouble(Gift.find(gid),answer)
+          e1updouble(Gift.find(gid),answer)
+        end
+        session[:gifts]=code_session(hGifts)
+        render text: "Succeeddown! Gift"+gid
+    end
+    
     private
         def e2up(gift,answer)
             evaluation=Evaluation.where(gift_id: gift.id).find_by_evalid(2)
@@ -191,11 +206,21 @@ class ResultController < ApplicationController
             anstoeval=Anstoeval.where(answer_id: answer.id).find_by_evaluation_id(evaluation.id)
             anstoeval.update(count: anstoeval.count-1)
         end
+        def e2downdouble(gift,answer)
+            evaluation=Evaluation.where(gift_id: gift.id).find_by_evalid(2)
+            anstoeval=Anstoeval.where(answer_id: answer.id).find_by_evaluation_id(evaluation.id)
+            anstoeval.update(count: anstoeval.count-2)
+        end
         
         def e1up(gift,answer)
             evaluation=Evaluation.where(gift_id: gift.id).find_by_evalid(1)
             anstoeval=Anstoeval.where(answer_id: answer.id).find_by_evaluation_id(evaluation.id)
             anstoeval.update(count: anstoeval.count+1)
+        end
+        def e1updouble(gift,answer)
+            evaluation=Evaluation.where(gift_id: gift.id).find_by_evalid(1)
+            anstoeval=Anstoeval.where(answer_id: answer.id).find_by_evaluation_id(evaluation.id)
+            anstoeval.update(count: anstoeval.count+2)
         end
         def e1down(gift,answer)
             evaluation=Evaluation.where(gift_id: gift.id).find_by_evalid(1)

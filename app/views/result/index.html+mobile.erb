@@ -198,7 +198,19 @@
                         elm_num[s]=1;
                         break;
                       case 1:
-                        hearts[s].src = "/image/heart.png";
+                        ajax.onreadystatechange=function() {
+                          if(ajax.readyState==4) {
+                            if((ajax.status>=200 && ajax.status<300) || (ajax.status==304)) {
+                                hearts[s].src = "/image/dislike.jpg";
+                            }
+                            else {
+                            }
+                          }
+                        }
+                        ajax.open('GET','/result/countdown2?gift=<%= exp.id %>&gift_ans=<%= @ansarray.join(",") %>&gift_q=<%= @qarray.join(",") %>',true);
+                        ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+                        ajax.send(null);
+                        elm_num[s]=-1;
                         break;
                         }
                   }

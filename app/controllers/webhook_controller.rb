@@ -49,7 +49,7 @@ class WebhookController < ApplicationController
           @talk.update(:text => "0",:question => qarray)
           res = client.send([from_mid], message)
         when "R","Ｒ" then
-          res = client.send([from_mid], "今日の運はどうでしょう？")
+          res = client.send([from_mid], "今日の運はどうかな？")
           @gift=Gift.offset( rand(Gift.count) ).first
           message=message=@gift.name+"\n"+@gift.url
           res = client.sendImage([from_mid], "https://mocca-giftfinder.herokuapp.com/gifts/"+@gift.id.to_s+"/img", "https://mocca-giftfinder.herokuapp.com/gifts/"+@gift.id.to_s+"/img" )
