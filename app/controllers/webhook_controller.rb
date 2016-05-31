@@ -72,7 +72,7 @@ class WebhookController < ApplicationController
         # はいと判断するメッセージ
         yes_array=[/はい！*/, /はい!*/,/うん！*/, /うん!*/,/YES!*/i,/y/i,/1/]
         no_array=[/いいえ！*/, /いいえ!*/,/いーえ!*/,/いや！*/, /いや!*/,/NO!*/i,/n/i,/2/]
-        up_array=[/.*いい.*/,/.*最高.*/,/.*さいこー.*/,/.*good.*/i,/.*よい.*/,/.*良.*/,]
+        up_array=[/.*いい.*/,/.*最高.*/,/.*さいこー.*/,/.*good.*/i,/.*よい.*/,/.*良.*/,/おっけー！*/,/オッケー！*/,/OK!*/]
         #答えた質問が5個未満なら
         case i
         when 0,1,2,3,4 then
@@ -89,7 +89,7 @@ class WebhookController < ApplicationController
             message="「はい/いいえ」で答えてね"
             res = client.send([from_mid], message)
           end
-          
+        #答えた質問が5個なら  
         when 5 then
           case text_message
     # ↓YES--------------------------------------------------------------------------
@@ -106,7 +106,7 @@ class WebhookController < ApplicationController
             message="このプレゼントどう？"
             # message="Web版も試してね！\nhttps://mocca-giftfinder.herokuapp.com/"
             res = client.send([from_mid], message)
-            
+            #Talkモデルのquestionの最後(6番目)にギフトのidを付加する
             @talk.update(:question => @talk.question+","+@expTop1.id.to_s)
             message=@expTop1.id.to_s
             res = client.send([from_mid], message)
@@ -126,7 +126,7 @@ class WebhookController < ApplicationController
             message="このプレゼントどう？"
             # message="Web版もお試し下さい\nhttps://mocca-giftfinder.herokuapp.com/"
             res = client.send([from_mid], message)
-            
+            #Talkモデルのquestionの最後(6番目)にギフトのidを付加する
             @talk.update(:question => @talk.question+","+@expTop1.id.to_s)
             message=@expTop1.id.to_s
             res = client.send([from_mid], message)
