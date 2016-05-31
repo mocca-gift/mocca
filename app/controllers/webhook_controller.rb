@@ -63,87 +63,88 @@ class WebhookController < ApplicationController
         end
         
       else
-      #メッセージ送信者の履歴が過去にあれば(質問フローの中にいれば)
-      #Talkモデルに格納したデータを取ってくる
-      @talk=Talk.find_by(:user => from_mid)
-      @qarray=@talk.question.split(",")
-      @ansarray=@talk.text.split(",")
-      i=@ansarray.count
-      # はいと判断するメッセージ
-      yes_array=[/はい！*/, /はい!*/,/うん！*/, /うん!*/,/YES!*/i,/y/i,/1/]
-      no_array=[/いいえ！*/, /いいえ!*/,/いーえ!*/,/いや！*/, /いや!*/,/NO!*/i,/n/i,/2/]
-      up_array=[/.*いい.*/,/.*最高.*/,/.*さいこー.*/]
-      #答えた質問が5個未満なら
-      case i
-      when 0,1,2,3,4 then
-        case text_message
-        when *yes_array then
-          message=Question.find_by_id(@qarray[i+1]).body
-          @talk.update(:text => @talk.text+",1")
-          res = client.send([from_mid], message)
-        when *no_array then
-          message=Question.find_by_id(@qarray[i+1]).body
-          @talk.update(:text => @talk.text+",2")
-          res = client.send([from_mid], message)
+        #メッセージ送信者の履歴が過去にあれば(質問フローの中にいれば)
+        #Talkモデルに格納したデータを取ってくる
+        @talk=Talk.find_by(:user => from_mid)
+        @qarray=@talk.question.split(",")
+        @ansarray=@talk.text.split(",")
+        i=@ansarray.count
+        # はいと判断するメッセージ
+        yes_array=[/はい！*/, /はい!*/,/うん！*/, /うん!*/,/YES!*/i,/y/i,/1/]
+        no_array=[/いいえ！*/, /いいえ!*/,/いーえ!*/,/いや！*/, /いや!*/,/NO!*/i,/n/i,/2/]
+        up_array=[/.*いい.*/,/.*最高.*/,/.*さいこー.*/]
+        #答えた質問が5個未満なら
+        case i
+        when 0,1,2,3,4 then
+          case text_message
+          when *yes_array then
+            message=Question.find_by_id(@qarray[i+1]).body
+            @talk.update(:text => @talk.text+",1")
+            res = client.send([from_mid], message)
+          when *no_array then
+            message=Question.find_by_id(@qarray[i+1]).body
+            @talk.update(:text => @talk.text+",2")
+            res = client.send([from_mid], message)
+          else
+            message="「はい/いいえ」で答えてね"
+            res = client.send([from_mid], message)
+          end
+          
+        when 5 then
+          case text_message
+    # ↓YES--------------------------------------------------------------------------
+          when *yes_array then
+            res = client.send([from_mid], "こんなプレゼントはどうかな...")
+            @talk.update(:text => @talk.text+",1")
+            bayes_calc
+            #@expTop1のギフトに関して，その画像と名前，URLを送信する
+            message=message=@expTop1.name+"\n"+@expTop1.url
+            res = client.sendImage([from_mid], "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img", "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img" )
+            res = client.send([from_mid], message)
+            
+            message="このプレゼントどう？"
+            # message="Web版も試してね！\nhttps://mocca-giftfinder.herokuapp.com/"
+            res = client.send([from_mid], message)
+            
+            @talk.update(:question => @talk.question+","+@expTop1.id)
+            # @talk.update(:text => "")
+    # ↑YES--------------------------------------------------------------------------
+    # ↓NO----------------------------------------------------------------------------
+          when *no_array then
+            res = client.send([from_mid], "こんなプレゼントはどうかな...")
+            @talk.update(:text => @talk.text+",2")
+            # ん？これで呼べてるの？
+            bayes_calc
+            #@expTop1のギフトに関して，その画像と名前，URLを送信する
+            message=message=@expTop1.name+"\n"+@expTop1.url
+            res = client.sendImage([from_mid], "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img", "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img" )
+            res = client.send([from_mid], message)
+            
+            message="このプレゼントどう？"
+            # message="Web版もお試し下さい\nhttps://mocca-giftfinder.herokuapp.com/"
+            res = client.send([from_mid], message)
+            
+            @talk.update(:question => @talk.question+","+@expTop1.id)
+            # @talk.update(:text => "")
+          
+    # ↑NO----------------------------------------------------------------------------
+          else
+            message="「はい/いいえ」で答えてね"
+            res = client.send([from_mid], message)
+          end
+          
         else
-          message="「はい/いいえ」で答えてね"
-          res = client.send([from_mid], message)
+          case text_message
+          when *up_array then
+          res = client.send([from_mid], "ありがとう！\nWeb版も試してね！\nhttps://mocca-giftfinder.herokuapp.com/")
+          up_calc
+          @talk.update(:text => "")
+          else
+          res = client.send([from_mid], "そっか...またチャレンジしてね！\nWeb版も試してね！\nhttps://mocca-giftfinder.herokuapp.com/")
+          down_calc
+          @talk.update(:text => "")
+          end
         end
-        
-      when 5 then
-        case text_message
-# ↓YES--------------------------------------------------------------------------
-        when *yes_array then
-          res = client.send([from_mid], "こんなプレゼントはどうかな...")
-          @talk.update(:text => @talk.text+",1")
-          bayes_calc
-          #@expTop1のギフトに関して，その画像と名前，URLを送信する
-          message=message=@expTop1.name+"\n"+@expTop1.url
-          res = client.sendImage([from_mid], "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img", "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img" )
-          res = client.send([from_mid], message)
-          
-          message="このプレゼントどう？"
-          # message="Web版も試してね！\nhttps://mocca-giftfinder.herokuapp.com/"
-          res = client.send([from_mid], message)
-          
-          @talk.update(:question => @talk.question+","+@expTop1.id)
-          # @talk.update(:text => "")
-# ↑YES--------------------------------------------------------------------------
-# ↓NO----------------------------------------------------------------------------
-        when *no_array then
-          res = client.send([from_mid], "こんなプレゼントはどうかな...")
-          @talk.update(:text => @talk.text+",2")
-          # ん？これで呼べてるの？
-          bayes_calc
-          #@expTop1のギフトに関して，その画像と名前，URLを送信する
-          message=message=@expTop1.name+"\n"+@expTop1.url
-          res = client.sendImage([from_mid], "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img", "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img" )
-          res = client.send([from_mid], message)
-          
-          message="このプレゼントどう？"
-          # message="Web版もお試し下さい\nhttps://mocca-giftfinder.herokuapp.com/"
-          res = client.send([from_mid], message)
-          
-          @talk.update(:question => @talk.question+","+@expTop1.id)
-          # @talk.update(:text => "")
-        
-# ↑NO----------------------------------------------------------------------------
-        else
-          message="「はい/いいえ」で答えてね"
-          res = client.send([from_mid], message)
-        end
-      else
-        case text_message
-        when *up_array then
-        res = client.send([from_mid], "ありがとう！\nWeb版も試してね！\nhttps://mocca-giftfinder.herokuapp.com/")
-        up_calc
-        @talk.update(:text => "")
-        else
-        res = client.send([from_mid], "そっか...またチャレンジしてね！\nWeb版も試してね！\nhttps://mocca-giftfinder.herokuapp.com/")
-        down_calc
-        @talk.update(:text => "")
-      end
-      
       end
     end
 
@@ -247,17 +248,20 @@ class WebhookController < ApplicationController
       e1up(Gift.find(@qarray[6]),answer)
     end
   end
+  
   def down_calc
     for i in 1..5
       answer=Answer.where(question_id: @qarray[i]).find_by_ansid(@ansarray[i])
       e2up(Gift.find(@qarray[6]),answer)
     end
   end
+  
   def e1up(gift,answer)
       evaluation=Evaluation.where(gift_id: gift.id).find_by_evalid(1)
       anstoeval=Anstoeval.where(answer_id: answer.id).find_by_evaluation_id(evaluation.id)
       anstoeval.update(count: anstoeval.count+1)
   end
+  
   def e2up(gift,answer)
       evaluation=Evaluation.where(gift_id: gift.id).find_by_evalid(2)
       anstoeval=Anstoeval.where(answer_id: answer.id).find_by_evaluation_id(evaluation.id)
