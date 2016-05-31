@@ -162,12 +162,11 @@
                         elm_num[s]=0;
                         break;
                       }
-                  }
-                  else {
+                  } else {
                     hearts[s].src= "/image/heartloader.gif";
                     switch(elm_num[s]) {
                       case -1:
-                        ajax.onreadystatechange=function() {
+                       ajax.onreadystatechange=function() {
                           if(ajax.readyState==4) {
                             if((ajax.status>=200 && ajax.status<300) || (ajax.status==304)) {
                                 hearts[s].src = "/image/emptyheart2.png";
