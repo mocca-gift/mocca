@@ -136,12 +136,12 @@ class WebhookController < ApplicationController
         else
           case text_message
           when *up_array then
-          res = client.send([from_mid], "ありがとう！\nWeb版も試してね！\nhttps://mocca-giftfinder.herokuapp.com/")
           up_calc
+          res = client.send([from_mid], "ありがとう！\nWeb版も試してね！\nhttps://mocca-giftfinder.herokuapp.com/")
           @talk.update(:text => "")
           else
-          res = client.send([from_mid], "そっか...またチャレンジしてね！\nWeb版も試してね！\nhttps://mocca-giftfinder.herokuapp.com/")
           down_calc
+          res = client.send([from_mid], "そっか...またチャレンジしてね！\nWeb版も試してね！\nhttps://mocca-giftfinder.herokuapp.com/")
           @talk.update(:text => "")
           end
         end
@@ -245,27 +245,20 @@ class WebhookController < ApplicationController
   def up_calc
     for i in 1..5
       answer=Answer.where(question_id: @qarray[i]).find_by_ansid(@ansarray[i])
-      e1up(Gift.find(@qarray[6]),answer)
+      evaluation=Evaluation.where(gift_id: @qarray[6]).find_by_evalid(1)
+      anstoeval=Anstoeval.where(answer_id: answer.id).find_by_evaluation_id(evaluation.id)
+      anstoeval.update(count: anstoeval.count+1)
     end
   end
   
   def down_calc
     for i in 1..5
       answer=Answer.where(question_id: @qarray[i]).find_by_ansid(@ansarray[i])
-      e2up(Gift.find(@qarray[6]),answer)
+      evaluation=Evaluation.where(gift_id: @qarray[6]).find_by_evalid(2)
+      anstoeval=Anstoeval.where(answer_id: answer.id).find_by_evaluation_id(evaluation.id)
+      anstoeval.update(count: anstoeval.count+1)
     end
   end
   
-  def e1up(gift,answer)
-      evaluation=Evaluation.where(gift_id: gift.id).find_by_evalid(1)
-      anstoeval=Anstoeval.where(answer_id: answer.id).find_by_evaluation_id(evaluation.id)
-      anstoeval.update(count: anstoeval.count+1)
-  end
-  
-  def e2up(gift,answer)
-      evaluation=Evaluation.where(gift_id: gift.id).find_by_evalid(2)
-      anstoeval=Anstoeval.where(answer_id: answer.id).find_by_evaluation_id(evaluation.id)
-      anstoeval.update(count: anstoeval.count+1)
-  end
   
 end
