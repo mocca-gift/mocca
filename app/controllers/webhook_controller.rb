@@ -245,7 +245,7 @@ class WebhookController < ApplicationController
   def up_calc
     for i in 1..5
       answer=Answer.where(question_id: @qarray[i]).find_by_ansid(@ansarray[i])
-      evaluation=Evaluation.where(gift_id: @qarray[6]).find_by_evalid(1)
+      evaluation=Evaluation.where(gift_id: @qarray[5]).find_by_evalid(1)
       anstoeval=Anstoeval.where(answer_id: answer.id).find_by_evaluation_id(evaluation.id)
       anstoeval.update(count: anstoeval.count+1)
     end
@@ -254,7 +254,7 @@ class WebhookController < ApplicationController
   def down_calc
     for i in 1..5
       answer=Answer.where(question_id: @qarray[i]).find_by_ansid(@ansarray[i])
-      evaluation=Evaluation.where(gift_id: @qarray[6]).find_by_evalid(2)
+      evaluation=Evaluation.where(gift_id: @qarray[5]).find_by_evalid(2)
       anstoeval=Anstoeval.where(answer_id: answer.id).find_by_evaluation_id(evaluation.id)
       anstoeval.update(count: anstoeval.count+1)
     end
