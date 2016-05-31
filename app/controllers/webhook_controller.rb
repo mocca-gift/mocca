@@ -107,6 +107,8 @@ class WebhookController < ApplicationController
             res = client.send([from_mid], message)
             
             @talk.update(:question => @talk.question+","+@expTop1.id.to_s)
+            message=@expTop1.id.to_s
+            res = client.send([from_mid], message)
             # @talk.update(:text => "")
     # ↑YES--------------------------------------------------------------------------
     # ↓NO----------------------------------------------------------------------------
@@ -125,6 +127,8 @@ class WebhookController < ApplicationController
             res = client.send([from_mid], message)
             
             @talk.update(:question => @talk.question+","+@expTop1.id.to_s)
+            message=@expTop1.id.to_s
+            res = client.send([from_mid], message)
             # @talk.update(:text => "")
           
     # ↑NO----------------------------------------------------------------------------
@@ -139,9 +143,12 @@ class WebhookController < ApplicationController
           up_calc
           res = client.send([from_mid], "ありがとう！\nWeb版も試してね！\nhttps://mocca-giftfinder.herokuapp.com/")
           @talk.update(:text => "")
+          message=@qarray[6].to_s+"up"
+          res = client.send([from_mid], message)
           else
           down_calc
           res = client.send([from_mid], "そっか...またチャレンジしてね！\nWeb版も試してね！\nhttps://mocca-giftfinder.herokuapp.com/")
+          message=@qarray[6].to_s+"down"
           @talk.update(:text => "")
           end
         end
@@ -245,7 +252,7 @@ class WebhookController < ApplicationController
   def up_calc
     for i in 1..5
       answer=Answer.where(question_id: @qarray[i]).find_by_ansid(@ansarray[i])
-      evaluation=Evaluation.where(gift_id: 1).find_by_evalid(1)
+      evaluation=Evaluation.where(gift_id: @qarray[6]).find_by_evalid(1)
       anstoeval=Anstoeval.where(answer_id: answer.id).find_by_evaluation_id(evaluation.id)
       anstoeval.update(count: anstoeval.count+1)
     end
@@ -254,7 +261,7 @@ class WebhookController < ApplicationController
   def down_calc
     for i in 1..5
       answer=Answer.where(question_id: @qarray[i]).find_by_ansid(@ansarray[i])
-      evaluation=Evaluation.where(gift_id: 1).find_by_evalid(2)
+      evaluation=Evaluation.where(gift_id: @qarray[6]).find_by_evalid(2)
       anstoeval=Anstoeval.where(answer_id: answer.id).find_by_evaluation_id(evaluation.id)
       anstoeval.update(count: anstoeval.count+1)
     end
