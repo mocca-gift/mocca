@@ -88,7 +88,7 @@
           }(j)
           gifturls[j].ontouchend = function(s) {
             return function(event) {
-                if (touchStartY[s] > (touchMoveY[s]+20)) {
+                if (touchStartY[s] > (touchMoveY[s]+50)) {
                    hearts[s].src= "/image/heartloader.gif";
                    switch(elm_num[s]) {
                       case -1:
@@ -126,7 +126,7 @@
                       }
                 }
                 else {
-                  if ((touchStartY[s]+20) < touchMoveY[s]) {
+                  if ((touchStartY[s]+50) < touchMoveY[s]) {
                     hearts[s].src= "/image/heartloader.gif";
                     switch(elm_num[s]) {
                       case -1:
@@ -163,7 +163,9 @@
                         break;
                       }
                   } else {
+                      if((touchStartX[s] < (touchMoveX[s]+50)) && ((touchStartX[s]+50) > touchMoveX[s])) {
                       window.open("<%= exp.url %>");
+                      } else {}
                   }
                 }
             }
