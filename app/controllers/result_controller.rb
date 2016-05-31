@@ -117,6 +117,7 @@ class ResultController < ApplicationController
             
             @giftRes.each do |gift|
                 e1up(gift,answer)
+                e2up(gift,answer)
             end
         end
         
