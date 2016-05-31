@@ -72,21 +72,21 @@
         touchMoveY=[0,0,0,0,0,0,0,0];
         
         <% @giftRes.each do |exp| %>
-          hearts[j].ontouchstart = function(s) {
+          gifturls[j].ontouchstart = function(s) {
             return function(event){
               event.preventDefault();
               touchStartX[s] = event.touches[0].pageX;
               touchStartY[s] = event.touches[0].pageY;
             }
           }(j)
-          hearts[j].ontouchmove = function(s) {
+          gifturls[j].ontouchmove = function(s) {
             return function(event){
               event.preventDefault();
               touchMoveX[s] = event.changedTouches[0].pageX;
               touchMoveY[s] = event.changedTouches[0].pageY;
             }
           }(j)
-          hearts[j].ontouchend = function(s) {
+          gifturls[j].ontouchend = function(s) {
             return function(event) {
                 if (touchStartY[s] > (touchMoveY[s]+20)) {
                    hearts[s].src= "/image/heartloader.gif";
