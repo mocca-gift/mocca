@@ -77,9 +77,9 @@ class FbmessengerController < ApplicationController
           #   p result
           # }
         else
-          if message.include?("payback") then
+          if message.include?("postback") then
             @sender = message["sender"]["id"]
-            @text = message["payback"]["payload"]
+            @text = message["postback"]["payload"]
             endpoint_uri = "https://graph.facebook.com/v2.6/me/messages?access_token="+token
             request_content = {recipient: {id: @sender},
                             message: @text
