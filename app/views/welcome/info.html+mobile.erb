@@ -32,10 +32,10 @@
         
         i=0;
         <% @infos.each do |info| %>
-        newstitles[i].innerHTML = "<%= info.title %>";
+        newstitles[i].innerHTML = "<strong><%= info.title %></strong>";
         newsimgs[i].style.backgroundImage="url(https://mocca-giftfinder.herokuapp.com/infos/<%= info.id %>/img)";
         newscontents[i].innerHTML= "<%= info.content %>";
-        newsdates[i].innerHTML = "<%= info.created_at.year %>-<%= info.created_at.month %>-<%= info.created_at.day %> <%= info.created_at.hour %>:<%= info.created_at.min %>";
+        newsdates[i].innerHTML = "<%= info.created_at.year %>-<%= info.created_at.month %>-<%= info.created_at.day %>";
         i++;
         <% end %>
     }
@@ -74,6 +74,10 @@
       background-color: #FFFFFF;
     }
     
+    .information {
+        width: 100%;
+        background-color: rgba(245,245,245,0.7);
+    }
     .shintyaku {
         width: 100%;
     }
@@ -90,14 +94,8 @@
         margin-left: 5%;
         margin-right: 5%;
         margin-top: 10px;
-        background-color: rgba(255,255,255,0.5);
     }
     
-    .newstitle {
-        text-align: center;
-        padding-bottom: 5px;
-        border-bottom: solid 2px;
-    }
     .wrapper1 {
         position: relative;
         width: 33%;
@@ -136,11 +134,11 @@
     }
     .wrapper3 {
         position: relative;
-        width: 66%;
+        width: 100%;
         float:left;
     }
     .wrapper3:before{
-        padding-top: 15%;
+        padding-top: 75%;
         display: block;
         content: "";
     }
@@ -203,17 +201,8 @@
         margin: auto;
     }
     .newscontent {
-        display:block;
-        width: 100%;
-        height: 100%;
-        padding: 10px;
     }
     .newsdate {
-        display:block;
-        width: 100%;
-        height: 100%;
-        padding: 10px;
-        text-align:right;
     }
     .sns {
         width: 100%;
@@ -288,10 +277,17 @@
       </div>
     </nav>
     <table>
+    <div class="information">
+    <div class="aboutus">
+       <h3 class="header1"><i class="glyphicon glyphicon-flag"></i> About Us</h3> 
+       <div class="aucontent">
+           <font size="4em"><strong>プレゼントを渡したいけれど，何をあげたらいいか分からない...</strong></font><BR>
+           そんな経験ありませんか？<BR>
+       </div>
+    </div>
     <div class="shintyaku">
-        <h3 class="header">新着情報</h3>
+        <h3 class="header1"><i class="glyphicon glyphicon-pencil"></i> 新着情報</h3>
         <div class="news">
-            <h4 class="newstitle"></h4>
             <div class="wrapper1">
                 <div class="content1">
                     <div class="newsimg"></div>
@@ -299,17 +295,13 @@
             </div>
             <div class="wrapper2">
                 <div class="content2">
-                    <div class="newscontent"></div>
-                </div>
-            </div>
-            <div class="wrapper3">
-                <div class="content3">
                     <div class="newsdate"></div>
+                    <h4 class="newstitle"></h4>
+                    <div class="newscontent"></div>
                 </div>
             </div>
         </div>
         <div class="news">
-            <h4 class="newstitle"></h4>
             <div class="wrapper1">
                 <div class="content1">
                     <div class="newsimg"></div>
@@ -317,62 +309,58 @@
             </div>
             <div class="wrapper2">
                 <div class="content2">
-                    <div class="newscontent"></div>
-                </div>
-            </div>
-            <div class="wrapper3">
-                <div class="content3">
                     <div class="newsdate"></div>
-                </div>
-            </div>
-        </div>
-        <div class="news">
-            <h4 class="newstitle"></h4>
-            <div class="wrapper1">
-                <div class="content1">
-                    <div class="newsimg"></div>
-                </div>
-            </div>
-            <div class="wrapper2">
-                <div class="content2">
+                    <h4 class="newstitle"></h4>
                     <div class="newscontent"></div>
-                </div>
-            </div>
-            <div class="wrapper3">
-                <div class="content3">
-                    <div class="newsdate"></div>
                 </div>
             </div>
         </div>
     </div>
     <div class="sns">
-        <h3 class="header1">SNS連携</h3>
-        <div class="line">
-            <h4 class="newstitle">MOCCA with LINE</h4>
-            <div class="col">
-                <p>タップして友達に追加</p>
-                <div class="wrapper4">
-                  <div class="content4">
-                    <a class="lineimg" href="http://line.me/ti/p/%40qdb5785p"></a>  
-                  </div>
+        
+            
+        <div class="news">
+            <h3 class="header1"><i class="glyphicon glyphicon-user"></i> SNS</h3>
+            <div class="wrapper1">
+                <div class="content1">
+                    <div class="qrimg"></div>
                 </div>
             </div>
-            <div class="col">
-                <p>QRコードで友達に追加</p>
-                <div class="wrapper4">
-                  <div class="content4">
-                    <div class="qrimg"></div>  
-                  </div>
+            <div class="wrapper2">
+                <div class="content2">
+                    <h4><strong>MOCCA with LINE完成しました!!</strong></h4>
+                    <div>上記QRコードで友達になって下さい!!</div>
                 </div>
             </div>
+            <a class="twitter-share-button" href="https://twitter.com/share" data-dnt="true" data-size="large" data-text="ギフト探しに役立つよ！" data-hashtags="MOCCA" data-url="http://mocca-giftfinder.herokuapp.com/">Tweet</a>
+            <div class="fb-like" data-href="http://mocca-giftfinder.herokuapp.com/" data-layout="box_count" data-action="like" data-show-faces="true" data-share="false"></div>
         </div>
     </div>
     <div class="otoiawase">
         <h3><i class="glyphicon glyphicon-envelope"></i> お問い合わせ</h3>
-        <h5>お問い合わせはこちらまでお願いいたします</h5>
+        <h4>お問い合わせはこちらまでお願いいたします</h4>
         <BR>
         <a href="mailto:moccapu@gmail.com">moccapu@gmail.com</a>
     </div>
+    </div>
+    </div>
+    <div id="fb-root"></div>
+    <script>
+        (function(d, s, id) {
+        	var js, fjs = d.getElementsByTagName(s)[0];
+        	if (d.getElementById(id)) return;
+        	js = d.createElement(s); js.id = id;
+        	js.src = "//connect.facebook.net/ja_JP/sdk.js#xfbml=1&version=v2.0";
+        	fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+    <script>
+        window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
+    </script>
+    <script src="https://apis.google.com/js/platform.js" async defer>
+        {lang: "ja"}
+    </script>
+    
     </table>
   </body>
 </html>

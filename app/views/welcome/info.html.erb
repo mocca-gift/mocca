@@ -32,10 +32,10 @@
         
         i=0;
         <% @infos.each do |info| %>
-        newstitles[i].innerHTML = "<%= info.title %>";
+        newstitles[i].innerHTML = "<strong><%= info.title %></strong>";
         newsimgs[i].style.backgroundImage="url(https://mocca-giftfinder.herokuapp.com/infos/<%= info.id %>/img)";
         newscontents[i].innerHTML= "<%= info.content %>";
-        newsdates[i].innerHTML = "<%= info.created_at.year %>-<%= info.created_at.month %>-<%= info.created_at.day %> <%= info.created_at.hour %>:<%= info.created_at.min %>";
+        newsdates[i].innerHTML = "<%= info.created_at.year %>-<%= info.created_at.month %>-<%= info.created_at.day %>";
         i++;
         <% end %>
     }
@@ -227,31 +227,31 @@
       	border-color: transparent transparent #19283C transparent;
       	z-index: 0;
       }
-      
+     
+    .information {
+        width: 100%;
+        padding: 20px;
+        background-color: rgba(245,245,245,0.7);
+    } 
       
     .shintyaku {
         width: 100%;
     }
+    
+    .shintyaku:after{
+       content:"";
+       display:block;
+       clear:both;
+    }
+    
     .shintyaku .header {
         width: 90%;
         margin: auto;
         text-align: center;
         margin-top: 70px;
-        border: double 10px;
-        border-radius: 10px;
-    }
-    .news {
-        width: 90%;
-        margin-left: 5%;
-        margin-right: 5%;
-        margin-top: 10px;
-        background-color: rgba(255,255,255,0.5);
     }
     
     .newstitle {
-        text-align: center;
-        padding-bottom: 5px;
-        border-bottom: solid 2px;
     }
     .wrapper1 {
         position: relative;
@@ -289,24 +289,24 @@
         right: 0px;
         overflow: hidden;
     }
-    .wrapper3 {
-        position: relative;
-        width: 66%;
-        float:left;
-    }
-    .wrapper3:before{
-        padding-top: 15%;
-        display: block;
-        content: "";
-    }
-    .content3{
-        position: absolute;
-        top: 0px;
-        left: 0px;
-        bottom: 0px;
-        right: 0px;
-        overflow: hidden;
-    }
+    /*.wrapper3 {*/
+    /*    position: relative;*/
+    /*    width: 66%;*/
+    /*    float:left;*/
+    /*}*/
+    /*.wrapper3:before{*/
+    /*    padding-top: 15%;*/
+    /*    display: block;*/
+    /*    content: "";*/
+    /*}*/
+    /*.content3{*/
+    /*    position: absolute;*/
+    /*    top: 0px;*/
+    /*    left: 0px;*/
+    /*    bottom: 0px;*/
+    /*    right: 0px;*/
+    /*    overflow: hidden;*/
+    /*}*/
     .wrapper4 {
         position: relative;
         width: 100%;
@@ -327,6 +327,15 @@
         overflow: hidden;
     }
     
+    .news {
+        width: 40%;
+        margin-left: 5%;
+        margin-right: 5%;
+        margin-top: 10px;
+        /*background-color: rgba(255,255,255,0.5);*/
+        float: left;
+    }
+    
     .news:after{
        content:"";
        display:block;
@@ -342,6 +351,7 @@
         margin: auto;
         text-align: center;
         background-color: rgba(255,255,255,0.5);
+        box-shadow: 5px 5px 10px #000000;
     }
     .line:after{
         content:"";
@@ -358,19 +368,7 @@
         background-position: center;
         background-color: #FFFFFF;
         margin: auto;
-    }
-    .newscontent {
-        display:block;
-        width: 100%;
-        height: 100%;
-        padding: 10px;
-    }
-    .newsdate {
-        display:block;
-        width: 100%;
-        height: 100%;
-        padding: 10px;
-        text-align:right;
+        border-radius: 50px;
     }
     .sns {
         width: 100%;
@@ -385,8 +383,6 @@
         width: 90%;
         margin: auto;
         text-align: center;
-        border: double 10px;
-        border-radius: 10px;
     }
     
     .lineimg {
@@ -416,29 +412,14 @@
         margin: auto;
         text-align: center;
         margin-top: 70px;
-        border: double 10px;
-        border-radius: 10px;
-    }
-    .news {
-        width: 90%;
-        margin-left: 5%;
-        margin-right: 5%;
-        margin-top: 10px;
-        background-color: rgba(255,255,255,0.5);
     }
     
-    .newstitle {
-        text-align: center;
-        padding-bottom: 5px;
-        border-bottom: solid 2px;
-    }
     .wrapper1 {
         position: relative;
-        width: 33%;
-        float:left;
+        width: 100%;
     }
     .wrapper1:before{
-        padding-top: 100%;
+        padding-top: 50%;
         display: block;
         content: "";
     }
@@ -452,11 +433,10 @@
     }
     .wrapper2 {
         position: relative;
-        width: 66%;
-        float:left;
+        width: 100%;
     }
     .wrapper2:before{
-        padding-top: 35%;
+        padding-top: 25%;
         display: block;
         content: "";
     }
@@ -470,11 +450,10 @@
     }
     .wrapper3 {
         position: relative;
-        width: 66%;
-        float:left;
+        width: 100%;
     }
     .wrapper3:before{
-        padding-top: 15%;
+        padding-top: 75%;
         display: block;
         content: "";
     }
@@ -536,19 +515,13 @@
         background-color: #FFFFFF;
         margin: auto;
     }
-    .newscontent {
-        display:block;
+    .newscontent{
         width: 100%;
-        height: 100%;
-        padding: 10px;
-        font-size: 2em;
+    }
     }
     .newsdate {
         display:block;
-        width: 100%;
-        height: 100%;
-        padding: 10px;
-        text-align:right;
+        /*text-align:right;*/
     }
     .sns {
         width: 100%;
@@ -559,12 +532,12 @@
         display:block;
         clear:both;
     }
+    
     .header1 {
         width: 90%;
         margin: auto;
         text-align: center;
-        border: double 10px;
-        border-radius: 10px;
+        padding-bottom: 10px;
     }
     
     .lineimg {
@@ -587,6 +560,18 @@
         background-position: center;
         background-color: #FFFFFF;
         margin: auto;
+        border-radius: 50px;
+    }
+    .coolpic {
+        width: 100%;
+        height: 100%;
+        background-image: url("/image/cool.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-color: #FFFFFF;
+        margin: auto;
+        border-radius: 50px;
     }
     
     .otoiawase {
@@ -599,6 +584,9 @@
         padding-bottom: 100px;
     }
     
+    .aboutus {
+        padding: 30px;
+    }
     
   </style>
   <script>
@@ -650,10 +638,17 @@
           <a>Information</a>
         </li>
       </ul>
+    <div class="information">
+    <div class="aboutus">
+       <h3 class="header1"><i class="glyphicon glyphicon-flag"></i> About Us</h3> 
+       <div class="aucontent">
+           <font size="4em"><strong>プレゼントを渡したいけれど，何をあげたらいいか分からない...</strong></font><BR>
+           そんな経験ありませんか？<BR>
+       </div>
+    </div>
     <div class="shintyaku">
-        <h3 class="header">新着情報</h3>
+        <h3 class="header1"><i class="glyphicon glyphicon-pencil"></i> 新着情報</h3>
         <div class="news">
-            <h2 class="newstitle"></h2>
             <div class="wrapper1">
                 <div class="content1">
                     <div class="newsimg"></div>
@@ -661,17 +656,13 @@
             </div>
             <div class="wrapper2">
                 <div class="content2">
-                    <div class="newscontent"></div>
-                </div>
-            </div>
-            <div class="wrapper3">
-                <div class="content3">
                     <div class="newsdate"></div>
+                    <h4 class="newstitle"></h4>
+                    <div class="newscontent"></div>
                 </div>
             </div>
         </div>
         <div class="news">
-            <h2 class="newstitle"></h2>
             <div class="wrapper1">
                 <div class="content1">
                     <div class="newsimg"></div>
@@ -679,45 +670,36 @@
             </div>
             <div class="wrapper2">
                 <div class="content2">
-                    <div class="newscontent"></div>
-                </div>
-            </div>
-            <div class="wrapper3">
-                <div class="content3">
                     <div class="newsdate"></div>
-                </div>
-            </div>
-        </div>
-        <div class="news">
-            <h2 class="newstitle"></h2>
-            <div class="wrapper1">
-                <div class="content1">
-                    <div class="newsimg"></div>
-                </div>
-            </div>
-            <div class="wrapper2">
-                <div class="content2">
+                    <h4 class="newstitle"></h4>
                     <div class="newscontent"></div>
-                </div>
-            </div>
-            <div class="wrapper3">
-                <div class="content3">
-                    <div class="newsdate"></div>
                 </div>
             </div>
         </div>
     </div>
     <div class="sns">
-        <h3 class="header1">SNS連携</h3>
-        <div class="line">
-            <h3 class="newstitle">MOCCA with LINE</h3>
+        
             
-            <div class="col">
-                <h3>QRコードで友達に追加</h3>
-                <div class="wrapper4">
-                  <div class="content4">
-                    <div class="qrimg"></div>  
-                  </div>
+        <div class="news">
+            <h3 class="header1"><i class="glyphicon glyphicon-user"></i> SNS</h3>
+            <div class="wrapper1">
+                <div class="content1">
+                    <div class="qrimg"></div>
+                </div>
+            </div>
+            <div class="wrapper2">
+                <div class="content2">
+                    <h4><strong>MOCCA with LINE完成しました!!</strong></h4>
+                    <div>上記QRコードで友達になって下さい!!</div>
+                </div>
+            </div>
+            <a class="twitter-share-button" href="https://twitter.com/share" data-dnt="true" data-size="large" data-text="ギフト探しに役立つよ！" data-hashtags="MOCCA" data-url="http://mocca-giftfinder.herokuapp.com/">Tweet</a>
+            <div class="fb-like" data-href="http://mocca-giftfinder.herokuapp.com/" data-layout="box_count" data-action="like" data-show-faces="true" data-share="false"></div>
+        </div>
+        <div class="news">
+            <div class="wrapper3">
+                <div class="content3">
+                  <div class="coolpic"></div>
                 </div>
             </div>
         </div>
@@ -729,5 +711,23 @@
         <a href="mailto:moccapu@gmail.com">moccapu@gmail.com</a>
     </div>
     </div>
+    </div>
+    <div id="fb-root"></div>
+    <script>
+        (function(d, s, id) {
+        	var js, fjs = d.getElementsByTagName(s)[0];
+        	if (d.getElementById(id)) return;
+        	js = d.createElement(s); js.id = id;
+        	js.src = "//connect.facebook.net/ja_JP/sdk.js#xfbml=1&version=v2.0";
+        	fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+    <script>
+        window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
+    </script>
+    <script src="https://apis.google.com/js/platform.js" async defer>
+        {lang: "ja"}
+    </script>
+    
   </body>
   </html>
