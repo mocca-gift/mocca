@@ -1,5 +1,5 @@
 class FbmessengerController < ApplicationController
-    protect_from_forgery except: :callback
+    protect_from_forgery with: :null_session
     def callback
         token = "EAAWFQPfGEBkBAFx7AxBpdVK4VViIEsDcpRV5fXRV1jmWmg5lg9Kj8rF2Le0nUnAfNnrLFbS5xDuEuZAwoI9xZCQ7CUf9HOvSFQaVAcF0gxen3OixKVSvVulUJxOrbP1VHmZCRNfk1qAAbYS2k88S08rUllOjbwDXSV1jXeEQH8ZAn26sdieP"
 
