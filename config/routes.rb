@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   
   # for Line Bot
     post 'linebot/callback' => 'webhook#callback'
+    post 'fbbot/callback' => 'fbmessenger#callback'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
