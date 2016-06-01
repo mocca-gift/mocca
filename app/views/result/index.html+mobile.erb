@@ -89,13 +89,13 @@
           hearts[j].ontouchend = function(s) {
             return function(event) {
                 if (touchStartY[s] > (touchMoveY[s]+50)) {
-                   hearts[s].src= "/image/heartloader.gif";
                    switch(elm_num[s]) {
                       case -1:
+                        hearts[s].src = "/image/emptyheart2.png";
                         ajax.onreadystatechange=function() {
                           if(ajax.readyState==4) {
                             if((ajax.status>=200 && ajax.status<300) || (ajax.status==304)) {
-                                hearts[s].src = "/image/emptyheart2.png";
+                                
                             }
                             else {
                             }
@@ -107,10 +107,10 @@
                         elm_num[s]=0;
                         break;
                       case 0:
+                        hearts[s].src = "/image/heart.png";
                         ajax.onreadystatechange=function() {
                           if(ajax.readyState==4) {
                             if((ajax.status>=200 && ajax.status<300) || (ajax.status==304)) {
-                                hearts[s].src = "/image/heart.png";
                             }
                             else {
                             }
@@ -128,16 +128,16 @@
                 }
                 else {
                   if ((touchStartY[s]+50) < touchMoveY[s]) {
-                    hearts[s].src= "/image/heartloader.gif";
                     switch(elm_num[s]) {
                       case -1:
                         hearts[s].src = "/image/dislike.png";
                         break;
                       case 0:
+                        hearts[s].src = "/image/dislike.png";
                         ajax.onreadystatechange=function() {
                           if(ajax.readyState==4) {
                             if((ajax.status>=200 && ajax.status<300) || (ajax.status==304)) {
-                                hearts[s].src = "/image/dislike.png";
+                                
                             }
                             else {
                             }
@@ -149,10 +149,11 @@
                         elm_num[s]=-1;
                         break;
                       case 1:
+                        hearts[s].src = "/image/emptyheart2.png";
                         ajax.onreadystatechange=function() {
                           if(ajax.readyState==4) {
                             if((ajax.status>=200 && ajax.status<300) || (ajax.status==304)) {
-                                hearts[s].src = "/image/emptyheart2.png";
+                                
                             }
                             else {
                             }
@@ -165,13 +166,13 @@
                         break;
                       }
                   } else {
-                      hearts[s].src= "/image/heartloader.gif";
                    switch(elm_num[s]) {
                       case -1:
+                        hearts[s].src = "/image/emptyheart2.png";
                         ajax.onreadystatechange=function() {
                           if(ajax.readyState==4) {
                             if((ajax.status>=200 && ajax.status<300) || (ajax.status==304)) {
-                                hearts[s].src = "/image/emptyheart2.png";
+                                
                             }
                             else {
                             }
@@ -183,10 +184,11 @@
                         elm_num[s]=0;
                         break;
                       case 0:
+                        hearts[s].src = "/image/heart.png";
                         ajax.onreadystatechange=function() {
                           if(ajax.readyState==4) {
                             if((ajax.status>=200 && ajax.status<300) || (ajax.status==304)) {
-                                hearts[s].src = "/image/heart.png";
+                                
                             }
                             else {
                             }
@@ -198,10 +200,11 @@
                         elm_num[s]=1;
                         break;
                       case 1:
+                        hearts[s].src = "/image/dislike.png";
                         ajax.onreadystatechange=function() {
                           if(ajax.readyState==4) {
                             if((ajax.status>=200 && ajax.status<300) || (ajax.status==304)) {
-                                hearts[s].src = "/image/dislike.png";
+                                
                             }
                             else {
                             }
