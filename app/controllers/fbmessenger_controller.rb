@@ -16,7 +16,7 @@ class FbmessengerController < ApplicationController
     
           #ユーザーの発言
     
-          @sender = params["entry"][0]["messaging"]["recipient"]["id"].to_i
+          @sender = message["sender"]["id"]
           @text = message["message"]["text"]
     
           endpoint_uri = "https://graph.facebook.com/v2.6/me/messages?access_token="+token
@@ -28,11 +28,12 @@ class FbmessengerController < ApplicationController
     
           RestClient.post(endpoint_uri, content_json, {
             'Content-Type' => 'application/json; charset=UTF-8'
-          }){ |response, request, result, &block|
-            p response
-            p request
-            p result
-          }
+          })
+          # { |response, request, result, &block|
+          #   p response
+          #   p request
+          #   p result
+          # }
         else
           #botの発言
         end
