@@ -13,6 +13,8 @@ gem 'jquery-turbolinks'
 # for Line Bot
 gem "faraday"
 gem "faraday_middleware"
+#for FB Bot
+gem "rest-client"
 
 group :development, :test do
   gem 'sqlite3',     '1.3.9'
