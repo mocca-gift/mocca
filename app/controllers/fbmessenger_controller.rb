@@ -88,7 +88,7 @@ class FbmessengerController < ApplicationController
             response = open(@uri)
             data = response.read
             userdata = JSON.parse(data)
-            @text=userdata["first_name"]
+            @text=userdata["last_name"]+userdata["first_name"]
             
             endpoint_uri = "https://graph.facebook.com/v2.6/me/messages?access_token="+token
             request_content = {recipient: {id: @sender},
