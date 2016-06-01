@@ -1,5 +1,5 @@
 class FbmessengerController < ApplicationController
-    protect_from_forgery with: :null_session
+    protect_from_forgery except: :callback
     
     def callback
         token = "EAAWFQPfGEBkBAFx7AxBpdVK4VViIEsDcpRV5fXRV1jmWmg5lg9Kj8rF2Le0nUnAfNnrLFbS5xDuEuZAwoI9xZCQ7CUf9HOvSFQaVAcF0gxen3OixKVSvVulUJxOrbP1VHmZCRNfk1qAAbYS2k88S08rUllOjbwDXSV1jXeEQH8ZAn26sdieP"
@@ -14,7 +14,7 @@ class FbmessengerController < ApplicationController
           text = message["message"]["text"]
     
           endpoint_uri = "https://graph.facebook.com/v2.6/me/messages?access_token=" + token
-          request_content = {recipient: {id:sender},
+          request_content = {recipient: {id: sender},
                              message: {text: text}
                             }
     
