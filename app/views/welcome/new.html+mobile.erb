@@ -49,12 +49,12 @@
         var h2y=<%= gift.created_at.year %>;
         var h2d=<%= gift.created_at.yday %>;
         var sa=h1y*365+h1d-h2y*365-h2d;
-        if(sa<30){
-        element=document.createElement("span");
-        element.className="new";
-        element.innerHTML="NEW";
-        contents[i].appendChild(element);
-        } else {}
+        <!--if(sa<30){-->
+        <!--element=document.createElement("span");-->
+        <!--element.className="new";-->
+        <!--element.innerHTML="NEW";-->
+        <!--contents[i].appendChild(element);-->
+        <!--} else {}-->
         i++;
         <% end %>
     }
@@ -118,7 +118,9 @@
     }
     .wrapper {
         position: relative;
-        width: 50%;
+        width: 40%;
+        margin-left: 5%;
+        margin-right: 5%;
         float:left;
     }
     .wrapper:after{
@@ -133,6 +135,7 @@
         bottom: 0px;
         right: 0px;
         overflow: hidden;
+        border-radius: 50%;
     }
     .gift {
         display:block;
