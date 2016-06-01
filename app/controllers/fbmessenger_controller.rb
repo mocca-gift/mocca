@@ -1,3 +1,7 @@
+require 'open-uri'
+require 'json'
+
+
 class FbmessengerController < ApplicationController
     protect_from_forgery with: :null_session
     
@@ -78,7 +82,14 @@ class FbmessengerController < ApplicationController
         else
           if message.include?("postback") then
             @sender = message["sender"]["id"]
-            @text = message["postback"]["payload"]
+            # @text = message["postback"]["payload"]
+            
+            @uri= "https://graph.facebook.com/v2.6/"+@sender+"?fields=first_name,last_name,profile_pic,locale,timezone,gender&access_token="+token
+            response = open(@uri)
+            data = response.read
+            userdata = JSON.parse(data)
+            @text=userdata["first_name"]
+            
             endpoint_uri = "https://graph.facebook.com/v2.6/me/messages?access_token="+token
             request_content = {recipient: {id: @sender},
                             message: {text: @text}
