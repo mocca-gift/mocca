@@ -16,7 +16,7 @@ class FbmessengerController < ApplicationController
     
           #ユーザーの発言
     
-          @sender = params["entry"][0]["messaging"]["recipient"]["id"]
+          @sender = params["entry"][0]["messaging"]["recipient"]["id"].to_i
           @text = message["message"]["text"]
     
           endpoint_uri = "https://graph.facebook.com/v2.6/me/messages?access_token="+token
