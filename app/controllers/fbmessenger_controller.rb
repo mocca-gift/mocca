@@ -36,6 +36,6 @@ class FbmessengerController < ApplicationController
     #     else
     #       #botの発言
     #     end
-    # end
+    end
 
 end
