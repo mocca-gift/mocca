@@ -70,12 +70,11 @@ class FbmessengerController < ApplicationController
     
           RestClient.post(endpoint_uri, content_json, {
             'Content-Type' => 'application/json; charset=UTF-8'
-          })
-          # { |response, request, result, &block|
-          #   p response
-          #   p request
-          #   p result
-          # }
+          }){ |response, request, result, &block|
+            p response
+            p request
+            p result
+          }
         else
           if message.include?("postback") then
             @sender = message["sender"]["id"]
