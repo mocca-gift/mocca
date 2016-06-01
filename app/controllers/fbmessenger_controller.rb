@@ -37,6 +37,8 @@ class FbmessengerController < ApplicationController
         else
           #botの発言
         end
+        
+        render :nothing => true, status: :ok
     end
 
 end
