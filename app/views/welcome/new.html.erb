@@ -39,7 +39,6 @@
         var gifturls   = document.getElementsByClassName("gifturl");
         var giftnames   = document.getElementsByClassName("giftname");
         var urls   = document.getElementsByClassName("url");
-        var ligifts = document.getElementsByClassName("li-gift");
         
         i=0;
         hiduke=new Date();
@@ -48,17 +47,6 @@
         giftnames[i].innerHTML = "<%= gift.name %>";
         urls[i].innerHTML = "<%= gift.url %>";
         urls[i].href = "<%= gift.url %>";
-        var h1y=hiduke.getFullYear();
-        var h1d=hiduke.getDate()+hiduke.getMonth()*30.5;
-        var h2y=<%= gift.created_at.year %>;
-        var h2d=<%= gift.created_at.yday %>;
-        var sa=h1y*365+h1d-h2y*365-h2d;
-        if(sa<30){
-        element=document.createElement("span");
-        element.className="new";
-        element.innerHTML="NEW";
-        ligifts[i].appendChild(element);
-        } else {}
         i++;
         <% end %>
     }
@@ -78,11 +66,11 @@
       position: relative;
     }
     
-    .wrapper {
+    .wrapper1 {
       width: 1024px;
       height: 110%;
       margin:auto;
-      /*background-image: url("/image/ribbon.png");*/
+      background-image: url("/image/ribbon.png");
       background-color: #FFFFFF;
       background-size: cover;
       background-position: center;
@@ -102,9 +90,16 @@
         position: absolute;
         top: 50%;
         margin-top: -150px;
-        padding-bottom: 100px;
+        padding-bottom: 10px;
         width: 1024px;
+        background-color: rgba(245,245,245,0.7);
       }
+      .new_arrival:after {
+        content:"";
+        display:block;
+        clear:both;
+      }
+      
      /* Homepanels */
       li {
         list-style: none;
@@ -266,41 +261,69 @@
       	z-index: 0;
       }
       
-      
+     .wrapper {
+      position: relative;
+      width: 21%;
+      margin-left: 2%;
+      margin-right: 2%;
+      margin-top: 2%;
+      margin-bottom: 2%;
+      float:left;
+    }
+    .wrapper:after{
+        padding-top: 100%;
+        display: block;
+        content: "";
+    }
+    .content{
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        bottom: 0px;
+        right: 0px;
+        overflow: hidden;
+    }
+     .wrapper_home {
+      position: relative;
+      width: 48%;
+      float:left;
+    }
+    .wrapper_home:after{
+        padding-top: 48%;
+        display: block;
+        content: "";
+    }
+    .content_home{
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        bottom: 0px;
+        right: 0px;
+        overflow: hidden;
+    }
       .gifturl {
       display: block;
       background-size: contain;
       background-repeat: no-repeat;
       background-position: center;
-      height: 250px;
+      height: 100%;
       width: 100%;
       background-color: #FFFFFF;
+      border-radius: 50%;
+      border: solid 3px rgb(200,200,200);
+      float: left;
       margin: auto;
      }
-     
-     .li-gift {
-         width: 25%;
-         height: 250px;
-         float: left;
-         position: relative;
-         overflow: hidden;
-     }
-     
-     .li-title {
-         width: 50%;
-         height: 250px;
-         float: left;
-     }
-     
+
      .title {
         display: block;
         background-image: url("/image/na.png");
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center;
-        height: 250px;
+        height: 100%;
         width: 100%;
-        background-color: #FFFFFF;
+        background-color: #FF0000;
         margin: auto;
      }
     
@@ -314,19 +337,19 @@
         
       }
       
-      .new {
-        width: 100px;
-        padding: 3px 10px;
-        background: #d43131;
-        color: #fff;
-        text-align: center;
-        display: inline-block;
-        position: absolute;
-        top: 15px;
-        left: -25px;
-        text-transform: uppercase;
-        transform: rotate(315deg);
-      }
+      /*.new {*/
+      /*  width: 100px;*/
+      /*  padding: 3px 10px;*/
+      /*  background: #d43131;*/
+      /*  color: #fff;*/
+      /*  text-align: center;*/
+      /*  display: inline-block;*/
+      /*  position: absolute;*/
+      /*  top: 15px;*/
+      /*  left: -25px;*/
+      /*  text-transform: uppercase;*/
+      /*  transform: rotate(315deg);*/
+      /*}*/
       
       .heart {
         height: 30px;
@@ -386,7 +409,7 @@
 </head>
 
   <body>
-    <div class="wrapper">
+    <div class="wrapper1">
       <ul class="headerPanels">
         <li class="li-home">
           <a href="/">Home</a>
@@ -408,67 +431,80 @@
           </div>
         </li>
       </ul>
-    <ul class="new_arrival">
-      <li class="li-title">
+    <div class="new_arrival">
+    <div class="wrapper_home">
+      <div class="content_home">
         <div class="title"></div>
-      </li>
-      <li class="li-gift">
-        <div class="gifturl">
-          <div class="g_description" style="display: none;">
-            <h2 class="giftname"></h2>
-            <a class="url" target="_blank"></a>
-            <img class="heart" src="/image/emptyheart2.png">
-         </div>
-        </div> 
-      </li>
-      <li class="li-gift">
-        <div class="gifturl">
-          <div class="g_description" style="display: none;">
-            <h2 class="giftname"></h2>
-            <a class="url" target="_blank"></a>
-            <img class="heart" src="/image/emptyheart2.png">
-         </div>
-        </div>  
-      </li>
-      <li class="li-gift">
-        <div class="gifturl">
-          <div class="g_description" style="display: none;">
-            <h2 class="giftname"></h2>
-            <a class="url" target="_blank"></a>
-            <img class="heart" src="/image/emptyheart2.png">
-         </div>
-        </div> 
-      </li>
-      <li class="li-gift">
-        <div class="gifturl">
-          <div class="g_description" style="display: none;">
-            <h2 class="giftname"></h2>
-            <a class="url" target="_blank"></a>
-            <img class="heart" src="/image/emptyheart2.png">
-         </div>
-        </div> 
-      </li>
-      <li class="li-gift">
-        <div class="gifturl">
-          <div class="g_description" style="display: none;">
-            <h2 class="giftname"></h2>
-            <a class="url" target="_blank"></a>
-            <img class="heart" src="/image/emptyheart2.png">
-         </div>
-        </div> 
-      </li>
-      <li class="li-gift">
-        <div class="gifturl">
-          <div class="g_description" style="display: none;">
-            <h2 class="giftname"></h2>
-            <a class="url" target="_blank"></a>
-            <img class="heart" src="/image/emptyheart2.png">
-         </div>
-        </div> 
-      </li>
-    </ul>
-  </div>
-
+      </div>
+    </div>
+      <div class="wrapper">
+        <div class="content">
+          <div class="gifturl">
+            <div class="g_description" style="display: none;">
+              <h2 class="giftname"></h2>
+              <a class="url" target="_blank"></a>
+              <img class="heart" src="/image/emptyheart2.png">
+            </div>
+          </div>
+        </div>
+      </div> 
+      <div class="wrapper">
+        <div class="content">
+          <div class="gifturl">
+            <div class="g_description" style="display: none;">
+              <h2 class="giftname"></h2>
+              <a class="url" target="_blank"></a>
+              <img class="heart" src="/image/emptyheart2.png">
+            </div>
+          </div>
+        </div>
+      </div> 
+      <div class="wrapper">
+        <div class="content">
+          <div class="gifturl">
+            <div class="g_description" style="display: none;">
+              <h2 class="giftname"></h2>
+              <a class="url" target="_blank"></a>
+              <img class="heart" src="/image/emptyheart2.png">
+            </div>
+          </div>
+        </div>
+      </div> 
+      <div class="wrapper">
+        <div class="content">
+          <div class="gifturl">
+            <div class="g_description" style="display: none;">
+              <h2 class="giftname"></h2>
+              <a class="url" target="_blank"></a>
+              <img class="heart" src="/image/emptyheart2.png">
+            </div>
+          </div>
+        </div>
+      </div> 
+      <div class="wrapper">
+        <div class="content">
+          <div class="gifturl">
+            <div class="g_description" style="display: none;">
+              <h2 class="giftname"></h2>
+              <a class="url" target="_blank"></a>
+              <img class="heart" src="/image/emptyheart2.png">
+            </div>
+          </div>
+        </div>
+      </div> 
+      <div class="wrapper">
+        <div class="content">
+          <div class="gifturl">
+            <div class="g_description" style="display: none;">
+              <h2 class="giftname"></h2>
+              <a class="url" target="_blank"></a>
+              <img class="heart" src="/image/emptyheart2.png">
+            </div>
+          </div>
+        </div>
+      </div> 
+    </div>
+    </div>
     
   </body>
   </html>

@@ -6,7 +6,7 @@ class QflowController < ApplicationController
     
     before_action do
         #端末によってViewファイルを振り分ける
-        if request.user_agent.include?("Mobile") || request.user_agent.include?("iPhone") || request.user_agent.include?("Android") then
+        if (request.user_agent.include?("Mobile") || request.user_agent.include?("iPhone")) || request.user_agent.include?("Android") then
             request.variant = :mobile
         else
         end
