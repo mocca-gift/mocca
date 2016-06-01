@@ -109,8 +109,8 @@ class WebhookController < ApplicationController
             res = client.send([from_mid], message)
             #Talkモデルのquestionの最後(6番目)にギフトのidを付加する
             @talk.update(:question => @talk.question+","+@expTop1.id.to_s)
-            message=@expTop1.id.to_s
-            res = client.send([from_mid], message)
+            # message=@expTop1.id.to_s
+            # res = client.send([from_mid], message)
             # @talk.update(:text => "")
     # ↑YES--------------------------------------------------------------------------
     # ↓NO----------------------------------------------------------------------------
@@ -130,8 +130,8 @@ class WebhookController < ApplicationController
             res = client.send([from_mid], message)
             #Talkモデルのquestionの最後(6番目)にギフトのidを付加する
             @talk.update(:question => @talk.question+","+@expTop1.id.to_s)
-            message=@expTop1.id.to_s
-            res = client.send([from_mid], message)
+            # message=@expTop1.id.to_s
+            # res = client.send([from_mid], message)
             # @talk.update(:text => "")
           
     # ↑NO----------------------------------------------------------------------------
