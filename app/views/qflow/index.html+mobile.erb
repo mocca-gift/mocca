@@ -123,13 +123,14 @@
       position: absolute;
       top: 50%;
       margin-top: -150px;
-      
+      display: none;
       
      }
       
       .qheader {
         width: 100%;
         padding: 30px;
+        display: none;
       }
       
       .qimage {
@@ -146,6 +147,10 @@
         text-align: center;
         line-height: 100px;
         border-bottom: solid 1px;
+      }
+      
+      .choices {
+        display: none;
       }
       
       .btns {
@@ -172,42 +177,47 @@
       background-color: rgba(0,0,255,1);
     }
       
-      .pop {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.68);
-      z-index: 9999;
-      top: 0;
-      left: 0;
-    }
+    /*  .pop {*/
+    /*  position: fixed;*/
+    /*  width: 100%;*/
+    /*  height: 100%;*/
+    /*  background: rgba(0,0,0,0.68);*/
+    /*  z-index: 9999;*/
+    /*  top: 0;*/
+    /*  left: 0;*/
+    /*}*/
     
-    .pop-in {
-      position: absolute;
-      top: 50%;
-      background: #fff;
-      width: 250px;
-      height: 200px;
-      left: 50%;
-      margin-left: -125px;
-      margin-top: -100px;
-      text-align: center;
-      box-shadow: 0 0 10px 0 rgba(0,0,0,0.74);
-      border-radius: 8px;
-    }
+    /*.pop-in {*/
+    /*  position: absolute;*/
+    /*  top: 50%;*/
+    /*  background: #fff;*/
+    /*  width: 250px;*/
+    /*  height: 200px;*/
+    /*  left: 50%;*/
+    /*  margin-left: -125px;*/
+    /*  margin-top: -100px;*/
+    /*  text-align: center;*/
+    /*  box-shadow: 0 0 10px 0 rgba(0,0,0,0.74);*/
+    /*  border-radius: 8px;*/
+    /*}*/
     
-    .pop-in-text {
-      font-size: 1em;
-      display: block;
-      height: 50px;
-      text-align: center;
-      margin-top: 50px;
-    }
+    /*.pop-in-text {*/
+    /*  font-size: 1em;*/
+    /*  display: block;*/
+    /*  height: 50px;*/
+    /*  text-align: center;*/
+    /*  margin-top: 50px;*/
+    /*}*/
   </style>
   <script>
     
   $(document).ready(function(){
-      setTimeout(function(){$( '.pop' ).fadeOut();},2500);
+      // setTimeout(function(){$( '.pop' ).fadeOut();},2500);
+      setTimeout(function(){$( '.question' ).fadeIn();},1000);
+      setTimeout(function(){$( '.desc' ).fadeIn();},2000);
+      setTimeout(function(){$( '.desc' ).fadeOut();},4000);
+      setTimeout(function(){$( '.qheader' ).fadeIn();},5000);
+      setTimeout(function(){$( '.choices' ).fadeIn();},5000);
       
     $('.btns').on('touchstart', function(e) {
           $(this).addClass('tapStyle');
@@ -255,6 +265,7 @@
     </nav>
     <table>
     <div class="question">
+          <div class="desc">これからの質問は<BR>ギフトを渡す<BR><strong><font size="3em">"相手の事"</font></strong><BR>を考えて答えてください</div>
           <div class="qheader">
             <img class="qimage" src="/image/q_trans.png">                        
             <div id="qtext" class></div>                        
@@ -265,13 +276,13 @@
           </div>
           
     </div>
-    <div class="pop" style="display:block;">
-      <div class="pop-in">
-        <div class="pop-in-text">
-          これからの質問は<BR>ギフトを渡す<BR><strong><font size="3em">"相手の事"</font></strong><BR>を考えて答えてください
-        </div>
-      </div>
-    </div>
+    <!--<div class="pop" style="display:block;">-->
+    <!--  <div class="pop-in">-->
+    <!--    <div class="pop-in-text">-->
+    <!--      これからの質問は<BR>ギフトを渡す<BR><strong><font size="3em">"相手の事"</font></strong><BR>を考えて答えてください-->
+    <!--    </div>-->
+    <!--  </div>-->
+    <!--</div>-->
     </table>
     <%= form_tag('/result' , :name => :frm , :method => :post) do %>
       <%= hidden_field_tag :postdata1 %>
