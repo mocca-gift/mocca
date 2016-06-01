@@ -94,7 +94,8 @@ class WebhookController < ApplicationController
           case text_message
     # ↓YES--------------------------------------------------------------------------
           when *yes_array then
-            res = client.send([from_mid], "こんなプレゼントはどうかな...")
+            # res = client.send([from_mid], "こんなプレゼントはどうかな...")
+            res = client.send([from_mid], "ちょっと待っててね...")
             @talk.update(:text => @talk.text+",1")
             # ベイズ計算をする。というか@expTop1を生成する
             bayes_calc
@@ -103,7 +104,7 @@ class WebhookController < ApplicationController
             res = client.sendImage([from_mid], "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img", "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img" )
             res = client.send([from_mid], message)
             
-            message="このプレゼントどう？"
+            message="こんなプレゼントどうかな？"
             # message="Web版も試してね！\nhttps://mocca-giftfinder.herokuapp.com/"
             res = client.send([from_mid], message)
             #Talkモデルのquestionの最後(6番目)にギフトのidを付加する
@@ -114,7 +115,8 @@ class WebhookController < ApplicationController
     # ↑YES--------------------------------------------------------------------------
     # ↓NO----------------------------------------------------------------------------
           when *no_array then
-            res = client.send([from_mid], "こんなプレゼントはどうかな...")
+            # res = client.send([from_mid], "こんなプレゼントはどうかな...")
+            res = client.send([from_mid], "ちょっと待っててね...")
             @talk.update(:text => @talk.text+",2")
             # ベイズ計算をする。というか@expTop1を生成する
             bayes_calc
@@ -123,7 +125,7 @@ class WebhookController < ApplicationController
             res = client.sendImage([from_mid], "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img", "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img" )
             res = client.send([from_mid], message)
             
-            message="このプレゼントどう？"
+            message="こんなプレゼントどうかな？"
             # message="Web版もお試し下さい\nhttps://mocca-giftfinder.herokuapp.com/"
             res = client.send([from_mid], message)
             #Talkモデルのquestionの最後(6番目)にギフトのidを付加する
@@ -142,17 +144,17 @@ class WebhookController < ApplicationController
           case text_message
           when *up_array then
           up_calc
-          res = client.send([from_mid], "ありがとう！\nWeb版はこちら！\nhttps://mocca-giftfinder.herokuapp.com/")
+          res = client.send([from_mid], "ありがとう！\nWeb版も使ってみてね！\nhttps://mocca-giftfinder.herokuapp.com/")
           @talk.update(:text => "")
-          message=@qarray[6].to_s+"up"
-          res = client.send([from_mid], message)
+          # message=@qarray[6].to_s+"up"
+          # res = client.send([from_mid], message)
           else
           down_calc
           # res = client.send([from_mid], "そっか...またチャレンジしてね！\nWeb版も試してね！\nhttps://mocca-giftfinder.herokuapp.com/")
           res = client.send([from_mid], "もう一回やってみて！質問が変わるよ！")
           @talk.update(:text => "")
-          message=@qarray[6].to_s+"down"
-          res = client.send([from_mid], message)
+          # message=@qarray[6].to_s+"down"
+          # res = client.send([from_mid], message)
           end
         end
       end
