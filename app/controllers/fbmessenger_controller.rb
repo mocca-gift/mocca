@@ -6,7 +6,7 @@ class FbmessengerController < ApplicationController
 
         message = params["entry"][0]["messaging"][0]["sender"][0]["id"][0]
     
-        if message!=213402759052930 then
+        if message!="213402759052930" then
     
           #ユーザーの発言
     
