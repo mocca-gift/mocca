@@ -30,7 +30,7 @@ class FbmessengerController < ApplicationController
                 "elements": [{
                   "title": @gifts[0].name ,
                   "subtitle": "Element #1 of an hscroll",
-                  "image_url": "https://mocca-giftfinder.herokuapp.com/gifts/"+@gifts[0].id+"/img",
+                  "image_url": "https://mocca-giftfinder.herokuapp.com/gifts/"+@gifts[0].id.to_s+"/img",
                   "buttons": [{
                     "type": "web_url",
                     "url": @gifts[0].url ,
@@ -43,7 +43,7 @@ class FbmessengerController < ApplicationController
                 },{
                   "title": @gifts[1].name,
                   "subtitle": "Element #2 of an hscroll",
-                  "image_url": "https://mocca-giftfinder.herokuapp.com/gifts/"+@gifts[1].id+"/img",
+                  "image_url": "https://mocca-giftfinder.herokuapp.com/gifts/"+@gifts[1].id.to_s+"/img",
                   "buttons": [{
                     "type": "web_url",
                     "url": @gifts[1].url ,
