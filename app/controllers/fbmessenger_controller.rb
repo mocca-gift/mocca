@@ -3,7 +3,7 @@ require 'json'
 
 
 class FbmessengerController < ApplicationController
-    protect_from_forgery with: :null_session
+    protect_from_forgery with: :null_session # CSRF対策無効化
     
     ACCESS_TOKEN = ENV['FB_ACCESS_TOKEN']
     
@@ -38,46 +38,70 @@ class FbmessengerController < ApplicationController
           #ユーザの発言取得
           @text = @message["message"]["text"]
     
-          
-          messageData = {
-            "attachment": {
-              "type": "template",
-              "payload": {
-                "template_type": "generic",
-                "elements": [{
-                  "title": @gifts[0].name ,
-                  "subtitle": "Element #1 of an hscroll",
-                  "image_url": "https://mocca-giftfinder.herokuapp.com/gifts/"+@gifts[0].id.to_s+"/img",
-                  "buttons": [{
-                    "type": "web_url",
-                    "url": @gifts[0].url ,
-                    "title": "こちらから！"
-                  }, {
-                    "type": "postback",
-                    "title": "Postback",
-                    "payload": "Payload for first element in a generic bubble",
-                  }],
-                },{
-                  "title": @gifts[1].name,
-                  "subtitle": "Element #2 of an hscroll",
-                  "image_url": "https://mocca-giftfinder.herokuapp.com/gifts/"+@gifts[1].id.to_s+"/img",
-                  "buttons": [{
-                    "type": "web_url",
-                    "url": @gifts[1].url ,
-                    "title": "こちらから！"
-                  }, {
-                    "type": "postback",
-                    "title": "いい！",
-                    "payload": "1",
-                  },{
-                    "type": "postback",
-                    "title": "びみょ！",
-                    "payload": "2",
-                  }],
-                }]
+          messageData={
+              "attachment":{
+                "type":"template",
+                "payload":{
+                  "template_type":"button",
+                  "text":"どうやってギフトを決める?",
+                  "buttons":[
+                    {
+                      "type":"postback",
+                      "title":"QUESTION",
+                      "subtitle":"できる？",
+                      "payload":"QUESTION"
+                    },
+                    {
+                      "type":"postback",
+                      "title":"RANDOM",
+                      "subtitle":"できる？",
+                      "payload":"RANDOM"
+                    }
+                  ]
+                }
               }
-            }
           }
+          
+          
+          # messageData = {
+          #   "attachment": {
+          #     "type": "template",
+          #     "payload": {
+          #       "template_type": "generic",
+          #       "elements": [{
+          #         "title": @gifts[0].name ,
+          #         "subtitle": "Element #1 of an hscroll",
+          #         "image_url": "https://mocca-giftfinder.herokuapp.com/gifts/"+@gifts[0].id.to_s+"/img",
+          #         "buttons": [{
+          #           "type": "web_url",
+          #           "url": @gifts[0].url ,
+          #           "title": "こちらから！"
+          #         }, {
+          #           "type": "postback",
+          #           "title": "Postback",
+          #           "payload": "Payload for first element in a generic bubble",
+          #         }],
+          #       },{
+          #         "title": @gifts[1].name,
+          #         "subtitle": "Element #2 of an hscroll",
+          #         "image_url": "https://mocca-giftfinder.herokuapp.com/gifts/"+@gifts[1].id.to_s+"/img",
+          #         "buttons": [{
+          #           "type": "web_url",
+          #           "url": @gifts[1].url ,
+          #           "title": "こちらから！"
+          #         }, {
+          #           "type": "postback",
+          #           "title": "いい！",
+          #           "payload": "1",
+          #         },{
+          #           "type": "postback",
+          #           "title": "びみょ！",
+          #           "payload": "2",
+          #         }],
+          #       }]
+          #     }
+          #   }
+          # }
         
         sendData(messageData)
         
