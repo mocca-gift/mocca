@@ -165,7 +165,7 @@ class FbmessengerController < ApplicationController
             when "RANDOM" then
             else
               @talk=Fbtalk.find_by(:user => @sender)
-              qflowid=@talk.qflowid
+              qflowid = @talk.qflowid
               #payload配列の取得[qflowid, questionid ,1 or 2]
               payload_array = @payload.split(",")
               
@@ -233,8 +233,8 @@ class FbmessengerController < ApplicationController
                     
                     #qflowidの初期化
                     @talk.update( :qflowid => "")
-                    
-                    messageData={text: "Thank you!!"}
+                    @text = "Qflowid:"+@talk.qflowid+",Answer:"+@talk.answer+",Question:"+@talk.question
+                    messageData={text: @text}
                     sendData(messageData)
                   end
                 when "1","2" then
