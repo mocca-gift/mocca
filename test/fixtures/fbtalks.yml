@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: MyString
+  answer: MyString
+  question: MyString
+  qflowid: MyString
+
+two:
+  user: MyString
+  answer: MyString
+  question: MyString
+  qflowid: MyString
