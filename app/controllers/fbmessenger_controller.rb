@@ -169,7 +169,7 @@ class FbmessengerController < ApplicationController
               #payload配列の取得[qflowid, questionid ,1 or 2]
               payload_array = @payload.split(",")
               
-              if payload_array[0]==qflowid
+              if payload_array[0]==qflowid then
                 #qflowidが今回のqflowidと一致した場合
                 
                 
