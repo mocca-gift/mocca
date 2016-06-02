@@ -338,7 +338,7 @@ class FbmessengerController < ApplicationController
             @ansarray=@talk.answer.split(",")
             
             # answerモデルに結果を代入
-          for i in 0..(@ansarray.length-1) do
+          for i in 0..4 do
               answer=Answer.where(question_id: @qarray[i]).find_by_ansid(@ansarray[i]) || Answer.new(question_id: @qarray[i], ansid: @ansarray[i], count: 0)
               answer.save
               answer.update(count: answer.count+1)
@@ -351,7 +351,7 @@ class FbmessengerController < ApplicationController
           @gifts=Gift.all
           
           #ベイズ計算
-          for i in 1..5 do
+          for i in 0..4 do
             @gifts.each do |gift|
               answer=Answer.where(question_id: @qarray[i]).find_by_ansid(@ansarray[i])
               evaluation1=Evaluation.where(gift_id: gift.id).find_by_evalid(1) || Evaluation.new(gift_id: gift.id, evalid: 1, count: 0)
