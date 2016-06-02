@@ -231,7 +231,7 @@ class FbmessengerController < ApplicationController
                     #ベイズ計算&ギフト送信
                     
                     #qflowidの初期化
-                    @talk.update(:qflowid =>"")
+                    @talk.update(:qflowid => "")
                     
                     messageData={text: "Thank you!!"}
                     sendData(messageData)
