@@ -5,28 +5,41 @@ require 'json'
 class FbmessengerController < ApplicationController
     protect_from_forgery with: :null_session
     
+    ACCESS_TOKEN = ENV['FB_ACCESS_TOKEN']
+    
     def callback
       
+      # 最初の認証
       # if params["hub.verify_token"] == "arai0806"
       #     render json: params["hub.challenge"]
       # else
       #     render json: "Error, wrong validation token"
       # end
-        token = "EAAWFQPfGEBkBAEdKXCPOQ5zb28zMOeSKkZAvQjYnODIPOakcDpC92wlHWARJZA4COUu77bBzAhW4SW0ybdPLELIZC8d60EAwoMpv8DBQR1gaHiZA0WZCbhZBxDGXSOIwojLc51OCGHF9EUghwMHy4oZCV55nvU4iZBcxZAZAfEjr3jCCgedb4aZCoSa"
-
-        message = params["entry"][0]["messaging"][0]
+        
+        #POSTパラメータの取得
+        @message = params["entry"][0]["messaging"][0]
+        
+        #送信先URIの設定
+        @endpoint_uri = "https://graph.facebook.com/v2.6/me/messages?access_token="+ACCESS_TOKEN
+        
+        #ユーザIDの取得
+        @sender = message["sender"]["id"]
+        
+        #ユーザ情報URI
+        @user_uri= "https://graph.facebook.com/v2.6/"+@sender+"?fields=first_name,last_name,profile_pic,locale,timezone,gender&access_token="+ACCESS_TOKEN
+        
         @gifts=Gift.order("created_at DESC").limit(2)
+        
+        #ユーザの発言かどうかの判定
+        if @message.include?("message") then
     
-        if message.include?("message") then
-    
-          #ユーザーの発言
-    
-          @sender = message["sender"]["id"]
+          #ユーザの発言
+          
+          #ユーザの発言取得
           @text = message["message"]["text"]
     
-          endpoint_uri = "https://graph.facebook.com/v2.6/me/messages?access_token="+token
           
-          @messageData = {
+          messageData = {
             "attachment": {
               "type": "template",
               "payload": {
@@ -66,50 +79,60 @@ class FbmessengerController < ApplicationController
             }
           }
         
-        request_content = {recipient: {id: @sender},
-                            message: @messageData
-                            }
-    
-          content_json = request_content.to_json
-    
-          RestClient.post(endpoint_uri, content_json, {
-            'Content-Type' => 'application/json; charset=UTF-8'
-          }){ |response, request, result, &block|
-            p response
-            p request
-            p result
-          }
-        else
-          if message.include?("postback") then
-            @sender = message["sender"]["id"]
-            # @text = message["postback"]["payload"]
-            
-            @uri= "https://graph.facebook.com/v2.6/"+@sender+"?fields=first_name,last_name,profile_pic,locale,timezone,gender&access_token="+token
-            response = open(@uri)
-            data = response.read
-            userdata = JSON.parse(data)
-            @text=userdata["last_name"]+userdata["first_name"]
-            
-            endpoint_uri = "https://graph.facebook.com/v2.6/me/messages?access_token="+token
-            request_content = {recipient: {id: @sender},
-                            message: {text: @text}
-                            }
-    
-          content_json = request_content.to_json
-    
-          RestClient.post(endpoint_uri, content_json, {
-            'Content-Type' => 'application/json; charset=UTF-8'
-          }){ |response, request, result, &block|
-            p response
-            p request
-            p result
-          }
-            
-          else
-          end
-        end
+        sendData(messageData)
         
+        else
+        
+          if @message.include?("postback") then
+            
+            #ユーザからのPOSTBACK
+            
+            #PAYLOADの取得
+            @payload = message["postback"]["payload"]
+            
+            #ユーザデータの取得
+            userData=getUserData()
+            
+            @text=userData["last_name"]+userData["first_name"]+"さん"+@payload+"ですね？"
+            
+            messageData = {text: @text}
+            
+            sendData(messageData)
+          
+          else
+            
+            
+          end
+        
+        end
+       
+        #MissingTemplate回避 
         render :nothing => true, status: :ok
+    end
+    
+    private
+    
+    #データ送信関数
+    def sendData(messageData)
+      request_content = {recipient: {id: @sender},
+                            message: messageData
+                         }
+      content_json = request_content.to_json
+      RestClient.post(@endpoint_uri, content_json, {
+            'Content-Type' => 'application/json; charset=UTF-8'
+          }){ |response, request, result, &block|
+            p response
+            p request
+            p result
+          }
+    end
+    
+    #ユーザデータの取得関数
+    def getUserData()
+      response = open(@user_uri)
+      data = response.read
+      userData = JSON.parse(data)
+      return userData
     end
 
 end
