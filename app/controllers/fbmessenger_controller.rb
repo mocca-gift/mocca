@@ -166,11 +166,12 @@ class FbmessengerController < ApplicationController
             else
               @talk=Fbtalk.find_by(:user => @sender)
               qflowid=@talk.qflowid
-              if @payload.include?(qflowid)
+              #payload配列の取得[qflowid, questionid ,1 or 2]
+              payload_array = @payload.split(",")
+              
+              if payload_array[0]==qflowid
                 #qflowidが今回のqflowidと一致した場合
                 
-                #payload配列の取得[qflowid, questionid ,1 or 2]
-                payload_array = @payload.split(",")
                 
                 #answer配列の取得
                 @ansarray = @talk.answer.split(",")
@@ -231,7 +232,7 @@ class FbmessengerController < ApplicationController
                     #ベイズ計算&ギフト送信
                     
                     #qflowidの初期化
-                    @talk.update(:qflowid => "")
+                    @talk.update( :qflowid => "")
                     
                     messageData={text: "Thank you!!"}
                     sendData(messageData)
