@@ -23,7 +23,7 @@ class FbmessengerController < ApplicationController
         @endpoint_uri = "https://graph.facebook.com/v2.6/me/messages?access_token="+ACCESS_TOKEN
         
         #ユーザIDの取得
-        @sender = message["sender"]["id"]
+        @sender = @message["sender"]["id"]
         
         #ユーザ情報URI
         @user_uri= "https://graph.facebook.com/v2.6/"+@sender+"?fields=first_name,last_name,profile_pic,locale,timezone,gender&access_token="+ACCESS_TOKEN
