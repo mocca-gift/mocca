@@ -99,6 +99,11 @@ class WebhookController < ApplicationController
             @talk.update(:text => @talk.text+",1")
             # ベイズ計算をする。というか@expTop1を生成する
             bayes_calc
+            
+            #評価初期
+            up_calc(@expTop1.id,1)
+            down_calc(@expTop1.id,1)
+            
             #@expTop1のギフトに関して，その画像と名前，URLを送信する
             message=message=@expTop1.name+"\n"+@expTop1.url
             res = client.sendImage([from_mid], "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img", "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img" )
@@ -120,6 +125,11 @@ class WebhookController < ApplicationController
             @talk.update(:text => @talk.text+",2")
             # ベイズ計算をする。というか@expTop1を生成する
             bayes_calc
+            
+            #評価初期
+            up_calc(@expTop1.id,1)
+            down_calc(@expTop1.id,1)
+            
             #@expTop1のギフトに関して，その画像と名前，URLを送信する
             message=message=@expTop1.name+"\n"+@expTop1.url
             res = client.sendImage([from_mid], "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img", "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img" )
@@ -143,13 +153,15 @@ class WebhookController < ApplicationController
         else
           case text_message
           when *up_array then
-          up_calc
+          up_calc(@qarray[6],1)
+          down_calc(@qarray[6],-1)
           res = client.send([from_mid], "ありがとう！\nWeb版も使ってみてね！\nhttps://mocca-giftfinder.herokuapp.com/")
           @talk.update(:text => "")
           # message=@qarray[6].to_s+"up"
           # res = client.send([from_mid], message)
           else
-          down_calc
+          up_calc(@qarray[6],-1)
+          down_calc(@qarray[6],1)
           # res = client.send([from_mid], "そっか...またチャレンジしてね！\nWeb版も試してね！\nhttps://mocca-giftfinder.herokuapp.com/")
           res = client.send([from_mid], "もう一回やってみて！質問が変わるよ！")
           @talk.update(:text => "")
@@ -254,21 +266,21 @@ class WebhookController < ApplicationController
         # res = client.send([from_mid], message)
   end
   
-  def up_calc
+  def up_calc(giftid,num)
     for i in 1..5
       answer=Answer.where(question_id: @qarray[i]).find_by_ansid(@ansarray[i])
-      evaluation=Evaluation.where(gift_id: @qarray[6]).find_by_evalid(1)
+      evaluation=Evaluation.where(gift_id: giftid).find_by_evalid(1)
       anstoeval=Anstoeval.where(answer_id: answer.id).find_by_evaluation_id(evaluation.id)
-      anstoeval.update(count: anstoeval.count+1)
+      anstoeval.update(count: anstoeval.count+num)
     end
   end
   
-  def down_calc
+  def down_calc(giftid,num)
     for i in 1..5
       answer=Answer.where(question_id: @qarray[i]).find_by_ansid(@ansarray[i])
-      evaluation=Evaluation.where(gift_id: @qarray[6]).find_by_evalid(2)
+      evaluation=Evaluation.where(gift_id: giftid).find_by_evalid(2)
       anstoeval=Anstoeval.where(answer_id: answer.id).find_by_evaluation_id(evaluation.id)
-      anstoeval.update(count: anstoeval.count+1)
+      anstoeval.update(count: anstoeval.count+num)
     end
   end
   
