@@ -28,16 +28,7 @@ class FbmessengerController < ApplicationController
         #ユーザ情報URI
         @user_uri= "https://graph.facebook.com/v2.6/"+@sender+"?fields=first_name,last_name,profile_pic,locale,timezone,gender&access_token="+ACCESS_TOKEN
         
-        
-        #ユーザの発言かどうかの判定
-        if @message.include?("message") then
-    
-          #ユーザの発言
-          
-          #ユーザの発言取得
-          @text = @message["message"]["text"]
-    
-          messageData1={
+        @messageData_normal={
               "attachment":{
                 "type":"template",
                 "payload":{
@@ -58,13 +49,21 @@ class FbmessengerController < ApplicationController
                 }
               }
           }
+        
+        #ユーザの発言かどうかの判定
+        if @message.include?("message") then
+    
+          #ユーザの発言
           
+          #ユーザの発言取得
+          @text = @message["message"]["text"]
+    
           @text="QUESTION:\n質問でギフトを探す!\nRANDOM:\n運に任せてギフトを探す!"
           
-          messageData2 = {text: @text}
+          messageData = {text: @text}
         
-          sendData(messageData1)
-          sendData(messageData2)
+          sendData(@messageData_normal)
+          sendData(messageData)
         
         else
         
@@ -77,11 +76,13 @@ class FbmessengerController < ApplicationController
             
             case @payload
             when "QUESTION" then
-              #ユーザIDでトーク履歴取得
+              #ユーザIDでトーク履歴取得(なかったらクリエイト)
               @talk=Fbtalk.find_by(:user => @sender) || Fbtalk.create(:user => @sender, :answer => "", :qflowid => "")
               
+              #qflowidとしてタイムスタンプを使用
               qflowid = @message["timestamp"].to_s
               
+              #ランダムに質問を5個取得しq_Arrayに格納
               @questions=Question.order("RANDOM()").limit(5)
               q_Array=[0,0,0,0,0]
               i=0
@@ -89,9 +90,13 @@ class FbmessengerController < ApplicationController
                  q_Array[i] = q.id
                  i+=1
               end
+              
+              #q_Arrayを文字列にして@talkに格納
               qarray=q_Array.join(",")
               
               @talk.update(:answer => "0,0,0,0,0",:question => qarray, :qflowid => qflowid)
+              
+              #payloadの値の設定
               payload_yes = qflowid+","+@questions[0].id.to_s+",1"
               payload_no  = qflowid+","+@questions[0].id.to_s+",2"
               
@@ -147,11 +152,14 @@ class FbmessengerController < ApplicationController
               }
               sendData(messageData1)      
               sendData(messageData2)
+              sendData(@messageData_normal)
               
             when /.*eval.*/ then
               #評価された場合
               
               @talk=Fbtalk.find_by(:user => @sender)
+              
+              #payload[eval,giftid,1 or 2,qflowid]
               payload_array = @payload.split(",")
               
               #qflowidで評価したか否かを判定(一回評価してると初期化される)
@@ -167,6 +175,7 @@ class FbmessengerController < ApplicationController
                   
                   messageData={text: "ありがとう!\nまた使ってね!"}
                   sendData(messageData)
+                  sendData(@messageData_normal)
                   
                 when "2" then
                   #評価がDislikeの場合
@@ -177,6 +186,8 @@ class FbmessengerController < ApplicationController
                   
                   messageData={text: "また挑戦してね!\n質問が変わるよ!"}
                   sendData(messageData)
+                  sendData(@messageData_normal)
+                  
                 else
               
                 end
@@ -184,6 +195,8 @@ class FbmessengerController < ApplicationController
                 #qflowidが異なる場合
                 messageData = {text: "評価は一回までだよ!"}
                 sendData(messageData)
+                sendData(@messageData_normal)
+                
               end
               
             else
@@ -294,6 +307,8 @@ class FbmessengerController < ApplicationController
                 #qflowidが異なる場合
                 messageData = {text: "前回の質問じゃないかな？"}
                 sendData(messageData)
+                sendData(@messageData_normal)
+                
               end
             end
           else
