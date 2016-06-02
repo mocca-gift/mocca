@@ -233,8 +233,8 @@ class FbmessengerController < ApplicationController
                     
                     #qflowidの初期化
                     @talk.update( :qflowid => "")
-                    @text = "Qflowid:"+@talk.qflowid+",Answer:"+@talk.answer+",Question:"+@talk.question
-                    messageData={text: @text}
+                    # @text = "Qflowid:"+@talk.qflowid+",Answer:"+@talk.answer+",Question:"+@talk.question
+                    messageData={text: "Thank you!!"}
                     sendData(messageData)
                   end
                 when "1","2" then
