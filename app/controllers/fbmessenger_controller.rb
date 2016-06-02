@@ -168,7 +168,8 @@ class FbmessengerController < ApplicationController
                 case payload_array[2]
                 when "1" then
                   #評価がLikeの場合
-                  up_calc(payload_array[1])
+                  up_calc(payload_array[1],1)
+                  down_calc(payload_array[1],-1)
                   
                   #qflowid初期化
                   @talk.update( :qflowid => "")
@@ -179,7 +180,8 @@ class FbmessengerController < ApplicationController
                   
                 when "2" then
                   #評価がDislikeの場合
-                  down_calc(payload_array[1])
+                  up_calc(payload_array[1],-1)
+                  down_calc(payload_array[1],1)
                   
                   #qflowid初期化
                   @talk.update( :qflowid => "")
@@ -266,6 +268,10 @@ class FbmessengerController < ApplicationController
                     #答えていない質問がない
                     
                     bayes_calc
+                    
+                    #デフォルトで評価を1ずつプラス
+                    up_calc(@expTop1.id,1)
+                    down_calc(@expTop1.id,1)
                     
                     messageData = {
                       "attachment": {
@@ -398,26 +404,26 @@ class FbmessengerController < ApplicationController
           
     end
   
-    def up_calc(giftid)
+    def up_calc(giftid,num)
       @qarray=@talk.question.split(",")
       @ansarray=@talk.answer.split(",")
       for i in 0..4
         answer=Answer.where(question_id: @qarray[i]).find_by_ansid(@ansarray[i])
         evaluation=Evaluation.where(gift_id: giftid ).find_by_evalid(1)
         anstoeval=Anstoeval.where(answer_id: answer.id).find_by_evaluation_id(evaluation.id)
-        anstoeval.update(count: anstoeval.count+1)
+        anstoeval.update(count: anstoeval.count+num)
       end
     end
     
-    def down_calc(giftid)
+    def down_calc(giftid,num)
       @qarray=@talk.question.split(",")
       @ansarray=@talk.answer.split(",")
       for i in 0..4
         answer=Answer.where(question_id: @qarray[i]).find_by_ansid(@ansarray[i])
         evaluation=Evaluation.where(gift_id: giftid ).find_by_evalid(2)
         anstoeval=Anstoeval.where(answer_id: answer.id).find_by_evaluation_id(evaluation.id)
-        anstoeval.update(count: anstoeval.count+1)
+        anstoeval.update(count: anstoeval.count+num)
       end
-    end
+    
 
 end
