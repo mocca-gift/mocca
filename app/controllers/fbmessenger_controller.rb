@@ -179,15 +179,15 @@ class FbmessengerController < ApplicationController
                 
                 @qaHash = Hash.new(0)
                 for i in 0..4 do
-                  @qaHash[Question.find_by(@qarray[i].to_i)]=@ansarray[i]
+                  @qaHash[Question.find_by_id(@qarray[i].to_i)]=@ansarray[i]
                 end
                 
                 #既に質問に答えられているかどうか検索
-                case @qaHash[Question.find_by(payload_array[1].to_i)]
+                case @qaHash[Question.find_by_id(payload_array[1].to_i)]
                 when "0" then
                   #まだ質問に答えられてない
                   
-                  @qaHash[Question.find_by(payload_array[1].to_i)] = payload_array[2]
+                  @qaHash[Question.find_by_id(payload_array[1].to_i)] = payload_array[2]
                   
                   if @qaHash.values.include?("0")
                     #答えていない質問がある
