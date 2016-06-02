@@ -189,6 +189,9 @@ class FbmessengerController < ApplicationController
                   #まだ質問に答えられてない
                   
                   @qaHash[Question.find_by_id(payload_array[1].to_i)] = payload_array[2]
+                  #answerの更新
+                  ansData = @qaHash.values.join(",")
+                  @talk.update(:answer => ansData)
                   
                   if @qaHash.values.include?("0")
                     #答えていない質問がある
@@ -196,9 +199,6 @@ class FbmessengerController < ApplicationController
                     #答えられていないQuestionオブジェクトの配列
                     notAnsweredQ = @qaHash.select {|k, v| v == "0" }.keys
                     
-                    #answerの更新
-                    ansData = @qaHash.values.join(",")
-                    @talk.update(:answer => ansData)
                     
                     #答えられていない質問のなかで最初のものを送信
                     payload_yes = qflowid+","+notAnsweredQ[0].id.to_s+",1"
