@@ -135,7 +135,7 @@ class FbmessengerController < ApplicationController
                     "elements": [{
                       "title": @gift.name ,
                       "subtitle": "Company Name?",
-                      "image_url": "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img",
+                      "image_url": "https://mocca-giftfinder.herokuapp.com/gifts/"+@gift.id.to_s+"/img",
                       "buttons": [{
                         "type": "web_url",
                         "url": @gift.url ,
