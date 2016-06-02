@@ -60,7 +60,7 @@ class FbmessengerController < ApplicationController
               }
           }
           
-          @text="QUESTION:質問でギフトを探す!\nRANDOM:運に任せてギフトを探す!"
+          @text="QUESTION:\n質問でギフトを探す!\nRANDOM:\n運に任せてギフトを探す!"
           
           messageData2 = {text: @text}
           
@@ -105,8 +105,8 @@ class FbmessengerController < ApplicationController
           #   }
           # }
         
-        sendData(messageData1)
-        sendData(messageData2)
+          sendData(messageData1)
+          sendData(messageData2)
         
         else
         
@@ -117,15 +117,138 @@ class FbmessengerController < ApplicationController
             #PAYLOADの取得
             @payload = @message["postback"]["payload"]
             
-            #ユーザデータの取得
-            userData=getUserData()
+            case @payload
+            when "QUESTION" then
+              #ユーザIDでトーク履歴取得
+              @talk=Fbtalk.find_by(:user => @sender) || Fbtalk.create(:user => @sender, :answer => "", :qflowid => "")
+              
+              qflowid = @message["timestamp"].to_s
+              
+              @questions=Question.order("RANDOM()").limit(5)
+              q_Array=[0,0,0,0,0]
+              i=0
+              @questions.each do |q|
+                 q_array[i] = q.id
+                 i+=1
+              end
+              qarray=q_Array.join(",")
+              
+              @talk.update(:answer => "0,0,0,0,0",:question => qarray, :qflowid => qflowid)
+              payload_yes = qflowid+","+@questions[0].id.to_s+",1"
+              payload_no  = qflowid+","+@questions[0].id.to_s+",2"
+              
+              messageData1 = {text: "プレゼントを渡す相手を想像して答えてね" }
+              messageData2 = {
+                "attachment":{
+                  "type":"template",
+                  "payload":{
+                    "template_type":"button",
+                    "text": @questions[0].body,
+                    "buttons":[
+                      {
+                        "type":"postback",
+                        "title":"はい!",
+                        "payload": payload_yes
+                      },
+                      {
+                        "type":"postback",
+                        "title":"いいえ!",
+                        "payload": payload_no
+                      }
+                    ]
+                  }
+                }
+              }
+              sendData(messageData1)
+              sendData(messageData2)
             
-            @text=userData["last_name"]+userData["first_name"]+"さん"+@payload+"ですね？"
-            
-            messageData = {text: @text}
-            
-            sendData(messageData)
-          
+            when "RANDOM" then
+            else
+              @talk=Fbtalk.find_by(:user => @sender)
+              qflowid=@talk.qflowid
+              if @payload.include?(qflowid)
+                #qflowidが今回のqflowidと一致した場合
+                
+                #payload配列の取得[qflowid, questionid ,1 or 2]
+                payload_array = @payload.split(",")
+                
+                #answer配列の取得
+                @ansarray = @talk.answer.split(",")
+                #question配列の取得
+                @qarray   = @talk.question.split(",")
+                
+                @qaHash = Hash.new(0)
+                for i in 0..4 do
+                  @qaHash[Question.find_by(@qarray[i])]=@ansarray[i]
+                end
+                
+                #既に質問に答えられているかどうか検索
+                case @qaHash[Question.find_by(payload_array[1])]
+                when "0" then
+                  #まだ質問に答えられてない
+                  
+                  @qaHash[Question.find_by(payload_array[1])] = payload_array[2]
+                  
+                  if @qaHash.values.include?("0")
+                    #答えていない質問がある
+                    
+                    #答えられていないQuestionオブジェクトの配列
+                    notAnsweredQ = @qaHash.select {|k, v| v == "0" }.keys
+                    
+                    #answerの更新
+                    ansData = @qaHash.values.join(",")
+                    @talk.update(:answer => ansData)
+                    
+                    #答えられていない質問のなかで最初のものを送信
+                    payload_yes = qflowid+","+notAnsweredQ[0].id.to_s+",1"
+                    payload_no  = qflowid+","+notAnsweredQ[0].id.to_s+",2"
+                    messageData = {
+                      "attachment":{
+                        "type":"template",
+                        "payload":{
+                          "template_type":"button",
+                          "text": notAnsweredQ[0].body,
+                          "buttons":[
+                            {
+                              "type":"postback",
+                              "title":"はい!",
+                              "payload": payload_yes
+                            },
+                            {
+                              "type":"postback",
+                              "title":"いいえ!",
+                              "payload": payload_no
+                            }
+                          ]
+                        }
+                      }
+                    }
+                    sendData(messageData)
+                    
+                  else
+                    #答えていない質問がない
+                    
+                    #ベイズ計算&ギフト送信
+                    
+                    #qflowidの初期化
+                    @talk.update(:qflowid =>"")
+                    
+                    messageData={text: "Thank you!!"}
+                    sendData(messageData)
+                  end
+                when "1","2" then
+                  #もう質問に答えている
+                  
+                  messageData={text: "もう答えてるよ！"}
+                  sendData(messageData)
+                else
+                end
+              else
+                #qflowidが異なる場合
+                messageData = {text: "前回の質問じゃないかな？"}
+                sendData(messageData)
+              end
+            end
           else
             
             
