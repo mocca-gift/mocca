@@ -424,6 +424,7 @@ class FbmessengerController < ApplicationController
         anstoeval=Anstoeval.where(answer_id: answer.id).find_by_evaluation_id(evaluation.id)
         anstoeval.update(count: anstoeval.count+num)
       end
+    end
     
 
 end
