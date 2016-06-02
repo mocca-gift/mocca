@@ -38,7 +38,7 @@ class FbmessengerController < ApplicationController
           #ユーザの発言取得
           @text = @message["message"]["text"]
     
-          messageData={
+          messageData1={
               "attachment":{
                 "type":"template",
                 "payload":{
@@ -59,6 +59,10 @@ class FbmessengerController < ApplicationController
                 }
               }
           }
+          
+          @text="QUESTION:質問でギフトを探す!\nRANDOM:運に任せてギフトを探す!"
+          
+          messageData2 = {text: @text}
           
           
           # messageData = {
@@ -101,7 +105,8 @@ class FbmessengerController < ApplicationController
           #   }
           # }
         
-        sendData(messageData)
+        sendData(messageData1)
+        sendData(messageData2)
         
         else
         
