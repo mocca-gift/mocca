@@ -28,7 +28,6 @@ class FbmessengerController < ApplicationController
         #ユーザ情報URI
         @user_uri= "https://graph.facebook.com/v2.6/"+@sender+"?fields=first_name,last_name,profile_pic,locale,timezone,gender&access_token="+ACCESS_TOKEN
         
-        @gifts=Gift.order("created_at DESC").limit(2)
         
         #ユーザの発言かどうかの判定
         if @message.include?("message") then
@@ -63,47 +62,6 @@ class FbmessengerController < ApplicationController
           @text="QUESTION:\n質問でギフトを探す!\nRANDOM:\n運に任せてギフトを探す!"
           
           messageData2 = {text: @text}
-          
-          
-          # messageData = {
-          #   "attachment": {
-          #     "type": "template",
-          #     "payload": {
-          #       "template_type": "generic",
-          #       "elements": [{
-          #         "title": @gifts[0].name ,
-          #         "subtitle": "Element #1 of an hscroll",
-          #         "image_url": "https://mocca-giftfinder.herokuapp.com/gifts/"+@gifts[0].id.to_s+"/img",
-          #         "buttons": [{
-          #           "type": "web_url",
-          #           "url": @gifts[0].url ,
-          #           "title": "こちらから！"
-          #         }, {
-          #           "type": "postback",
-          #           "title": "Postback",
-          #           "payload": "Payload for first element in a generic bubble",
-          #         }],
-          #       },{
-          #         "title": @gifts[1].name,
-          #         "subtitle": "Element #2 of an hscroll",
-          #         "image_url": "https://mocca-giftfinder.herokuapp.com/gifts/"+@gifts[1].id.to_s+"/img",
-          #         "buttons": [{
-          #           "type": "web_url",
-          #           "url": @gifts[1].url ,
-          #           "title": "こちらから！"
-          #         }, {
-          #           "type": "postback",
-          #           "title": "いい！",
-          #           "payload": "1",
-          #         },{
-          #           "type": "postback",
-          #           "title": "びみょ！",
-          #           "payload": "2",
-          #         }],
-          #       }]
-          #     }
-          #   }
-          # }
         
           sendData(messageData1)
           sendData(messageData2)
@@ -163,6 +121,71 @@ class FbmessengerController < ApplicationController
               sendData(messageData2)
             
             when "RANDOM" then
+              #RANDOMを押された場合
+              
+              #ランダムでギフトを1つ取得
+              @gift=Gift.offset( rand(Gift.count) ).first
+              
+              messageData1 = {text: "今日の運はどうかな？"}
+              messageData2 = {
+                "attachment": {
+                  "type": "template",
+                  "payload": {
+                    "template_type": "generic",
+                    "elements": [{
+                      "title": @gift.name ,
+                      "subtitle": "Company Name?",
+                      "image_url": "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img",
+                      "buttons": [{
+                        "type": "web_url",
+                        "url": @gift.url ,
+                        "title": "ご購入はこちらから！"
+                      }],
+                    }]
+                  }
+                }
+              }
+              sendData(messageData1)      
+              sendData(messageData2)
+              
+            when /.*eval.*/ then
+              #評価された場合
+              
+              @talk=Fbtalk.find_by(:user => @sender)
+              payload_array = @payload.split(",")
+              
+              #qflowidで評価したか否かを判定(一回評価してると初期化される)
+              if @talk.qflowid == payload_array[3] then
+                
+                case payload_array[2]
+                when "1" then
+                  #評価がLikeの場合
+                  up_calc(payload_array[1])
+                  
+                  #qflowid初期化
+                  @talk.update( :qflowid => "")
+                  
+                  messageData={text: "ありがとう!\nまた使ってね!"}
+                  sendData(messageData)
+                  
+                when "2" then
+                  #評価がDislikeの場合
+                  down_calc(payload_array[1])
+                  
+                  #qflowid初期化
+                  @talk.update( :qflowid => "")
+                  
+                  messageData={text: "また挑戦してね!\n質問が変わるよ!"}
+                  sendData(messageData)
+                else
+              
+                end
+              else
+                #qflowidが異なる場合
+                messageData = {text: "評価は一回までだよ!"}
+                sendData(messageData)
+              end
+              
             else
               @talk=Fbtalk.find_by(:user => @sender)
               qflowid = @talk.qflowid
@@ -229,12 +252,35 @@ class FbmessengerController < ApplicationController
                   else
                     #答えていない質問がない
                     
-                    #ベイズ計算&ギフト送信
+                    bayes_calc
                     
-                    #qflowidの初期化
-                    @talk.update( :qflowid => "")
-                    # @text = "Qflowid:"+@talk.qflowid+",Answer:"+@talk.answer+",Question:"+@talk.question
-                    messageData={text: "Thank you!!"}
+                    messageData = {
+                      "attachment": {
+                        "type": "template",
+                        "payload": {
+                          "template_type": "generic",
+                          "elements": [{
+                            "title": @expTop1.name ,
+                            "subtitle": "Company Name?",
+                            "image_url": "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img",
+                            "buttons": [{
+                              "type": "web_url",
+                              "url": @expTop1.url ,
+                              "title": "ご購入はこちらから！"
+                            }, {
+                              "type": "postback",
+                              "title": "Like",
+                              "payload": "eval,"+@expTop1.id.to_s+",1,"+qflowid,
+                            }, {
+                              "type": "postback",
+                              "title": "Dislike",
+                              "payload": "eval,"+@expTop1.id.to_s+",2,"+qflowid,
+                            }],
+                          }]
+                        }
+                      }
+                    }
+                    
                     sendData(messageData)
                   end
                 when "1","2" then
@@ -284,6 +330,79 @@ class FbmessengerController < ApplicationController
       data = response.read
       userData = JSON.parse(data)
       return userData
+    end
+    
+    #ベイズ計算関数
+    def bayes_calc
+            @qarray=@talk.question.split(",")
+            @ansarray=@talk.answer.split(",")
+            
+            # answerモデルに結果を代入
+          for i in 0..(@ansarray.length-1) do
+              answer=Answer.where(question_id: @qarray[i]).find_by_ansid(@ansarray[i]) || Answer.new(question_id: @qarray[i], ansid: @ansarray[i], count: 0)
+              answer.save
+              answer.update(count: answer.count+1)
+          end
+          
+          #ベイズ
+          #ベイズ確率の配列作成
+          @bayes=Hash.new(0.5)
+        
+          @gifts=Gift.all
+          
+          #ベイズ計算
+          for i in 1..5 do
+            @gifts.each do |gift|
+              answer=Answer.where(question_id: @qarray[i]).find_by_ansid(@ansarray[i])
+              evaluation1=Evaluation.where(gift_id: gift.id).find_by_evalid(1) || Evaluation.new(gift_id: gift.id, evalid: 1, count: 0)
+              evaluation1.save
+              evaluation2=Evaluation.where(gift_id: gift.id).find_by_evalid(2) || Evaluation.new(gift_id: gift.id, evalid: 2, count: 0)
+              evaluation2.save
+              anstoeval1=Anstoeval.where(answer_id: answer.id).find_by_evaluation_id(evaluation1.id) || Anstoeval.new(answer_id: answer.id, evaluation_id: evaluation1.id, count: 1)
+              anstoeval1.save
+              anstoeval2=Anstoeval.where(answer_id: answer.id).find_by_evaluation_id(evaluation2.id) || Anstoeval.new(answer_id: answer.id, evaluation_id: evaluation2.id, count: 1)
+              anstoeval2.save
+              p1=1.0*anstoeval1.count/(anstoeval1.count + anstoeval2.count)
+              @bayes[gift] = @bayes[gift]*p1/(@bayes[gift]*p1+(1-@bayes[gift])*(1-p1))
+            end
+          end
+          
+          #期待値の配列作成
+          
+          @giftExp     = Hash.new(1.0/2.0)
+          
+          #期待値と分散値の配列に値を代入
+          
+          @gifts.each do |gift|
+              # gift毎に[giftオブジェクト,期待値(Bayes更新あり)]のhash作成
+              @giftExp[gift] = 1-2*@bayes[gift]
+          end
+
+          @expTop1=Gift.find_by_id(1)
+          @expTop1=@giftExp.sort_by{|key, value| -value}[0][0]
+          
+    end
+  
+    def up_calc(giftid)
+      @qarray=@talk.question.split(",")
+      @ansarray=@talk.answer.split(",")
+      for i in 0..4
+        answer=Answer.where(question_id: @qarray[i]).find_by_ansid(@ansarray[i])
+        evaluation=Evaluation.where(gift_id: giftid ).find_by_evalid(1)
+        anstoeval=Anstoeval.where(answer_id: answer.id).find_by_evaluation_id(evaluation.id)
+        anstoeval.update(count: anstoeval.count+1)
+      end
+    end
+    
+    def down_calc(giftid)
+      @qarray=@talk.question.split(",")
+      @ansarray=@talk.answer.split(",")
+      for i in 0..4
+        answer=Answer.where(question_id: @qarray[i]).find_by_ansid(@ansarray[i])
+        evaluation=Evaluation.where(gift_id: giftid ).find_by_evalid(2)
+        anstoeval=Anstoeval.where(answer_id: answer.id).find_by_evaluation_id(evaluation.id)
+        anstoeval.update(count: anstoeval.count+1)
+      end
     end
 
 end
