@@ -128,7 +128,7 @@ class FbmessengerController < ApplicationController
               q_Array=[0,0,0,0,0]
               i=0
               @questions.each do |q|
-                 q_array[i] = q.id
+                 q_Array[i] = q.id
                  i+=1
               end
               qarray=q_Array.join(",")
