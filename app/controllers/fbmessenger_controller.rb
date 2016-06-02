@@ -48,13 +48,11 @@ class FbmessengerController < ApplicationController
                     {
                       "type":"postback",
                       "title":"QUESTION",
-                      "subtitle":"できる？",
                       "payload":"QUESTION"
                     },
                     {
                       "type":"postback",
                       "title":"RANDOM",
-                      "subtitle":"できる？",
                       "payload":"RANDOM"
                     }
                   ]
