@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160526090113) do
+ActiveRecord::Schema.define(version: 20160602094539) do
 
   create_table "anstoevals", force: :cascade do |t|
     t.integer  "answer_id"
@@ -53,6 +53,15 @@ ActiveRecord::Schema.define(version: 20160526090113) do
   end
 
   add_index "evaluations", ["gift_id"], name: "index_evaluations_on_gift_id"
+
+  create_table "fbtalks", force: :cascade do |t|
+    t.string   "user"
+    t.string   "answer"
+    t.string   "question"
+    t.string   "qflowid"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "gifts", force: :cascade do |t|
     t.string   "name"
