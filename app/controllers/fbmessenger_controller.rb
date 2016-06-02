@@ -36,7 +36,7 @@ class FbmessengerController < ApplicationController
           #ユーザの発言
           
           #ユーザの発言取得
-          @text = message["message"]["text"]
+          @text = @message["message"]["text"]
     
           
           messageData = {
@@ -88,7 +88,7 @@ class FbmessengerController < ApplicationController
             #ユーザからのPOSTBACK
             
             #PAYLOADの取得
-            @payload = message["postback"]["payload"]
+            @payload = @message["postback"]["payload"]
             
             #ユーザデータの取得
             userData=getUserData()
