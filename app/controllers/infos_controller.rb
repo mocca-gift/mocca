@@ -3,7 +3,7 @@ class InfosController < ApplicationController
   before_action :restrict_remote_ip, except: [:img]
   
   
-  PERMIT_ADDRESSES = ['127.0.0.1', '::1', ENV['MY_IP_ADDRESS']]
+  PERMIT_ADDRESSES = ['127.0.0.1', '::1', ENV['MY_IP_ADDRESS'], ENV['MY_SUB_IP_ADDRESS'], ENV['H_IP_ADDRESS']]
 
   # GET /infos
   # GET /infos.json

@@ -2,7 +2,7 @@ class AnstoevalsController < ApplicationController
   before_action :set_anstoeval, only: [:show, :edit, :update, :destroy]
   
   before_action do
-    PERMIT_ADDRESSES = ['127.0.0.1', '::1', '115.165.80.15'].freeze
+    PERMIT_ADDRESSES = ['127.0.0.1', '::1', ENV['MY_IP_ADDRESS'], ENV['MY_SUB_IP_ADDRESS'], ENV['H_IP_ADDRESS']].freeze
 
     unless PERMIT_ADDRESSES.include?(request.remote_ip)
       render text: 'Service Unavailable', status: 503
