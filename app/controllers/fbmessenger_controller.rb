@@ -40,7 +40,6 @@ class FbmessengerController < ApplicationController
     
           
           messageData = {
-            "text" : "こんにちは！" ,
             "attachment": {
               "type": "template",
               "payload": {
