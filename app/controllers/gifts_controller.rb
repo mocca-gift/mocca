@@ -2,7 +2,7 @@ class GiftsController < ApplicationController
   before_action :set_gift, only: [:show, :edit, :update, :destroy, :img]
   before_action :restrict_remote_ip, except: [:img]
   
-  PERMIT_ADDRESSES = ['127.0.0.1', '::1','119.104.116.74' ,ENV['MY_IP_ADDRESS'], ENV['MY_SUB_IP_ADDRESS'], ENV['H_IP_ADDRESS']]
+  PERMIT_ADDRESSES = ['127.0.0.1', '::1', '119.104.116.74' ,ENV['MY_IP_ADDRESS'], ENV['MY_SUB_IP_ADDRESS'], ENV['H_IP_ADDRESS']]
   
   # GET /gifts
   # GET /gifts.json
