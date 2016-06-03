@@ -104,8 +104,8 @@ class WebhookController < ApplicationController
             up_calc(@expTop1.id,1)
             down_calc(@expTop1.id,1)
             
-            #@expTop1のギフトに関して，その画像と名前，URLを送信する
-            message=message=@expTop1.name+"/"+@expTop1.company_name+"\n"+@expTop1.url+"\n"+"価格:"+priceView(@expTop1.price)
+            #@expTop1のギフトに関して，その画像,名前(会社名も)，URLと価格帯を送信
+            message=@expTop1.name+"/"+@expTop1.company_name+"\n"+@expTop1.url+"\n"+"価格:"+priceView(@expTop1.price)
             res = client.sendImage([from_mid], "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img", "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img" )
             res = client.send([from_mid], message)
             
@@ -130,7 +130,7 @@ class WebhookController < ApplicationController
             up_calc(@expTop1.id,1)
             down_calc(@expTop1.id,1)
             
-            #@expTop1のギフトに関して，その画像と名前，URLを送信する
+            #@expTop1のギフトに関して，その画像,名前(会社名も)，URLと価格帯を送信
             message=message=@expTop1.name+"/"+@expTop1.company_name+"\n"+@expTop1.url+"\n"+"価格:"+priceView(@expTop1.price)
             res = client.sendImage([from_mid], "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img", "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img" )
             res = client.send([from_mid], message)
