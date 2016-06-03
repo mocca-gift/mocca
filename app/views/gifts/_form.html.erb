@@ -23,6 +23,19 @@
     <%= f.label :img %><br>
     <%= f.file_field :img %>
   </div>
+  <div class="field">
+    <%= f.label :company_name %><br>
+    <%= f.text_field :company_name %>
+  </div>
+  <p><strong>1: ～2000円</strong></p>
+  <p><strong>2: 2000円～5000円</strong></p>
+  <p><strong>3  5000円～10000円</strong></p>
+  <p><strong>4: 10000円～30000円</strong></p>
+  <p><strong>5: 30000円～</strong></p>
+  <div class="field">
+    <%= f.label :price %><br>
+    <%= f.number_field :price %>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>

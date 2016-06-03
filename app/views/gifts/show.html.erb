@@ -20,5 +20,15 @@
   <%= @gift.img_content_type %>
 </p>
 
+<p>
+  <strong>Company Bame:</strong>
+  <%= @gift.company_name %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @gift.price %>
+</p>
+
 <%= link_to 'Edit', edit_gift_path(@gift) %> |
 <%= link_to 'Back', gifts_path %>

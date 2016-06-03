@@ -95,7 +95,7 @@ class GiftsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def gift_params
-      params.require(:gift).permit(:name,:url)
+      params.require(:gift).permit(:name,:url,:company_name,:price)
     end
     
     def restrict_remote_ip
