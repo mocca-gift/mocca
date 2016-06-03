@@ -139,7 +139,7 @@ class FbmessengerController < ApplicationController
                     "template_type": "generic",
                     "elements": [{
                       "title": @gift.name ,
-                      "subtitle": @gift.company_name+"\n"+priceView(@gift.price),
+                      "subtitle": @gift.company_name+"\n価格:"+priceView(@gift.price),
                       "image_url": "https://mocca-giftfinder.herokuapp.com/gifts/"+@gift.id.to_s+"/img",
                       "buttons": [{
                         "type": "web_url",
@@ -280,7 +280,7 @@ class FbmessengerController < ApplicationController
                           "template_type": "generic",
                           "elements": [{
                             "title": @expTop1.name ,
-                            "subtitle": @expTop1.company_name+"\n"+priceView(@expTop1.price),
+                            "subtitle": @expTop1.company_name+"\n価格:"+priceView(@expTop1.price),
                             "image_url": "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img",
                             "buttons": [{
                               "type": "web_url",

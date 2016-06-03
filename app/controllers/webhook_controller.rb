@@ -51,7 +51,7 @@ class WebhookController < ApplicationController
         when "R","Ｒ" then
           res = client.send([from_mid], "今日の運はどうかな？")
           @gift=Gift.offset( rand(Gift.count) ).first
-          message=message=@gift.name+"\n"+@gift.url+"\n"+@gift.company_name+"\n"+priceView(@gift.price)
+          message=message=@gift.name+"/"+@gift.company_name+"\n"+@gift.url+"\n"+"価格:"+priceView(@gift.price)
           res = client.sendImage([from_mid], "https://mocca-giftfinder.herokuapp.com/gifts/"+@gift.id.to_s+"/img", "https://mocca-giftfinder.herokuapp.com/gifts/"+@gift.id.to_s+"/img" )
           res = client.send([from_mid], message)
           
@@ -105,7 +105,7 @@ class WebhookController < ApplicationController
             down_calc(@expTop1.id,1)
             
             #@expTop1のギフトに関して，その画像と名前，URLを送信する
-            message=message=@expTop1.name+"\n"+@expTop1.url+"\n"+@expTop1.company_name+"\n"+priceView(@expTop1.price)
+            message=message=@expTop1.name+"/"+@expTop1.company_name+"\n"+@expTop1.url+"\n"+"価格:"+priceView(@expTop1.price)
             res = client.sendImage([from_mid], "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img", "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img" )
             res = client.send([from_mid], message)
             
@@ -131,7 +131,7 @@ class WebhookController < ApplicationController
             down_calc(@expTop1.id,1)
             
             #@expTop1のギフトに関して，その画像と名前，URLを送信する
-            message=message=@expTop1.name+"\n"+@expTop1.url+"\n"+@expTop1.company_name+"\n"+priceView(@expTop1.price)
+            message=message=@expTop1.name+"/"+@expTop1.company_name+"\n"+@expTop1.url+"\n"+"価格:"+priceView(@expTop1.price)
             res = client.sendImage([from_mid], "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img", "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img" )
             res = client.send([from_mid], message)
             
