@@ -51,7 +51,7 @@ class WebhookController < ApplicationController
         when "R","Ｒ" then
           res = client.send([from_mid], "今日の運はどうかな？")
           @gift=Gift.offset( rand(Gift.count) ).first
-          message=message=@gift.name+"\n"+@gift.url
+          message=message=@gift.name+"\n"+@gift.url+"\n"+@gift.company_name+"\n"+priceView(@gift.price)
           res = client.sendImage([from_mid], "https://mocca-giftfinder.herokuapp.com/gifts/"+@gift.id.to_s+"/img", "https://mocca-giftfinder.herokuapp.com/gifts/"+@gift.id.to_s+"/img" )
           res = client.send([from_mid], message)
           
@@ -105,7 +105,7 @@ class WebhookController < ApplicationController
             down_calc(@expTop1.id,1)
             
             #@expTop1のギフトに関して，その画像と名前，URLを送信する
-            message=message=@expTop1.name+"\n"+@expTop1.url
+            message=message=@expTop1.name+"\n"+@expTop1.url+"\n"+@expTop1.company_name+"\n"+priceView(@expTop1.price)
             res = client.sendImage([from_mid], "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img", "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img" )
             res = client.send([from_mid], message)
             
@@ -131,7 +131,7 @@ class WebhookController < ApplicationController
             down_calc(@expTop1.id,1)
             
             #@expTop1のギフトに関して，その画像と名前，URLを送信する
-            message=message=@expTop1.name+"\n"+@expTop1.url
+            message=message=@expTop1.name+"\n"+@expTop1.url+"\n"+@expTop1.company_name+"\n"+priceView(@expTop1.price)
             res = client.sendImage([from_mid], "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img", "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img" )
             res = client.send([from_mid], message)
             
@@ -284,5 +284,23 @@ class WebhookController < ApplicationController
     end
   end
   
+  def priceView(num)
+      case num
+      when 1 then
+        result="$"
+      when 2 then
+        result="$$"
+      when 3 then
+        result="$$$"
+      when 4 then
+        result="$$$$"
+      when 5 then
+        result="$$$$$"
+      else
+        result="Price Unknown"
+      end
+      
+      return result
+  end
   
 end

@@ -139,7 +139,7 @@ class FbmessengerController < ApplicationController
                     "template_type": "generic",
                     "elements": [{
                       "title": @gift.name ,
-                      "subtitle": "Company Name?",
+                      "subtitle": @gift.company_name+"\n"+priceView(@gift.price),
                       "image_url": "https://mocca-giftfinder.herokuapp.com/gifts/"+@gift.id.to_s+"/img",
                       "buttons": [{
                         "type": "web_url",
@@ -280,7 +280,7 @@ class FbmessengerController < ApplicationController
                           "template_type": "generic",
                           "elements": [{
                             "title": @expTop1.name ,
-                            "subtitle": "Company Name?",
+                            "subtitle": @expTop1.company_name+"\n"+priceView(@expTop1.price),
                             "image_url": "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img",
                             "buttons": [{
                               "type": "web_url",
@@ -426,5 +426,23 @@ class FbmessengerController < ApplicationController
       end
     end
     
+    def priceView(num)
+      case num
+      when 1 then
+        result="$"
+      when 2 then
+        result="$$"
+      when 3 then
+        result="$$$"
+      when 4 then
+        result="$$$$"
+      when 5 then
+        result="$$$$$"
+      else
+        result=""
+      end
+      
+      return result
+    end
 
 end
