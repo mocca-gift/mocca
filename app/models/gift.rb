@@ -11,7 +11,7 @@ class Gift < ActiveRecord::Base
       presence: true
     validates :price,
       presence: true,
-      only_integer: true,
+      numericality: { only_integer: true },
       greater_than_or_equal_to:1,
       less_than_or_equal_to:5
 end
