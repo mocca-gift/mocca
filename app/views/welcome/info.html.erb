@@ -84,6 +84,7 @@
         background-image: linear-gradient(45deg, #CEF6F5 25%, transparent 25%,
                   transparent 50%, #CEF6F5 50%, #CEF6F5 75%,
                   transparent 75%, transparent);
+                  
     }
     .wrapper:after{
        content:"";
@@ -257,14 +258,16 @@
         /*width: 100%;*/
         /*padding: 20px;*/
         /*background-color: rgba(245,245,245,0.7);*/
-        overflow: scroll;   /* スクロール表示 */
+        overflow-y: scroll;   /* スクロール表示 */
         width: 80%;
         height: 400px;
         margin: auto;
         background-color: rgba(255,255,255,0.7);
         position: relative;
     } 
-      
+    /*.information::-webkit-scrollbar {*/
+    /*  display: none;*/
+    /*}*/
     .shintyaku {
         width: 100%;
     }

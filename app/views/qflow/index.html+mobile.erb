@@ -53,12 +53,14 @@
             i++;
             j++;
           } else {
-            qtext.style.border="none";
-            qtext.innerHTML="<img src='/image/loader.gif'>";
-            ansarray[j]=1;
-            postdata1.value=ansarray;
-            postdata2.value=Questionid;
-            document.frm.submit();
+            if(i==num) {
+              qtext.style.border="none";
+              qtext.innerHTML="<img src='/image/loader.gif'>";
+              ansarray[j] = 2 ;
+              postdata1.value=ansarray;
+              postdata2.value=Questionid;
+              document.frm.submit();
+            }
           }
         }
         btn2.onclick = function(){
@@ -68,12 +70,14 @@
             i++;
             j++;
           } else {
-            qtext.style.border="none";
-            qtext.innerHTML="<img src='/image/loader.gif'>";
-            ansarray[j] = 2 ;
-            postdata1.value=ansarray;
-            postdata2.value=Questionid;
-            document.frm.submit();
+            if(i==num) {
+              qtext.style.border="none";
+              qtext.innerHTML="<img src='/image/loader.gif'>";
+              ansarray[j] = 2 ;
+              postdata1.value=ansarray;
+              postdata2.value=Questionid;
+              document.frm.submit();
+            }
           }
         }
     }
