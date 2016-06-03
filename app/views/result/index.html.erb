@@ -42,6 +42,7 @@
         var giftimgs   = document.getElementsByClassName("giftimg");
         var giftcontents = document.getElementsByClassName("giftcontent");
         var companynames = document.getElementsByClassName("companyname");
+        var prices = document.getElementsByClassName("price");
         
         i=1;
         hiduke=new Date();
@@ -50,6 +51,25 @@
         gifturls[i].href = "<%= exp.url %>";
         gifturls[i].style ="background-image: url('/gifts/<%= exp.id %>/img');";
         companynames[i].innerHTML= "<%= exp.company_name %>";
+        
+        switch(<%= exp.price %>){
+        
+          case 1:
+            prices[i].innerHTML="<i class='glyphicon glyphicon-yen'></i>";
+            break;
+          case 2:
+            prices[i].innerHTML="<i class='glyphicon glyphicon-yen'></i><i class='glyphicon glyphicon-yen'></i>";
+            break;
+          case 3:
+            prices[i].innerHTML="<i class='glyphicon glyphicon-yen'></i><i class='glyphicon glyphicon-yen'></i><i class='glyphicon glyphicon-yen'></i>";
+            break;
+          case 4:
+            prices[i].innerHTML="<i class='glyphicon glyphicon-yen'></i><i class='glyphicon glyphicon-yen'></i><i class='glyphicon glyphicon-yen'></i><i class='glyphicon glyphicon-yen'></i>";
+            break;
+          case 5:
+            prices[i].innerHTML="<i class='glyphicon glyphicon-yen'></i><i class='glyphicon glyphicon-yen'></i><i class='glyphicon glyphicon-yen'></i><i class='glyphicon glyphicon-yen'></i><i class='glyphicon glyphicon-yen'></i>";
+            break;
+        }
         var h1y=hiduke.getFullYear();
         var h1d=hiduke.getDate()+hiduke.getMonth()*30.5;
         var h2y=<%= exp.created_at.year %>;
@@ -504,6 +524,11 @@
         z-index: 50;
     }
     
+    .glyphicon {
+      background-color: gold;
+      color: white;
+      padding: 2px;
+    }
 
   </style>
   <script>
@@ -599,6 +624,7 @@
               <div class="giftheader">
                 <h2 class="giftname"></h2>
                 <h5 class="companyname"></h5>
+                <div class="price"></div>
                 <img class="heart" src="/image/emptyheart2.png">
               </div>
               <!-- Header End -->
@@ -616,6 +642,7 @@
               <div class="giftheader">
                 <h2 class="giftname"></h2>
                 <h5 class="companyname"></h5>
+                <div class="price"></div>
                 <img class="heart" src="/image/emptyheart2.png">
               </div>
               <!-- Header End -->
@@ -633,6 +660,7 @@
               <div class="giftheader">
                 <h2 class="giftname"></h2>
                 <h5 class="companyname"></h5>
+                <div class="price"></div>
                 <img class="heart" src="/image/emptyheart2.png">
               </div>
               <!-- Header End -->
@@ -651,6 +679,7 @@
               <div class="giftheader">
                 <h2 class="giftname"></h2>
                 <h5 class="companyname"></h5>
+                <div class="price"></div>
                 <img class="heart" src="/image/emptyheart2.png">
               </div>
               <!-- Header End -->
@@ -668,6 +697,7 @@
               <div class="giftheader">
                 <h2 class="giftname"></h2>
                 <h5 class="companyname"></h5>
+                <div class="price"></div>
                 <img class="heart" src="/image/emptyheart2.png">
               </div>
               <!-- Header End -->
@@ -685,6 +715,7 @@
               <div class="giftheader">
                 <h2 class="giftname"></h2>
                 <h5 class="companyname"></h5>
+                <div class="price"></div>
                 <img class="heart" src="/image/emptyheart2.png">
               </div>
               <!-- Header End -->
