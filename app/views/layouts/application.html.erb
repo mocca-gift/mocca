@@ -1,14 +1,63 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>MOCCA</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-
-<%= yield %>
-
-</body>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+    
+    
+    <!--JQuery-->
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    
+    <!-- Bootstrap -->
+    <link href="/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
+    
+    
+    <link href="/layout/css/layout.css" rel="stylesheet">
+    <script src="/layout/js/layout.js"></script>
+    
+    <title>MOCCA <%= yield(:title) %></title>
+    
+    
+  </head>
+  <body>
+    <div id="loader"><img src="/image/gif05.gif" height="200px" width="200px"><BR>Loading...</div>
+    <div id="fade"></div>
+    <div class="wrapper">
+      <ul class="headerPanels">
+        <li class="li-home">
+          <a href="/">Home</a>
+        </li>
+        <li class="none"></li>
+        <li class="li-btn menu-q">
+          <a href="/qflow" data-no-turbolink="1">Questions</a>
+          <div class="q_description" style="display: none;">
+            Questions:<BR>5つの質問でギフトを提案します
+          </div>
+        </li>
+        <li class="li-btn menu-n">
+          <a href="/new_arrival" data-no-turbolink="1">New gifts</a>
+          <div class="n_description" style="display: none;">
+            New Items:<BR>新しいアイテムを表示します
+          </div>
+        </li>
+        <li class="li-btn menu-i">
+          <a href="/info" data-no-turbolink="1">Information</a>
+          <div class="i_description" style="display: none;">
+            Information:<BR>お問い合わせはこちらから
+          </div>
+        </li>
+      </ul>
+  
+    <div class="contents">
+    
+    <%= yield %>
+    
+    </div>
+  
+  </body>
 </html>

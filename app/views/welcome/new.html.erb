@@ -1,24 +1,8 @@
-<!DOCTYPE html>
-<html lang="ja">
-<!-- MEMO: update me with `git checkout gh-pages && git merge master && git push origin gh-pages` -->
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-  <title>Mocca-N-</title>
-
-  <!--Jquery-->
-  <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-  
-  <!--Pointer-->
-  <!--<script src="/pointer/pointer.2.js"></script>-->
+  <%= provide(:title, "New") %>
   
   <!--Animation-->
   <link rel="stylesheet" href="/animation/animate.css">
 
-  <!-- Bootstrap -->
-  <link href="/bootstrap/css/bootstrap.css" rel="stylesheet">
-  <script src="/bootstrap/js/bootstrap.min.js"></script>
   
   <%= javascript_tag do %>
         window.onload=init;
@@ -54,335 +38,12 @@
     <% end %>
   <!--**********Main Script End**********-->
 
-
-  <style>
-    html {
-      height: 100%;
-    }
-    body {
-      height:100%;
-      background-color: rgb(0,30,67);
-      font-family:  "Meiryo UI", メイリオ, Osaka, 'MS PGothic', arial, helvetica, sans-serif;
-      position: relative;
-    }
-    
-    .wrapper1 {
-      width: 1024px;
-      height: 110%;
-      margin:auto;
-      background-image: url("/image/ribbon.jpg");
-      background-color: #FFFFFF;
-      background-size: cover;
-      background-position: center;
-      position: relative;
-      background-attachment: fixed;
-    }
-    
-    /*.headerPanels {*/
-    /*    position: absolute;*/
-    /*    top: 50%;*/
-    /*    margin-top: -340px;*/
-    /*    padding-bottom: 100px;*/
-    /*    width: 1024px;*/
-    /*  }*/
-     
-     .new_arrival {
-        position: absolute;
-        top: 50%;
-        margin-top: -200px;
-        padding-bottom: 10px;
-        width: 80%;
-        margin-right: 10%;
-        margin-left: 10%;
-        background-color: rgba(255,255,255,0.7);
-        overflow-y: scroll;   /* スクロール表示 */
-        height:400px;
-      }
-      .new_arrival:after {
-        content:"";
-        display:block;
-        clear:both;
-      }
-      
-     /* Homepanels */
-      li {
-        list-style: none;
-      }
-      
-      ul  {
-        padding-bottom: 100px;
-      }
-      
-      .headerPanels li {
-        float: left;
-      }
-      
-      .li-home {
-        margin-top: 1%;
-        height: 100px;
-        width: 300px;
-        float: left;
-      }
-      
-      .li-home a {
-        background-image: url("/image/smalllogo.png");
-        background-size: cover;
-        display: block;
-        height: 85px;
-        width: 270px;
-        margin: auto;
-        text-indent: -9999px;
-      }
-      
-      .li-home a:hover {
-        -webkit-transition: none;
-        -moz-transition: none;
-        -ms-transition: none;
-        -o-transition: none;
-        transition: none;
-        opacity: 0.6;
-        filter: alpha(opacity=60);
-        -webkit-transition: opacity 0.5s ease-out;
-        -moz-transition: opacity 0.5s ease-out;
-        -ms-transition: opacity 0.5s ease-out;
-        transition: opacity 0.5s ease-out;
-      }
-      
-      .li-btn {
-        margin-top: 1%;
-        height: 85px;
-        width: 85px;
-        float: left;
-      }
-    
-      .li-btn a {
-        background-size: 85px 85px;
-        display: block;
-        height: 85px;
-        width: 85px;
-        margin: auto;
-        text-indent: -9999px;
-      }
-      
-      .menu-q a {
-        background-image: url("/image/q.png");
-      }
-      .menu-n a {
-        background-image: url("/image/n.png");
-        border-bottom: double 10px #000000;
-      }
-      .menu-i a {
-        background-image: url("/image/i.png");
-      }
-      
-      .none {
-        height: 85px;
-        width: 85px;
-        float: left;
-      }
-      
-      a:link {
-        text-decoration: none;
-      }
-      
-      a:visited {
-        text-decoration: none;
-      }
-      
-      .q_description {
-        position: relative;
-        margin-top: 10px;
-        margin-left: -55px;
-        height: auto;
-        width: 200px;
-        padding: 5px;
-        border: solid 3px;
-        
-      }
-      
-      .q_description:before {
-      	content: "";
-      	position: absolute;
-      	top: -8px; left: 50%;
-      	margin-left: -9px;
-      	display: block;
-      	width: 0px;
-      	height: 0px;
-      	border-style: solid;
-      	border-width: 0 9px 9px 9px;
-      	border-color: transparent transparent #F6F6F6 transparent;
-      	z-index: 1;
-      }
-      .q_description:after {
-      	content: "";
-      	position: absolute;
-      	top: -12px; left: 50%;
-      	margin-left: -10px;
-      	display: block;
-      	width: 0px;
-      	height: 0px;
-      	border-style: solid;
-      	border-width: 0 10px 10px 10px;
-      	border-color: transparent transparent #19283C transparent;
-      	z-index: 0;
-      }
-      
-      .i_description {
-        margin-top: 10px;
-        margin-left: -55px;
-        height: auto;
-        width: 200px;
-        padding: 5px;
-        border: solid 3px;
-        position:relative;
-        
-      }
-      
-      .i_description:before {
-      	content: "";
-      	position: absolute;
-      	top: -8px; left: 50%;
-      	margin-left: -9px;
-      	display: block;
-      	width: 0px;
-      	height: 0px;
-      	border-style: solid;
-      	border-width: 0 9px 9px 9px;
-      	border-color: transparent transparent #F6F6F6 transparent;
-      	z-index: 1;
-      }
-      .i_description:after {
-      	content: "";
-      	position: absolute;
-      	top: -12px; left: 50%;
-      	margin-left: -10px;
-      	display: block;
-      	width: 0px;
-      	height: 0px;
-      	border-style: solid;
-      	border-width: 0 10px 10px 10px;
-      	border-color: transparent transparent #19283C transparent;
-      	z-index: 0;
-      }
-      
-     .wrapper {
-      position: relative;
-      width: 21%;
-      margin-left: 2%;
-      margin-right: 2%;
-      margin-top: 2%;
-      margin-bottom: 2%;
-      float:left;
-    }
-    .wrapper:after{
-        padding-top: 100%;
-        display: block;
-        content: "";
-    }
-    .content{
-        position: absolute;
-        top: 0px;
-        left: 0px;
-        bottom: 0px;
-        right: 0px;
-        overflow: hidden;
-    }
-     .wrapper_home {
-      position: relative;
-      width: 48%;
-      float:left;
-    }
-    .wrapper_home:after{
-        padding-top: 48%;
-        display: block;
-        content: "";
-    }
-    .content_home{
-        position: absolute;
-        top: 0px;
-        left: 0px;
-        bottom: 0px;
-        right: 0px;
-        overflow: hidden;
-    }
-      .gifturl {
-      display: block;
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center;
-      height: 100%;
-      width: 100%;
-      background-color: #FFFFFF;
-      border-radius: 50%;
-      border: solid 3px rgb(200,200,200);
-      float: left;
-      margin: auto;
-     }
-
-     .title {
-        display: block;
-        background-image: url("/image/na.png");
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: center;
-        height: 100%;
-        width: 100%;
-        background-color: #FF0000;
-        margin: auto;
-     }
-    
-    
-    .g_description {
-        height: auto;
-        width: 100%;
-        background-color: rgba(255,255,255,0.5);
-        position: absolute;
-        bottom: 0;
-        
-      }
-      
-      /*.new {*/
-      /*  width: 100px;*/
-      /*  padding: 3px 10px;*/
-      /*  background: #d43131;*/
-      /*  color: #fff;*/
-      /*  text-align: center;*/
-      /*  display: inline-block;*/
-      /*  position: absolute;*/
-      /*  top: 15px;*/
-      /*  left: -25px;*/
-      /*  text-transform: uppercase;*/
-      /*  transform: rotate(315deg);*/
-      /*}*/
-      
-      .heart {
-        height: 30px;
-        position: absolute;
-        right: 5px;
-        top: 10px;
-        bottom: 0;
-      }
-  </style>
+  <link href="/layout/css/new.css" type="text/css" rel="stylesheet">
+  
+  
   <script>
     
   $(document).ready(function(){
-     $('.menu-q > a').hover(
-         function(){
-             $( '.q_description' ).fadeIn();
-         },
-         function(){
-             $( '.q_description' ).fadeOut();
-         }
-     );
-     
-     $('.menu-i > a').hover(
-         function(){
-             $( '.i_description' ).fadeIn();
-         },
-         function(){
-             $( '.i_description' ).fadeOut();
-         }
-     );
      
      $('.gifturl').each(
          function(){
@@ -410,38 +71,14 @@
   });
 
   </script>
-</head>
-
-  <body>
-    <div class="wrapper1">
-      <ul class="headerPanels">
-        <li class="li-home">
-          <a href="/">Home</a>
-        </li>
-        <li class="none"></li>
-        <li class="li-btn menu-q">
-          <a href="/qflow" data-no-turbolink="1">Questions</a>
-          <div class="q_description" style="display: none;">
-            Questions<BR>5つの質問でギフトを提案します
-          </div>
-        </li>
-        <li class="li-btn menu-n">
-          <a href="#">New gifts</a>
-        </li>
-        <li class="li-btn menu-i">
-          <a href="/info" data-no-turbolink="1" >Information</a>
-          <div class="i_description" style="display: none;">
-            Information<BR>お問い合わせはこちらから
-          </div>
-        </li>
-      </ul>
-    <div class="new_arrival">
-    <div class="wrapper_home">
-      <div class="content_home">
-        <div class="title"></div>
+  
+      <div class="wrapper_home">
+        <div class="content_home">
+          <div class="title"></div>
+        </div>
       </div>
-    </div>
-      <div class="wrapper">
+      
+      <div class="giftwrapper">
         <div class="content">
           <div class="gifturl">
             <div class="g_description" style="display: none;">
@@ -452,7 +89,7 @@
           </div>
         </div>
       </div> 
-      <div class="wrapper">
+      <div class="giftwrapper">
         <div class="content">
           <div class="gifturl">
             <div class="g_description" style="display: none;">
@@ -463,7 +100,7 @@
           </div>
         </div>
       </div> 
-      <div class="wrapper">
+      <div class="giftwrapper">
         <div class="content">
           <div class="gifturl">
             <div class="g_description" style="display: none;">
@@ -474,7 +111,7 @@
           </div>
         </div>
       </div> 
-      <div class="wrapper">
+      <div class="giftwrapper">
         <div class="content">
           <div class="gifturl">
             <div class="g_description" style="display: none;">
@@ -485,7 +122,7 @@
           </div>
         </div>
       </div> 
-      <div class="wrapper">
+      <div class="giftwrapper">
         <div class="content">
           <div class="gifturl">
             <div class="g_description" style="display: none;">
@@ -496,7 +133,7 @@
           </div>
         </div>
       </div> 
-      <div class="wrapper">
+      <div class="giftwrapper">
         <div class="content">
           <div class="gifturl">
             <div class="g_description" style="display: none;">
@@ -507,8 +144,3 @@
           </div>
         </div>
       </div> 
-    </div>
-    </div>
-    
-  </body>
-  </html>

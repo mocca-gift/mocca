@@ -54,6 +54,7 @@
             j++;
           } else {
             if(i==num) {
+              i++;
               qtext.style.border="none";
               qtext.innerHTML="<img src='/image/loader.gif'>";
               ansarray[j] = 2 ;
@@ -71,12 +72,13 @@
             j++;
           } else {
             if(i==num) {
+              i++;
               qtext.style.border="none";
               qtext.innerHTML="<img src='/image/loader.gif'>";
               ansarray[j] = 2 ;
               postdata1.value=ansarray;
               postdata2.value=Questionid;
-              document.frm.submit();
+              document.frm.submit
             }
           }
         }

@@ -1,463 +1,30 @@
-<!DOCTYPE html>
-<html lang="ja">
-<!-- MEMO: update me with `git checkout gh-pages && git merge master && git push origin gh-pages` -->
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-
-  <title>Mocca-Q-</title>
-
-  <!--Jquery-->
-  <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-  
-  <!--Pointer-->
-  <!--<script src="/pointer/pointer.2.js"></script>-->
+  <%= provide(:title, "Question") %>
   
   <!--Animation-->
   <link rel="stylesheet" href="/animation/animate.css">
-
-  <!-- Bootstrap -->
-  <link href="/bootstrap/css/bootstrap.css" rel="stylesheet">
-  <script src="/bootstrap/js/bootstrap.min.js"></script>
-
-
-  <!--Main Script-->
   
+
   <%= javascript_tag do %>
-    window.onload = init;
-    function init(){
-      var Question=[];
-      var Questionid=[];
-      var n=0;
-      <% @questions.each do |q| %>
+  var Question=[];
+  var Questionid=[];
+  var n=0;
+  <% @questions.each do |q| %>
         Question[n]= "<%= q.body %>";
         Questionid[n]= <%= q.id %>;
         n++;
-      <% end %>
-      qtext = document.getElementById("qtext");
-      btn1 = document.getElementById("btn1");
-      btn2 = document.getElementById("btn2");
-      ans = document.getElementById("ans");
-      postdata1 = document.getElementById("postdata1");
-      postdata2 = document.getElementById("postdata2");
-      var num=5;
-      var i = 0;
-      var j = 0;
-      var ansarray = [];
-      
-      qtext.innerText=Question[i];
-      i++;
-        btn1.onclick = function(){
-          if(i<num){
-            qtext.innerText=Question[i];
-            ansarray[j]=1;
-            i++;
-            j++;
-          } else {
-            if(i==num) {
-              qtext.style.border="none";
-              qtext.innerHTML="<img src='/image/loader.gif'>";
-              ansarray[j] = 2 ;
-              postdata1.value=ansarray;
-              postdata2.value=Questionid;
-              document.frm.submit();
-            }
-          }
-        }
-        btn2.onclick = function(){
-          if(i<num){
-            qtext.innerText=Question[i];
-            ansarray[j] = 2 ;
-            i++;
-            j++;
-          } else {
-            if(i==num) {
-              qtext.style.border="none";
-              qtext.innerHTML="<img src='/image/loader.gif'>";
-              ansarray[j] = 2 ;
-              postdata1.value=ansarray;
-              postdata2.value=Questionid;
-              document.frm.submit();
-            }
-          }
-        }
-    }
-
-
   <% end %>
-
-  <!--Main Script-->
-
-  <style>
-    html {
-      height: 100%;
-    }
-    body {
-      height:100%;
-      background-color: rgb(0,30,67);
-      font-family:  "Meiryo UI", メイリオ, Osaka, 'MS PGothic', arial, helvetica, sans-serif;
-    }
-    .wrapper {
-      width: 1024px;
-      height:100%;
-      margin:auto;
-      background-image: url("/image/ribbon.jpg");
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
-      position: relative;
-    }
-    
-     /* Homepanels */
-     
-      /*.headerPanels {*/
-      /*  position: absolute;*/
-      /*  top: 50%;*/
-      /*  margin-top: -340px;*/
-      /*  padding-bottom: 100px;*/
-      /*  width: 1024px;*/
-      /*}*/
-      
-      .question {
-        position: absolute;
-        top: 50%;
-        margin-top: -150px;
-        width: 1024px;
-      }
-      
-      li {
-        list-style: none;
-      }
-      
-      
-      .headerPanels li {
-        float: left;
-      }
-      
-      .li-home {
-        margin-top: 1%;
-        height: 100px;
-        width: 300px;
-        float: left;
-      }
-      
-      .li-home a {
-        background-image: url("/image/smalllogo.png");
-        background-size: cover;
-        display: block;
-        height: 85px;
-        width: 270px;
-        margin: auto;
-        text-indent: -9999px;
-      }
-      
-      .li-home a:hover {
-        -webkit-transition: none;
-        -moz-transition: none;
-        -ms-transition: none;
-        -o-transition: none;
-        transition: none;
-        opacity: 0.6;
-        filter: alpha(opacity=60);
-        -webkit-transition: opacity 0.5s ease-out;
-        -moz-transition: opacity 0.5s ease-out;
-        -ms-transition: opacity 0.5s ease-out;
-        transition: opacity 0.5s ease-out;
-      }
-      
-      .li-btn {
-        margin-top: 1%;
-        height: 85px;
-        width: 85px;
-        float: left;
-      }
-    
-      .li-btn a {
-        background-size: 85px 85px;
-        display: block;
-        height: 85px;
-        width: 85px;
-        margin: auto;
-        text-indent: -9999px;
-      }
-      
-      .menu-q a {
-        background-image: url("/image/q.png");
-        border-bottom: double 10px #000000;
-      }
-      .menu-n a {
-        background-image: url("/image/n.png");
-      }
-      .menu-i a {
-        background-image: url("/image/i.png");
-      }
-      
-      .none {
-        height: 85px;
-        width: 85px;
-        float: left;
-      }
-      
-      a:link {
-        text-decoration: none;
-      }
-      
-      a:visited {
-        text-decoration: none;
-      }
-      
-      .n_description {
-        position: relative;
-        margin-top: 10px;
-        margin-left: -55px;
-        height: auto;
-        width: 200px;
-        padding: 5px;
-        border: solid 3px;
-        
-      }
-      
-      .n_description:before {
-      	content: "";
-      	position: absolute;
-      	top: -8px; left: 50%;
-      	margin-left: -9px;
-      	display: block;
-      	width: 0px;
-      	height: 0px;
-      	border-style: solid;
-      	border-width: 0 9px 9px 9px;
-      	border-color: transparent transparent #F6F6F6 transparent;
-      	z-index: 1;
-      }
-      .n_description:after {
-      	content: "";
-      	position: absolute;
-      	top: -12px; left: 50%;
-      	margin-left: -10px;
-      	display: block;
-      	width: 0px;
-      	height: 0px;
-      	border-style: solid;
-      	border-width: 0 10px 10px 10px;
-      	border-color: transparent transparent #19283C transparent;
-      	z-index: 0;
-      }
-      
-      .i_description {
-        margin-top: 10px;
-        margin-left: -55px;
-        height: auto;
-        width: 200px;
-        padding: 5px;
-        border: solid 3px;
-        position:relative;
-        
-      }
-      
-      .i_description:before {
-      	content: "";
-      	position: absolute;
-      	top: -8px; left: 50%;
-      	margin-left: -9px;
-      	display: block;
-      	width: 0px;
-      	height: 0px;
-      	border-style: solid;
-      	border-width: 0 9px 9px 9px;
-      	border-color: transparent transparent #F6F6F6 transparent;
-      	z-index: 1;
-      }
-      .i_description:after {
-      	content: "";
-      	position: absolute;
-      	top: -12px; left: 50%;
-      	margin-left: -10px;
-      	display: block;
-      	width: 0px;
-      	height: 0px;
-      	border-style: solid;
-      	border-width: 0 10px 10px 10px;
-      	border-color: transparent transparent #19283C transparent;
-      	z-index: 0;
-      }
-    
-      .qheader {
-        padding: 30px;
-        height: 150px;
-        display: none;
-      }
-      
-      .choices {
-        padding-left: 30px;
-        padding-right: 30px;
-        padding-top: 60px;
-        padding-bottom: 30px;
-        height: 250px;
-      }
-      
-      .choice {
-        background-size: 100px 100px;
-        display: block;
-        height: 100px;
-        width: 100px;
-        text-indent: -9999px;
-      }
-      
-      .choice:hover {
-        transform: scale(1.5);
-      }
-      
-      .yes-btn {
-        background-image: url("/image/yes.png");
-        border-bottom: solid 3px rgb(0,0,255);
-      }
-      
-      .no-btn {
-        background-image: url("/image/no.png");
-        border-bottom: solid 3px rgb(255,0,0);
-      }
-      
-      .now {
-        display: block;
-      }
-      
-      .frame {
-        width: 80%;
-        height: 400px;
-        margin: auto;
-        background-color: rgba(255,255,255,0.7);
-        position: relative;
-        display: none;
-      }
-      
-      .desc {
-        position: absolute;
-        width: 100%;
-        top: 50%;
-        margin-top: -120px;
-        display: none;
-        text-align: center;
-        font-size: 2em;
-      }
-      
-      .qframe {
-        height: 110px;
-        width: 110px;
-        float: left;
-      }
-      
-      .qtextframe {
-        height: auto;
-        width: 84%;
-        float:left;
-      }
-      
-      .qimage{
-        display: block;
-        width: 100px;
-        margin: auto;
-      }
-      
-      .qtext {
-        height: 150px;
-      }
-      
-      #qtext {
-        line-height: 100px;
-        font-size: 2.5em;
-        border-bottom: solid 1px;
-      }
-      
-      #qtext img {
-        display: block;
-        margin: auto;
-        margin-top: 50px;
-      }
-      
-      .choices {
-        display: none;
-      }
-      
-      .choiceframe1{
-        width: 100px;
-        height: 100px;
-        margin-left: 200px;
-        margin-right: 60px;
-        float:left;
-      }
-      .choiceframe2{
-        width: 100px;
-        height: 100px;
-        margin-left: 60px;
-        margin-right: 200px;
-        float:left;
-      }
-      
-      .slideOutRight {
-        animation-duration: 1s;
-      }
-      
-    /*  .pop {*/
-    /*  position: fixed;*/
-    /*  width: 100%;*/
-    /*  height: 100%;*/
-    /*  background: rgba(0,0,0,0.68);*/
-    /*  z-index: 9999;*/
-    /*  top: 0;*/
-    /*  left: 0;*/
-    /*}*/
-    
-    /*.pop-in {*/
-    /*  position: absolute;*/
-    /*  top: 50%;*/
-    /*  background: #fff;*/
-    /*  width: 550px;*/
-    /*  height: 430px;*/
-    /*  left: 50%;*/
-    /*  margin-left: -275px;*/
-    /*  margin-top: -215px;*/
-    /*  text-align: center;*/
-    /*  box-shadow: 0 0 10px 0 rgba(0,0,0,0.74);*/
-    /*  border-radius: 8px;*/
-    /*}*/
-    
-    /*.pop-in-text {*/
-    /*  font-size: 2em;*/
-    /*  display: block;*/
-    /*  height: 50px;*/
-    /*  text-align: center;*/
-    /*  margin-top: 100px;*/
-    /*}*/
-  </style>
+  <% end %>
+  <script src="/layout/js/question.js"></script>
+  <link href="/layout/css/question.css" type="text/css" rel="stylesheet">
+  
   <script>
     
   $(document).ready(function(){
-      // setTimeout(function(){$( '.pop' ).fadeOut();},2500);
-      setTimeout(function(){$( '.frame' ).fadeIn();},1000);
+      setTimeout(function(){$( '.contents' ).fadeIn();},1000);
       setTimeout(function(){$( '.desc' ).fadeIn();},2000);
       setTimeout(function(){$( '.desc' ).fadeOut();},4000);
       setTimeout(function(){$( '.qheader' ).fadeIn();},5000);
       setTimeout(function(){$( '.choices' ).fadeIn();},5000);
-    
-     $('.menu-n > a').hover(
-         function(){
-             $( '.n_description' ).fadeIn();
-         },
-         function(){
-             $( '.n_description' ).fadeOut();
-         }
-     );
-     
-     $('.menu-i > a').hover(
-         function(){
-             $( '.i_description' ).fadeIn();
-         },
-         function(){
-             $( '.i_description' ).fadeOut();
-         }
-     );
      
      $('.choice').on('click', 
          function(e){
@@ -471,65 +38,27 @@
   });
 
   </script>
-</head>
-
-  <body>
-    <div class="wrapper">
-      <ul class="headerPanels">
-        <li class="li-home">
-          <a href="/">Home</a>
-        </li>
-        <li class="none"></li>
-        <li class="li-btn menu-q">
-          <a>Questions</a>
-        </li>
-        <li class="li-btn menu-n">
-          <a href="/new_arrival" data-no-turbolink="1">New gifts</a>
-          <div class="n_description" style="display: none;">
-            New Items<BR>新しいアイテムを表示します
-          </div>
-        </li>
-        <li class="li-btn menu-i">
-          <a href="/info" data-no-turbolink="1">Information</a>
-          <div class="i_description" style="display: none;">
-            Information<BR>お問い合わせはこちらから
-          </div>
-        </li>
-      </ul>
-    <div class="question">
-        <div class="frame">
-        <div class="desc">これからの質問は<BR>ギフトを渡す<BR><strong><font size="10em">"相手の事"</font></strong><BR>を考えて答えてください</div>
-          <div class="qheader">
-            <div class="qframe">
-              <img class="qimage" src="/image/q_trans.png">                        
-            </div>
-            <div class="qtextframe">
-              <div id="qtext" class></div>                        
-            </div>
-          </div>
-          <div class="choices">
-            <div class="choiceframe1">
-              <a href="javascript:void(0)" class="choice yes-btn" id="btn1">YES</a>
-            </div>
-            <div class="choiceframe2">
-              <a href="javascript:void(0)" class="choice no-btn" id="btn2">NO</a>
-            </div>
-          </div>
-        </div>
+  
+  
+  <div class="desc">これからの質問は<BR>ギフトを渡す<BR><strong><font size="10em">"相手の事"</font></strong><BR>を考えて答えてください</div>
+    <div class="qheader">
+      <div class="qframe">
+        <img class="qimage" src="/image/q_trans.png">                        
       </div>
+      <div class="qtextframe">
+        <div id="qtext" class></div>                        
       </div>
-    <!--  <div class="pop" style="display:block;">-->
-    <!--  <div class="pop-in">-->
-    <!--    <div class="pop-in-text">-->
-    <!--      これからの質問は<BR>ギフトを渡す<BR><strong><font size="10em">"相手の事"</font></strong><BR>を考えて答えてください-->
-    <!--    </div>-->
-    <!--  </div>-->
-    <!--</div>-->
+    </div>
+    <div class="choices">
+      <div class="choiceframe1">
+        <a href="javascript:void(0)" class="choice yes-btn" id="btn1">YES</a>
+      </div>
+      <div class="choiceframe2">
+        <a href="javascript:void(0)" class="choice no-btn" id="btn2">NO</a>
+      </div>
+    </div>
     
     <%= form_tag('/result' , :name => :frm , :method => :post) do %>
       <%= hidden_field_tag :postdata1 %>
       <%= hidden_field_tag :postdata2 %>
     <% end %>
-
-  </body>
-  </html>

@@ -2,8 +2,9 @@ class GiftsController < ApplicationController
   before_action :set_gift, only: [:show, :edit, :update, :destroy, :img]
   before_action :restrict_remote_ip, except: [:img]
   
-  PERMIT_ADDRESSES = ['127.0.0.1', '::1', '119.104.100.64' ,ENV['MY_IP_ADDRESS'], ENV['MY_SUB_IP_ADDRESS'], ENV['H_IP_ADDRESS']]
+  PERMIT_ADDRESSES = ['127.0.0.1', '::1', '119.104.104.198' ,ENV['MY_IP_ADDRESS'], ENV['MY_SUB_IP_ADDRESS'], ENV['H_IP_ADDRESS']]
   
+  layout 'home'
   # GET /gifts
   # GET /gifts.json
   def index
@@ -57,8 +58,8 @@ class GiftsController < ApplicationController
           @gift.update(:img => params[:gift][:img].read) # <= バイナリをセット
           @gift.update(:img_content_type => params[:gift][:img].content_type) # <= ファイルタイプをセット
         else
-          @gift.update(:img => Gift.find(1).img) # <= バイナリをセット
-          @gift.update(:img_content_type => Gift.find(1).img_content_type) # <= ファイルタイプをセット
+          # @gift.update(:img => Gift.find(1).img) # <= バイナリをセット
+          # @gift.update(:img_content_type => Gift.find(1).img_content_type) # <= ファイルタイプをセット
         end
         format.html { redirect_to @gift, notice: 'Gift was successfully updated.' }
         format.json { render :show, status: :ok, location: @gift }
