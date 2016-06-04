@@ -115,6 +115,7 @@
                    switch(elm_num[s]) {
                       case -1:
                         hearts[s].src = "/image/emptyheart2.png";
+                        elm_num[s]=0;
                         ajax.onreadystatechange=function() {
                           if(ajax.readyState==4) {
                             if((ajax.status>=200 && ajax.status<300) || (ajax.status==304)) {
@@ -127,10 +128,10 @@
                         ajax.open('GET','/result/countup?gift=<%= exp.id %>&gift_ans=<%= @ansarray.join(",") %>&gift_q=<%= @qarray.join(",") %>',true);
                         ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
                         ajax.send(null);
-                        elm_num[s]=0;
                         break;
                       case 0:
                         hearts[s].src = "/image/heart.png";
+                        elm_num[s]=1;
                         ajax.onreadystatechange=function() {
                           if(ajax.readyState==4) {
                             if((ajax.status>=200 && ajax.status<300) || (ajax.status==304)) {
@@ -142,7 +143,6 @@
                         ajax.open('GET','/result/countup?gift=<%= exp.id %>&gift_ans=<%= @ansarray.join(",") %>&gift_q=<%= @qarray.join(",") %>',true);
                         ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
                         ajax.send(null);
-                        elm_num[s]=1;
                         break;
                       case 1:
                         hearts[s].src = "/image/heart.png";
@@ -157,6 +157,7 @@
                         break;
                       case 0:
                         hearts[s].src = "/image/dislike.png";
+                        elm_num[s]=-1;
                         ajax.onreadystatechange=function() {
                           if(ajax.readyState==4) {
                             if((ajax.status>=200 && ajax.status<300) || (ajax.status==304)) {
@@ -169,10 +170,10 @@
                         ajax.open('GET','/result/countdown?gift=<%= exp.id %>&gift_ans=<%= @ansarray.join(",") %>&gift_q=<%= @qarray.join(",") %>',true);
                         ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
                         ajax.send(null);
-                        elm_num[s]=-1;
                         break;
                       case 1:
                         hearts[s].src = "/image/emptyheart2.png";
+                        elm_num[s]=0;
                         ajax.onreadystatechange=function() {
                           if(ajax.readyState==4) {
                             if((ajax.status>=200 && ajax.status<300) || (ajax.status==304)) {
@@ -185,13 +186,13 @@
                         ajax.open('GET','/result/countdown?gift=<%= exp.id %>&gift_ans=<%= @ansarray.join(",") %>&gift_q=<%= @qarray.join(",") %>',true);
                         ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
                         ajax.send(null);
-                        elm_num[s]=0;
                         break;
                       }
                   } else {
                    switch(elm_num[s]) {
                       case -1:
                         hearts[s].src = "/image/emptyheart2.png";
+                        elm_num[s]=0;
                         ajax.onreadystatechange=function() {
                           if(ajax.readyState==4) {
                             if((ajax.status>=200 && ajax.status<300) || (ajax.status==304)) {
@@ -204,10 +205,10 @@
                         ajax.open('GET','/result/countup?gift=<%= exp.id %>&gift_ans=<%= @ansarray.join(",") %>&gift_q=<%= @qarray.join(",") %>',true);
                         ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
                         ajax.send(null);
-                        elm_num[s]=0;
                         break;
                       case 0:
                         hearts[s].src = "/image/heart.png";
+                        elm_num[s]=1;
                         ajax.onreadystatechange=function() {
                           if(ajax.readyState==4) {
                             if((ajax.status>=200 && ajax.status<300) || (ajax.status==304)) {
@@ -220,10 +221,10 @@
                         ajax.open('GET','/result/countup?gift=<%= exp.id %>&gift_ans=<%= @ansarray.join(",") %>&gift_q=<%= @qarray.join(",") %>',true);
                         ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
                         ajax.send(null);
-                        elm_num[s]=1;
                         break;
                       case 1:
                         hearts[s].src = "/image/dislike.png";
+                        elm_num[s]=-1;
                         ajax.onreadystatechange=function() {
                           if(ajax.readyState==4) {
                             if((ajax.status>=200 && ajax.status<300) || (ajax.status==304)) {
@@ -236,7 +237,6 @@
                         ajax.open('GET','/result/countdown2?gift=<%= exp.id %>&gift_ans=<%= @ansarray.join(",") %>&gift_q=<%= @qarray.join(",") %>',true);
                         ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
                         ajax.send(null);
-                        elm_num[s]=-1;
                         break;
                         }
                   }
