@@ -43,8 +43,8 @@ window.onload = init;
           } else {
             if(i==num) {
               i++;
-              fade.className="visible";
-              loader.className="visible";
+              fade.style.display = "block";
+              loader.style.display = "block";
               ansarray[j] = 2 ;
               postdata1.value=ansarray;
               postdata2.value=Questionid;
