@@ -6,6 +6,9 @@ window.onload = init;
       var ans = document.getElementById("ans");
       var postdata1 = document.getElementById("postdata1");
       var postdata2 = document.getElementById("postdata2");
+      var fade = document.getElementById("fade");
+      var loader = document.getElementById("loader");
+      
       var num=5;
       var i = 0;
       var j = 0;
@@ -40,8 +43,8 @@ window.onload = init;
           } else {
             if(i==num) {
               i++;
-              qtext.style.border="none";
-              qtext.innerHTML="<img src='/image/loader.gif'>";
+              fade.className="visible";
+              loader.className="visible";
               ansarray[j] = 2 ;
               postdata1.value=ansarray;
               postdata2.value=Questionid;

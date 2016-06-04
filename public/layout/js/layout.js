@@ -5,8 +5,8 @@ $('head').append(
 jQuery.event.add(window,"load",function() { // 全ての読み込み完了後に呼ばれる関数
     var pageH = $(".body").height();
    
-    $("#fade").css("height", pageH).delay(1000).fadeOut(1000);
-    $("#loader").delay(1000).fadeOut(1000);
+    $("#fade").css("height", pageH).delay(0).fadeOut(1000);
+    $("#loader").delay(0).fadeOut(1000);
     $(".wrapper").css("display", "block");
 });
 

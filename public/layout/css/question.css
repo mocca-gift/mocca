@@ -92,3 +92,7 @@
       margin-right: 200px;
       float:left;
     }
+    
+    .visible {
+      display: block;
+    }
