@@ -243,6 +243,60 @@
                 }
             }
           }(j)
+          hearts[j].onclick = function(s) {
+            return function(event){
+              switch(elm_num[s]) {
+                      case -1:
+                        hearts[s].src = "/image/emptyheart2.png";
+                        elm_num[s]=0;
+                        ajax.onreadystatechange=function() {
+                          if(ajax.readyState==4) {
+                            if((ajax.status>=200 && ajax.status<300) || (ajax.status==304)) {
+                                
+                            }
+                            else {
+                            }
+                          }
+                        }
+                        ajax.open('GET','/result/countup?gift=<%= exp.id %>&gift_ans=<%= @ansarray.join(",") %>&gift_q=<%= @qarray.join(",") %>',true);
+                        ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+                        ajax.send(null);
+                        break;
+                      case 0:
+                        hearts[s].src = "/image/heart.png";
+                        elm_num[s]=1;
+                        ajax.onreadystatechange=function() {
+                          if(ajax.readyState==4) {
+                            if((ajax.status>=200 && ajax.status<300) || (ajax.status==304)) {
+                                
+                            }
+                            else {
+                            }
+                          }
+                        }
+                        ajax.open('GET','/result/countup?gift=<%= exp.id %>&gift_ans=<%= @ansarray.join(",") %>&gift_q=<%= @qarray.join(",") %>',true);
+                        ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+                        ajax.send(null);
+                        break;
+                      case 1:
+                        hearts[s].src = "/image/dislike.png";
+                        elm_num[s]=-1;
+                        ajax.onreadystatechange=function() {
+                          if(ajax.readyState==4) {
+                            if((ajax.status>=200 && ajax.status<300) || (ajax.status==304)) {
+                                
+                            }
+                            else {
+                            }
+                          }
+                        }
+                        ajax.open('GET','/result/countdown2?gift=<%= exp.id %>&gift_ans=<%= @ansarray.join(",") %>&gift_q=<%= @qarray.join(",") %>',true);
+                        ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+                        ajax.send(null);
+                        break;
+                        }
+            }
+          }(j)
           j++;
         <% end %>
         
