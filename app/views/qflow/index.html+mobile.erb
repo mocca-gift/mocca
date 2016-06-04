@@ -39,6 +39,9 @@
       ans = document.getElementById("ans");
       postdata1 = document.getElementById("postdata1");
       postdata2 = document.getElementById("postdata2");
+      var fade = document.getElementById("fade");
+      var loader = document.getElementById("loader");
+      
       var num=5;
       var i = 0;
       var j = 0;
@@ -55,8 +58,8 @@
           } else {
             if(i==num) {
               i++;
-              qtext.style.border="none";
-              qtext.innerHTML="<img src='/image/loader.gif'>";
+              fade.style.display = "block";
+              loader.style.display = "block";
               ansarray[j] = 2 ;
               postdata1.value=ansarray;
               postdata2.value=Questionid;
@@ -73,8 +76,8 @@
           } else {
             if(i==num) {
               i++;
-              qtext.style.border="none";
-              qtext.innerHTML="<img src='/image/loader.gif'>";
+              fade.style.display = "block";
+              loader.style.display = "block";
               ansarray[j] = 2 ;
               postdata1.value=ansarray;
               postdata2.value=Questionid;
@@ -174,55 +177,37 @@
         background-color: #E6E6FA;
         text-align:center;
       }
-      /*.btns:hover {*/
-      /*  color: #FFFFFF;*/
-      /*  background-color: rgba(0,30,67,1);*/
-      /*}*/
-      /*.btns:active {*/
-      /*  color: #FFFFFF;*/
-      /*  background-color: rgba(0,30,67,1);*/
-      /*}*/
-      
-      /*.btns:visited {*/
-      /*  color: #FFFFFF;*/
-      /*  background-color: rgba(0,30,67,1);*/
-      /*}*/
+
       .tapStyle {
       color: #FFFFFF;
       background-color: rgba(0,0,255,1);
     }
+    
+    #loader {
+      width: 200px;
+      height: 200px;
+      text-align: center;
+      display: none;
+      position: fixed;
+      _position: absolute; /* IE6対策 */
+      top: 50%;
+      left: 50%;
+      margin-top: -150px; /* heightの半分のマイナス値 */
+      margin-left: -100px; /* widthの半分のマイナス値 */
+      z-index: 100;
+    }
+    
+    #fade {
+      width: 100%;
+      height: 100%;
+      display: none;
+      background-color: #FFFFFF;
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      z-index: 50;
+    }
       
-    /*  .pop {*/
-    /*  position: fixed;*/
-    /*  width: 100%;*/
-    /*  height: 100%;*/
-    /*  background: rgba(0,0,0,0.68);*/
-    /*  z-index: 9999;*/
-    /*  top: 0;*/
-    /*  left: 0;*/
-    /*}*/
-    
-    /*.pop-in {*/
-    /*  position: absolute;*/
-    /*  top: 50%;*/
-    /*  background: #fff;*/
-    /*  width: 250px;*/
-    /*  height: 200px;*/
-    /*  left: 50%;*/
-    /*  margin-left: -125px;*/
-    /*  margin-top: -100px;*/
-    /*  text-align: center;*/
-    /*  box-shadow: 0 0 10px 0 rgba(0,0,0,0.74);*/
-    /*  border-radius: 8px;*/
-    /*}*/
-    
-    /*.pop-in-text {*/
-    /*  font-size: 1em;*/
-    /*  display: block;*/
-    /*  height: 50px;*/
-    /*  text-align: center;*/
-    /*  margin-top: 50px;*/
-    /*}*/
   </style>
   <script>
     
@@ -278,6 +263,8 @@
         </ul>
       </div>
     </nav>
+    <div id="loader"><img src="/image/gif05.gif" height="200px" width="200px"><BR>Loading...</div>
+    <div id="fade"></div>
     <div class="question">
           <div class="desc">これからの質問は<BR>ギフトを渡す<BR><strong><font size="3em">"相手の事"</font></strong><BR>を考えて答えてください</div>
           <div class="qheader">

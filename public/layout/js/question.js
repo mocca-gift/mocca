@@ -25,8 +25,8 @@ window.onload = init;
           } else {
             if(i==num) {
               i++;
-              qtext.style.border="none";
-              qtext.innerHTML="<img src='/image/loader.gif'>";
+              fade.style.display = "block";
+              loader.style.display = "block";
               ansarray[j] = 2 ;
               postdata1.value=ansarray;
               postdata2.value=Questionid;

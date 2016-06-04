@@ -363,7 +363,7 @@
       position: absolute;
       top: 0;
       right: 5px;
-      margin: 5px;
+      margin: 10px;
     }
     
     /*.heart:hover {*/
@@ -481,8 +481,8 @@
   jQuery.event.add(window,"load",function() { // 全ての読み込み完了後に呼ばれる関数
       var pageH = $(".result").height()+100;
    
-      $("#fade").css("height", pageH).delay(1000).fadeOut(1000);
-      $("#loader").delay(1000).fadeOut(1000);
+      $("#fade").css("height", pageH).delay(0).fadeOut(1000);
+      $("#loader").delay(0).fadeOut(1000);
       $(".result").css("display", "block");
   });
     
