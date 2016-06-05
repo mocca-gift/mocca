@@ -1,25 +1,15 @@
-
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-<meta charset="UTF-8">
-<title>Mocca</title></title>
-<meta name="viewport" content="width=device-width,
- initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
- 
-    <!--JQuery-->
-    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <%= provide(:title, "Result") %>
     
-    <!-- Bootstrap -->
-    <link href="/bootstrap/css/bootstrap.css" rel="stylesheet">
-    <script src="/bootstrap/js/bootstrap.min.js"></script>
-  
     <!--Slick-->
     <link href="/slick/slick.css" type="text/css" rel="stylesheet">
     <link href="/slick/slick-theme.css" type="text/css" rel="stylesheet">
     <script src="/slick/slick.js"></script>
     
-    <title>Mocca-Q-</title>
+    <link href="/layout/css/m/mslider.css" type="text/css" rel="stylesheet">
+    <script src="/layout/js/m/mslider.js"></script>
+    
+    <script src="/layout/js/m/tapbutton.js"></script>
+    
     
     <!--**********Main Script Start**********-->
     <%= javascript_tag do %>
@@ -314,206 +304,9 @@
     
   
   <style>
-    html {
-      height: 100%;
-    }
-    body {
-      height: 100%;
-      font-family:  "Meiryo UI", メイリオ, Osaka, 'MS PGothic', arial, helvetica, sans-serif;
-      background-image: url("/image/ribbon.jpg");
-      background-size: cover;
-      background-position: center;
-      position: relative;
-      background-attachment: fixed;
-      position: relative;
-    }
-    
-    a:link {
-      text-decoration: none;
-      color: #000000;
-    }
-    a:visited {
-      text-decoration: none;
-      color: #000000;
-    }
-    a:active {
-      text-decoration: none;
-      color: #000000;
-    }
-    .navbar {
-      background-color: #FFFFFF;
-    }
-    
-      
-    .result {
-      width: 90%;
-      margin-left: 5%;
-      background-color: rgba(255,255,255,0.7);
-      padding: 10px;
-      position: absolute;
-      top: 50%;
-      margin-top: -250px;
-      
-     }
-    
-    .gift {
-      width: 100%;
-      margin-top: 1%;
-      padding-bottom: 50px;
-      outline: none;
-      
-    }
-    
-    .giftcontent {
-      overflow: hidden;
-      height: 250px;
-      width: 250px;
-      position: relative;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    
-    .new {
-        width: 100px;
-        padding: 3px 10px;
-        background: #d43131;
-        color: #fff;
-        text-align: center;
-        display: inline-block;
-        position: absolute;
-        top: 15px;
-        left: -25px;
-        text-transform: uppercase;
-        -webkit-transform: rotate(315deg);  
-        -moz-transform: rotate(315deg); 
-        transform: rotate(315deg);
-      }
-    
-    .gifturl {
-      display: block;
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center;
-      height: 250px;
-      width: 250px;
-      margin: auto;
-    }
-
-    
-    .giftheader {
-        text-align: center;
-        /*color: #FFFFFF;*/
-        position: relative;
-    }
-    
-    .giftname h4{
-      margin-top: 0;
-      font-size: 4em;
-    }
-    
-    .heart {
-      height: 30px;
-      width: 30px;
-      position: absolute;
-      top: 0;
-      right: 5px;
-      margin: 10px;
-    }
-    
-    /*.heart:hover {*/
-    /*  transform: scale(2.5);*/
-    /*}*/
-    .btns {
-        border: solid 1px;
-        background-color: #E6E6FA;
-        text-align: center;
-      }
-    /*.btns:hover {*/
-    /*    color: #FFFFFF;*/
-    /*    background-color: rgba(0,30,67,1);*/
-    /*  }*/
-    /*.btns:active {*/
-    /*    color: #FFFFFF;*/
-    /*    background-color: rgba(0,30,67,1);*/
-    /*  }*/
-    /*.btns:visited {*/
-    /*    color: #FFFFFF;*/
-    /*    background-color: rgba(0,30,67,1);*/
-    /*  }*/
-      
-    .tapStyle {
-      background-color: rgba(0,0,255,1);
-    }
-    /*スライド画像の横幅可変*/
-    .slick img {
-        max-width: 100%;
-        height: auto;
-        border: 0;
-    }
-    
-    #slick_container {
-      position:relative;
-      width: 100%;
-      margin: auto;
-      background-color: rgba(255,255,255,0);
-    }
-
-    .slick-prev, .slick-next {
-      width:15px;
-      height:60px;
-    }
-    div.slick-prev, div.slick-next {
-      z-index: 1;
-    }
-    button {
-      z-index: 2;
-    }
-    
-    .slick-prev {
-      position: absolute;
-      top: 180px;
-      left: 5px;
-    }
-    
-    .slick-next {
-      position: absolute;
-      top: 180px;
-      right: 5px;
-    }
-    
-    .slick-prev:before, .slick-next:before {
-      content:"";
-    }
-    
-    .slick-active {
-      border: 0;
-    }
-    
-    #loader {
-        width: 200px;
-        height: 200px;
-        text-align: center;
-        /*display: none;*/
-        position: fixed;
-        _position: absolute; /* IE6対策 */
-        top: 50%;
-        left: 50%;
-        margin-top: -150px; /* heightの半分のマイナス値 */
-        margin-left: -100px; /* widthの半分のマイナス値 */
-        z-index: 100;
-    }
-     
-    #fade {
-        width: 100%;
-        height: 100%;
-        /*display: none;*/
-        background-color: #FFFFFF;
-        position: absolute;
-        top: 0px;
-        left: 0px;
-        z-index: 50;
-    }
-    
+  
+  /*yenマークのCSS*/
+  
     .glyphicon-yen {
       background-color: gold;
       color: white;
@@ -525,72 +318,7 @@
       right: 5px;
     }
     
-
   </style>
-  <script>
-  $('head').append(
-      '<style type="text/css">.result { display: none; } #fade, #loader { display: block; }</style>'
-  );
-   
-  jQuery.event.add(window,"load",function() { // 全ての読み込み完了後に呼ばれる関数
-      var pageH = $(".result").height()+100;
-   
-      $("#fade").css("height", pageH).delay(0).fadeOut(1000);
-      $("#loader").delay(0).fadeOut(1000);
-      $(".result").css("display", "block");
-  });
-    
-  $(document).ready(function(){
-  
-     $('.btns').on('touchstart', function(e) {
-          $(this).addClass('tapStyle');
-      });
-      
-    $('.btns').on('touchend', function(e) {
-          $(this).removeClass('tapStyle');
-      });
- 
-     
-     $('.single-item').slick({
-        appendArrows: $('#arrows')
-        // autoplay: true,
-        // autoplaySpeed: 2000
-      });
-      
-      $('.slick-next').on('click', function () {
-        slickNext();
-      });
-      
-      $('.slick-prev').on('click', function () {
-        slickPrev();
-      });
-  });
-
-  </script>
-  </head>
-    <body>
-    <nav class="navbar navbar-fixed-top">
-      <div class="navbar-header">
-        <a class="navbar-brand" href="/"><i class="glyphicon glyphicon-home"></i> MOCCA</a>
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav-content">
-          <span class="icon-bar" style="background-color:#000000;"></span>
-          <span class="icon-bar" style="background-color:#000000;"></span>
-          <span class="icon-bar" style="background-color:#000000;"></span>
-        </button>
-      </div>  
-      <div id="nav-content" class="collapse navbar-collapse">
-    
-    <!--リンクのリスト メニューリスト-->
-        <ul class="nav navbar-nav">
-          <li><a href="/qflow" data-no-turbolink="1">Question<BR>質問で探す</a></li>
-          <li><a href="/new_arrival" data-no-turbolink="1">New<BR>新しいアイテム</a></li>
-          <li><a href="/info" data-no-turbolink="1">Information<BR>お問い合わせ</a></li>
-        </ul>
-      </div>
-    </nav>
-    <div id="loader"><img src="/image/gif05.gif" height="200px" width="200px"><BR>Loading...</div>
-    <div id="fade"></div>
-    <div class="result">
         <div class="row">
           <div id="slick_container">
           <div class="slick single-item">
@@ -713,11 +441,7 @@
               <img src="/image/right.png"  height="60px" width="15px" alt="">
             </div>
           </div>
-          </div>
         </div>
-        
         <a href="/qflow_continue" data-no-turbolink="1" class="btns btn-lg btn-block" id="continuebtn">質問を続ける</a>
         <a href="/qflow" data-no-turbolink="1" class="btns btn-lg btn-block">他の人のギフトを探す</a>
       </div>
-  </body>
-</html>

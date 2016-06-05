@@ -1,0 +1,43 @@
+.slick img {
+    max-width: 100%;
+    height: auto;
+    border: 0;
+}
+
+#slick_container {
+  position:relative;
+  width: 100%;
+  margin: auto;
+  background-color: rgba(255,255,255,0);
+}
+
+.slick-prev, .slick-next {
+  width:15px;
+  height:60px;
+}
+div.slick-prev, div.slick-next {
+  z-index: 1;
+}
+button {
+  z-index: 2;
+}
+
+.slick-prev {
+  position: absolute;
+  top: 180px;
+  left: 5px;
+}
+
+.slick-next {
+  position: absolute;
+  top: 180px;
+  right: 5px;
+}
+
+.slick-prev:before, .slick-next:before {
+  content:"";
+}
+
+.slick-active {
+  border: 0;
+}

@@ -1,0 +1,30 @@
+.qheader {
+    width: 100%;
+    padding: 30px;
+    display: none;
+}
+
+.qimage {
+    display: block;
+    margin: auto;
+    height: 50px;
+    width: 50px;
+}
+
+#qtext {
+    width: 100%;
+    margin: auto;
+    height: 100px;
+    text-align: center;
+    line-height: 100px;
+    border-bottom: solid 1px;
+}
+  
+.choices {
+    display: none;
+}
+
+.contents {
+    height: 300px;
+    display: none;
+}

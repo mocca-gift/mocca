@@ -1,0 +1,77 @@
+.gift {
+  width: 100%;
+  margin-top: 1%;
+  padding-bottom: 50px;
+  outline: none;
+  
+}
+
+.giftcontent {
+  overflow: hidden;
+  height: 250px;
+  width: 250px;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.new {
+    width: 100px;
+    padding: 3px 10px;
+    background: #d43131;
+    color: #fff;
+    text-align: center;
+    display: inline-block;
+    position: absolute;
+    top: 15px;
+    left: -25px;
+    text-transform: uppercase;
+    -webkit-transform: rotate(315deg);  
+    -moz-transform: rotate(315deg); 
+    transform: rotate(315deg);
+  }
+
+.gifturl {
+  display: block;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 250px;
+  width: 250px;
+  margin: auto;
+}
+
+
+.giftheader {
+    text-align: center;
+    /*color: #FFFFFF;*/
+    position: relative;
+}
+
+.giftname h4{
+  margin-top: 0;
+  font-size: 4em;
+}
+
+.heart {
+  height: 30px;
+  width: 30px;
+  position: absolute;
+  top: 0;
+  right: 5px;
+  margin: 10px;
+}
+
+/*YES,NOボタンレイアウト*/
+
+.btns {
+    border: solid 1px;
+    background-color: #E6E6FA;
+    text-align: center;
+  }
+
+/*ボタンをタップした時のレイアウト  */
+
+.tapStyle {
+  background-color: rgba(0,0,255,1);
+}

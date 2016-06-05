@@ -1,0 +1,67 @@
+html {
+      height: 100%;
+}
+body {
+  height: 100%;
+  font-family:  "Meiryo UI", メイリオ, Osaka, 'MS PGothic', arial, helvetica, sans-serif;
+  background-image: url("/image/ribbon.jpg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: relative;
+}
+
+a:link {
+  text-decoration: none;
+  color: #000000;
+}
+a:visited {
+  text-decoration: none;
+  color: #000000;
+}
+a:active {
+  text-decoration: none;
+  color: #000000;
+}
+
+
+.navbar {
+  background-color: #FFFFFF;
+}
+
+  
+.contents {
+  width: 90%;
+  margin-left: 5%;
+  background-color: rgba(255,255,255,0.7);
+  padding: 10px;
+  margin-top: 50px;
+  
+ }
+ 
+ /*************************Loading画面*************************/
+
+#loader {
+  width: 200px;
+  height: 200px;
+  text-align: center;
+  /*display: none;*/
+  position: fixed;
+  _position: absolute; /* IE6対策 */
+  top: 50%;
+  left: 50%;
+  margin-top: -150px; /* heightの半分のマイナス値 */
+  margin-left: -100px; /* widthの半分のマイナス値 */
+  z-index: 100;
+}
+
+#fade {
+  width: 100%;
+  height: 100%;
+  /*display: none;*/
+  background-color: #FFFFFF;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 50;
+}

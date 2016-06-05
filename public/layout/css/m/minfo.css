@@ -1,0 +1,175 @@
+ a:link {
+  text-decoration-color : rgb(0,0,255);
+}
+.shintyaku {
+    width: 100%;
+}
+.shintyaku .header {
+    width: 90%;
+    margin: auto;
+    text-align: center;
+    margin-top: 70px;
+}
+.news {
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 10px;
+}
+
+.wrapper1 {
+    position: relative;
+    width: 33%;
+    float:left;
+}
+.wrapper1:before{
+    padding-top: 100%;
+    display: block;
+    content: "";
+}
+.content1{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    overflow: hidden;
+}
+.wrapper2 {
+    position: relative;
+    width: 66%;
+    float:left;
+}
+.wrapper2:before{
+    padding-top: 50%;
+    display: block;
+    content: "";
+}
+.content2{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    overflow: hidden;
+    padding: 5px;
+}
+.wrapper3 {
+    position: relative;
+    width: 100%;
+    float:left;
+}
+.wrapper3:before{
+    padding-top: 75%;
+    display: block;
+    content: "";
+}
+.content3{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    overflow: hidden;
+}
+.wrapper4 {
+    position: relative;
+    width: 100%;
+    float:left;
+}
+.wrapper4:before{
+    padding-top: 100%;
+    display: block;
+    content: "";
+}
+.content4{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    overflow: hidden;
+}
+
+.news:after{
+   content:"";
+   display:block;
+   clear:both;
+}
+.col {
+    width: 50%;
+    float: left;
+}
+.line {
+    width: 90%;
+    margin: auto;
+    text-align: center;
+    background-color: rgba(255,255,255,0.5);
+}
+.line:after{
+    content:"";
+    display:block;
+    clear:both;
+}
+
+.newsimg {
+    display:block;
+    width: 100%;
+    height: 100%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #FFFFFF;
+    margin: auto;
+}
+.newscontent {
+}
+.newsdate {
+}
+.sns {
+    width: 100%;
+}
+
+.sns:after{
+    content:"";
+    display:block;
+    clear:both;
+}
+.header1 {
+    width: 90%;
+    margin: auto;
+    text-align: center;
+}
+
+.lineimg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-image: url("/image/lineplus.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #FFFFFF;
+    margin: auto;
+}
+.qrimg {
+    width: 100%;
+    height: 100%;
+    background-image: url("/image/line.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #FFFFFF;
+    margin: auto;
+}
+
+.otoiawase {
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+    text-align:center;
+    padding: 10px;
+}
+.aboutus {
+    padding: 15px;
+}
