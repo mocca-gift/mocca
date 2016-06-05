@@ -28,3 +28,18 @@
     height: 300px;
     display: none;
 }
+
+.btns {
+        border: solid 1px;
+        color: #FFFFFF;
+        background-color: #E6E6FA;
+        text-align:center;
+    
+}
+
+.tapStyle {
+      color: #FFFFFF;
+      background-color: rgba(0,0,255,1);
+}
+      
+    
