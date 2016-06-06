@@ -6,8 +6,8 @@ window.onload = init;
       ans = document.getElementById("ans");
       postdata1 = document.getElementById("postdata1");
       postdata2 = document.getElementById("postdata2");
-      var fade = document.getElementById("fade");
-      var loader = document.getElementById("loader");
+      // var fade = document.getElementById("fade");
+      // var loader = document.getElementById("loader");
       
       var num=5;
       var i = 0;
@@ -25,8 +25,8 @@ window.onload = init;
           } else {
             if(i==num) {
               i++;
-              fade.style.display = "block";
-              loader.style.display = "block";
+              // fade.style.display = "block";
+              // loader.style.display = "block";
               ansarray[j] = 2 ;
               postdata1.value=ansarray;
               postdata2.value=Questionid;
@@ -43,8 +43,8 @@ window.onload = init;
           } else {
             if(i==num) {
               i++;
-              fade.style.display = "block";
-              loader.style.display = "block";
+              // fade.style.display = "block";
+              // loader.style.display = "block";
               ansarray[j] = 2 ;
               postdata1.value=ansarray;
               postdata2.value=Questionid;
