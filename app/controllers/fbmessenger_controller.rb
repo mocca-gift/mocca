@@ -52,34 +52,36 @@ class FbmessengerController < ApplicationController
           }
           
           #Welcome Message**********************************************************
-          
-          # @welcome_uri="https://graph.facebook.com/v2.6/"+PAGE_ID+"/thread_settings?access_token="+ACCESS_TOKEN
-          
-          # welcomeMessage = {text: "ようこそMOCCAへ！一緒にプレゼントを探しましょう！"}
-          
-          # request_content = {recipient: {id: @sender},
-          #                   message: welcomeMessage
+          # curl -X POST -H "Content-Type: application/json" -d '{
+          #   "setting_type":"call_to_actions",
+          #   "thread_state":"new_thread",
+          #   "call_to_actions":[
+          #     {
+          #       "message":{
+          #         "attachment":{
+          #                 "type":"template",
+          #                 "payload":{
+          #                   "template_type":"button",
+          #                   "text":"ようこそMOCCAへ!\nどうやってギフトを決める?",
+          #                   "buttons":[
+          #                     {
+          #                       "type":"postback",
+          #                       "title":"QUESTION",
+          #                       "payload":"QUESTION"
+          #                     },
+          #                     {
+          #                       "type":"postback",
+          #                       "title":"RANDOM",
+          #                       "payload":"RANDOM"
+          #                     }
+          #                   ]
+          #                 }
           #               }
-          # content_json = request_content.to_json
-          # RestClient.post(@welcome_uri, content_json, {
-          #       'Content-Type' => 'application/json; charset=UTF-8'
-          #     }){ |response, request, result, &block|
-          #       p response
-          #       p request
-          #       p result
+          #       }
           #     }
-              
-          # request_content = {recipient: {id: @sender},
-          #                   message: @messageData_normal
-          #               }
-          # content_json = request_content.to_json
-          # RestClient.post(@welcome_uri, content_json, {
-          #       'Content-Type' => 'application/json; charset=UTF-8'
-          #     }){ |response, request, result, &block|
-          #       p response
-          #       p request
-          #       p result
-          #     }
+          #   ]
+          # }' "https://graph.facebook.com/v2.6/1623932044594234/thread_settings?access_token=EAAWFQPfGEBkBAEdKXCPOQ5zb28zMOeSKkZAvQjYnODIPOakcDpC92wlHWARJZA4COUu77bBzAhW4SW0ybdPLELIZC8d60EAwoMpv8DBQR1gaHiZA0WZCbhZBxDGXSOIwojLc51OCGHF9EUghwMHy4oZCV55nvU4iZBcxZAZAfEjr3jCCgedb4aZCoSa"
+  
           #**************************************************************************
         
         #ユーザの発言かどうかの判定
