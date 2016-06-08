@@ -1,0 +1,131 @@
+<style>
+    html {
+      height:100%;
+    }
+    
+     body {
+      height:100%;
+      font-family:  "Meiryo UI", メイリオ, Osaka, 'MS PGothic', arial, helvetica, sans-serif;
+      /*position: relative;*/
+      background-image: url("/image/ribbon.jpg");
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-attachment: fixed;
+      background-color: white;
+    } 
+    
+    .title {
+        text-align: center;
+        padding: 50px;
+    }
+    
+    .col {
+        width: 18%;
+        margin-left: 3%;
+        margin-right: 3%;
+        text-align: center;
+        float:left;
+        height: 200px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        border-bottom: solid 3px;
+        background-color: rgba(255,255,255,0.7);
+    }
+    
+    .lcol {
+        width: 29%;
+        margin-left: 10%;
+        margin-right: 10%;
+        text-align: center;
+        float:left;
+        height: 200px;
+        /*background-size: contain;*/
+        /*background-repeat: no-repeat;*/
+        /*background-position: center;*/
+        border-bottom: solid 3px;
+        background-color: rgba(255,255,255,0.7);
+    }
+    
+    /*.line {*/
+    /*    background-image: url('/image/Line.png');*/
+    /*}*/
+    
+    /*.facebook {*/
+    /*    background-image: url('/image/Facebook.png');*/
+    /*}*/
+    
+    .icon {
+        display: block;
+        margin: auto;
+    }
+    
+    .wrap {
+        width: 80%;
+        margin: auto;
+        margin-bottom: 50px;
+    }
+    .wrap:after {
+        content: "";
+        display:block;
+        clear: both;
+    }
+    .home {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    
+</style>
+
+<h1 class="title">MOCCA管理画面</h1>
+<div class="home">
+   <a href="/">MOCCA HOME</a> 
+</div>
+
+
+<div class="wrap">
+   <div class="lcol line">
+        <img class="icon" src="/image/Line.png">
+        <p>LineBot</p>
+        <p>使用者数累計</p>
+        <p><font size="24px"><strong><%= @lineNum %>人</strong></font></p>
+    </div>
+    
+    <div class="lcol facebook">
+        <img class="icon" src="/image/Facebook.png">
+        <p>FaceBookMessengerPlatform</p>
+        <p>使用者数累計</p>
+        <p><font size="24px"><strong><%= @fbNum %>人</strong></font></p>    
+    </div>
+</div>
+
+
+<div class="wrap">
+    <div class="col">
+        <a href="/gifts"><img src="/image/giftpic.png" height="80px" width="80px"></a>
+        <p><strong>Gift Edit</strong></p>
+        <p>Gift総数</p>
+        <%= @giftNum %>
+    </div>
+    
+    <div class="col">
+        <a href="/questions"><img src="/image/questionpic.png" height="80px" width="80px"></a>
+        <p><strong>Question Edit</strong></p>
+        <p>Question総数</p>
+        <%= @questionNum %>    
+    </div>
+    
+    <div class="col">
+        <a href="/anstoevals"><img src="/image/answerpic.png" height="80px" width="80px"></a>
+        <p><strong>Anstoeval Edit</strong></p>
+    </div>
+    
+    
+    <div class="col">
+        <a href="#"><img src="/image/noimage.png" height="80px" width="80px"></a>
+        <p><strong>Something Edit</strong></p>
+    </div>    
+</div>
+
+
