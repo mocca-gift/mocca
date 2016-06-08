@@ -26,8 +26,8 @@ class WebhookController < ApplicationController
     
     #メッセージ送信者の履歴が過去になければ(質問フローの中にいないなら)
     if Talk.find_by(:user => from_mid)==nil then
-      res = client.send([from_mid], "ようこそMOCCAへ\n素敵なプレゼントを\n一緒に探してみませんか")
-      res = client.send([from_mid], "Q:質問に答えて探す!\nR:運に任せて探す!")
+      res = client.send([from_mid], "ようこそMOCCAへ\n素敵なプレゼントを\n一緒に探そう！")
+      res = client.send([from_mid], "どうやって探す？\n\nQ:質問に答えて探す!\nR:運に任せて探す!")
       @talk=Talk.create(:user => from_mid, :text => "")
     else
       if Talk.find_by(:user => from_mid).text=="" then
@@ -42,24 +42,26 @@ class WebhookController < ApplicationController
             qarray+=q.id.to_s
           end
           res = client.send([from_mid], "プレゼントを渡す相手を想像して...")
-          res = client.send([from_mid], "「はい/いいえ」で答えてね")
-          res = client.send([from_mid], "まずは5問！")
+          res = client.send([from_mid], "はい(y)/いいえ(n)で答えてね\nまずは5問！")
+          # res = client.send([from_mid], "まずは5問！")
           message=@questions[0].body
           @talk=Talk.find_by(:user => from_mid)
           @talk.update(:text => "0",:question => qarray)
           res = client.send([from_mid], message)
         when "R","Ｒ" then
-          res = client.send([from_mid], "今日の運はどうかな？")
+          # res = client.send([from_mid], "今日の運はどうかな？")
+          res = client.send([from_mid], "今日の運はこんな感じ！")
           @gift=Gift.offset( rand(Gift.count) ).first
           message=message=@gift.name+"/"+@gift.company_name+"\n"+@gift.url+"\n"+"価格:"+priceView(@gift.price)
           res = client.sendImage([from_mid], "https://mocca-giftfinder.herokuapp.com/gifts/"+@gift.id.to_s+"/img", "https://mocca-giftfinder.herokuapp.com/gifts/"+@gift.id.to_s+"/img" )
           res = client.send([from_mid], message)
           
-          message="Web版も試してね！\nhttps://mocca-giftfinder.herokuapp.com/"
-          res = client.send([from_mid], message)
+          # message="Web版も試してね！\nhttps://mocca-giftfinder.herokuapp.com/"
+          # res = client.send([from_mid], message)
+          res = client.send([from_mid], "もっと探す？\n\nQ:質問に答えて探す!\nR:運に任せて探す!")
         else
           #"Q""R"以外のメッセージが来た場合
-          res = client.send([from_mid], "Q:質問に答えて探す!\nR:運に任せて探す!")
+          res = client.send([from_mid], "どうやって探す？\n\nQ:質問に答えて探す!\nR:運に任せて探す!")
         end
         
       else
@@ -86,7 +88,9 @@ class WebhookController < ApplicationController
             @talk.update(:text => @talk.text+",2")
             res = client.send([from_mid], message)
           else
-            message="「はい/いいえ」で答えてね"
+            message="はい(y)/いいえ(n)で答えてね"
+            res = client.send([from_mid], message)
+            message=Question.find_by_id(@qarray[i+1]).body
             res = client.send([from_mid], message)
           end
         #答えた質問が5個なら  
@@ -109,7 +113,7 @@ class WebhookController < ApplicationController
             res = client.sendImage([from_mid], "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img", "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img" )
             res = client.send([from_mid], message)
             
-            message="こんなプレゼントどうかな？"
+            message="このプレゼントどうかな？\nいい？ちょっと違う？"
             # message="Web版も試してね！\nhttps://mocca-giftfinder.herokuapp.com/"
             res = client.send([from_mid], message)
             #Talkモデルのquestionの最後(6番目)にギフトのidを付加する
@@ -135,7 +139,7 @@ class WebhookController < ApplicationController
             res = client.sendImage([from_mid], "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img", "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img" )
             res = client.send([from_mid], message)
             
-            message="こんなプレゼントどうかな？"
+            message="このプレゼントどうかな？\nいい？ちょっと違う？"
             # message="Web版もお試し下さい\nhttps://mocca-giftfinder.herokuapp.com/"
             res = client.send([from_mid], message)
             #Talkモデルのquestionの最後(6番目)にギフトのidを付加する
@@ -146,7 +150,7 @@ class WebhookController < ApplicationController
           
     # ↑NO----------------------------------------------------------------------------
           else
-            message="「はい/いいえ」で答えてね"
+            message="はい(y)/いいえ(n)で答えてね"
             res = client.send([from_mid], message)
           end
           
@@ -155,7 +159,8 @@ class WebhookController < ApplicationController
           when *up_array then
           up_calc(@qarray[6],1)
           down_calc(@qarray[6],-1)
-          res = client.send([from_mid], "ありがとう！\nWeb版も使ってみてね！\nhttps://mocca-giftfinder.herokuapp.com/")
+          # res = client.send([from_mid], "ありがとう！\nWeb版も使ってみてね！\nhttps://mocca-giftfinder.herokuapp.com")
+          res = client.send([from_mid], "ありがとう！\nまた一緒に探そうね！")
           @talk.update(:text => "")
           # message=@qarray[6].to_s+"up"
           # res = client.send([from_mid], message)
@@ -168,6 +173,7 @@ class WebhookController < ApplicationController
           # message=@qarray[6].to_s+"down"
           # res = client.send([from_mid], message)
           end
+        res = client.send([from_mid], "もっと探す？\n\nQ:質問に答えて探す!\nR:運に任せて探す!")
         end
       end
     end
