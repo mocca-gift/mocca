@@ -90,8 +90,7 @@ class WebhookController < ApplicationController
           else
             message="はい(y)/いいえ(n)で答えてね"
             res = client.send([from_mid], message)
-            message=Question.find_by_id(@qarray[i+1]).body
-            res = client.send([from_mid], message)
+# ここでもう一度質問を表示したい
           end
         #答えた質問が5個なら  
         when 5 then
@@ -173,7 +172,7 @@ class WebhookController < ApplicationController
           # message=@qarray[6].to_s+"down"
           # res = client.send([from_mid], message)
           end
-        res = client.send([from_mid], "もっと探す？\n\nQ:質問に答えて探す!\nR:運に任せて探す!")
+        res = client.send([from_mid], "どうやって探す？\n\nQ:質問に答えて探す!\nR:運に任せて探す!")
         end
       end
     end
