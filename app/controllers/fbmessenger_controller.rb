@@ -6,6 +6,7 @@ class FbmessengerController < ApplicationController
     protect_from_forgery with: :null_session # CSRF対策無効化
     
     ACCESS_TOKEN = ENV['FB_ACCESS_TOKEN']
+    PAGE_ID = ENV['FB_PAGE_ID']
     
     def callback
       
@@ -49,6 +50,37 @@ class FbmessengerController < ApplicationController
                 }
               }
           }
+          
+          #Welcome Message**********************************************************
+          
+          @welcome_uri="https://graph.facebook.com/v2.6/"+PAGE_ID+"/thread_settings?access_token="+ACCESS_TOKEN
+          
+          welcomeMessage = {text: "ようこそMOCCAへ！一緒にプレゼントを探しましょう！"}
+          
+          request_content = {recipient: {id: @sender},
+                            message: welcomeMessage
+                         }
+          content_json = request_content.to_json
+          RestClient.post(@welcome_uri, content_json, {
+                'Content-Type' => 'application/json; charset=UTF-8'
+              }){ |response, request, result, &block|
+                p response
+                p request
+                p result
+              }
+              
+          request_content = {recipient: {id: @sender},
+                            message: @messageData_normal
+                         }
+          content_json = request_content.to_json
+          RestClient.post(@welcome_uri, content_json, {
+                'Content-Type' => 'application/json; charset=UTF-8'
+              }){ |response, request, result, &block|
+                p response
+                p request
+                p result
+              }
+          #**************************************************************************
         
         #ユーザの発言かどうかの判定
         if @message.include?("message") then
