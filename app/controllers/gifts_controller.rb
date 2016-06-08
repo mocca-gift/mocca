@@ -2,13 +2,24 @@ class GiftsController < ApplicationController
   before_action :set_gift, only: [:show, :edit, :update, :destroy, :img]
   before_action :restrict_remote_ip, except: [:img]
   
-  PERMIT_ADDRESSES = ['127.0.0.1', '::1', '119.104.104.198' ,ENV['MY_IP_ADDRESS'], ENV['MY_SUB_IP_ADDRESS'], ENV['H_IP_ADDRESS']]
+  PERMIT_ADDRESSES = ['127.0.0.1', '::1', '115.165.80.15' ,ENV['MY_IP_ADDRESS'], ENV['MY_SUB_IP_ADDRESS'], ENV['H_IP_ADDRESS']]
   
   layout 'home'
   # GET /gifts
   # GET /gifts.json
   def index
-    @gifts = Gift.all
+    @gifts = Gift.order(:id)
+    
+    @giftEval1 = Hash.new()
+    @giftEval2 = Hash.new()
+    
+    @gifts.each do |gift|
+      eval1=Evaluation.where(:gift_id => gift.id).find_by_evalid(1) || Evaluation.create(gift_id: gift.id , evalid: 1 ,count: 0)
+      eval2=Evaluation.where(:gift_id => gift.id).find_by_evalid(2) || Evaluation.create(gift_id: gift.id , evalid: 2 ,count: 0)
+      @giftEval1[gift]=eval1.count
+      @giftEval2[gift]=eval2.count
+    end
+    
   end
 
   # GET /gifts/1

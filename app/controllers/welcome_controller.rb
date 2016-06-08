@@ -13,6 +13,18 @@ class WelcomeController < ApplicationController
         # end
     end
     
+    before_action :restrict_remote_ip, only: [:admin]
+  
+    PERMIT_ADDRESSES = ['127.0.0.1', '::1', '115.165.80.15' ,ENV['MY_IP_ADDRESS'], ENV['MY_SUB_IP_ADDRESS'], ENV['H_IP_ADDRESS']]
+    
+    def admin
+        @giftNum = Gift.count
+        @questionNum = Question.count
+        @lineNum = Talk.count
+        @fbNum = Fbtalk.count
+        render :layout => 'home'
+    end
+    
     def index
         render :layout => 'home'
     end
@@ -23,6 +35,14 @@ class WelcomeController < ApplicationController
     
     def info
         @infos=Info.order("created_at DESC").limit(3)
+    end
+    
+    private
+    
+    def restrict_remote_ip
+    unless PERMIT_ADDRESSES.include?(request.remote_ip)
+      render text: 'Service Unavailable', status: 503
+    end
     end
     
 end

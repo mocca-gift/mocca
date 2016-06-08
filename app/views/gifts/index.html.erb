@@ -12,6 +12,9 @@
       <th>Img content type</th>
       <th>Company Name</th>
       <th>Price</th>
+      <th>Eval-</th>
+      <th>Eval+</th>
+      <th>+Ration</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -26,6 +29,9 @@
         <td><%= gift.img_content_type %></td>
         <td><%= gift.company_name %></td>
         <td><%= gift.price %></td>
+        <td><%= @giftEval1[gift] %></td>
+        <td><%= @giftEval2[gift] %></td>
+        <td><%= 1.0*@giftEval2[gift]/(@giftEval1[gift]+@giftEval2[gift]) %></td>
         <td><%= link_to 'Show', gift %></td>
         <td><%= link_to 'Edit', edit_gift_path(gift) %></td>
         <td><%= link_to 'Destroy', gift, method: :delete, data: { confirm: 'Are you sure?' } %></td>

@@ -2,17 +2,30 @@ class QuestionsController < ApplicationController
   before_action :set_question, only: [:show, :edit, :update, :destroy]
   
   before_action do
-    PERMIT_ADDRESSES = ['127.0.0.1', '::1', ENV['MY_IP_ADDRESS'], ENV['MY_SUB_IP_ADDRESS'], ENV['H_IP_ADDRESS']].freeze
+    PERMIT_ADDRESSES = ['127.0.0.1', '::1', '115.165.80.15' , ENV['MY_IP_ADDRESS'], ENV['MY_SUB_IP_ADDRESS'], ENV['H_IP_ADDRESS']].freeze
 
     unless PERMIT_ADDRESSES.include?(request.remote_ip)
       render text: 'Service Unavailable', status: 503
     end
   end
+  
+  layout 'home'
 
   # GET /questions
   # GET /questions.json
   def index
-    @questions = Question.all
+    @questions = Question.order(:id)
+   
+    @qYes = Hash.new(0)
+    @qNo  = Hash.new(0)
+    
+    @questions.each do |question|
+      yes=Answer.where(:question_id => question.id).find_by_ansid(1) || Answer.create(question_id: question.id , ansid: 1 , count: 0)
+      no =Answer.where(:question_id => question.id).find_by_ansid(2) || Answer.create(question_id: question.id , ansid: 2 , count: 0)
+      @qYes[question]= yes.count
+      @qNo[question]=  no.count 
+    end
+
   end
 
   # GET /questions/1

@@ -112,12 +112,16 @@ class ResultController < ApplicationController
         @giftRes.shuffle!
         
         #デフォルトでgiftの評価は1(bad)にする
-        for i in 0..(@ansarray.length-1) do
-            answer=Answer.where(question_id: @qarray[i]).find_by_ansid(@ansarray[i])
             
-            @giftRes.each do |gift|
-                e1up(gift,answer)
-                e2up(gift,answer)
+        @giftRes.each do |gift|
+            @evaluation1=Evaluation.where(gift_id: gift.id).find_by_evalid(1)
+            @evaluation2=Evaluation.where(gift_id: gift.id).find_by_evalid(2)
+            @evaluation1.update(count: @evaluation1.count+1)
+            @evaluation2.update(count: @evaluation2.count+1)
+            for i in 0..(@ansarray.length-1) do
+                answer=Answer.where(question_id: @qarray[i]).find_by_ansid(@ansarray[i])
+                e1up(answer)
+                e2up(answer)
             end
         end
         
@@ -153,11 +157,16 @@ class ResultController < ApplicationController
         hGifts=decode_session(session[:gifts])
         hGifts[Gift.find(gid)]=2
         
+        @evaluation1=Evaluation.where(gift_id: gid).find_by_evalid(1)
+        @evaluation2=Evaluation.where(gift_id: gid).find_by_evalid(2)
+        @evaluation1.update(count: @evaluation1.count-1)
+        @evaluation2.update(count: @evaluation2.count+1)
+        
         for i in 0..4
           answer=Answer.where(question_id: gq[i]).find_by_ansid(gans[i])
           
-          e1down(Gift.find(gid),answer)
-          e2up(Gift.find(gid),answer)
+          e1down(answer)
+          e2up(answer)
         end
          session[:gifts]=code_session(hGifts)
         
@@ -171,10 +180,16 @@ class ResultController < ApplicationController
         gq=params[:gift_q].split(",")
         hGifts=decode_session(session[:gifts])
         hGifts[Gift.find(gid)]=1
+        
+        @evaluation1=Evaluation.where(gift_id: gid).find_by_evalid(1)
+        @evaluation2=Evaluation.where(gift_id: gid).find_by_evalid(2)
+        @evaluation1.update(count: @evaluation1.count+1)
+        @evaluation2.update(count: @evaluation2.count-1)
+        
         for i in 0..4
           answer=Answer.where(question_id: gq[i]).find_by_ansid(gans[i])
-          e2down(Gift.find(gid),answer)
-          e1up(Gift.find(gid),answer)
+          e2down(answer)
+          e1up(answer)
         end
         session[:gifts]=code_session(hGifts)
         render text: "Succeeddown! Gift"+gid
@@ -186,45 +201,51 @@ class ResultController < ApplicationController
         gq=params[:gift_q].split(",")
         hGifts=decode_session(session[:gifts])
         hGifts[Gift.find(gid)]=1
+        
+        @evaluation1=Evaluation.where(gift_id: gid).find_by_evalid(1)
+        @evaluation2=Evaluation.where(gift_id: gid).find_by_evalid(2)
+        @evaluation1.update(count: @evaluation1.count+2)
+        @evaluation2.update(count: @evaluation2.count-2)
+        
         for i in 0..4
           answer=Answer.where(question_id: gq[i]).find_by_ansid(gans[i])
-          e2downdouble(Gift.find(gid),answer)
-          e1updouble(Gift.find(gid),answer)
+          e2downdouble(answer)
+          e1updouble(answer)
         end
         session[:gifts]=code_session(hGifts)
         render text: "Succeeddown! Gift"+gid
     end
     
     private
-        def e2up(gift,answer)
-            evaluation=Evaluation.where(gift_id: gift.id).find_by_evalid(2)
-            anstoeval=Anstoeval.where(answer_id: answer.id).find_by_evaluation_id(evaluation.id)
+        def e2up(answer)
+            # evaluation=Evaluation.where(gift_id: gift.id).find_by_evalid(2)
+            anstoeval=Anstoeval.where(answer_id: answer.id).find_by_evaluation_id(@evaluation2.id)
             anstoeval.update(count: anstoeval.count+1)
         end
-        def e2down(gift,answer)
-            evaluation=Evaluation.where(gift_id: gift.id).find_by_evalid(2)
-            anstoeval=Anstoeval.where(answer_id: answer.id).find_by_evaluation_id(evaluation.id)
+        def e2down(answer)
+            # evaluation=Evaluation.where(gift_id: gift.id).find_by_evalid(2)
+            anstoeval=Anstoeval.where(answer_id: answer.id).find_by_evaluation_id(@evaluation2.id)
             anstoeval.update(count: anstoeval.count-1)
         end
-        def e2downdouble(gift,answer)
-            evaluation=Evaluation.where(gift_id: gift.id).find_by_evalid(2)
-            anstoeval=Anstoeval.where(answer_id: answer.id).find_by_evaluation_id(evaluation.id)
+        def e2downdouble(answer)
+            # evaluation=Evaluation.where(gift_id: gift.id).find_by_evalid(2)
+            anstoeval=Anstoeval.where(answer_id: answer.id).find_by_evaluation_id(@evaluation2.id)
             anstoeval.update(count: anstoeval.count-2)
         end
         
-        def e1up(gift,answer)
-            evaluation=Evaluation.where(gift_id: gift.id).find_by_evalid(1)
-            anstoeval=Anstoeval.where(answer_id: answer.id).find_by_evaluation_id(evaluation.id)
+        def e1up(answer)
+            # evaluation=Evaluation.where(gift_id: gift.id).find_by_evalid(1)
+            anstoeval=Anstoeval.where(answer_id: answer.id).find_by_evaluation_id(@evaluation1.id)
             anstoeval.update(count: anstoeval.count+1)
         end
-        def e1updouble(gift,answer)
-            evaluation=Evaluation.where(gift_id: gift.id).find_by_evalid(1)
-            anstoeval=Anstoeval.where(answer_id: answer.id).find_by_evaluation_id(evaluation.id)
+        def e1updouble(answer)
+            # evaluation=Evaluation.where(gift_id: gift.id).find_by_evalid(1)
+            anstoeval=Anstoeval.where(answer_id: answer.id).find_by_evaluation_id(@evaluation1.id)
             anstoeval.update(count: anstoeval.count+2)
         end
-        def e1down(gift,answer)
-            evaluation=Evaluation.where(gift_id: gift.id).find_by_evalid(1)
-            anstoeval=Anstoeval.where(answer_id: answer.id).find_by_evaluation_id(evaluation.id)
+        def e1down(answer)
+            # evaluation=Evaluation.where(gift_id: gift.id).find_by_evalid(1)
+            anstoeval=Anstoeval.where(answer_id: answer.id).find_by_evaluation_id(@evaluation1.id)
             anstoeval.update(count: anstoeval.count-1)
         end
     

@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   resources :questions
   resources :anstoevals
 
+  get '/admin' => 'welcome#admin'
+
   get '/qflow' => 'qflow#index'
   get '/qflow_continue' => 'qflow#continue'
   post '/result' => 'result#index'
