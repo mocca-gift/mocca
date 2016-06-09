@@ -27,17 +27,17 @@
   <!--Main Script-->
             
   <script>
-  $('head').append(
-    '<style type="text/css">.contents { display: none; } #fade, #loader { display: block; }</style>'
-  );
+  // $('head').append(
+  //   '<style type="text/css">.contents { display: none; } #fade, #loader { display: block; }</style>'
+  // );
    
-  jQuery.event.add(window,"load",function() { // 全ての読み込み完了後に呼ばれる関数
-      var pageH = $(".contents").height()+100;
+  // jQuery.event.add(window,"load",function() { // 全ての読み込み完了後に呼ばれる関数
+  //     var pageH = $(".contents").height()+100;
    
-      $("#fade").css("height", pageH).delay(0).fadeOut(1000);
-      $("#loader").delay(0).fadeOut(1000);
-      $(".contents").css("display", "block");
-  });
+  //     $("#fade").css("height", pageH).delay(0).fadeOut(1000);
+  //     $("#loader").delay(0).fadeOut(1000);
+  //     $(".contents").css("display", "block");
+  // });
   
     
   $(document).ready(function(){
@@ -56,8 +56,8 @@
   
 
   </script>
-  <div id="loader"><img src="/image/gif05.gif" height="200px" width="200px"><BR>Loading...</div>
-  <div id="fade"></div>
+  <!--<div id="loader"><img src="/image/gif05.gif" height="200px" width="200px"><BR>Loading...</div>-->
+  <!--<div id="fade"></div>-->
   <div class="desc">これからの質問は<BR>ギフトを渡す<BR><strong><font size="3em">"相手の事"</font></strong><BR>を考えて答えてください</div>
   <div class="qheader">
     <img class="qimage" src="/image/q_trans.png">                        
