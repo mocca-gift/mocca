@@ -75,3 +75,29 @@
 .tapStyle {
   background-color: rgba(0,0,255,1);
 }
+
+
+#loader {
+  width: 200px;
+  height: 200px;
+  text-align: center;
+  /*display: none;*/
+  position: fixed;
+  _position: absolute; /* IE6対策 */
+  top: 50%;
+  left: 50%;
+  margin-top: -150px; /* heightの半分のマイナス値 */
+  margin-left: -100px; /* widthの半分のマイナス値 */
+  z-index: 100;
+}
+
+#fade {
+  width: 100%;
+  height: 100%;
+  /*display: none;*/
+  background-color: #FFFFFF;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 50;
+}
