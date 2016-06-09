@@ -1,0 +1,540 @@
+<%= provide(:title, "Result") %>
+
+<!--Slick-->
+<link href="/slick/slick.css" type="text/css" rel="stylesheet">
+<link href="/slick/slick-theme.css" type="text/css" rel="stylesheet">
+<script src="/slick/slick.js"></script>
+
+<link href="/layout/css/slider.css" type="text/css" rel="stylesheet">
+<script src="/layout/js/slider.js"></script>
+
+<link href="/layout/css/result.css" type="text/css" rel="stylesheet">
+    
+<!--**********Main Script Start**********-->
+<%= javascript_tag do %>
+  window.onload=init;
+  
+  function init(){
+  function getXMLHttpRequestObject(){
+    var ajax=null;
+    if(window.XMLHttpRequest){
+        ajax=new XMLHttpRequest();
+    } else if (window.ActiveObject){
+        ajax=new ActiveObject('MSXML2.XMLHTTP.3.0');
+    }
+    return ajax;
+  }
+  
+  var ajax=getXMLHttpRequestObject();
+    
+  var hearts     = document.getElementsByClassName("heart");
+  var giftnames  = document.getElementsByClassName("giftname");
+  var gifturls   = document.getElementsByClassName("gifturl");
+  var giftimgs   = document.getElementsByClassName("giftimg");
+  var giftcontents = document.getElementsByClassName("giftcontent");
+  var companynames = document.getElementsByClassName("companyname");
+  var prices = document.getElementsByClassName("price");
+  var pricetags = document.getElementsByClassName("price_tags");
+  
+  i=1;
+  hiduke=new Date();
+  <% @giftRes.each do |exp| %>
+  giftnames[i].innerText= "<%= exp.name %>";
+  gifturls[i].href = "<%= exp.url %>";
+  gifturls[i].style ="background-image: url('/gifts/<%= exp.id %>/img');";
+  companynames[i].innerHTML= "<%= exp.company_name %>";
+  var price_num="<%= exp.price %>";
+  if (price_num!="") {
+  
+    switch(price_num){
+    
+    case "1":
+      elements=pricetags[i].getElementsByClassName("price_tag");
+      elements[0].className+= " emph_1";
+      gifturls[i].className+= " emph_line_1";
+      break;
+    case "2":
+      elements=pricetags[i].getElementsByClassName("price_tag");
+      elements[1].className+= " emph_2";
+      gifturls[i].className+= " emph_line_2";
+      break;
+    case "3":
+      elements=pricetags[i].getElementsByClassName("price_tag");
+      elements[2].className+= " emph_3";
+      gifturls[i].className+= " emph_line_3";
+      break;
+    case "4":
+      elements=pricetags[i].getElementsByClassName("price_tag");
+      elements[3].className+= " emph_4";
+      gifturls[i].className+= " emph_line_4";
+      break;
+    case "5":
+      elements=pricetags[i].getElementsByClassName("price_tag");
+      elements[4].className+= " emph_5";
+      gifturls[i].className+= " emph_line_5";
+      break;
+    default:
+      break;
+    }
+  } else {
+  
+    }
+  
+  var h1y=hiduke.getFullYear();
+  var h1d=hiduke.getDate()+hiduke.getMonth()*30.5;
+  var h2y=<%= exp.created_at.year %>;
+  var h2d=<%= exp.created_at.yday %>;
+  var sa=h1y*365+h1d-h2y*365-h2d;
+  if(sa<30){
+    element=document.createElement("span");
+    element.className="new";
+    element.innerHTML="NEW";
+    giftcontents[i].appendChild(element);
+  }
+  i++;
+  <% end %>
+  
+  j=1;
+  elm_num=[0,0,0,0,0,0,0,0];
+  
+  
+  <% @giftRes.each do |exp| %>
+  hearts[j].onclick = function(s) {
+    return function(event) {
+           switch(elm_num[s]) {
+              case -1:
+                hearts[s].src = "/image/emptyheart2.png";
+                ajax.onreadystatechange=function() {
+                  if(ajax.readyState==4) {
+                    if((ajax.status>=200 && ajax.status<300) || (ajax.status==304)) {
+                    }
+                    else {
+                    }
+                  }
+                }
+                ajax.open('GET','/result/countup?gift=<%= exp.id %>&gift_ans=<%= @ansarray.join(",") %>&gift_q=<%= @qarray.join(",") %>',true);
+                ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+                ajax.send(null);
+                elm_num[s]=0;
+                break;
+              case 0:
+                hearts[s].src = "/image/heart.png";
+                ajax.onreadystatechange=function() {
+                  if(ajax.readyState==4) {
+                    if((ajax.status>=200 && ajax.status<300) || (ajax.status==304)) {
+                    }
+                    else {
+                    }
+                  }
+                }
+                ajax.open('GET','/result/countup?gift=<%= exp.id %>&gift_ans=<%= @ansarray.join(",") %>&gift_q=<%= @qarray.join(",") %>',true);
+                ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+                ajax.send(null);
+                elm_num[s]=1;
+                break;
+              case 1:
+                hearts[s].src = "/image/dislike.png";
+                ajax.onreadystatechange=function() {
+                  if(ajax.readyState==4) {
+                    if((ajax.status>=200 && ajax.status<300) || (ajax.status==304)) {
+                    }
+                    else {
+                    }
+                  }
+                }
+                ajax.open('GET','/result/countdown2?gift=<%= exp.id %>&gift_ans=<%= @ansarray.join(",") %>&gift_q=<%= @qarray.join(",") %>',true);
+                ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+                ajax.send(null);
+                elm_num[s]=-1;
+                break;
+                }
+      }
+  }(j)
+  j++;
+  <% end %>
+        
+  // 質問がなくなった際に，Continueできなくする
+  continuebtn=document.getElementById("continuebtn");
+  if (<%= @continue_display %>==1 ) {
+    continuebtn.style="display: none;";
+  }
+  else {
+  }
+
+  }
+<% end %>
+<!--**********Main Script End**********-->
+
+<style>
+  .wrap {
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    border: solid 1px;
+    background-color: rgba(255,255,255,0.7);
+  }
+  .wrap:after {
+    content: "";
+    display:block;
+    clear: both;
+  }
+  .slideheader {
+    position: relative;
+    overflow: hidden;
+    height: 150px;
+  }
+  .slideheader:after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+  .downbtn {
+    position: absolute;
+    right: 20px;
+    top: 0;
+    line-height: 150px;
+  }
+  .giftheader2 {
+    text-align: center;
+    display: block;
+    margin-top: 50px;
+    position: relative;
+  }
+  
+  .giftheader2:before {
+    content:"“";
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 50pt;
+    display: block;
+    height: 50px;
+    width: 50px;
+    position: absolute;
+    left: 50px;
+    top: -50px;
+  }
+  .giftheader2:after {
+    content:"”";
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 50pt;
+    display: block;
+    height: 50px;
+    width: 50px;
+    position: absolute;
+    top: 30px;
+    right: 50px;
+  }
+  
+  .giftcontent2 {
+    /*position: absolute;*/
+    /*top: 100px;*/
+    display:none;
+  }
+  .heart2 {
+    display:block;
+    height: 80px;
+    width: 80px;
+    margin: auto;
+  }
+  .giftimg2 {
+    height: 150px;
+    width: 150px;
+    background-image: url('/image/Twitter.png');
+    background-size: cover;
+    margin: auto;
+  }
+  .col {
+    width: 50%;
+    float:left;
+  }
+</style>
+<style>
+  .share-box {
+    height: 50px;
+    width: 50px;
+    float: left;
+    margin: 10px;
+  }
+  .share-button {
+    display:block;
+    width: 50px;
+    height: 50px;
+    background-size: 50px 50px;
+    text-indent: -9999px;
+  }
+  .twitter {
+    background-image: url('/image/Twitter.png');
+  }
+  .facebook {
+    background-image: url('/image/Facebook.png');
+  }
+  .googlePlus {
+    background-image: url('/image/Google+.png');
+  }
+  .line {
+    background-image: url('/image/Line.png');
+  }
+</style>
+<script>
+$(document).ready(function(){
+  $('.downbtn').on('click',function(){
+      $(".giftcontent2").slideToggle();
+  });
+});
+</script>
+  
+  <div class="row">
+    <font size="12px"><strong>10,000円～</strong></font>
+    <div class="wrap">
+      <div class="slideheader">
+        <div class="giftheader2"><strong><p class="giftname2" style="font-size:18px;">TextText</p></strong><p class="companyname2">Hello!!</p></div>
+        <a class="downbtn btn">&#9660;</a>
+      </div>
+      <div class="giftcontent2">
+          <div class="col">
+            <div class="giftimg2"></div>  
+          </div>
+          <div class="col">
+            ご購入はこちらから:<BR>
+            <a class="gifturl2" href="http://www.hogehoge.com" target="_blank">http://www.hogehoge.com</a><BR>
+            <!--<img class="heart2" src="/image/emptyheart2.png">-->
+            <div id="share">
+                <div class="share-box"><a class="share-button twitter" href="http://twitter.com/intent/tweet?text=テキスト&url=URL" onclick="window.open(encodeURI(decodeURI(this.href)), 'tweetwindow', 'width=550, height=450, personalbar=0, toolbar=0, scrollbars=1, resizable=1' ); return false;" target="_blank"><i class="fontawesome-twitter"></i>ツイート</a></div>
+                <div class="share-box"><a class="share-button facebook" href="http://www.facebook.com/share.php?u=URL" onclick="window.open(this.href, 'window', 'width=550, height=450,personalbar=0,toolbar=0,scrollbars=1,resizable=1'); return false;"><i class="fontawesome-facebook"></i>シェア</a></div>
+                <div class="share-box"><a class="share-button googlePlus" href="javascript:(function(){window.open('https://plusone.google.com/_/+1/confirm?hl=ja&url=URL'+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title),'_blank');})();"><i class="fontawesome-google-plus"></i>+1</a></div>
+                <div class="share-box"><a class="share-button line" href="http://line.me/R/msg/text/?こんにちは">LINE</a></div>
+            </div><!-- / #share -->  
+          </div>
+          
+          
+      </div>
+    </div>
+    <font size="12px"><strong>10,000円～</strong></font>
+    <div class="wrap">
+      <div class="slideheader">
+        <div class="giftheader2"><strong><p class="giftname2" style="font-size:18px;">TextText</p></strong><p class="companyname2">Hello!!</p></div>
+        <a class="downbtn btn">&#9660;</a>
+      </div>
+      <div class="giftcontent2">
+          <div class="col">
+            <div class="giftimg2"></div>  
+          </div>
+          <div class="col">
+            ご購入はこちらから:<BR>
+            <a class="gifturl2" href="http://www.hogehoge.com" target="_blank">http://www.hogehoge.com</a><BR>
+            <img class="heart2" src="/image/emptyheart2.png">
+            <div id="share">
+                <div class="share-box"><a class="share-button twitter" href="http://twitter.com/intent/tweet?text=<?php echo trim(wp_title( '', false); ?>&nbsp;|&nbsp;&amp;url=<?php echo get_permalink() ?>" onclick="window.open(encodeURI(decodeURI(this.href)), 'tweetwindow', 'width=550, height=450, personalbar=0, toolbar=0, scrollbars=1, resizable=1' ); return false;" target="_blank"><i class="fontawesome-twitter"></i>ツイート</a></div>
+                <div class="share-box"><a class="share-button facebook" href="http://www.facebook.com/share.php?u=<?php echo trim(wp_title( '', false); ?>" onclick="window.open(this.href, 'window', 'width=550, height=450,personalbar=0,toolbar=0,scrollbars=1,resizable=1'); return false;"><i class="fontawesome-facebook"></i>シェア</a></div>
+                <div class="share-box"><a class="share-button googlePlus" href="javascript:(function(){window.open('https://plusone.google.com/_/+1/confirm?hl=ja&url=<?php echo get_permalink() ?>'+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title),'_blank');})();"><i class="fontawesome-google-plus"></i>+1</a></div>
+            </div><!-- / #share -->  
+          </div>
+          
+          
+      </div>
+    </div>
+    <font size="12px"><strong>10,000円～</strong></font>
+    <div class="wrap">
+      <div class="slideheader">
+        <div class="giftheader2"><strong><p class="giftname2" style="font-size:18px;">TextText</p></strong><p class="companyname2">Hello!!</p></div>
+        <a class="downbtn btn">&#9660;</a>
+      </div>
+      <div class="giftcontent2">
+          <div class="col">
+            <div class="giftimg2"></div>  
+          </div>
+          <div class="col">
+            ご購入はこちらから:<BR>
+            <a class="gifturl2" href="http://www.hogehoge.com" target="_blank">http://www.hogehoge.com</a><BR>
+            <img class="heart2" src="/image/emptyheart2.png">
+            <div id="share">
+                <div class="share-box"><a class="share-button twitter" href="http://twitter.com/intent/tweet?text=<?php echo trim(wp_title( '', false); ?>&nbsp;|&nbsp;&amp;url=<?php echo get_permalink() ?>" onclick="window.open(encodeURI(decodeURI(this.href)), 'tweetwindow', 'width=550, height=450, personalbar=0, toolbar=0, scrollbars=1, resizable=1' ); return false;" target="_blank"><i class="fontawesome-twitter"></i>ツイート</a></div>
+                <div class="share-box"><a class="share-button facebook" href="http://www.facebook.com/share.php?u=<?php echo trim(wp_title( '', false); ?>" onclick="window.open(this.href, 'window', 'width=550, height=450,personalbar=0,toolbar=0,scrollbars=1,resizable=1'); return false;"><i class="fontawesome-facebook"></i>シェア</a></div>
+                <div class="share-box"><a class="share-button googlePlus" href="javascript:(function(){window.open('https://plusone.google.com/_/+1/confirm?hl=ja&url=<?php echo get_permalink() ?>'+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title),'_blank');})();"><i class="fontawesome-google-plus"></i>+1</a></div>
+            </div><!-- / #share -->  
+          </div>
+          
+          
+      </div>
+    </div>
+    <div id="slick_container">
+    <div class="colmn slick single-item">
+      <!------------------------------------------------------------------------>
+      <!-- Gift Start -->
+      <div class="gift">
+        <!-- Header Start -->
+        <div class="giftheader">
+          <h2 class="giftname"></h2>
+          <h5 class="companyname"></h5>
+          
+          <img class="heart" src="/image/emptyheart2.png">
+        </div>
+        <!-- Header End -->
+        <!-- Gift Content Start -->
+        <div class="giftcontent">
+          <!--<div class="price"></div>-->
+          <a class="gifturl" target="_blank"></a>
+          <div class="price_tags">
+            <div class="price_tag"><p>～</p><p>2千円</p></div>
+            <div class="price_tag"><p>2千円</p><p>～</p><p>5千円</p></div>
+            <div class="price_tag"><p>5千円</p><p>～</p><p>1万円</p></div>
+            <div class="price_tag"><p>1万円</p><p>～</p><p>3万円</p></div>
+            <div class="price_tag"><p>3万円</p><p>～</p></div>  
+          </div>
+        </div>
+        <!-- Gift Content End -->
+      </div>
+      <!-- Gift End -->
+      <!------------------------------------------------------------------------>
+      <!-- Gift Start -->
+      <div class="gift">
+        <!-- Header Start -->
+        <div class="giftheader">
+          <h2 class="giftname"></h2>
+          <h5 class="companyname"></h5>
+          
+          <img class="heart" src="/image/emptyheart2.png">
+        </div>
+        <!-- Header End -->
+        <!-- Gift Content Start -->
+        <div class="giftcontent">
+          <!--<div class="price"></div>-->
+          <a class="gifturl" target="_blank"></a>
+          <div class="price_tags">
+            <div class="price_tag"><p>～</p><p>2千円</p></div>
+            <div class="price_tag"><p>2千円</p><p>～</p><p>5千円</p></div>
+            <div class="price_tag"><p>5千円</p><p>～</p><p>1万円</p></div>
+            <div class="price_tag"><p>1万円</p><p>～</p><p>3万円</p></div>
+            <div class="price_tag"><p>3万円</p><p>～</p></div>  
+          </div>
+        </div>
+        <!-- Gift Content End -->
+      </div>
+      <!-- Gift End -->
+      <!------------------------------------------------------------------------>
+      <!-- Gift Start -->
+      <div class="gift">
+        <!-- Header Start -->
+        <div class="giftheader">
+          <h2 class="giftname"></h2>
+          <h5 class="companyname"></h5>
+          
+          <img class="heart" src="/image/emptyheart2.png">
+        </div>
+        <!-- Header End -->
+        <!-- Gift Content Start -->
+        <div class="giftcontent">
+          <!--<div class="price"></div>-->
+          <a class="gifturl" target="_blank"></a>
+          <div class="price_tags">
+            <div class="price_tag"><p>～</p><p>2千円</p></div>
+            <div class="price_tag"><p>2千円</p><p>～</p><p>5千円</p></div>
+            <div class="price_tag"><p>5千円</p><p>～</p><p>1万円</p></div>
+            <div class="price_tag"><p>1万円</p><p>～</p><p>3万円</p></div>
+            <div class="price_tag"><p>3万円</p><p>～</p></div>  
+          </div>
+        </div>
+        <!-- Gift Content End -->
+      </div>
+      <!-- Gift End -->
+      <!------------------------------------------------------------------------>
+      <!-- Gift Start -->
+      <div class="gift">
+        <!-- Header Start -->
+        <div class="giftheader">
+          <h2 class="giftname"></h2>
+          <h5 class="companyname"></h5>
+          
+          <img class="heart" src="/image/emptyheart2.png">
+        </div>
+        <!-- Header End -->
+        <!-- Gift Content Start -->
+        <div class="giftcontent">
+          <!--<div class="price"></div>-->
+          <a class="gifturl" target="_blank"></a>
+          <div class="price_tags">
+            <div class="price_tag"><p>～</p><p>2千円</p></div>
+            <div class="price_tag"><p>2千円</p><p>～</p><p>5千円</p></div>
+            <div class="price_tag"><p>5千円</p><p>～</p><p>1万円</p></div>
+            <div class="price_tag"><p>1万円</p><p>～</p><p>3万円</p></div>
+            <div class="price_tag"><p>3万円</p><p>～</p></div>  
+          </div>
+        </div>
+        <!-- Gift Content End -->
+      </div>
+      <!-- Gift End -->
+      <!------------------------------------------------------------------------>
+      <!-- Gift Start -->
+      <div class="gift">
+        <!-- Header Start -->
+        <div class="giftheader">
+          <h2 class="giftname"></h2>
+          <h5 class="companyname"></h5>
+          
+          <img class="heart" src="/image/emptyheart2.png">
+        </div>
+        <!-- Header End -->
+        <!-- Gift Content Start -->
+        <div class="giftcontent">
+          <!--<div class="price"></div>-->
+          <a class="gifturl" target="_blank"></a>
+          <div class="price_tags">
+            <div class="price_tag"><p>～</p><p>2千円</p></div>
+            <div class="price_tag"><p>2千円</p><p>～</p><p>5千円</p></div>
+            <div class="price_tag"><p>5千円</p><p>～</p><p>1万円</p></div>
+            <div class="price_tag"><p>1万円</p><p>～</p><p>3万円</p></div>
+            <div class="price_tag"><p>3万円</p><p>～</p></div>  
+          </div>
+        </div>
+        <!-- Gift Content End -->
+      </div>
+      <!-- Gift End -->
+      <!------------------------------------------------------------------------>
+      <!-- Gift Start -->
+      <div class="gift">
+        <!-- Header Start -->
+        <div class="giftheader">
+          <h2 class="giftname"></h2>
+          <h5 class="companyname"></h5>
+          
+          <img class="heart" src="/image/emptyheart2.png">
+        </div>
+        <!-- Header End -->
+        <!-- Gift Content Start -->
+        <div class="giftcontent">
+          <!--<div class="price"></div>-->
+          <a class="gifturl" target="_blank"></a>
+          <div class="price_tags">
+            <div class="price_tag"><p>～</p><p>2千円</p></div>
+            <div class="price_tag"><p>2千円</p><p>～</p><p>5千円</p></div>
+            <div class="price_tag"><p>5千円</p><p>～</p><p>1万円</p></div>
+            <div class="price_tag"><p>1万円</p><p>～</p><p>3万円</p></div>
+            <div class="price_tag"><p>3万円</p><p>～</p></div>  
+          </div>
+        </div>
+        <!-- Gift Content End -->
+      </div>
+      <!-- Gift End -->
+      <!------------------------------------------------------------------------>
+    </div>
+    <div id="arrows">
+      <div class="slick-prev">
+        <img src="/image/left.png" height="200px" width="50px" alt="">
+      </div>
+      <div class="slick-next">
+        <img src="/image/right.png"  height="200px" width="50px" alt="">
+      </div>
+    </div>
+    </div>
+  </div>
+        
+  <div class="row">
+    <div class="col-xs-2"></div>
+    <div class="col-xs-4">
+      <a href="/qflow_continue" data-no-turbolink="1" class="tabtn continue" id="continuebtn"></a>
+    </div>
+    <div class="col-xs-4">
+      <a href="/qflow" data-no-turbolink="1" class="tabtn findfor"></a>
+    </div>
+    <div class="col-xs-2">
+    </div>
+  </div>
