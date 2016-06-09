@@ -1,3 +1,5 @@
+
+
 <style>
     html {
       height:100%;
@@ -47,6 +49,19 @@
         border-bottom: solid 3px;
         background-color: rgba(255,255,255,0.7);
     }
+    .topcol {
+        width: 49%;
+        margin-left: 25%;
+        margin-right: 25%;
+        text-align: center;
+        float:left;
+        height: 200px;
+        /*background-size: contain;*/
+        /*background-repeat: no-repeat;*/
+        /*background-position: center;*/
+        border-bottom: solid 3px;
+        background-color: rgba(255,255,255,0.7);
+    }
     
     /*.line {*/
     /*    background-image: url('/image/Line.png');*/
@@ -78,9 +93,16 @@
     
 </style>
 
-<h1 class="title">MOCCA管理画面</h1>
+<!--<h1 class="title">MOCCA管理画面</h1>-->
 <div class="home">
    <a href="/">MOCCA HOME</a> 
+</div>
+<div class="wrap">
+    <div class="topcol line">
+        <img class="icon" src="/image/smalllogo.png">
+        <p>使用回数累計</p>
+        <p><font size="24px"><strong><%= @useNum %>回</strong></font></p>
+    </div>
 </div>
 
 

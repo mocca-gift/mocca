@@ -27,7 +27,7 @@ window.onload = init;
               i++;
               // fade.style.display = "block";
               // loader.style.display = "block";
-              ansarray[j] = 2 ;
+              ansarray[j] = 1 ;
               postdata1.value=ansarray;
               postdata2.value=Questionid;
               document.frm.submit();
@@ -48,7 +48,7 @@ window.onload = init;
               ansarray[j] = 2 ;
               postdata1.value=ansarray;
               postdata2.value=Questionid;
-              document.frm.submit
+              document.frm.submit();
             }
           }
         }

@@ -22,6 +22,7 @@ class WelcomeController < ApplicationController
         @questionNum = Question.count
         @lineNum = Talk.count
         @fbNum = Fbtalk.count
+        @useNum = Answer.sum(:count)/5
         render :layout => 'home'
     end
     

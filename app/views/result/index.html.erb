@@ -171,6 +171,7 @@
     margin-left: 10%;
     margin-right: 10%;
     border: solid 1px;
+    background-color: rgba(255,255,255,0.7);
   }
   .wrap:after {
     content: "";
@@ -279,29 +280,78 @@ $(document).ready(function(){
 </script>
   
   <div class="row">
-    <div class="wrap">
-      <div class="slideheader">
-        <div class="giftheader2"><strong><p class="giftname2" style="font-size:18px;">TextText</p></strong><p class="companyname2">Hello!!</p></div>
-        <a class="downbtn btn">&#9660;</a>
-      </div>
-      <div class="giftcontent2">
-          <div class="col">
-            <div class="giftimg2"></div>  
-          </div>
-          <div class="col">
-            ご購入はこちらから:<BR>
-            <a class="gifturl2" href="http://www.hogehoge.com" target="_blank">http://www.hogehoge.com</a><BR>
-            <img class="heart2" src="/image/emptyheart2.png">
-            <div id="share">
-                <div class="share-box"><a class="share-button twitter" href="http://twitter.com/intent/tweet?text=<?php echo trim(wp_title( '', false); ?>&nbsp;|&nbsp;&amp;url=<?php echo get_permalink() ?>" onclick="window.open(encodeURI(decodeURI(this.href)), 'tweetwindow', 'width=550, height=450, personalbar=0, toolbar=0, scrollbars=1, resizable=1' ); return false;" target="_blank"><i class="fontawesome-twitter"></i>ツイート</a></div>
-                <div class="share-box"><a class="share-button facebook" href="http://www.facebook.com/share.php?u=<?php echo trim(wp_title( '', false); ?>" onclick="window.open(this.href, 'window', 'width=550, height=450,personalbar=0,toolbar=0,scrollbars=1,resizable=1'); return false;"><i class="fontawesome-facebook"></i>シェア</a></div>
-                <div class="share-box"><a class="share-button googlePlus" href="javascript:(function(){window.open('https://plusone.google.com/_/+1/confirm?hl=ja&url=<?php echo get_permalink() ?>'+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title),'_blank');})();"><i class="fontawesome-google-plus"></i>+1</a></div>
-            </div><!-- / #share -->  
-          </div>
+    <!--<font size="12px"><strong>10,000円～</strong></font>-->
+    <!--<div class="wrap">-->
+    <!--  <div class="slideheader">-->
+    <!--    <div class="giftheader2"><strong><p class="giftname2" style="font-size:18px;">TextText</p></strong><p class="companyname2">Hello!!</p></div>-->
+    <!--    <a class="downbtn btn">&#9660;</a>-->
+    <!--  </div>-->
+    <!--  <div class="giftcontent2">-->
+    <!--      <div class="col">-->
+    <!--        <div class="giftimg2"></div>  -->
+    <!--      </div>-->
+    <!--      <div class="col">-->
+    <!--        ご購入はこちらから:<BR>-->
+    <!--        <a class="gifturl2" href="http://www.hogehoge.com" target="_blank">http://www.hogehoge.com</a><BR>-->
+    <!--        <img class="heart2" src="/image/emptyheart2.png">-->
+    <!--        <div id="share">-->
+    <!--            <div class="share-box"><a class="share-button twitter" href="http://twitter.com/intent/tweet?text=<?php echo trim(wp_title( '', false); ?>&nbsp;|&nbsp;&amp;url=<?php echo get_permalink() ?>" onclick="window.open(encodeURI(decodeURI(this.href)), 'tweetwindow', 'width=550, height=450, personalbar=0, toolbar=0, scrollbars=1, resizable=1' ); return false;" target="_blank"><i class="fontawesome-twitter"></i>ツイート</a></div>-->
+    <!--            <div class="share-box"><a class="share-button facebook" href="http://www.facebook.com/share.php?u=<?php echo trim(wp_title( '', false); ?>" onclick="window.open(this.href, 'window', 'width=550, height=450,personalbar=0,toolbar=0,scrollbars=1,resizable=1'); return false;"><i class="fontawesome-facebook"></i>シェア</a></div>-->
+    <!--            <div class="share-box"><a class="share-button googlePlus" href="javascript:(function(){window.open('https://plusone.google.com/_/+1/confirm?hl=ja&url=<?php echo get_permalink() ?>'+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title),'_blank');})();"><i class="fontawesome-google-plus"></i>+1</a></div>-->
+    <!--        </div><!-- / #share -->  -->
+    <!--      </div>-->
           
           
-      </div>
-    </div>
+    <!--  </div>-->
+    <!--</div>-->
+    <!--<font size="12px"><strong>10,000円～</strong></font>-->
+    <!--<div class="wrap">-->
+    <!--  <div class="slideheader">-->
+    <!--    <div class="giftheader2"><strong><p class="giftname2" style="font-size:18px;">TextText</p></strong><p class="companyname2">Hello!!</p></div>-->
+    <!--    <a class="downbtn btn">&#9660;</a>-->
+    <!--  </div>-->
+    <!--  <div class="giftcontent2">-->
+    <!--      <div class="col">-->
+    <!--        <div class="giftimg2"></div>  -->
+    <!--      </div>-->
+    <!--      <div class="col">-->
+    <!--        ご購入はこちらから:<BR>-->
+    <!--        <a class="gifturl2" href="http://www.hogehoge.com" target="_blank">http://www.hogehoge.com</a><BR>-->
+    <!--        <img class="heart2" src="/image/emptyheart2.png">-->
+    <!--        <div id="share">-->
+    <!--            <div class="share-box"><a class="share-button twitter" href="http://twitter.com/intent/tweet?text=<?php echo trim(wp_title( '', false); ?>&nbsp;|&nbsp;&amp;url=<?php echo get_permalink() ?>" onclick="window.open(encodeURI(decodeURI(this.href)), 'tweetwindow', 'width=550, height=450, personalbar=0, toolbar=0, scrollbars=1, resizable=1' ); return false;" target="_blank"><i class="fontawesome-twitter"></i>ツイート</a></div>-->
+    <!--            <div class="share-box"><a class="share-button facebook" href="http://www.facebook.com/share.php?u=<?php echo trim(wp_title( '', false); ?>" onclick="window.open(this.href, 'window', 'width=550, height=450,personalbar=0,toolbar=0,scrollbars=1,resizable=1'); return false;"><i class="fontawesome-facebook"></i>シェア</a></div>-->
+    <!--            <div class="share-box"><a class="share-button googlePlus" href="javascript:(function(){window.open('https://plusone.google.com/_/+1/confirm?hl=ja&url=<?php echo get_permalink() ?>'+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title),'_blank');})();"><i class="fontawesome-google-plus"></i>+1</a></div>-->
+    <!--        </div><!-- / #share -->  -->
+    <!--      </div>-->
+          
+          
+    <!--  </div>-->
+    <!--</div>-->
+    <!--<font size="12px"><strong>10,000円～</strong></font>-->
+    <!--<div class="wrap">-->
+    <!--  <div class="slideheader">-->
+    <!--    <div class="giftheader2"><strong><p class="giftname2" style="font-size:18px;">TextText</p></strong><p class="companyname2">Hello!!</p></div>-->
+    <!--    <a class="downbtn btn">&#9660;</a>-->
+    <!--  </div>-->
+    <!--  <div class="giftcontent2">-->
+    <!--      <div class="col">-->
+    <!--        <div class="giftimg2"></div>  -->
+    <!--      </div>-->
+    <!--      <div class="col">-->
+    <!--        ご購入はこちらから:<BR>-->
+    <!--        <a class="gifturl2" href="http://www.hogehoge.com" target="_blank">http://www.hogehoge.com</a><BR>-->
+    <!--        <img class="heart2" src="/image/emptyheart2.png">-->
+    <!--        <div id="share">-->
+    <!--            <div class="share-box"><a class="share-button twitter" href="http://twitter.com/intent/tweet?text=<?php echo trim(wp_title( '', false); ?>&nbsp;|&nbsp;&amp;url=<?php echo get_permalink() ?>" onclick="window.open(encodeURI(decodeURI(this.href)), 'tweetwindow', 'width=550, height=450, personalbar=0, toolbar=0, scrollbars=1, resizable=1' ); return false;" target="_blank"><i class="fontawesome-twitter"></i>ツイート</a></div>-->
+    <!--            <div class="share-box"><a class="share-button facebook" href="http://www.facebook.com/share.php?u=<?php echo trim(wp_title( '', false); ?>" onclick="window.open(this.href, 'window', 'width=550, height=450,personalbar=0,toolbar=0,scrollbars=1,resizable=1'); return false;"><i class="fontawesome-facebook"></i>シェア</a></div>-->
+    <!--            <div class="share-box"><a class="share-button googlePlus" href="javascript:(function(){window.open('https://plusone.google.com/_/+1/confirm?hl=ja&url=<?php echo get_permalink() ?>'+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title),'_blank');})();"><i class="fontawesome-google-plus"></i>+1</a></div>-->
+    <!--        </div><!-- / #share -->  -->
+    <!--      </div>-->
+          
+          
+    <!--  </div>-->
+    <!--</div>-->
     <div id="slick_container">
     <div class="colmn slick single-item">
       <!------------------------------------------------------------------------>
