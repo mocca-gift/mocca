@@ -30,6 +30,14 @@ class WebhookController < ApplicationController
       res = client.send([from_mid], "どうやって探す？\n\nQ:質問に答えて探す!\nR:運に任せて探す!")
       @talk=Talk.create(:user => from_mid, :text => "")
     else
+      
+      #前回使用より3時間以上経過していたらリセット***************************************************(1)
+      if (Time.now - Talk.find_by(:user => from_mid).updated_at )> 3.hours then
+        @talk=Talk.find_by(:user => from_mid)
+        @talk.update(:text => "")
+      else
+      end
+      
       if Talk.find_by(:user => from_mid).text=="" then
         #メッセージが"Q"なら質問フローを開始する
         case text_message.upcase
@@ -89,6 +97,10 @@ class WebhookController < ApplicationController
             res = client.send([from_mid], message)
           else
             message="はい(y)/いいえ(n)で答えてね"
+            res = client.send([from_mid], message)
+            
+            #質問の再表示****************************************************************************(2)
+            message=Question.find_by_id(@qarray[i]).body
             res = client.send([from_mid], message)
 # ここでもう一度質問を表示したい
           end
