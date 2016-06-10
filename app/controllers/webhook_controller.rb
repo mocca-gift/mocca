@@ -31,8 +31,8 @@ class WebhookController < ApplicationController
       @talk=Talk.create(:user => from_mid, :text => "")
     else
       
-      #前回使用より3時間以上経過していたらリセット***************************************************(1)
-      if (Time.now - Talk.find_by(:user => from_mid).updated_at )> 30 then
+      #前回使用より30分以上経過していたらリセット***************************************************(1)
+      if (Time.now - Talk.find_by(:user => from_mid).updated_at )> 30*60 then
         @talk=Talk.find_by(:user => from_mid)
         @talk.update(:text => "")
       else
