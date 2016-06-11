@@ -1,7 +1,10 @@
 .row {
     width: 100%;
   }
-  
+.row.choices {
+  width: 100%;
+  margin-bottom: 100px;
+}
   #slick_container {
     position:relative;
     background-color: rgba(255,255,255,0);

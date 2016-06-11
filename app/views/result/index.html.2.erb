@@ -44,7 +44,6 @@
   hiduke=new Date();
   <% @giftRes.each do |exp| %>
   giftnames[i].innerHTML= "<%= exp.name %>";
-  giftnames[i].href= "<%= exp.url %>";
   gifturls[i].href = "<%= exp.url %>";
   gifturls[i].innerHTML = "<%= exp.url %>";
   giftimgs[i].style ="background-image: url('/gifts/<%= exp.id %>/img');";
@@ -205,9 +204,8 @@
     background-position: center;
     background-repeat: no-repeat;
     margin: auto;
-    right: 20px;
-    top: 50%;
-    margin-top: -25px;
+    left: 50%;
+    margin-left: -100px;
   }
   .giftimg {
     height: 150px;
@@ -358,8 +356,8 @@
   }
   
   .choices {
-    /*position: absolute;*/
-    /*bottom: -100px;*/
+    position: absolute;
+    bottom: -100px;
   }
   
   .text {
@@ -399,18 +397,18 @@ $(document).ready(function(){
   // $('.downbtn').on('click',function(){
   //     $(".giftcontent").slideToggle();
   // });
-  // num=[0,0,0,0,0,0];
-  // $('.downbtn').each(function(i,elm){
-  //   $(elm).on('click', function(){
-  //     $(".giftcontent").eq(i).slideToggle();
-  //     if(num[i]%2==0){
-  //       $(this).html("&#9650;");
-  //     } else {
-  //       $(this).html("&#9660;");
-  //     }
-  //     num[i]++;
-  //   });
-  // });
+  num=[0,0,0,0,0,0];
+  $('.downbtn').each(function(i,elm){
+    $(elm).on('click', function(){
+      $(".giftcontent").eq(i).slideToggle();
+      if(num[i]%2==0){
+        $(this).html("&#9650;");
+      } else {
+        $(this).html("&#9660;");
+      }
+      num[i]++;
+    });
+  });
   
   $('.price-tag').each(function(i,elm){
     $(elm).on('click', function(){
@@ -426,7 +424,6 @@ $(document).ready(function(){
 });
 </script>
   <!--<div class="text">こんなプレゼントはいかがでしょう...</div>-->
-<div class="contents">
   <div class="row">
   <a class="price-tag tag1 btn"><strong>10,000円～</strong></a>
   <a class="price-tag tag2 btn"><strong>5,000円～10,000円</strong></a>
@@ -435,10 +432,11 @@ $(document).ready(function(){
   <div class="wrapping">
     <div class="wrap wrap1">
       <div class="slideheader">
-        <div class="giftheader"><strong><a class="giftname" style="font-size:18px;"></a></strong><p class="companyname"></p></div>
-        <a class="heart btn"></a>
+        <div class="giftheader"><strong><p class="giftname" style="font-size:18px;"></p></strong><p class="companyname"></p></div>
+        <a class="downbtn btn">&#9660;</a>
       </div>
       <div class="giftcontent">
+        <a class="heart btn"></a>
           <div class="col">
             <div class="giftimg"></div>  
           </div>
@@ -458,10 +456,11 @@ $(document).ready(function(){
     
     <div class="wrap wrap1">
       <div class="slideheader">
-        <div class="giftheader"><strong><a class="giftname" style="font-size:18px;"></a></strong><p class="companyname"></p></div>
-        <a class="heart btn"></a>
+        <div class="giftheader"><strong><p class="giftname" style="font-size:18px;"></p></strong><p class="companyname"></p></div>
+        <a class="downbtn btn">&#9660;</a>
       </div>
       <div class="giftcontent">
+        <a class="heart btn"></a>
           <div class="col">
             <div class="giftimg"></div>  
           </div>
@@ -483,10 +482,11 @@ $(document).ready(function(){
     <div class="wrapping">
     <div class="wrap wrap2">
       <div class="slideheader">
-        <div class="giftheader"><strong><a class="giftname" style="font-size:18px;"></a></strong><p class="companyname"></p></div>
-        <a class="heart btn"></a>
+        <div class="giftheader"><strong><p class="giftname" style="font-size:18px;"></p></strong><p class="companyname"></p></div>
+        <a class="downbtn btn">&#9660;</a>
       </div>
       <div class="giftcontent">
+        <a class="heart btn"></a>
           <div class="col">
             <div class="giftimg"></div>  
           </div>
@@ -506,10 +506,11 @@ $(document).ready(function(){
     
     <div class="wrap wrap2">
       <div class="slideheader">
-        <div class="giftheader"><strong><a class="giftname" style="font-size:18px;"></a></strong><p class="companyname"></p></div>
-        <a class="heart btn"></a>
+        <div class="giftheader"><strong><p class="giftname" style="font-size:18px;"></p></strong><p class="companyname"></p></div>
+        <a class="downbtn btn">&#9660;</a>
       </div>
       <div class="giftcontent">
+        <a class="heart btn"></a>
           <div class="col">
             <div class="giftimg"></div>  
           </div>
@@ -531,10 +532,11 @@ $(document).ready(function(){
     <div class="wrapping selected">
     <div class="wrap wrap3">
       <div class="slideheader">
-        <div class="giftheader"><strong><a class="giftname" style="font-size:18px;"></a></strong><p class="companyname"></p></div>
-        <a class="heart btn"></a>
+        <div class="giftheader"><strong><p class="giftname" style="font-size:18px;"></p></strong><p class="companyname"></p></div>
+        <a class="downbtn btn">&#9660;</a>
       </div>
       <div class="giftcontent">
+        <a class="heart btn"></a>
           <div class="col">
             <div class="giftimg"></div>  
           </div>
@@ -554,10 +556,11 @@ $(document).ready(function(){
     
     <div class="wrap wrap3">
       <div class="slideheader">
-        <div class="giftheader"><strong><a class="giftname" style="font-size:18px;"></a></strong><p class="companyname"></p></div>
-        <a class="heart btn"></a>
+        <div class="giftheader"><strong><p class="giftname" style="font-size:18px;"></p></strong><p class="companyname"></p></div>
+        <a class="downbtn btn">&#9660;</a>
       </div>
       <div class="giftcontent">
+        <a class="heart btn"></a>
           <div class="col">
             <div class="giftimg"></div>  
           </div>
@@ -576,9 +579,7 @@ $(document).ready(function(){
       </div>
     </div>
   </div>
-</div>  
-
-
+        
   <div class="row choices">
     <div class="col-xs-2"></div>
     <div class="col-xs-4">

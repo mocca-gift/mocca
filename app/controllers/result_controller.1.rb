@@ -85,46 +85,31 @@ class ResultController < ApplicationController
         end
         
         
-        #価格帯でギフトを分類
-        @giftExp1 = @giftExp.select {|k, v| k.price==1}
-        @giftExp2 = @giftExp.select {|k, v| k.price==2}
-        @giftExp3 = @giftExp.select {|k, v| k.price==3}
-        @giftExp4 = @giftExp.select {|k, v| k.price==4}
-        @giftExp5 = @giftExp.select {|k, v| k.price==5}
+        #前回までに結果画面で♥が押された商品を表示
+        @Likes = Array.new(5,Gift.find_by_id(1))
+        likeGifts = @hGifts.select {|k, v| v == 2 }
+        for i in 0..(likeGifts.size-1) do
+            @Likes[i]=likeGifts.keys[i]
+        end
         
-        @giftExp12 = @giftExp1.merge(@giftExp2)
-        @giftExp45 = @giftExp4.merge(@giftExp5)
-        
+        #Bayes更新ありの期待値上位3件取得
         @expTop3=Array.new(3,Gift.find_by_id(1))
-          @expTop3[0]=@giftExp45.sort_by{|key, value| -value}[0][0]
-          @expTop3[1]=@giftExp3.sort_by{|key, value| -value}[0][0]
-          @expTop3[2]=@giftExp12.sort_by{|key, value| -value}[0][0]
-
-        @giftExp_new.except!(@expTop3[0],@expTop3[1],@expTop3[2])
-        
-        @giftExp1_new = @giftExp_new.select {|k, v| k.price==1}
-        @giftExp2_new = @giftExp_new.select {|k, v| k.price==2}
-        @giftExp3_new = @giftExp_new.select {|k, v| k.price==3}
-        @giftExp4_new = @giftExp_new.select {|k, v| k.price==4}
-        @giftExp5_new = @giftExp_new.select {|k, v| k.price==5}
-        
-        @giftExp12_new = @giftExp1_new.merge(@giftExp2_new)
-        @giftExp45_new = @giftExp4_new.merge(@giftExp5_new)
+        for i in 0..(@expTop3.length-1) do
+            @expTop3[i]=@giftExp.sort_by{|key, value| -value}[i][0]
+        end
 
         #Bayes更新なしの期待値上位3件取得
         @expTop3_new = Array.new(3,Gift.find_by_id(1))
-          @expTop3_new[0]=@giftExp45_new.sort_by{|key, value| -value}[0][0]
-          @expTop3_new[1]=@giftExp3_new.sort_by{|key, value| -value}[0][0]
-          @expTop3_new[2]=@giftExp12_new.sort_by{|key, value| -value}[0][0]
+        @giftExp_new.except!(@expTop3[0],@expTop3[1],@expTop3[2])
+        for i in 0..(@expTop3_new.length-1) do
+            @expTop3_new[i]=@giftExp_new.sort_by{|key, value| -value}[i][0]
+        end
         
         #Bayes更新ありとなしを結合
-        @giftRes=Array.new()
-        @giftRes[0]=@expTop3[0]
-        @giftRes[1]=@expTop3_new[0]
-        @giftRes[2]=@expTop3[1]
-        @giftRes[3]=@expTop3_new[1]
-        @giftRes[4]=@expTop3[2]
-        @giftRes[5]=@expTop3_new[2]
+        @giftRes=@expTop3+@expTop3_new
+        
+        #Shuffle
+        @giftRes.shuffle!
         
         #デフォルトでgiftの評価は1(bad)にする
             
