@@ -320,7 +320,7 @@ class FbmessengerController < ApplicationController
                           "elements": [{
                             "title": @expTop3[2].name ,
                             "subtitle": @expTop3[2].company_name,
-                            # "image_url": "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop3[2].id.to_s+"/img",
+                            "image_url": "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop3[2].id.to_s+"/img",
                             "buttons": [{
                               "type": "web_url",
                               "url": @expTop3[2].url ,
@@ -337,7 +337,7 @@ class FbmessengerController < ApplicationController
                           },{
                             "title": @expTop3[1].name ,
                             "subtitle": @expTop3[1].company_name,
-                            # "image_url": "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop3[1].id.to_s+"/img",
+                            "image_url": "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop3[1].id.to_s+"/img",
                             "buttons": [{
                               "type": "web_url",
                               "url": @expTop3[1].url ,
@@ -354,7 +354,7 @@ class FbmessengerController < ApplicationController
                           },{
                             "title": @expTop3[0].name ,
                             "subtitle": @expTop3[0].company_name,
-                            # "image_url": "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop3[0].id.to_s+"/img",
+                            "image_url": "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop3[0].id.to_s+"/img",
                             "buttons": [{
                               "type": "web_url",
                               "url": @expTop3[0].url ,
