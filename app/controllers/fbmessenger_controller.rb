@@ -301,6 +301,9 @@ class FbmessengerController < ApplicationController
                   else
                     #答えていない質問がない
                     
+                    messageData1 = {text: "こんなプレゼントはどうかな？"}
+                    sendData(messageData1)
+                    
                     bayes_calc
                     
                     #デフォルトで評価を1ずつプラス
@@ -315,26 +318,26 @@ class FbmessengerController < ApplicationController
                         "payload": {
                           "template_type": "generic",
                           "elements": [{
-                            "title": @expTop3[0].name ,
-                            "subtitle": @expTop3[0].company_name,
-                            "image_url": "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop3[0].id.to_s+"/img",
+                            "title": @expTop3[2].name ,
+                            "subtitle": @expTop3[2].company_name,
+                            # "image_url": "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop3[2].id.to_s+"/img",
                             "buttons": [{
                               "type": "web_url",
-                              "url": @expTop3[0].url ,
+                              "url": @expTop3[2].url ,
                               "title": "ご購入はこちらから！"
                             }, {
                               "type": "postback",
                               "title": "Like",
-                              "payload": "eval,"+@expTop3[0].id.to_s+",1,"+qflowid,
+                              "payload": "eval,"+@expTop3[2].id.to_s+",1,"+qflowid,
                             }, {
                               "type": "postback",
                               "title": "Dislike",
-                              "payload": "eval,"+@expTop3[0].id.to_s+",2,"+qflowid,
+                              "payload": "eval,"+@expTop3[2].id.to_s+",2,"+qflowid,
                             }],
                           },{
                             "title": @expTop3[1].name ,
                             "subtitle": @expTop3[1].company_name,
-                            "image_url": "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop3[1].id.to_s+"/img",
+                            # "image_url": "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop3[1].id.to_s+"/img",
                             "buttons": [{
                               "type": "web_url",
                               "url": @expTop3[1].url ,
@@ -349,21 +352,21 @@ class FbmessengerController < ApplicationController
                               "payload": "eval,"+@expTop3[1].id.to_s+",2,"+qflowid,
                             }],
                           },{
-                            "title": @expTop3[2].name ,
-                            "subtitle": @expTop3[2].company_name,
-                            "image_url": "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop3[2].id.to_s+"/img",
+                            "title": @expTop3[0].name ,
+                            "subtitle": @expTop3[0].company_name,
+                            # "image_url": "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop3[0].id.to_s+"/img",
                             "buttons": [{
                               "type": "web_url",
-                              "url": @expTop3[2].url ,
+                              "url": @expTop3[0].url ,
                               "title": "ご購入はこちらから！"
                             }, {
                               "type": "postback",
                               "title": "Like",
-                              "payload": "eval,"+@expTop3[2].id.to_s+",1,"+qflowid,
+                              "payload": "eval,"+@expTop3[0].id.to_s+",1,"+qflowid,
                             }, {
                               "type": "postback",
                               "title": "Dislike",
-                              "payload": "eval,"+@expTop3[2].id.to_s+",2,"+qflowid,
+                              "payload": "eval,"+@expTop3[0].id.to_s+",2,"+qflowid,
                             }],
                           }]
                         }
