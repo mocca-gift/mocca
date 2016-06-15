@@ -327,11 +327,11 @@ class FbmessengerController < ApplicationController
                               "title": "ご購入はこちらから！"
                             }, {
                               "type": "postback",
-                              "title": "(Y)Like",
+                              "title": "👍Like",
                               "payload": "eval,"+@expTop3[2].id.to_s+",1,"+qflowid,
                             }, {
                               "type": "postback",
-                              "title": "[[iidislyk]]Dislike",
+                              "title": "👎Dislike",
                               "payload": "eval,"+@expTop3[2].id.to_s+",2,"+qflowid,
                             }],
                           },{
@@ -344,11 +344,11 @@ class FbmessengerController < ApplicationController
                               "title": "ご購入はこちらから！"
                             }, {
                               "type": "postback",
-                              "title": "(Y)Like",
+                              "title": "👍Like",
                               "payload": "eval,"+@expTop3[1].id.to_s+",1,"+qflowid,
                             }, {
                               "type": "postback",
-                              "title": "[[iidislyk]]Dislike",
+                              "title": "👎Dislike",
                               "payload": "eval,"+@expTop3[1].id.to_s+",2,"+qflowid,
                             }],
                           },{
@@ -361,7 +361,7 @@ class FbmessengerController < ApplicationController
                               "title": "ご購入はこちらから！"
                             }, {
                               "type": "postback",
-                              "title": "(Y)Like",
+                              "title": "(👍Like",
                               "payload": "eval,"+@expTop3[0].id.to_s+",1,"+qflowid,
                             }, {
                               "type": "postback",
