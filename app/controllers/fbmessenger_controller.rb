@@ -320,52 +320,52 @@ class FbmessengerController < ApplicationController
                           "elements": [{
                             "title": @expTop3[2].name ,
                             "subtitle": @expTop3[2].company_name,
-                            "image_url": "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop3[2].id.to_s+"/img",
+                            # "image_url": "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop3[2].id.to_s+"/img",
                             "buttons": [{
                               "type": "web_url",
                               "url": @expTop3[2].url ,
                               "title": "ご購入はこちらから！"
                             }, {
                               "type": "postback",
-                              "title": "Like",
+                              "title": "Like👍",
                               "payload": "eval,"+@expTop3[2].id.to_s+",1,"+qflowid,
                             }, {
                               "type": "postback",
-                              "title": "Dislike",
+                              "title": "Dislike👎",
                               "payload": "eval,"+@expTop3[2].id.to_s+",2,"+qflowid,
                             }],
                           },{
                             "title": @expTop3[1].name ,
                             "subtitle": @expTop3[1].company_name,
-                            "image_url": "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop3[1].id.to_s+"/img",
+                            # "image_url": "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop3[1].id.to_s+"/img",
                             "buttons": [{
                               "type": "web_url",
                               "url": @expTop3[1].url ,
                               "title": "ご購入はこちらから！"
                             }, {
                               "type": "postback",
-                              "title": "Like",
+                              "title": "Like👍",
                               "payload": "eval,"+@expTop3[1].id.to_s+",1,"+qflowid,
                             }, {
                               "type": "postback",
-                              "title": "Dislike",
+                              "title": "Dislike👎",
                               "payload": "eval,"+@expTop3[1].id.to_s+",2,"+qflowid,
                             }],
                           },{
                             "title": @expTop3[0].name ,
                             "subtitle": @expTop3[0].company_name,
-                            "image_url": "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop3[0].id.to_s+"/img",
+                            # "image_url": "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop3[0].id.to_s+"/img",
                             "buttons": [{
                               "type": "web_url",
                               "url": @expTop3[0].url ,
                               "title": "ご購入はこちらから！"
                             }, {
                               "type": "postback",
-                              "title": "Like",
+                              "title": "Like👍",
                               "payload": "eval,"+@expTop3[0].id.to_s+",1,"+qflowid,
                             }, {
                               "type": "postback",
-                              "title": "Dislike",
+                              "title": "Dislike👎",
                               "payload": "eval,"+@expTop3[0].id.to_s+",2,"+qflowid,
                             }],
                           }]
