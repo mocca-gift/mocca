@@ -96,7 +96,7 @@ class WebhookController < ApplicationController
             @talk.update(:text => @talk.text+",2")
             res = client.send([from_mid], message)
           else
-            message="はい(y)/いいえ(n)で答えてね"
+            message="はい/いいえで答えてね"
             res = client.send([from_mid], message)
             
             #質問の再表示****************************************************************************(2)
@@ -161,7 +161,7 @@ class WebhookController < ApplicationController
           
     # ↑NO----------------------------------------------------------------------------
           else
-            message="はい(y)/いいえ(n)で答えてね"
+            message="はい/いいえで答えてね"
             res = client.send([from_mid], message)
           end
           

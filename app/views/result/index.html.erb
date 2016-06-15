@@ -284,7 +284,9 @@
       border-width: 0 0 1px 1px;
   }
   .wrap1 {
-    border: solid 3px #651366;
+    border: solid 5px #651366;
+    border-radius: 10px;
+    /*background-color: rgba(101,19,102,0.5);*/
   }
   .tag2 {
     background-color: #C60052;
@@ -306,7 +308,9 @@
       border-width: 0 0 1px 1px;
   }
   .wrap2 {
-    border: solid 3px #C60052;
+    border: solid 5px #C60052;
+    border-radius: 10px;
+    /*background-color: rgba(198,0,82,0.5);*/
   }
   .tag3 {
     background-color: #FF714B;
@@ -328,7 +332,13 @@
       border-width: 0 0 1px 1px;
   }
   .wrap3 {
-    border: solid 3px #FF714B;
+    border: solid 5px #FF714B;
+    border-radius: 10px;
+    /*background-color: rgba(255,13,75,0.5);*/
+  }
+  
+  .after-wrap {
+    border-top: solid 5px rgba(0,0,0,0);
   }
   .row {
     position: relative;
@@ -435,7 +445,7 @@ $(document).ready(function(){
   <div class="wrapping">
     <div class="wrap wrap1">
       <div class="slideheader">
-        <div class="giftheader"><strong><a class="giftname" style="font-size:18px;"></a></strong><p class="companyname"></p></div>
+        <div class="giftheader"><strong><a class="giftname" style="font-size:18px;" target="_blank"></a></strong><p class="companyname"></p></div>
         <a class="heart btn"></a>
       </div>
       <div class="giftcontent">
@@ -456,9 +466,9 @@ $(document).ready(function(){
       </div>
     </div>
     
-    <div class="wrap wrap1">
+    <div class="wrap wrap1 after-wrap">
       <div class="slideheader">
-        <div class="giftheader"><strong><a class="giftname" style="font-size:18px;"></a></strong><p class="companyname"></p></div>
+        <div class="giftheader"><strong><a class="giftname" style="font-size:18px;" target="_blank"></a></strong><p class="companyname"></p></div>
         <a class="heart btn"></a>
       </div>
       <div class="giftcontent">
@@ -483,7 +493,7 @@ $(document).ready(function(){
     <div class="wrapping">
     <div class="wrap wrap2">
       <div class="slideheader">
-        <div class="giftheader"><strong><a class="giftname" style="font-size:18px;"></a></strong><p class="companyname"></p></div>
+        <div class="giftheader"><strong><a class="giftname" style="font-size:18px;" target="_blank"></a></strong><p class="companyname"></p></div>
         <a class="heart btn"></a>
       </div>
       <div class="giftcontent">
@@ -504,9 +514,9 @@ $(document).ready(function(){
       </div>
     </div>
     
-    <div class="wrap wrap2">
+    <div class="wrap wrap2 after-wrap">
       <div class="slideheader">
-        <div class="giftheader"><strong><a class="giftname" style="font-size:18px;"></a></strong><p class="companyname"></p></div>
+        <div class="giftheader"><strong><a class="giftname" style="font-size:18px;" target="_blank"></a></strong><p class="companyname"></p></div>
         <a class="heart btn"></a>
       </div>
       <div class="giftcontent">
@@ -531,7 +541,7 @@ $(document).ready(function(){
     <div class="wrapping selected">
     <div class="wrap wrap3">
       <div class="slideheader">
-        <div class="giftheader"><strong><a class="giftname" style="font-size:18px;"></a></strong><p class="companyname"></p></div>
+        <div class="giftheader"><strong><a class="giftname" style="font-size:18px;" target="_blank"></a></strong><p class="companyname"></p></div>
         <a class="heart btn"></a>
       </div>
       <div class="giftcontent">
@@ -552,9 +562,9 @@ $(document).ready(function(){
       </div>
     </div>
     
-    <div class="wrap wrap3">
+    <div class="wrap wrap3 after-wrap">
       <div class="slideheader">
-        <div class="giftheader"><strong><a class="giftname" style="font-size:18px;"></a></strong><p class="companyname"></p></div>
+        <div class="giftheader"><strong><a class="giftname" style="font-size:18px;" target="_blank"></a></strong><p class="companyname"></p></div>
         <a class="heart btn"></a>
       </div>
       <div class="giftcontent">

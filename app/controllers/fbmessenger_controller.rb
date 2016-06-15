@@ -173,7 +173,7 @@ class FbmessengerController < ApplicationController
                     "template_type": "generic",
                     "elements": [{
                       "title": @gift.name ,
-                      "subtitle": @gift.company_name+"\n価格:"+priceView(@gift.price),
+                      "subtitle": @gift.company_name,
                       "image_url": "https://mocca-giftfinder.herokuapp.com/gifts/"+@gift.id.to_s+"/img",
                       "buttons": [{
                         "type": "web_url",
@@ -304,8 +304,10 @@ class FbmessengerController < ApplicationController
                     bayes_calc
                     
                     #デフォルトで評価を1ずつプラス
-                    up_calc(@expTop1.id,1)
-                    down_calc(@expTop1.id,1)
+                    @expTop3.each do |exp|
+                      up_calc(exp.id,1)
+                      down_calc(exp.id,1)
+                    end
                     
                     messageData = {
                       "attachment": {
@@ -313,21 +315,55 @@ class FbmessengerController < ApplicationController
                         "payload": {
                           "template_type": "generic",
                           "elements": [{
-                            "title": @expTop1.name ,
-                            "subtitle": @expTop1.company_name+"\n価格:"+priceView(@expTop1.price),
-                            "image_url": "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img",
+                            "title": @expTop3[0].name ,
+                            "subtitle": @expTop3[0].company_name,
+                            "image_url": "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop3[0].id.to_s+"/img",
                             "buttons": [{
                               "type": "web_url",
-                              "url": @expTop1.url ,
+                              "url": @expTop3[0].url ,
                               "title": "ご購入はこちらから！"
                             }, {
                               "type": "postback",
                               "title": "Like",
-                              "payload": "eval,"+@expTop1.id.to_s+",1,"+qflowid,
+                              "payload": "eval,"+@expTop3[0].id.to_s+",1,"+qflowid,
                             }, {
                               "type": "postback",
                               "title": "Dislike",
-                              "payload": "eval,"+@expTop1.id.to_s+",2,"+qflowid,
+                              "payload": "eval,"+@expTop3[0].id.to_s+",2,"+qflowid,
+                            }],
+                          },{
+                            "title": @expTop3[1].name ,
+                            "subtitle": @expTop3[1].company_name,
+                            "image_url": "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop3[1].id.to_s+"/img",
+                            "buttons": [{
+                              "type": "web_url",
+                              "url": @expTop3[1].url ,
+                              "title": "ご購入はこちらから！"
+                            }, {
+                              "type": "postback",
+                              "title": "Like",
+                              "payload": "eval,"+@expTop3[1].id.to_s+",1,"+qflowid,
+                            }, {
+                              "type": "postback",
+                              "title": "Dislike",
+                              "payload": "eval,"+@expTop3[1].id.to_s+",2,"+qflowid,
+                            }],
+                          },{
+                            "title": @expTop3[2].name ,
+                            "subtitle": @expTop3[2].company_name,
+                            "image_url": "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop3[2].id.to_s+"/img",
+                            "buttons": [{
+                              "type": "web_url",
+                              "url": @expTop3[2].url ,
+                              "title": "ご購入はこちらから！"
+                            }, {
+                              "type": "postback",
+                              "title": "Like",
+                              "payload": "eval,"+@expTop3[2].id.to_s+",1,"+qflowid,
+                            }, {
+                              "type": "postback",
+                              "title": "Dislike",
+                              "payload": "eval,"+@expTop3[2].id.to_s+",2,"+qflowid,
                             }],
                           }]
                         }
@@ -433,8 +469,24 @@ class FbmessengerController < ApplicationController
               @giftExp[gift] = 1-2*@bayes[gift]
           end
 
-          @expTop1=Gift.find_by_id(1)
-          @expTop1=@giftExp.sort_by{|key, value| -value}[0][0]
+          # @expTop1=Gift.find_by_id(1)
+          # @expTop1=@giftExp.sort_by{|key, value| -value}[0][0]
+          
+          #価格帯でギフトを分類
+          @giftExp1 = @giftExp.select {|k, v| k.price==1}
+          @giftExp2 = @giftExp.select {|k, v| k.price==2}
+          @giftExp3 = @giftExp.select {|k, v| k.price==3}
+          @giftExp4 = @giftExp.select {|k, v| k.price==4}
+          @giftExp5 = @giftExp.select {|k, v| k.price==5}
+          
+          @giftExp12 = @giftExp1.merge(@giftExp2)
+          @giftExp45 = @giftExp4.merge(@giftExp5)
+          
+          @expTop3=Array.new(3,Gift.find_by_id(1))
+            @expTop3[0]=@giftExp45.sort_by{|key, value| -value}[0][0]
+            @expTop3[1]=@giftExp3.sort_by{|key, value| -value}[0][0]
+            @expTop3[2]=@giftExp12.sort_by{|key, value| -value}[0][0]
+
           
     end
   
