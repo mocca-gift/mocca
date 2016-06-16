@@ -73,9 +73,9 @@
 .companyname_container {
   position: absolute;
   left: 50%;
-  top: 60px;
+  top: 55px;
   width: 200px;
-  height: 20px;
+  height: 25px;
   overflow: scroll;
   margin-left: -100px;
 }
