@@ -46,6 +46,7 @@
     text-align: center;
     /*color: #FFFFFF;*/
     position: relative;
+    height: 80px;
 }
 
 
@@ -54,6 +55,8 @@
   left: 50%;
   top: 0px;
   width: 200px;
+  height: 55px;
+  overflow: scroll;
   margin-left: -100px;
 }
 
@@ -66,7 +69,10 @@
 .giftname h4{
   margin-top: 0;
   font-size: 4em;
-  width: 50px;
+}
+.companyname {
+  position:absolute;
+  top: 55px;
 }
 
 .heart {
