@@ -30,7 +30,7 @@
         <% @gifts.each do |gift| %>
         gifturls[i].style ="background-image: url('/gifts/<%= gift.id %>/img');";
         giftnames[i].innerHTML = "<%= gift.name %>";
-        urls[i].innerHTML = "<%= gift.url %>";
+        urls[i].innerHTML = "→ご購入はこちらから！";
         urls[i].href = "<%= gift.url %>";
         companynames[i].innerHTML = "<%= gift.company_name %>";
         i++;

@@ -32,7 +32,7 @@
         gifts[i].style.backgroundImage="url(https://mocca-giftfinder.herokuapp.com/gifts/<%= gift.id %>/img)";
         gifts[i].href = "<%= gift.url %>";
         giftnames[i].innerHTML="<%= gift.name %>";
-        urls[i].innerHTML = "<%= gift.url %>";
+        urls[i].innerHTML = "→ご購入はこちらから！";
         urls[i].href = "<%= gift.url %>";
         companynames[i].innerHTML = "<%= gift.company_name %>";
         twitters[i].href = "http://twitter.com/intent/tweet?text=<%= gift.name %> <%= gift.url %>&url=<%= gift.url %>&via=MoccaGift";
