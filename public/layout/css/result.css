@@ -57,6 +57,7 @@
 
 .contents {
   overflow-y: scroll;
+  border: solid 3px rgba(0,0,0,0);
 }
  
 /* Scroll Bar */

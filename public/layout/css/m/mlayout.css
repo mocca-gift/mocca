@@ -31,13 +31,15 @@ a:active {
 
   
 .contents {
+  overflow: hidden;
   width: 90%;
   margin-left: 5%;
   background-color: rgba(255,255,255,0.7);
   padding: 10px;
   margin-top: 50px;
-  
+  border: solid 3px rgb(0,30,67);
  }
+
  
  /*************************Loading画面*************************/
 

@@ -123,6 +123,7 @@ body {
   background-size:  771px 400px;
   background-repeat: no-repeat;
   background-position: center;
+  border: solid 5px rgb(0,30,67);
   /*background-attachment: fixed;*/
 }
 
@@ -206,6 +207,7 @@ body {
   width: 200px;
   padding: 5px;
   border: solid 3px;
+  background-color: rgba(255,255,255,0.7);
   
 }
 
@@ -245,6 +247,7 @@ body {
   padding: 5px;
   border: solid 3px;
   position:relative;
+  background-color: rgba(255,255,255,0.7);
   
 }
 
@@ -284,7 +287,7 @@ body {
   padding: 5px;
   border: solid 3px;
   position:relative;
-  
+  background-color: rgba(255,255,255,0.7);
 }
 
 .i_description:before {

@@ -23,6 +23,7 @@
         var gifturls   = document.getElementsByClassName("gifturl");
         var giftnames   = document.getElementsByClassName("giftname");
         var urls   = document.getElementsByClassName("url");
+        var companynames = document.getElementsByClassName("companyname");
         
         i=0;
         hiduke=new Date();
@@ -31,6 +32,7 @@
         giftnames[i].innerHTML = "<%= gift.name %>";
         urls[i].innerHTML = "<%= gift.url %>";
         urls[i].href = "<%= gift.url %>";
+        companynames[i].innerHTML = "<%= gift.company_name %>";
         i++;
         <% end %>
     }
@@ -71,6 +73,51 @@
   });
 
   </script>
+  <style>
+    .share {
+    position: absolute;
+    width: 60px;
+    height: 150px;
+    top: 30%;
+    right: 40px;
+  }
+  .share-box {
+    height: 60px;
+    width: 60px;
+    float: left;
+    margin: 5px;
+  }
+  .share-button {
+    display:block;
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+    background-size: 60px 60px;
+    text-indent: -9999px;
+  }
+  a.share-button:hover {
+    -webkit-transform: scale(1.2);
+    -moz-transform: scale(1.2);
+    -o-transform: scale(1.2);
+    -ms-transform: scale(1.2);
+    transform: scale(1.2);
+  }
+  .phrase {
+    background-image: url("/image/share.png");
+  }
+  .twitter {
+    background-image: url('/image/Twitter.png');
+  }
+  .facebook {
+    background-image: url('/image/Facebook.png');
+  }
+  .googlePlus {
+    background-image: url('/image/Google+.png');
+  }
+  .line {
+    background-image: url('/image/Line.png');
+  }
+  </style>
   
 <div class="contents">
   
@@ -84,9 +131,10 @@
         <div class="content">
           <div class="gifturl">
             <div class="g_description" style="display: none;">
-              <h2 class="giftname"></h2>
+              <h4 class="giftname"></h4>
+              <h5 class="companyname"></h5>
               <a class="url" target="_blank"></a>
-              <img class="heart" src="/image/emptyheart2.png">
+              <!--<img class="heart" src="/image/emptyheart2.png">-->
             </div>
           </div>
         </div>
@@ -95,9 +143,10 @@
         <div class="content">
           <div class="gifturl">
             <div class="g_description" style="display: none;">
-              <h2 class="giftname"></h2>
+              <h4 class="giftname"></h4>
+              <h5 class="companyname"></h5>
               <a class="url" target="_blank"></a>
-              <img class="heart" src="/image/emptyheart2.png">
+              <!--<img class="heart" src="/image/emptyheart2.png">-->
             </div>
           </div>
         </div>
@@ -106,9 +155,10 @@
         <div class="content">
           <div class="gifturl">
             <div class="g_description" style="display: none;">
-              <h2 class="giftname"></h2>
+              <h4 class="giftname"></h4>
+              <h5 class="companyname"></h5>
               <a class="url" target="_blank"></a>
-              <img class="heart" src="/image/emptyheart2.png">
+              <!--<img class="heart" src="/image/emptyheart2.png">-->
             </div>
           </div>
         </div>
@@ -117,9 +167,10 @@
         <div class="content">
           <div class="gifturl">
             <div class="g_description" style="display: none;">
-              <h2 class="giftname"></h2>
+              <h4 class="giftname"></h4>
+              <h5 class="companyname"></h5>
               <a class="url" target="_blank"></a>
-              <img class="heart" src="/image/emptyheart2.png">
+              <!--<img class="heart" src="/image/emptyheart2.png">-->
             </div>
           </div>
         </div>
@@ -128,9 +179,10 @@
         <div class="content">
           <div class="gifturl">
             <div class="g_description" style="display: none;">
-              <h2 class="giftname"></h2>
+              <h4 class="giftname"></h4>
+              <h5 class="companyname"></h5>
               <a class="url" target="_blank"></a>
-              <img class="heart" src="/image/emptyheart2.png">
+              <!--<img class="heart" src="/image/emptyheart2.png">-->
             </div>
           </div>
         </div>
@@ -139,12 +191,21 @@
         <div class="content">
           <div class="gifturl">
             <div class="g_description" style="display: none;">
-              <h2 class="giftname"></h2>
+              <h4 class="giftname"></h4>
+              <h5 class="companyname"></h5>
               <a class="url" target="_blank"></a>
-              <img class="heart" src="/image/emptyheart2.png">
+              <!--<img class="heart" src="/image/emptyheart2.png">-->
             </div>
           </div>
         </div>
       </div> 
       
 </div>
+
+<div class="share">
+    <div class="share-box"><div class="share-button phrase"></div></div>
+    <div class="share-box"><a class="share-button twitter" href="http://twitter.com/intent/tweet?text=MOCCAでこんなプレゼント見つけたよ！!&url=https://mocca-giftfinder.herokuapp.com" onclick="window.open(encodeURI(decodeURI(this.href)), 'tweetwindow', 'width=550, height=450, personalbar=0, toolbar=0, scrollbars=1, resizable=1' ); return false;" target="_blank"><i class="fontawesome-twitter"></i>ツイート</a></div>
+    <div class="share-box"><a class="share-button facebook" href="http://www.facebook.com/share.php?u=https://mocca-giftfinder.herokuapp.com" onclick="window.open(this.href, 'window', 'width=550, height=450,personalbar=0,toolbar=0,scrollbars=1,resizable=1'); return false;"><i class="fontawesome-facebook"></i>シェア</a></div>
+    <!--<div class="share-box"><a class="share-button googlePlus" href="javascript:(function(){window.open('https://plusone.google.com/_/+1/confirm?hl=ja&url=https://mocca-giftfinder.herokuapp.com'+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title),'_blank');})();"><i class="fontawesome-google-plus"></i>+1</a></div>-->
+    <div class="share-box"><a class="share-button line" href="http://line.me/R/msg/text/?MOCCAでこんなプレゼント見つけたよ！">LINE</a></div>
+</div><!-- / #share --> 

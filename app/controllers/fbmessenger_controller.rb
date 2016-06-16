@@ -361,7 +361,7 @@ class FbmessengerController < ApplicationController
                               "title": "ご購入はこちらから！"
                             }, {
                               "type": "postback",
-                              "title": "(👍Like",
+                              "title": "👍Like",
                               "payload": "eval,"+@expTop3[0].id.to_s+",1,"+qflowid,
                             }, {
                               "type": "postback",

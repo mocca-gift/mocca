@@ -21,19 +21,23 @@
         var gifts   = document.getElementsByClassName("gift");
         var giftnames   = document.getElementsByClassName("giftname");
         var contents = document.getElementsByClassName("content");
+        var urls   = document.getElementsByClassName("url");
+        var companynames = document.getElementsByClassName("companyname");
+        var twitters = document.getElementsByClassName("twitter");
+        var facebooks = document.getElementsByClassName("facebook");
+        var lines = document.getElementsByClassName("line");
         
         i=0;
-        hiduke=new Date();
         <% @gifts.each do |gift| %>
         gifts[i].style.backgroundImage="url(https://mocca-giftfinder.herokuapp.com/gifts/<%= gift.id %>/img)";
         gifts[i].href = "<%= gift.url %>";
         giftnames[i].innerHTML="<%= gift.name %>";
-        
-        var h1y=hiduke.getFullYear();
-        var h1d=hiduke.getDate()+hiduke.getMonth()*30.5;
-        var h2y=<%= gift.created_at.year %>;
-        var h2d=<%= gift.created_at.yday %>;
-        var sa=h1y*365+h1d-h2y*365-h2d;
+        urls[i].innerHTML = "<%= gift.url %>";
+        urls[i].href = "<%= gift.url %>";
+        companynames[i].innerHTML = "<%= gift.company_name %>";
+        twitters[i].href = "http://twitter.com/intent/tweet?text=<%= gift.name %> <%= gift.url %>&url=<%= gift.url %>&via=MoccaGift";
+        facebooks[i].href = "http://www.facebook.com/share.php?u=<%= gift.url %>";
+        lines[i].href = "http://line.me/R/msg/text/?<%= gift.name %><%= gift.url %>";
         i++;
         <% end %>
     }
@@ -41,42 +45,142 @@
     <% end %>
   <!--**********Main Script End**********-->
   
+  <style>
+  .share {
+    position: absolute;
+    width: 135px;
+    height: 45px;
+    bottom: 0px;
+    left: 50%;
+    margin-left: -67.5px;
+  }
+  .share-box {
+    height: 35px;
+    width: 35px;
+    margin: 5px;
+    float: left;
+  }
+  .share-button {
+    display:block;
+    width: 35px;
+    height: 35px;
+    border-radius: 17.5px;
+    background-size: 35px 35px;
+    text-indent: -9999px;
+  }
+  .twitter {
+    background-image: url('/image/Twitter.png');
+  }
+  .facebook {
+    background-image: url('/image/Facebook.png');
+  }
+  .line {
+    background-image: url('/image/Line.png');
+  }
+</style>
+  
     <div class="newones">
         <div class="header"><img class="nalg" src="/image/na.png"></div>
         <div class="wrapper">
             <div class="content">
                 <a class="gift"></a>
-                <div class="giftname"></div>
+            </div>
+        </div>
+        <div class="wrapper1">
+            <div class="content1">
+                <h3 class="giftname"></h3>
+                <div class="companyname"></div>
+                <a class="url"></a>
+                <div class="share">
+                    <div class="share-box"><a class="share-button twitter" href="http://twitter.com/intent/tweet?text=MOCCA使ってみて!&url=https://mocca-giftfinder.herokuapp.com" onclick="window.open(encodeURI(decodeURI(this.href)), 'tweetwindow', 'width=550, height=450, personalbar=0, toolbar=0, scrollbars=1, resizable=1' ); return false;" target="_blank"><i class="fontawesome-twitter"></i>ツイート</a></div>
+                    <div class="share-box"><a class="share-button facebook" href="http://www.facebook.com/share.php?u=https://mocca-giftfinder.herokuapp.com" onclick="window.open(this.href, 'window', 'width=550, height=450,personalbar=0,toolbar=0,scrollbars=1,resizable=1'); return false;"><i class="fontawesome-facebook"></i>シェア</a></div>
+                    <div class="share-box"><a class="share-button line" href="http://line.me/R/msg/text/?こんにちは">LINE</a></div>
+                </div><!-- / #share --> 
             </div>
         </div>
         <div class="wrapper">
             <div class="content">
                 <a class="gift"></a>
-                <div class="giftname"></div>
+            </div>
+        </div>
+        <div class="wrapper1">
+            <div class="content1">
+                <h3 class="giftname"></h3>
+                <div class="companyname"></div>
+                <a class="url"></a>
+                <div class="share">
+                    <div class="share-box"><a class="share-button twitter" href="http://twitter.com/intent/tweet?text=MOCCA使ってみて!&url=https://mocca-giftfinder.herokuapp.com" onclick="window.open(encodeURI(decodeURI(this.href)), 'tweetwindow', 'width=550, height=450, personalbar=0, toolbar=0, scrollbars=1, resizable=1' ); return false;" target="_blank"><i class="fontawesome-twitter"></i>ツイート</a></div>
+                    <div class="share-box"><a class="share-button facebook" href="http://www.facebook.com/share.php?u=https://mocca-giftfinder.herokuapp.com" onclick="window.open(this.href, 'window', 'width=550, height=450,personalbar=0,toolbar=0,scrollbars=1,resizable=1'); return false;"><i class="fontawesome-facebook"></i>シェア</a></div>
+                    <div class="share-box"><a class="share-button line" href="http://line.me/R/msg/text/?こんにちは">LINE</a></div>
+                </div><!-- / #share --> 
             </div>
         </div>
         <div class="wrapper">
             <div class="content">
                 <a class="gift"></a>
-                <div class="giftname"></div>
+            </div>
+        </div>
+        <div class="wrapper1">
+            <div class="content1">
+                <h3 class="giftname"></h3>
+                <div class="companyname"></div>
+                <a class="url"></a>
+                <div class="share">
+                    <div class="share-box"><a class="share-button twitter" href="http://twitter.com/intent/tweet?text=MOCCA使ってみて!&url=https://mocca-giftfinder.herokuapp.com" onclick="window.open(encodeURI(decodeURI(this.href)), 'tweetwindow', 'width=550, height=450, personalbar=0, toolbar=0, scrollbars=1, resizable=1' ); return false;" target="_blank"><i class="fontawesome-twitter"></i>ツイート</a></div>
+                    <div class="share-box"><a class="share-button facebook" href="http://www.facebook.com/share.php?u=https://mocca-giftfinder.herokuapp.com" onclick="window.open(this.href, 'window', 'width=550, height=450,personalbar=0,toolbar=0,scrollbars=1,resizable=1'); return false;"><i class="fontawesome-facebook"></i>シェア</a></div>
+                    <div class="share-box"><a class="share-button line" href="http://line.me/R/msg/text/?こんにちは">LINE</a></div>
+                </div><!-- / #share --> 
             </div>
         </div>
         <div class="wrapper">
             <div class="content">
                 <a class="gift"></a>
-                <div class="giftname"></div>
+            </div>
+        </div>
+        <div class="wrapper1">
+            <div class="content1">
+                <h3 class="giftname"></h3>
+                <div class="companyname"></div>
+                <a class="url"></a>
+                <div class="share">
+                    <div class="share-box"><a class="share-button twitter" href="http://twitter.com/intent/tweet?text=MOCCA使ってみて!&url=https://mocca-giftfinder.herokuapp.com" onclick="window.open(encodeURI(decodeURI(this.href)), 'tweetwindow', 'width=550, height=450, personalbar=0, toolbar=0, scrollbars=1, resizable=1' ); return false;" target="_blank"><i class="fontawesome-twitter"></i>ツイート</a></div>
+                    <div class="share-box"><a class="share-button facebook" href="http://www.facebook.com/share.php?u=https://mocca-giftfinder.herokuapp.com" onclick="window.open(this.href, 'window', 'width=550, height=450,personalbar=0,toolbar=0,scrollbars=1,resizable=1'); return false;"><i class="fontawesome-facebook"></i>シェア</a></div>
+                    <div class="share-box"><a class="share-button line" href="http://line.me/R/msg/text/?こんにちは">LINE</a></div>
+                </div><!-- / #share --> 
             </div>
         </div>
         <div class="wrapper">
             <div class="content">
                 <a class="gift"></a>
-                <div class="giftname"></div>
+            </div>
+        </div>
+        <div class="wrapper1">
+            <div class="content1">
+                <h3 class="giftname"></h3>
+                <div class="companyname"></div>
+                <a class="url"></a>
+                <div class="share">
+                    <div class="share-box"><a class="share-button twitter" href="http://twitter.com/intent/tweet?text=MOCCA使ってみて!&url=https://mocca-giftfinder.herokuapp.com" onclick="window.open(encodeURI(decodeURI(this.href)), 'tweetwindow', 'width=550, height=450, personalbar=0, toolbar=0, scrollbars=1, resizable=1' ); return false;" target="_blank"><i class="fontawesome-twitter"></i>ツイート</a></div>
+                    <div class="share-box"><a class="share-button facebook" href="http://www.facebook.com/share.php?u=https://mocca-giftfinder.herokuapp.com" onclick="window.open(this.href, 'window', 'width=550, height=450,personalbar=0,toolbar=0,scrollbars=1,resizable=1'); return false;"><i class="fontawesome-facebook"></i>シェア</a></div>
+                    <div class="share-box"><a class="share-button line" href="http://line.me/R/msg/text/?こんにちは">LINE</a></div>
+                </div><!-- / #share --> 
             </div>
         </div>
         <div class="wrapper">
             <div class="content">
                 <a class="gift"></a>
-                <div class="giftname"></div>
+            </div>
+        </div>
+        <div class="wrapper1">
+            <div class="content1">
+                <h3 class="giftname"></h3>
+                <div class="companyname"></div>
+                <a class="url"></a>
+                <div class="share">
+                    <div class="share-box"><a class="share-button twitter" href="http://twitter.com/intent/tweet?text=MOCCA使ってみて!&url=https://mocca-giftfinder.herokuapp.com" onclick="window.open(encodeURI(decodeURI(this.href)), 'tweetwindow', 'width=550, height=450, personalbar=0, toolbar=0, scrollbars=1, resizable=1' ); return false;" target="_blank"><i class="fontawesome-twitter"></i>ツイート</a></div>
+                    <div class="share-box"><a class="share-button facebook" href="http://www.facebook.com/share.php?u=https://mocca-giftfinder.herokuapp.com" onclick="window.open(this.href, 'window', 'width=550, height=450,personalbar=0,toolbar=0,scrollbars=1,resizable=1'); return false;"><i class="fontawesome-facebook"></i>シェア</a></div>
+                    <div class="share-box"><a class="share-button line" href="http://line.me/R/msg/text/?こんにちは">LINE</a></div>
+                </div><!-- / #share --> 
             </div>
         </div>
     </div>
