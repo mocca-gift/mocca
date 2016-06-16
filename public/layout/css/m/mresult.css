@@ -49,8 +49,11 @@
 }
 
 .giftname_container {
-  width: 250px;
-  margin-left: 10px;
+  position: absolute;
+  left: 50%;
+  top: 0px;
+  width: 200px;
+  margin-left: -100px;
 }
 
 .giftname h4{
@@ -113,4 +116,5 @@
 
 .contents {
   border: solid 3px rgba(0,0,0,0);
+  position: relative;
 }
