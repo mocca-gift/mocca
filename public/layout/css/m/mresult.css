@@ -51,7 +51,7 @@
 .giftname h4{
   margin-top: 0;
   font-size: 4em;
-  width: 150px;
+  width: 50px;
 }
 
 .heart {
@@ -66,15 +66,16 @@
 /*YES,NOボタンレイアウト*/
 
 .btns {
-    border: solid 1px;
-    background-color: #E6E6FA;
+    border: solid 3px;
+    /*background-color: #E6E6FA;*/
     text-align: center;
+    margin-bottom: 5px;
   }
 
 /*ボタンをタップした時のレイアウト  */
 
 .tapStyle {
-  background-color: rgba(0,0,255,1);
+  background-color: rgba(150,150,150,1);
 }
 
 
