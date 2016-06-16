@@ -48,7 +48,11 @@
     position: relative;
 }
 
-.giftname h5{
+.giftname_container {
+  width: 150px;
+}
+
+.giftname h4{
   margin-top: 0;
   font-size: 4em;
   width: 50px;
