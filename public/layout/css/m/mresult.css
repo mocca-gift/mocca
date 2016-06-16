@@ -70,10 +70,14 @@
   margin-top: 0;
   font-size: 4em;
 }
-.companyname {
-  position:absolute;
-  text-align: center;
-  top: 55px;
+.companyname_container {
+  position: absolute;
+  left: 50%;
+  top: 60px;
+  width: 200px;
+  height: 20px;
+  overflow: scroll;
+  margin-left: -100px;
 }
 
 .heart {
