@@ -48,12 +48,19 @@
     position: relative;
 }
 
+
 .giftname_container {
   position: absolute;
   left: 50%;
   top: 0px;
   width: 200px;
   margin-left: -100px;
+}
+
+.giftname_container:after {
+  content: "";
+  display: block;
+  clear: both;
 }
 
 .giftname h4{
@@ -78,8 +85,6 @@
     /*background-color: #E6E6FA;*/
     text-align: center;
     margin-bottom: 5px;
-    position: absolute;
-    bottom: 5px;
   }
 
 /*ボタンをタップした時のレイアウト  */
