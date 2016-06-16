@@ -75,6 +75,8 @@
     /*background-color: #E6E6FA;*/
     text-align: center;
     margin-bottom: 5px;
+    position: absolute;
+    bottom: 5px;
   }
 
 /*ボタンをタップした時のレイアウト  */
