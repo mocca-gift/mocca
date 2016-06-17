@@ -44,7 +44,7 @@
         i=1;
         hiduke=new Date();
         <% @giftRes.each do |exp| %>
-        giftnames[i].innerHTML= "<h4><%= exp.name %></h4>";
+        giftnames[i].innerHTML= "<h6><%= exp.name %></h6>";
         giftnames[i].href= "<%= exp.url %>";
         gifturls[i].href = "<%= exp.url %>";
         gifturls[i].style.backgroundImage= 'url(https://mocca-giftfinder.herokuapp.com/gifts/<%= exp.id %>/img)';
@@ -325,6 +325,10 @@
       position: absolute;
       top: 5px;
       right: 5px;
+    }
+    
+    .gift {
+      position: relative;
     }
     
     .share {
