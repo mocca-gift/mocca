@@ -46,7 +46,6 @@
         <% @giftRes.each do |exp| %>
         giftnames[i].innerHTML= "<h5><%= exp.name %></h5>";
         giftnames[i].href= "<%= exp.url %>";
-        gifturls[i].href = "<%= exp.url %>";
         gifturls[i].style.backgroundImage= 'url(https://mocca-giftfinder.herokuapp.com/gifts/<%= exp.id %>/img)';
         companynames[i].innerHTML= "<%= exp.company_name %>";
         twitters[i].href = "http://twitter.com/intent/tweet?text=<%= exp.name %>&url=<%= exp.url %>&via=MoccaGift";
@@ -369,7 +368,7 @@
   a.giftname:visited {
     color: rgb(0,0,255);
   }
-  a {
+  a:visited {
     outline: none;
   }
   </style>
@@ -384,7 +383,7 @@
               <!-- Header Start -->
               <div class="giftheader">
                 <div class="giftname_container">
-                  <a class="giftname"></a>
+                  <a class="giftname" target="_blank"></a>
                 </div>
                 <div class="companyname_container">
                   <h6 class="companyname"></h6> 
@@ -395,7 +394,7 @@
               <!-- Gift Content Start -->
               <div class="giftcontent">
                 <div class="price"></div>
-                <a class="gifturl" target="_blank"></a>
+                <div class="gifturl"></div>
               </div>
               <!-- Gift Content End -->
               <div class="share">
@@ -411,7 +410,7 @@
               <!-- Header Start -->
               <div class="giftheader">
                 <div class="giftname_container">
-                  <a class="giftname"></a>
+                  <a class="giftname" target="_blank"></a>
                 </div>
                 <div class="companyname_container">
                   <h6 class="companyname"></h6> 
@@ -422,7 +421,7 @@
               <!-- Gift Content Start -->
               <div class="giftcontent">
                 <div class="price"></div>
-                <a class="gifturl" target="_blank"></a>
+                <div class="gifturl"></div>
               </div>
               <!-- Gift Content End -->
               <div class="share">
@@ -438,7 +437,7 @@
               <!-- Header Start -->
               <div class="giftheader">
                 <div class="giftname_container">
-                  <a class="giftname"></a>
+                  <a class="giftname" target="_blank"></a>
                 </div>
                 <div class="companyname_container">
                   <h6 class="companyname"></h6> 
@@ -449,7 +448,7 @@
               <!-- Gift Content Start -->
               <div class="giftcontent">
                 <div class="price"></div>
-                <a class="gifturl" target="_blank"></a>
+                <div class="gifturl"></div>
                 
               </div>
               <!-- Gift Content End -->
@@ -466,7 +465,7 @@
               <!-- Header Start -->
               <div class="giftheader">
                 <div class="giftname_container">
-                  <a class="giftname"></a>
+                  <a class="giftname" target="_blank"></a>
                 </div>
                 <div class="companyname_container">
                   <h6 class="companyname"></h6> 
@@ -477,7 +476,7 @@
               <!-- Gift Content Start -->
               <div class="giftcontent">
                 <div class="price"></div>
-                <a class="gifturl" target="_blank"></a>
+                <div class="gifturl"></div>
               </div>
               <!-- Gift Content End -->
               <div class="share">
@@ -493,7 +492,7 @@
               <!-- Header Start -->
               <div class="giftheader">
                 <div class="giftname_container">
-                  <a class="giftname"></a>
+                  <a class="giftname" target="_blank"></a>
                 </div>
                 <div class="companyname_container">
                   <h6 class="companyname"></h6> 
@@ -504,7 +503,7 @@
               <!-- Gift Content Start -->
               <div class="giftcontent">
                 <div class="price"></div>
-                <a class="gifturl" target="_blank"></a>
+                <div class="gifturl"></div>
               </div>
               <!-- Gift Content End -->
               <div class="share">
@@ -520,7 +519,7 @@
               <!-- Header Start -->
               <div class="giftheader">
                 <div class="giftname_container">
-                  <a class="giftname"></a>
+                  <a class="giftname" target="_blank"></a>
                 </div>
                 <div class="companyname_container">
                   <h6 class="companyname"></h6> 
@@ -531,7 +530,7 @@
               <!-- Gift Content Start -->
               <div class="giftcontent">
                 <div class="price"></div>
-                <a class="gifturl" target="_blank"></a>
+                <div class="gifturl"></div>
               </div>
               <!-- Gift Content End -->
               <div class="share">
