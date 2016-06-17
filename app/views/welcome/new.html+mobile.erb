@@ -35,9 +35,9 @@
         urls[i].innerHTML = "→ご購入はこちらから！";
         urls[i].href = "<%= gift.url %>";
         companynames[i].innerHTML = "<%= gift.company_name %>";
-        twitters[i].href = "http://twitter.com/intent/tweet?text=<%= gift.name %> <%= gift.url %>&url=<%= gift.url %>&via=MoccaGift";
+        twitters[i].href = "http://twitter.com/intent/tweet?text=<%= gift.name %>&url=<%= gift.url %>&via=MoccaGift";
         facebooks[i].href = "http://www.facebook.com/share.php?u=<%= gift.url %>";
-        lines[i].href = "http://line.me/R/msg/text/?<%= gift.name %><%= gift.url %>";
+        lines[i].href = "http://line.me/R/msg/text/?<%= gift.name %>%0D%0A<%= gift.url %>";
         i++;
         <% end %>
     }
