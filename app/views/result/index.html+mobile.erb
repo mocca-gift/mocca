@@ -49,9 +49,9 @@
         gifturls[i].href = "<%= exp.url %>";
         gifturls[i].style.backgroundImage= 'url(https://mocca-giftfinder.herokuapp.com/gifts/<%= exp.id %>/img)';
         companynames[i].innerHTML= "<%= exp.company_name %>";
-        twitters[i].href = "http://twitter.com/intent/tweet?text=<%= gift.name %>&url=<%= gift.url %>&via=MoccaGift";
-        facebooks[i].href = "http://www.facebook.com/share.php?u=<%= gift.url %>";
-        lines[i].href = "http://line.me/R/msg/text/?<%= gift.name %>%0D%0A<%= gift.url %>";
+        twitters[i].href = "http://twitter.com/intent/tweet?text=<%= exp.name %>&url=<%= exp.url %>&via=MoccaGift";
+        facebooks[i].href = "http://www.facebook.com/share.php?u=<%= exp.url %>";
+        lines[i].href = "http://line.me/R/msg/text/?<%= exp.name %>%0D%0A<%= exp.url %>";
         
         switch(<%= exp.price %>){
         
