@@ -278,7 +278,7 @@
 		  }
 		  input[type="text"] {
 		  	border-bottom: solid 1px gray;
-		  	width: 80%;
+		  	width: 100%;
 		  }
 		  .submit_button {
 		  	position: absolute;
@@ -351,19 +351,29 @@
 		  	background-color: transparent;
 		  }
 		  
-		  .result_space .for_search {
-		  	display:none;
+		  /*.result_space .for_search {*/
+		  /*	display:none;*/
+		  /*}*/
+		  .desc {
+		  	text-align: center;
 		  }
 		</style>
 		    <div class="space searching">
 		    	<div class="search">
 		    		<form name="search_form" id="search_form">
-		    			<input type="search" name="searchWord" placeholder="プレゼントをあげる日を検索">
+		    			<input type="search" name="searchWord" placeholder="検索">
 		    		</form>
 		    		<a class="search_button" href="javascript:void(0)"></a>
 		    	</div>
 		    	<div class="result_space for_search">
 		    		<div class="result">
+		    			<div class="desc">
+		    				<h4><i class="glyphicon glyphicon-heart"></i><i class="glyphicon glyphicon-heart"></i><i class="glyphicon glyphicon-heart"></i></h4>
+		    				<p>素敵な日に素敵なプレゼントを渡しましょう。</p>
+		    				<p>ここではギフトの日、<BR>カドゥ・ジュール/Cadeau jour<BR>を検索できます。</p>
+		    				<p>また、新しいカドゥ・ジュールを登録することもできます。</p>
+		    				<h4><i class="glyphicon glyphicon-heart"></i><i class="glyphicon glyphicon-heart"></i><i class="glyphicon glyphicon-heart"></i></h4>
+		    			</div>
 		    		</div>
 		    	</div>
 		    </div>
