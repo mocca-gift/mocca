@@ -1,5 +1,18 @@
 class CalendarsController < ApplicationController
   before_action :set_calendar, only: [:show, :edit, :update, :destroy]
+   before_action do
+        #端末によってViewファイルを振り分ける
+        if (request.user_agent.include?("Mobile") || request.user_agent.include?("iPhone")) || request.user_agent.include?("Android") then
+            request.variant = :mobile
+        else
+        end
+        # case params[:device]
+        # when 'tablet'
+        #   request.variant = :tablet
+        # when 'mobile'
+        #   request.variant = :mobile
+        # end
+    end
 
   # GET /calendars
   # GET /calendars.json
