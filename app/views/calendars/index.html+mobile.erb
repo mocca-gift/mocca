@@ -1,21 +1,4 @@
-		<!--Calendario-->
-		<link rel="stylesheet" type="text/css" href="/calendario/css/calendar.css" />
-		<link rel="stylesheet" type="text/css" href="/calendario/css/custom_1.css" />
-		<script src="/calendario/js/modernizr.custom.63321.js"></script>
-		
-		<script type="text/javascript">
 
-		  var _gaq = _gaq || [];
-		  _gaq.push(['_setAccount', 'UA-7243260-2']);
-		  _gaq.push(['_trackPageview']);
-
-		  (function() {
-		    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-		    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-		  })();
-
-		</script>
 		<script>
 			$(function(){
 				$('.addnew_button').on('click', function(){
@@ -56,33 +39,6 @@
 							});
 				});
 				
-				
-				
-				// $("body").keypress( function( event ) {
-				// 	if( event.which === 13 ){
-				// 		searchWord = $('#search_form [name=searchWord]').val();
-				// 		searchWordArray = searchWord.replace("　", " ").replace(/\s+/g," ").split(" ");
-				// 		searchWordWithoutSpace = searchWordArray.join(",");
-				// 		$.ajax({
-				// 			type: 'GET',
-				// 			url: '/calendar/search',
-				// 			data: {
-				// 				searchword: searchWordWithoutSpace
-				// 			},
-				// 			dataType: 'text'
-				// 		})
-				// 		.done(function( data, textStatus, jqXHR ) {
-				// 		        $('.result').html(data);
-				// 		})
-				// 		.fail(function( jqXHR, textStatus, errorThrown ) {
-						       
-				// 		})
-				// 		.always(function( jqXHR, textStatus ) {
-						        
-				// 		});
-				// 	}
-				// });
-					
 				$("#search_form").keypress(function(ev) {
 					if ((ev.which && ev.which === 13) || (ev.keyCode && ev.keyCode === 13)) {
 						searchWord = $('#search_form [name=searchWord]').val();
@@ -235,11 +191,8 @@
 		<style>
 	
 		  .space {
-		  	position: absolute;
-		  	width: 33%;
-		  	height: 80%;
-		  	right: 1%;
-		  	top: 5%;
+		  	width: 100%;
+		  	height: 100%;
 		  	/*border: solid 1px;*/
 		  	padding: 3px;
 		  	/*overflow: scroll;*/
@@ -270,7 +223,7 @@
 		  	width: 95%;
 		  	margin: auto;
 		  	margin-top: 5px;
-		  	height: 255px;
+		  	height: 355px;
 		  	overflow-y: scroll;
 		  }
 		  .result_space::-webkit-scrollbar {
@@ -389,9 +342,15 @@
 		  	width: 95%;
 		  	/*overflow-y: scroll;*/
 		  }
+		  
+		  .contents {
+		  	height: 400px;
+		  }
+		  
+		  .result_space .for_search {
+		  	display:none;
+		  }
 		</style>
-		<div class="contents">	
-		    <!--<h2>Gift Calendar</h2>-->
 		    <div class="space searching">
 		    	<div class="search">
 		    		<form name="search_form" id="search_form">
@@ -399,7 +358,7 @@
 		    		</form>
 		    		<a class="search_button" href="javascript:void(0)"></a>
 		    	</div>
-		    	<div class="result_space">
+		    	<div class="result_space for_search">
 		    		<div class="result">
 		    		</div>
 		    	</div>
@@ -420,89 +379,3 @@
 			    </div>
 		    </div>
 		    <a class="addnew_button" href="javascript:void(0)">+ 新しいギフトデーを追加する</a>
-		    
-		    
-			<div class="custom-calendar-wrap custom-calendar-full">
-				<div class="custom-header clearfix">
-					<!--<h2>Gift Calendar</h2>-->
-					<h3 class="custom-month-year">
-						<span id="custom-month" class="custom-month"></span>
-						<span id="custom-year" class="custom-year"></span>
-						<nav>
-							<span id="custom-prev" class="custom-prev"></span>
-							<span id="custom-next" class="custom-next"></span>
-							<span id="custom-current" class="custom-current" title="Got to current date"></span>
-						</nav>
-					</h3>
-				</div>
-				<div id="calendar" class="fc-calendar-container"></div>
-			</div>
-		</div><!-- /container -->
-		
-		<script type="text/javascript" src="/calendario/js/data.js"></script>
-		<script type="text/javascript" src="/calendario/js/jquery.calendario.js"></script>
-		<script type="text/javascript">	
-			$(function() {
-			
-				var cal = $( '#calendar' ).calendario( {
-						onDayClick : function( $el, $contentEl, dateProperties ) {
-							
-							// for( var key in dateProperties ) {
-							// 	console.log( key + ' = ' + dateProperties[ key ] );
-							// 	$('.dateprop').html(dateProperties[ "month" ]);
-							// }
-							$.ajax({
-								type: 'GET',
-								url: '/calendar/getevent',
-								data: {
-									month: dateProperties[ "month" ],
-									day : dateProperties[ "day" ]
-								},
-								dataType: 'text'
-							})
-							.done(function( data, textStatus, jqXHR ) {
-							        $('.result').html(data);
-							})
-							.fail(function( jqXHR, textStatus, errorThrown ) {
-							        $('.dateprop').html("failed");
-							})
-							.always(function( jqXHR, textStatus ) {
-							        $('.dateprop').css("color","red");
-							});
-
-						},
-						caldata : codropsEvents
-					} ),
-					$month = $( '#custom-month' ).html( cal.getMonthName() ),
-					$year = $( '#custom-year' ).html( cal.getYear() );
-
-				$( '#custom-next' ).on( 'click', function() {
-					cal.gotoNextMonth( updateMonthYear );
-				} );
-				$( '#custom-prev' ).on( 'click', function() {
-					cal.gotoPreviousMonth( updateMonthYear );
-				} );
-				$( '#custom-current' ).on( 'click', function() {
-					cal.gotoNow( updateMonthYear );
-				} );
-
-				function updateMonthYear() {				
-					$month.html( cal.getMonthName() );
-					$year.html( cal.getYear() );
-				}
-
-				// you can also add more data later on. As an example:
-				someElement.on( 'click', function() {
-					
-					cal.setData( {
-						'03-01-2013' : '<a href="#">testing</a>',
-						'03-10-2013' : '<a href="#">testing</a>',
-						'03-12-2013' : '<a href="#">testing</a>'
-					} );
-					// goes to a specific month/year
-					cal.goto( 3, 2013, updateMonthYear );
-
-				} );
-			
-			});
-		</script>
