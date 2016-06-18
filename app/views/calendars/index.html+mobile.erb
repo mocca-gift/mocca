@@ -19,6 +19,7 @@
 					searchWord = $('#search_form [name=searchWord]').val();
 					searchWordArray = searchWord.replace("　", " ").replace(/\s+/g," ").split(" ");
 					searchWordWithoutSpace = searchWordArray.join(",");
+					$('.for_search').slideDown();
 					// $('.result').html(searchWordWithoutSpace);
 					$.ajax({
 								type: 'GET',
