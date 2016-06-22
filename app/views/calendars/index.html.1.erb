@@ -1,4 +1,21 @@
+		<!--Calendario-->
+		<link rel="stylesheet" type="text/css" href="/calendario/css/calendar.css" />
+		<link rel="stylesheet" type="text/css" href="/calendario/css/custom_1.css" />
+		<script src="/calendario/js/modernizr.custom.63321.js"></script>
+		
+		<script type="text/javascript">
 
+		  var _gaq = _gaq || [];
+		  _gaq.push(['_setAccount', 'UA-7243260-2']);
+		  _gaq.push(['_trackPageview']);
+
+		  (function() {
+		    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		  })();
+
+		</script>
 		<script>
 			$(function(){
 				$('.addnew_button').on('click', function(){
@@ -19,7 +36,6 @@
 					searchWord = $('#search_form [name=searchWord]').val();
 					searchWordArray = searchWord.replace("　", " ").replace(/\s+/g," ").split(" ");
 					searchWordWithoutSpace = searchWordArray.join(",");
-					$('.for_search').slideDown();
 					// $('.result').html(searchWordWithoutSpace);
 					$.ajax({
 								type: 'GET',
@@ -40,6 +56,33 @@
 							});
 				});
 				
+				
+				
+				// $("body").keypress( function( event ) {
+				// 	if( event.which === 13 ){
+				// 		searchWord = $('#search_form [name=searchWord]').val();
+				// 		searchWordArray = searchWord.replace("　", " ").replace(/\s+/g," ").split(" ");
+				// 		searchWordWithoutSpace = searchWordArray.join(",");
+				// 		$.ajax({
+				// 			type: 'GET',
+				// 			url: '/calendar/search',
+				// 			data: {
+				// 				searchword: searchWordWithoutSpace
+				// 			},
+				// 			dataType: 'text'
+				// 		})
+				// 		.done(function( data, textStatus, jqXHR ) {
+				// 		        $('.result').html(data);
+				// 		})
+				// 		.fail(function( jqXHR, textStatus, errorThrown ) {
+						       
+				// 		})
+				// 		.always(function( jqXHR, textStatus ) {
+						        
+				// 		});
+				// 	}
+				// });
+					
 				$("#search_form").keypress(function(ev) {
 					if ((ev.which && ev.which === 13) || (ev.keyCode && ev.keyCode === 13)) {
 						searchWord = $('#search_form [name=searchWord]').val();
@@ -136,17 +179,7 @@
 					}
 				});
 				
-					
-				
-				$("body").on("click keyup",function(){
-				    var checked_num = $('.checked').length;
-				    // console.log(checked_num);
-					if(checked_num <= 3){
-						$('.submit_button').off('click');
-						$('.submit_button').css("display","none");
-				    } else {
-				    	$('.submit_button').css("display","block");
-				    	$('.submit_button').off('click').on('click',function(){
+				function submitFunction(){
 						dayName = $('#create_form [name=dayName]').val();
 						forWhom = $('#create_form [name=forWhom]').val();
 						month = $('#create_form [name=month]').val();
@@ -164,16 +197,19 @@
 									dataType: 'text'
 								})
 								.done(function( data, textStatus, jqXHR ) {
-									if(data=="登録に失敗しました") {
-										$('.create_result').append("\n"+data);
-									} else {
-								        $('.result').html(data);
-								        $('.addnew').fadeOut();
-										$('.searching').fadeIn();
-										$('.addnew_button').fadeIn();
-										$('#create_form input').val("");
-										$('#create_form input').removeClass("checked");
-										$('#create_form span').html("");
+									switch (data){
+										case "登録に失敗しました":
+											$('.create_result').append("\n"+data);
+											break;
+										default:
+										    $('.result').html(data);
+									        $('.addnew').fadeOut();
+											$('.searching').fadeIn();
+											$('.addnew_button').fadeIn();
+											$('#create_form input').val("");
+											$('#create_form input').removeClass("checked");
+											$('#create_form span').html("");
+											break;
 									}
 								})
 								.fail(function( jqXHR, textStatus, errorThrown ) {
@@ -182,18 +218,42 @@
 								.always(function( jqXHR, textStatus ) {
 								        
 								});
-					    });
+					    }
+				
+				$("body").on("click keyup",function(){
+				    var checked_num = $('.checked').length;
+				    // console.log(checked_num);
+					if(checked_num <= 3){
+						$('.submit_button').off('click', submitFunction);
+						$('.submit_button').css("display","none");
+				    } else {
+				    	$('.submit_button').css("display","block");
+				    	$('.submit_button').off('click', submitFunction).on('click', submitFunction);
 				    }
 			    });
 				
 				
 			})
 		</script>
+		
+		<%= javascript_tag do %>
+		    $(function(){
+		        $('.datethis').html("<%= @nearestDay.month.to_s %>月<%= @nearestDay.day.to_s %>日(<%= Date.new(@thisYear,@nearestDay.month,@nearestDay.day).wday.to_s %>)");
+		        $('.day_name').html("<%= @nearestDay.name1 %>");
+		        $('.for_whom').html("<%= @nearestDay.name2 %>");
+		        $('.howlong').html("この日まで後<%= @length.to_s %>日");
+		    })
+		    
+		<% end %>
+		
 		<style>
 	
 		  .space {
-		  	width: 100%;
-		  	height: 100%;
+		  	position: absolute;
+		  	width: 33%;
+		  	height: 80%;
+		  	right: 1%;
+		  	top: 5%;
 		  	/*border: solid 1px;*/
 		  	padding: 3px;
 		  	/*overflow: scroll;*/
@@ -224,7 +284,7 @@
 		  	width: 95%;
 		  	margin: auto;
 		  	margin-top: 5px;
-		  	height: 355px;
+		  	height: 255px;
 		  	overflow-y: scroll;
 		  }
 		  .result_space::-webkit-scrollbar {
@@ -254,7 +314,7 @@
 		  }
 		  .addnew {
 		  	display:none;
-		  	/*background-color: rgba(255,255,255,0.5);*/
+		  	background-color: rgba(255,255,255,0.5);
 		  }
 		  .addnew_header {
 		  	position: relative;
@@ -277,13 +337,7 @@
 			appearance: none;
 		  }
 		  input[type="text"] {
-		  	display: block;
 		  	border-bottom: solid 1px gray;
-		  	width: 100%;
-		  }
-		  input[type="search"] {
-		  	display: block;
-		  	width: 100%;
 		  }
 		  .submit_button {
 		  	position: absolute;
@@ -291,7 +345,7 @@
 			display: block;
 			text-align: center;
 			line-height: 38px;
-			width: 75%;
+			width: 85%;
 			height: 38px;
 			border: solid 2px;
 			/*background-color: white;*/
@@ -302,15 +356,14 @@
 		  .addnew_button {
 		  	display: block;
 		  	position: absolute;
-		  	width: 80%;
-		  	height: 40px;
-		  	line-height:34px;
+		  	width: 33%;
+		  	height: 10%;
+		  	line-height:30px;
 		  	text-align: center;
-		  	bottom: 10px;
-		  	left: 10%;
-		  	border: solid 1px blue;
+		  	right: 1%;
+		  	top: 87.5%;
+		  	border: solid 1px;
 		  	padding: 3px;
-		  	color: blue;
 		  	/*overflow: scroll;*/
 		  	/*background-color: white;*/
 		  }
@@ -350,39 +403,18 @@
 		  	width: 95%;
 		  	/*overflow-y: scroll;*/
 		  }
-		  
-		  .contents {
-		  	height: 400px;
-		  	background-color: rgba(255,255,255,0.7);
-		  }
-		  
-		  /*.result_space .for_search {*/
-		  /*	display:none;*/
-		  /*}*/
-		  .desc {
-		  	text-align: center;
-		  }
-		  .glyphicon-heart {
-		  	color: pink;
-		  }
 		</style>
+		<div class="contents">	
+		    <!--<h2>Gift Calendar</h2>-->
 		    <div class="space searching">
 		    	<div class="search">
 		    		<form name="search_form" id="search_form">
-		    			<input type="search" name="searchWord" placeholder="キーワード/渡す相手から検索">
+		    			<input type="search" name="searchWord" placeholder="プレゼントをあげる日を検索">
 		    		</form>
 		    		<a class="search_button" href="javascript:void(0)"></a>
 		    	</div>
-		    	<div class="result_space for_search">
+		    	<div class="result_space">
 		    		<div class="result">
-		    			<div class="desc">
-		    				<h4><i class="glyphicon glyphicon-heart"></i><i class="glyphicon glyphicon-heart"></i><i class="glyphicon glyphicon-heart"></i></h4>
-		    				<p>素敵な日に<BR>素敵なプレゼントを渡しましょう。</p>
-		    				<p>ここではプレゼントの日、<BR>カドゥ・ジュール/Cadeau jour<BR>を検索できます。</p>
-		    				<p>キーワードや<BR>プレゼントを渡す相手<BR>から探すことができます。</p>
-		    				<p>また、新しいカドゥ・ジュールを<BR>登録することもできます。</p>
-		    				<h4><i class="glyphicon glyphicon-heart"></i><i class="glyphicon glyphicon-heart"></i><i class="glyphicon glyphicon-heart"></i></h4>
-		    			</div>
 		    		</div>
 		    	</div>
 		    </div>
@@ -392,22 +424,132 @@
 		    	</div>
 		    	<div class="result_space">
 			    	<form name="create_form" id="create_form">
-			    		<label>名称<span id="dncheck"></span>：<br><input id="dayName" type="text" name="dayName" placeholder="バレンタインデー"></label><BR>
-			    		<label>プレゼントを渡す相手<span id="fwcheck"></span>：<br><input id="forWhom" type="text" name="forWhom" placeholder="恋人"></label><BR>
-				    	<label>日付<span id="datecheck"></span>：<br><input id="month" type="number" name="month" placeholder="2">月</label><BR>
-				    	<label><input id="day" type="number" name="day" placeholder="14">日</label>
+			    		<label>名称：<br><input id="dayName" type="text" name="dayName" placeholder="バレンタインデー"><span id="dncheck"></span></label>
+			    		<label>プレゼントを渡す相手：<br><input id="forWhom" type="text" name="forWhom" placeholder="恋人"><span id="fwcheck"></span></label>
+				    	<label>日付：<br><input id="month" type="number" name="month" placeholder="2">月<input id="day" type="number" name="day" placeholder="14">日<span id="datecheck"></span></label>
 			    	</form>
 			    	<div class="create_caution"><i class="glyphicon glyphicon-info-sign"></i></div>
 			    	<div class="create_result"></div>
 			    	<a class="submit_button" href="javascript:void(0)"><i class="glyphicon glyphicon-ok-circle"></i>送信</a>
 			    </div>
 		    </div>
-		    <a class="addnew_button" href="javascript:void(0)">+ 新しいカドゥ・ジュールを追加する</a>
+		    <a class="addnew_button" href="javascript:void(0)">+ 新しいギフトデーを追加する</a>
 		    
 		    
-		    
-		    
-		    
-		    
-		    
-		    
+			<div class="custom-calendar-wrap custom-calendar-full">
+				<div class="custom-header clearfix">
+					<!--<h2>Gift Calendar</h2>-->
+					<h3 class="custom-month-year">
+						<span id="custom-month" class="custom-month"></span>
+						<span id="custom-year" class="custom-year"></span>
+						<nav>
+							<span id="custom-prev" class="custom-prev"></span>
+							<span id="custom-next" class="custom-next"></span>
+							<span id="custom-current" class="custom-current" title="Got to current date"></span>
+						</nav>
+					</h3>
+				</div>
+				<div id="calendar" class="fc-calendar-container"></div>
+			</div>
+		</div><!-- /container -->
+		
+		<script type="text/javascript" src="/calendario/js/data.js"></script>
+		<script type="text/javascript" src="/calendario/js/jquery.calendario.js"></script>
+		<script type="text/javascript">	
+			$(function() {
+			
+				var cal = $( '#calendar' ).calendario( {
+						onDayClick : function( $el, $contentEl, dateProperties ) {
+							
+							// for( var key in dateProperties ) {
+							// 	console.log( key + ' = ' + dateProperties[ key ] );
+							// 	$('.dateprop').html(dateProperties[ "month" ]);
+							// }
+							$.ajax({
+								type: 'GET',
+								url: '/calendar/getevent',
+								data: {
+									month: dateProperties[ "month" ],
+									day : dateProperties[ "day" ]
+								},
+								dataType: 'text'
+							})
+							.done(function( data, textStatus, jqXHR ) {
+							        $('.result').html(data);
+							})
+							.fail(function( jqXHR, textStatus, errorThrown ) {
+							        $('.dateprop').html("failed");
+							})
+							.always(function( jqXHR, textStatus ) {
+							        $('.dateprop').css("color","red");
+							});
+
+						},
+						caldata : codropsEvents
+					} ),
+					$month = $( '#custom-month' ).html( cal.getMonthName() ),
+					$year = $( '#custom-year' ).html( cal.getYear() );
+
+				$( '#custom-next' ).on( 'click', function() {
+					cal.gotoNextMonth( updateMonthYear );
+				} );
+				$( '#custom-prev' ).on( 'click', function() {
+					cal.gotoPreviousMonth( updateMonthYear );
+				} );
+				$( '#custom-current' ).on( 'click', function() {
+					cal.gotoNow( updateMonthYear );
+				} );
+
+				function updateMonthYear() {				
+					$month.html( cal.getMonthName() );
+					$year.html( cal.getYear() );
+				}
+
+				// you can also add more data later on. As an example:
+				someElement.on( 'click', function() {
+					
+					cal.setData( {
+						'03-01-2013' : '<a href="#">testing</a>',
+						'03-10-2013' : '<a href="#">testing</a>',
+						'03-12-2013' : '<a href="#">testing</a>'
+					} );
+					// goes to a specific month/year
+					cal.goto( 3, 2013, updateMonthYear );
+
+				} );
+			
+			});
+		</script>
+		
+		<style>
+			.nearest{
+				width: 80%;
+				margin-right: 10%;
+			}
+		</style>
+		
+		
+		
+		
+		<div class="nearest">
+			<a class="tobutton backto" href="javascript:void(0);">backTo</a>
+			<a class="tobutton nextto" href="javascript:void(0);">nextTo</a>
+			<div class="datethis"></div>
+			<div class="day_name"></div>
+			<div class="for_whom"></div>
+			<div class="howlong"></div>
+		</div>
+		
+		<script>
+			$(function(){
+				$('.backto').on('click',function(){
+					
+				})
+				$('.nextto').on('click',function(){
+					
+				})
+				
+			})
+		</script>
+		
+		

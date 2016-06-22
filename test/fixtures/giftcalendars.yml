@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  month: 1
+  day: 1
+  name: MyString
+  for_whom: MyString
+  concept: MyText
+  like_count: 1
+  dislike_count: 1
+  judge_num: 1
+
+two:
+  month: 1
+  day: 1
+  name: MyString
+  for_whom: MyString
+  concept: MyText
+  like_count: 1
+  dislike_count: 1
+  judge_num: 1

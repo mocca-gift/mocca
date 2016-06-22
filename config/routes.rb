@@ -25,6 +25,10 @@ Rails.application.routes.draw do
   get '/calendar/search' => 'calendars#search'
   get '/calendar/ajaxcreate' => 'calendars#ajaxcreate'
   get '/calendar/daynameconf' => 'calendars#daynameconf'
+  get '/calendar/nearday' => 'calendars#nearday'
+  get '/calendar/search_bud' => 'calendars#search_bud'
+  get '/calendar/search_flower' => 'calendars#search_flower'
+  get '/calendar/eval' => 'calendars#eval'
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
