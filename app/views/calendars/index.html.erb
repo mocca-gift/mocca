@@ -744,8 +744,11 @@
 			dayName = $('#add_bud_form [name=dayName]').val();
 			forWhom = $('#add_bud_form [name=forWhom]').val();
 			concept = $('#add_bud_form [name=concept]').val();
-			month = $('#add_bud_form [name=month]').val();
-			day = $('#add_bud_form [name=day]').val();
+			date = $('#add_bud_form [name=date]').val();
+			year = date.split("-")[0];
+			month = date.split("-")[1];
+			day = date.split("-")[2];
+			// day = $('#add_bud_form [name=day]').val();
 			
 			$.ajax({
 						type: 'GET',
@@ -754,8 +757,9 @@
 							dayname: dayName,
 							forwhom : forWhom,
 							concept : concept,
-							month : month,
-							day : day
+							year: year,
+							month: month,
+							day: day
 						},
 						dataType: 'text'
 					})
@@ -769,6 +773,92 @@
 					        
 					});
 		});
+		
+		var cal_year=<%= Date.today.year %>;
+		var cal_month=<%= Date.today.month %>;
+		
+		$('.calendar').html("<img src='/image/loading.gif' class='loader'>");
+		$.ajax({
+			type: 'GET',
+			url: '/calendar/get_calendar',
+			data: {
+				year: cal_year,
+				month: cal_month
+			},
+			dataType: 'text'
+		})
+		.done(function( data, textStatus, jqXHR ) {
+		        $('.calendar').html(data);
+		        $('.show_month').html(cal_year+'年'+cal_month+'月');
+		})
+		.fail(function( jqXHR, textStatus, errorThrown ) {
+		       
+		})
+		.always(function( jqXHR, textStatus ) {
+		        
+		});
+		
+		$('.prev_btn').on('click',function(){
+			$('.calendar').html("<img src='/image/loading.gif' class='loader'>");
+			var cal_num=cal_year*12+cal_month-1;
+			cal_year=Math.floor(cal_num/12);
+			if (cal_num%12==0){
+				cal_month=12;
+			} else {
+				cal_month=cal_num%12;
+			}
+			$.ajax({
+				type: 'GET',
+				url: '/calendar/get_calendar',
+				data: {
+					year: cal_year,
+					month: cal_month
+				},
+				dataType: 'text'
+			})
+			.done(function( data, textStatus, jqXHR ) {
+			        $('.calendar').html(data);
+			        $('.show_month').html(cal_year+'年'+cal_month+'月');
+			})
+			.fail(function( jqXHR, textStatus, errorThrown ) {
+			       
+			})
+			.always(function( jqXHR, textStatus ) {
+			        
+			});
+			
+		});
+		
+		$('.next_btn').on('click',function(){
+			$('.calendar').html("<img src='/image/loading.gif' class='loader'>");
+			var cal_num=cal_year*12+cal_month+1;
+			cal_year=Math.floor(cal_num/12);
+			if (cal_num%12==0){
+				cal_month=12;
+			} else {
+				cal_month=cal_num%12;
+			}
+			$.ajax({
+				type: 'GET',
+				url: '/calendar/get_calendar',
+				data: {
+					year: cal_year,
+					month: cal_month
+				},
+				dataType: 'text'
+			})
+			.done(function( data, textStatus, jqXHR ) {
+			        $('.calendar').html(data);
+			        $('.show_month').html(cal_year+'年'+cal_month+'月');
+			})
+			.fail(function( jqXHR, textStatus, errorThrown ) {
+			       
+			})
+			.always(function( jqXHR, textStatus ) {
+			        
+			});
+			
+		});
 	})
 </script>
 
@@ -776,9 +866,15 @@
 	
 	<!--デフォルトのコンテンツ-->
 	<div class="main_contents" id="default_contents">
-		<h3>ここにこのページの説明を書く</h3>
-		<p>芽：提案されたやつ</p>
-		<p>花：提案されて評価をえたやつ</p>
+		<h3><i class="glyphicon glyphicon-heart"></i><i class="glyphicon glyphicon-heart"></i><i class="glyphicon glyphicon-heart"></i><i class="glyphicon glyphicon-heart"></i><i class="glyphicon glyphicon-heart"></i></h3>
+		<h3><strong>素敵な日</strong>に素敵なプレゼントを渡しましょう!!</h3>
+		<h4>プレゼントを渡すのに相応しい日を私たちは<br>Gift Day(ギフト・デイ)<br>と呼びます．</h4>
+		<h4>また、ギフト・デイの中でも、<br>まだ世間に浸透していないものをギフト・デイの"芽"と呼び、<br>世間に浸透しているものをギフト・デイの"花"と呼びます．</h4>
+		<h4>ここでは、ギフト・デイの芽の登録が可能です。</h4>
+		<h4>ユニークなギフト・デイを考案して、新しいギフト・デイの花を咲かせましょう。</h4>
+		<h4>また、ギフト・デイに色々な人にプレゼントを渡しましょう。</h4>
+		<a href="/" target="_blank"><h4>渡す日が決まったら、プレゼントを決めよう!!</h4></a>
+		<h3><i class="glyphicon glyphicon-heart"></i><i class="glyphicon glyphicon-heart"></i><i class="glyphicon glyphicon-heart"></i><i class="glyphicon glyphicon-heart"></i><i class="glyphicon glyphicon-heart"></i></h3>
 	</div>
 	
 	<!--芽をみるのコンテンツ-->
@@ -829,6 +925,122 @@
 			<div class="day_contents">
 				<h3>ここではまだ芽であるギフトデイのアイディアを検索・表示する部分です</h3>
 				<h4>上の検索バーで検索してください</h4>
+				
+				
+				<style>
+				    .show_calendar {
+				    	width: 90%;
+				    }
+				    .show_calendar th{
+				    	width: 60px;
+				    	text-align: center;
+				    	background-color: gray;
+				    }	
+				    .show_calendar td {
+				    	height: 60px;
+				    	/*border-bottom: solid 1px gray;*/
+				    }
+				    .calendar {
+				    	height: 360px;
+				    	position: relative;
+				    	width: 100%;
+				    }
+				    /*.exist {*/
+				    /*	background-color: red;*/
+				    /*	border-radius: 30px;*/
+				    /*}*/
+				    .exist::after {
+				    	position: relative;
+				    	display: block;
+				    	content="";
+				    	top: 0px;
+				    	left: 15px;
+				    	width: 60px;
+				    	height: 60px;
+				    	background-color: red;
+				    	border-radius: 30px;
+				    }
+				    .border_line {
+				    	border-bottom: solid 1px gray;
+				    }
+				</style>
+				<div class="calendar_header">
+					<a class="prev_btn">←PREV</a>
+					<a class="next_btn">NEXT→</a>
+					<h4 class="show_month"><%= Date.today.year %>年 <%= Date.today.month %>月</h4>
+					
+				</div>
+				<div class="calendar">
+					<table class="show_calendar">
+					<thead>
+						<tr>
+							<th>日</th>
+							<th>月</th>
+							<th>火</th>
+							<th>水</th>
+							<th>木</th>
+							<th>金</th>
+							<th>土</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>1</td>
+							<td>2</td>
+							<td>3</td>
+							<td>4</td>
+							<td></td>
+							<td></td>
+							<td></td>
+						<tr>
+							<td>5</td>
+							<td>6</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td>7</td>
+							<td>8</td>
+						</tr>
+						<tr>
+							<td>9</td>
+							<td></td>
+							<td>10</td>
+							<td></td>
+							<td>11</td>
+							<td></td>
+							<td>12</td>
+						</tr>
+						<tr>
+							<td>13</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td>14</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
+				</div>
+				
 			</div>
 			
 		</div>

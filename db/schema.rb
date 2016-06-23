@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160621072754) do
+ActiveRecord::Schema.define(version: 20160623110536) do
 
   create_table "anstoevals", force: :cascade do |t|
     t.integer  "answer_id"
@@ -74,6 +74,7 @@ ActiveRecord::Schema.define(version: 20160621072754) do
     t.integer  "judge_num"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.integer  "year"
   end
 
   create_table "gifts", force: :cascade do |t|

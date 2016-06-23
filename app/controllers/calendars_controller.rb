@@ -79,8 +79,8 @@ class CalendarsController < ApplicationController
     
     render text: '	<div class="nearday_date">'+@nearestDay.month.to_s+'月'+@nearestDay.day.to_s+'日</div>
 		<div class="nearday_name"><h3>'+@nearestDay.name+'</h3></div>
-		<div class="nearday_for_text"><h4>こんな人にプレゼントを渡そう!!</h4></div>
-		<div class="nearday_for">'+@nearestDay.for_whom+'</div>'
+		<div class="nearday_for_text"><h4>'+@nearestDay.for_whom+'に</h4></div>
+		<div class="nearday_for">プレゼントを渡そう!!</div>'
   end
   
   def search_bud
@@ -342,10 +342,11 @@ class CalendarsController < ApplicationController
     dayName = params[:dayname]
     forWhom = params[:forwhom]
     concept = params[:concept]
+    year = params[:year]
     month = params[:month]
     day = params[:day]
     if Giftcalendar.where(name: dayName).empty? && forWhom!="" then
-      Giftcalendar.create(month: month, day: day, name: dayName, for_whom: forWhom, concept: concept, judge_num: 0 , like_count: 0 , dislike_count: 0)
+      Giftcalendar.create(year: year, month: month, day: day, name: dayName, for_whom: forWhom, concept: concept, judge_num: 0 , like_count: 0 , dislike_count: 0)
       responseText="<strong>"+dayName+"</strong>は無事登録されました"
     else
       responseText="登録に失敗しました"
@@ -365,6 +366,64 @@ class CalendarsController < ApplicationController
     
     render text: responseText
   end
+  
+  def get_calendar
+    @year=params[:year].to_i
+    @month=params[:month].to_i
+    responseText='<table class="show_calendar">
+					<thead>
+						<tr>
+							<th>日</th>
+							<th>月</th>
+							<th>火</th>
+							<th>水</th>
+							<th>木</th>
+							<th>金</th>
+							<th>土</th>
+						</tr>
+					</thead>
+					<tbody>'
+    for i in 1..42 do
+      case i%7
+      when 1 then
+        if getDate(@year,@month,i)=="" then
+          responseText+='<tr><td>'+getDate(@year,@month,i)+'</td>'
+        else
+          if Giftcalendar.where(month: @month, day: getDate(@year,@month,i)).empty? then
+            responseText+='<tr><td class="border_line">'+getDate(@year,@month,i)+'</td>'
+          else
+            responseText+='<tr><td class="border_line"><a  class="exist" onclick="getInfo('+@year.to_s+','+@month.to_s+','+i.to_s+')">'+getDate(@year,@month,i)+'</a></td>'
+          end
+        end
+      when 0 then
+        if getDate(@year,@month,i)=="" then
+          responseText+='<td>'+getDate(@year,@month,i)+'</td></tr>'
+        else
+          if Giftcalendar.where(month: @month, day: getDate(@year,@month,i)).empty? then
+            responseText+='<td class="border_line">'+getDate(@year,@month,i)+'</td></tr>'
+          else
+            responseText+='<td class="border_line"><a  class="exist" onclick="getInfo('+@year.to_s+','+@month.to_s+','+i.to_s+')">'+getDate(@year,@month,i)+'</a></td></tr>'
+          end
+        end
+      else
+        if getDate(@year,@month,i)=="" then
+          responseText+='<td>'+getDate(@year,@month,i)+'</td>'
+        else
+          if Giftcalendar.where(month: @month, day: getDate(@year,@month,i)).empty? then
+            responseText+='<td class="border_line">'+getDate(@year,@month,i)+'</td>'
+          else
+            responseText+='<td class="border_line"><a  class="exist" onclick="getInfo('+@year.to_s+','+@month.to_s+','+i.to_s+')">'+getDate(@year,@month,i)+'</a></td>'
+          end
+        end
+      end
+    end
+    
+    responseText+='</tbody>
+				</table>'
+		
+		render text: responseText
+    
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -375,5 +434,19 @@ class CalendarsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def calendar_params
       params.require(:calendar).permit(:month, :day, :name1, :name2, :name3)
+    end
+    
+    def getDate(year,month,index)
+      @diff = Date.new(year,month,1).wday
+      res   = index-@diff
+      if res<1 then
+        res=""
+      else
+        if res>(Date.new(year,month+1,1).yday-Date.new(year,month,1).yday) then
+          res=""
+        end
+      end
+      
+      return res.to_s
     end
 end
