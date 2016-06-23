@@ -1,0 +1,912 @@
+<meta name="viewport" content="width=device-width,
+ initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+
+<style>
+	.loader {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		margin-top: -39px;
+		margin-left: -39px;
+	}
+</style>
+<style>
+	body {
+		-webkit-background-size: 80px 80px;
+        -moz-background-size: 80px 80px;
+        background-size: 80px 80px;
+        background-color: #A9F5F2;
+        background-image: -webkit-gradient(linear, 0 100%, 100% 0,
+                    color-stop(.25, #CEF6F5), color-stop(.25, transparent),
+                    color-stop(.5, transparent), color-stop(.5, #CEF6F5),
+                    color-stop(.75, #CEF6F5), color-stop(.75, transparent),
+                    to(transparent));
+        background-image: -webkit-linear-gradient(45deg, #CEF6F5 25%, transparent 25%,
+                  transparent 50%, #CEF6F5 50%, #CEF6F5 75%,
+                  transparent 75%, transparent);
+        background-image: -moz-linear-gradient(45deg, #CEF6F5 25%, transparent 25%,
+                  transparent 50%, #CEF6F5 50%, #CEF6F5 75%,
+                  transparent 75%, transparent);
+        background-image: -ms-linear-gradient(45deg, #CEF6F5 25%, transparent 25%,
+                  transparent 50%, #CEF6F5 50%, #CEF6F5 75%,
+                  transparent 75%, transparent);
+        background-image: -o-linear-gradient(45deg, #CEF6F5 25%, transparent 25%,
+                  transparent 50%, #CEF6F5 50%, #CEF6F5 75%,
+                  transparent 75%, transparent);
+        background-image: linear-gradient(45deg, #CEF6F5 25%, transparent 25%,
+                  transparent 50%, #CEF6F5 50%, #CEF6F5 75%,
+                  transparent 75%, transparent);
+	}
+</style>
+<!--Title-->
+<style>
+	.title {
+		width: 100%;
+		height: 150px;
+		line-height: 100px;
+		text-align: center;
+		/*background-image: url('/image/heartback.jpg');*/
+		/*background-size: cover;*/
+		
+	}
+	.title::before {
+		content: "";
+		position: absolute;
+		top: 10px;
+		left: 50%;
+		margin-left: -220px;
+		display:block;
+		width:60px;
+		height:60px;
+		background-image: url("/image/giftday.png"); 
+		background-size:contain;
+		background-position: center;
+	}
+	.title h1, .title h3 {
+		margin: 0;
+	}
+</style>
+<div class="title">
+	<h1 style="line-height:90px;">Gift Calendar</h1>
+	<h3 style="line-height:60px;" class="subtitle"><strong>素敵な日</strong>に素敵なプレゼントを渡しましょう．</h3>
+</div>
+
+<style>
+	.nearday {
+		width: 100%;
+		/*margin-left: 5%;*/
+		margin-top: 30px;
+		height: 150px;
+		position: relative;
+		background-color: rgba(255,255,255,0.7);
+		border-top: double 5px  rgb(161,104,154);
+		border-bottom: double 5px  rgb(161,104,154);
+	}
+	.move_btn {
+		display: block;
+		width: 15%;
+		height: 100%;
+		position: absolute;
+		background-size: 30px 60px;
+		background-position: center;
+		background-repeat: no-repeat;
+	}
+	.backto {
+		background-image: url('/image/left.png');
+		top: 0;
+		left: 0;
+	}
+	.nextto {
+		background-image: url('/image/right.png');
+		top: 0;
+		right: 0;
+	}
+	.nearday_container {
+		width: 70%;
+		height: 100%;
+		margin-left: 15%;
+		margin-right: 15%;
+		position: relative;
+	}
+	.nearday_date {
+		width: 100%;
+		height: 20%;
+		line-height: 200%;
+		text-align: center;
+	}
+	.nearday_name h3 {
+		margin: 0;
+		line-height: 60px;
+	}
+	.nearday_name {
+		display: block;
+		width: 100%;
+		height: 40%;
+		text-align: center;
+	}
+	.nearday_for_text {
+		width: 100%;
+		height: 25%;
+		text-align: center;
+	}
+    .nearday_for_text h4 {
+		margin: 0;
+		line-height: 37.5px;
+	}
+	.nearday_for {
+		width: 100%;
+		height: 15%;
+		line-height: 22.5px;
+		text-align: center;
+	}
+</style>
+
+<script>
+	$(function(){
+		var dayIndex=0;
+		$('.nearday_container').html("<img src='/image/loading.gif' class='loader'>");
+		$.ajax({
+			type: 'GET',
+			url: '/calendar/nearday',
+			data: {
+				index: dayIndex
+			},
+			dataType: 'text'
+		})
+		.done(function( data, textStatus, jqXHR ) {
+		        $('.nearday_container').html(data);
+		})
+		.fail(function( jqXHR, textStatus, errorThrown ) {
+		       
+		})
+		.always(function( jqXHR, textStatus ) {
+		        
+		});
+		
+		
+		$('.backto').on('click',function(){
+				$('.nearday_container').html("<img src='/image/loading.gif' class='loader'>");
+				dayIndex--;
+				$.ajax({
+					type: 'GET',
+					url: '/calendar/nearday',
+					data: {
+						index: dayIndex
+					},
+					dataType: 'text'
+				})
+				.done(function( data, textStatus, jqXHR ) {
+				        $('.nearday_container').html(data);
+				})
+				.fail(function( jqXHR, textStatus, errorThrown ) {
+				       
+				})
+				.always(function( jqXHR, textStatus ) {
+				        
+				});
+		});
+		
+		$('.nextto').on('click',function(){
+				$('.nearday_container').html("<img src='/image/loading.gif' class='loader'>");
+				dayIndex++;
+				$.ajax({
+					type: 'GET',
+					url: '/calendar/nearday',
+					data: {
+						index: dayIndex
+					},
+					dataType: 'text'
+				})
+				.done(function( data, textStatus, jqXHR ) {
+				        $('.nearday_container').html(data);
+				})
+				.fail(function( jqXHR, textStatus, errorThrown ) {
+				       
+				})
+				.always(function( jqXHR, textStatus ) {
+				        
+				});
+		});
+	})
+</script>
+
+<div class="nearday">
+	<a class="backto move_btn" href="javascript:void(0);"></a>
+	<a class="nextto move_btn" href="javascript:void(0);"></a>
+	<div class="nearday_container">
+		<div class="nearday_date">6月20日</div>
+		<a class="nearday_name" href="javascript:void(0);"><h3>こんにちはの日</h3></a>
+		<div class="nearday_for_text"><h4>こんな人にプレゼントを渡そう!!</h4></div>
+		<div class="nearday_for">恋人</div>
+	</div>
+</div>
+
+<style>
+	.menu_container {
+		width: 100%;
+		height: 100px;
+		position: relative;
+		margin-top: 25px;
+		margin-bottom: 25px;
+	}
+	.menubtn {
+		display: block;
+		width: 100px;
+		height: 100px;
+		position: absolute;
+		background-size: contain;
+		background-position: center;
+		background-repeat: no-repeat;
+		border: solid 5px white;
+	}
+	.menubtn:hover {
+		border: solid 5px rgb(245,176,144);
+	}
+	.see_bud {
+		left: 25%;
+		margin-left: -25px;
+		background-image: url('/image/bud.png');
+		background-color: rgb(90,165,114);
+		border-radius: 50px;
+	}
+	.add_bud {
+		left: 50%;
+		margin-left: -25px;
+		background-image: url('/image/bud.png');
+		background-color: rgb(93,135,183);
+		border-radius: 50px;
+	}
+	.add_bud::after {
+		content: "";
+		position: relative;
+		top: 50%;
+		left: 55%;
+		display:block;
+		width:30px;
+		height:30px;
+		background-image: url("/image/add.png"); 
+		background-size:contain;
+		background-position: center;
+	}
+	.see_flower {
+		left: 75%;
+		margin-left: -25px;
+		background-image: url('/image/flower.png');
+		background-color: rgb(207,115,122);
+		border-radius: 50px;
+	}
+</style>
+<script>
+	$(function(){
+		$('.see_bud').on('click',function(){
+			$('#default_contents').fadeOut();
+			$('#see_bud_contents').fadeIn();
+			$('#add_bud_contents').fadeOut();
+			$('#see_flower_contents').fadeOut();
+			$('.see_bud').css("transform","scale(1.2)");
+			$('.add_bud').css("transform","scale(1.0)");
+			$('.see_flower').css("transform","scale(1.0)");
+		});
+		$('.add_bud').on('click',function(){
+			$('#default_contents').fadeOut();
+			$('#see_bud_contents').fadeOut();
+			$('#add_bud_contents').fadeIn();
+			$('#see_flower_contents').fadeOut();
+			$('.see_bud').css("transform","scale(1.0)");
+			$('.add_bud').css("transform","scale(1.2)");
+			$('.see_flower').css("transform","scale(1.0)");
+		});
+		$('.see_flower').on('click',function(){
+			$('#default_contents').fadeOut();
+			$('#see_bud_contents').fadeOut();
+			$('#add_bud_contents').fadeOut();
+			$('#see_flower_contents').fadeIn();
+			$('.see_bud').css("transform","scale(1.0)");
+			$('.add_bud').css("transform","scale(1.0)");
+			$('.see_flower').css("transform","scale(1.2)");
+		});
+		$('#see_bud_close').on('click',function(){
+			$('#see_bud_contents').fadeOut();
+			$('#default_contents').fadeIn();
+			$('.see_bud').css("transform","scale(1.0)");
+		});
+		$('#add_bud_close').on('click',function(){
+			$('#add_bud_contents').fadeOut();
+			$('#default_contents').fadeIn();
+			$('.add_bud').css("transform","scale(1.0)");
+		});
+		$('#see_flower_close').on('click',function(){
+			$('#see_flower_contents').fadeOut();
+			$('#default_contents').fadeIn();
+			$('.see_flower').css("transform","scale(1.0)");
+		});
+	})
+</script>
+
+<div class="menu_container">
+	<a class="menubtn see_bud" href="javascript:void(0);"></a>
+	<a class="menubtn add_bud" href="javascript:void(0);"></a>
+	<a class="menubtn see_flower" href="javascript:void(0);"></a>
+</div>
+
+<style>
+	.main_contents_container {
+		width: 90%;
+		margin-left: 5%;
+		margin-bottom: 50px;
+		height: 500px;
+		position: relative;
+		background-color: rgba(255,255,255,0.7);
+		border: solid 5px rgb(0,30,67);
+	}
+	.main_contents {
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		top: 50px;
+		left: 0px;
+	}
+	.header {
+		width: 90%;
+		margin-left: 5%;
+		height: 26px;
+		position: relative;
+	}
+	.close_button {
+	  	display: block;
+	  	height:26px;
+	  	width: 26px;
+	  	position: absolute;
+	  	top: -30px;
+	  	right: -40px;
+	  	background-size: contain;
+	  	background-position: center;
+	  	background-image: url('/image/close.png');
+	  }
+	.search {
+		width: 80%;
+		height: 40px;
+		margin-left: 15%;
+		border-bottom: double 3px;
+		padding: 5px;
+		position:relative;
+	}
+	input , textarea{
+		margin: 0;
+		padding: 5px;
+		background: none;
+		border:none;
+		border-radius: 0;
+		outline: none;
+	 /* 	-webkit-appearance: none;*/
+		/*-moz-appearance: none;*/
+		/*appearance: none;*/
+	}
+	input[type="text"]{
+		border-bottom: solid 1px gray;
+	}
+	.search_date {
+		width: 25%;
+		height: 35px;
+		float: left;
+	}
+	.search_date input {
+		width: 80%;
+		text-align: center;
+	}
+	.search_word {
+		width: 100%;
+		margin-top: 5px;
+		height: 30px;
+	}
+	.search_word input {
+		width: 100%;
+	}
+	.search_button {
+	  	display: block;
+	  	height:40px;
+	  	width: 10%;
+	  	position: absolute;
+	  	top: 0px;
+	  	left: -10%;
+	  	background-size: contain;
+	  	background-position: center;
+	  	background-repeat: no-repeat;
+	  	background-image: url('/image/search.png');
+	  	border-bottom: double 3px black;
+	}
+	.search_result {
+		width: 90%;
+		height: 330px;
+		margin-left: 5%;
+		padding: 5px;
+		overflow-y: scroll;
+		position: relative;
+	}
+	
+		.search_result::-webkit-scrollbar {
+		    width: 8px;
+		}
+		 
+		.search_result::-webkit-scrollbar-track {
+		    -webkit-box-shadow: inset 0 0 4px rgba(0,0,0,0.3);
+		    border-radius: 6px;
+		}
+		 
+		.search_result::-webkit-scrollbar-thumb {
+		    border-radius: 6px;
+		    -webkit-box-shadow: inset 0 0 4px rgba(0,0,0,0.5);
+		}
+		.day_contents {
+			width: 100%;
+			height: 300px;
+			padding: 5px;
+			text-align: center;
+			position: relative;
+		}
+		.day_date {
+			height: 15px;
+			line-height: 15px;
+		}
+		.day_name {
+			height: 35px;
+			line-height: 35px;
+			font-size: 20px;
+		}
+		.day_concept {
+			height: 120px;
+			overflow-y: scroll;
+			padding: 5px;
+			border-top: solid 1px;
+			border-bottom: solid 1px;
+			/*border-radius: 10px;*/
+		}
+		
+		    .day_concept::-webkit-scrollbar {
+			    width: 8px;
+			}
+			 
+			.day_concept::-webkit-scrollbar-track {
+			    -webkit-box-shadow: inset 0 0 4px rgba(0,0,0,0.3);
+			    border-radius: 6px;
+			}
+			 
+			.day_concept::-webkit-scrollbar-thumb {
+			    border-radius: 6px;
+			    -webkit-box-shadow: inset 0 0 4px rgba(0,0,0,0.5);
+			}
+		.day_for_title {
+			margin-top: 10px;
+			height: 15px;
+			line-height: 15px;
+		}
+		.day_for {
+			height: 25px;
+			line-height: 25px;
+			font-size: 20px;
+		}
+		.day_evals {
+			width: 100px;
+			height: 60px;
+			position: absolute;
+			bottom: 0px;
+			left: 50%;
+			margin-left: -50px;
+		}
+		.day_eval {
+			height: 60px;
+			width: 35px;
+			position: absolute;
+			top: 0px;
+		}
+		#like_eval {
+			left: 0px;
+		}
+		#dislike_eval {
+			right: 0px;
+		}
+		.day_evalbtn {
+			display:block;
+			height: 35px;
+			width: 35px;
+			background-size: contain;
+		  	background-position: 0px 0px;
+		  	background-repeat: no-repeat;
+		}
+		#likebtn {
+			background-image: url('/image/heart.png');
+		}
+		#dislikebtn {
+			background-image: url('/image/dislike.png');
+		}
+		.day_evalnum {
+			height: 25px;
+			width: 35px;
+			text-align: center;
+			line-height: 25px;
+		}
+		#default_contents {
+			text-align: center;
+		}
+		#see_bud_contents {
+			display: none;
+		}
+		#add_bud_contents {
+			display: none;
+		}
+		#see_flower_contents {
+			display: none;
+		}
+	    .create {
+	    	width: 90%;
+	    	margin-left: 5%;
+	    }
+	    #create_result {
+	    	width: 90%;
+	    	margin-left: 5%;
+	    	margin-top: 50px;
+	    }
+	    .create_button {
+	    	width: 200px;
+	    	height: 75px;
+	    	line-height: 75px;
+	    	text-align: center;
+	    }
+	    .create {
+	    	text-align: center;
+	    }
+</style>
+
+<script>
+	$(function(){
+		
+		// ***************BUD SEARCH***************
+		
+		$('#bud_search').on('click',function(){
+			$('#bud_result').html("<img src='/image/loading.gif' class='loader'>");
+			searchWord = $('#bud_search_form [name=searchWord]').val();
+			searchWordArray = searchWord.replace("　", " ").replace(/\s+/g," ").split(" ");
+			searchWordWithoutSpace = searchWordArray.join(",");
+			// fromMonth = $('#bud_search_form [name=fromMonth]').val();
+			// fromDay = $('#bud_search_form [name=fromDay]').val();
+			// toMonth = $('#bud_search_form [name=toMonth]').val();
+			// toDay = $('#bud_search_form [name=toDay]').val();
+			
+			$.ajax({
+						type: 'GET',
+						url: '/calendar/search_bud',
+						data: {
+							searchword: searchWordWithoutSpace
+							// frommonth : fromMonth,
+							// fromday : fromDay,
+							// tomonth : toMonth,
+							// today : toDay
+						},
+						dataType: 'text'
+					})
+					.done(function( data, textStatus, jqXHR ) {
+					        $('#bud_result').html(data);
+					})
+					.fail(function( jqXHR, textStatus, errorThrown ) {
+					       
+					})
+					.always(function( jqXHR, textStatus ) {
+					        
+					});
+		});
+		
+		$("#bud_search_form").keypress(function(ev) {
+				if ((ev.which && ev.which === 13) || (ev.keyCode && ev.keyCode === 13)) {
+					$('#bud_result').html("<img src='/image/loading.gif' class='loader'>");
+					searchWord = $('#bud_search_form [name=searchWord]').val();
+					searchWordArray = searchWord.replace("　", " ").replace(/\s+/g," ").split(" ");
+					searchWordWithoutSpace = searchWordArray.join(",");
+					$.ajax({
+						type: 'GET',
+						url: '/calendar/search_bud',
+						data: {
+							searchword: searchWordWithoutSpace
+						},
+						dataType: 'text'
+					})
+					.done(function( data, textStatus, jqXHR ) {
+					        $('#bud_result').html(data);
+					})
+					.fail(function( jqXHR, textStatus, errorThrown ) {
+					       
+					})
+					.always(function( jqXHR, textStatus ) {
+					        
+					});
+					return false;
+				} else {
+					return true;
+				}
+			});
+		
+		// ***************FLOWER SEARCH***************
+		
+		$('#flower_search').on('click',function(){
+			$('#flower_result').html("<img src='/image/loading.gif' class='loader'>");
+			searchWord = $('#flower_search_form [name=searchWord]').val();
+			searchWordArray = searchWord.replace("　", " ").replace(/\s+/g," ").split(" ");
+			searchWordWithoutSpace = searchWordArray.join(",");
+			// fromMonth = $('#bud_search_form [name=fromMonth]').val();
+			// fromDay = $('#bud_search_form [name=fromDay]').val();
+			// toMonth = $('#bud_search_form [name=toMonth]').val();
+			// toDay = $('#bud_search_form [name=toDay]').val();
+			
+			$.ajax({
+						type: 'GET',
+						url: '/calendar/flower_bud',
+						data: {
+							searchword: searchWordWithoutSpace
+							// frommonth : fromMonth,
+							// fromday : fromDay,
+							// tomonth : toMonth,
+							// today : toDay
+						},
+						dataType: 'text'
+					})
+					.done(function( data, textStatus, jqXHR ) {
+					        $('#flower_result').html(data);
+					})
+					.fail(function( jqXHR, textStatus, errorThrown ) {
+					       
+					})
+					.always(function( jqXHR, textStatus ) {
+					        
+					});
+		});
+		
+		$("#flower_search_form").keypress(function(ev) {
+				if ((ev.which && ev.which === 13) || (ev.keyCode && ev.keyCode === 13)) {
+					$('#flower_result').html("<img src='/image/loading.gif' class='loader'>");
+					searchWord = $('#flower_search_form [name=searchWord]').val();
+					searchWordArray = searchWord.replace("　", " ").replace(/\s+/g," ").split(" ");
+					searchWordWithoutSpace = searchWordArray.join(",");
+					$.ajax({
+						type: 'GET',
+						url: '/calendar/search_flower',
+						data: {
+							searchword: searchWordWithoutSpace
+						},
+						dataType: 'text'
+					})
+					.done(function( data, textStatus, jqXHR ) {
+					        $('#flower_result').html(data);
+					})
+					.fail(function( jqXHR, textStatus, errorThrown ) {
+					       
+					})
+					.always(function( jqXHR, textStatus ) {
+					        
+					});
+					return false;
+				} else {
+					return true;
+				}
+			});
+			
+		// ***************EVALUATION***************
+		
+		evalup = function(num){
+			$('.cal_like'+num).html("<img src='/image/loading.gif' class='loader'>");
+			$.ajax({
+					type: 'GET',
+					url: '/calendar/eval',
+					data: {
+						index: num,
+						type: "up"
+					},
+					dataType: 'text'
+				})
+				.done(function( data, textStatus, jqXHR ) {
+				        $('.cal_like'+num).html(data);
+				        $('.cal_eval_like'+num).css('border','solid 1px blue');
+						$('.cal_eval_like'+num).attr('onclick','void(0)');
+						$('.cal_eval_dislike'+num).attr('onclick','void(0)');
+				})
+				.fail(function( jqXHR, textStatus, errorThrown ) {
+				       
+				})
+				.always(function( jqXHR, textStatus ) {
+				        
+				});
+		}
+		
+		evaldown =function(num){
+			$('.cal_dislike'+num).html("<img src='/image/loading.gif' class='loader'>");
+			$.ajax({
+						type: 'GET',
+						url: '/calendar/eval',
+						data: {
+							index: num,
+							type: "down"
+						},
+						dataType: 'text'
+					})
+					.done(function( data, textStatus, jqXHR ) {
+					        $('.cal_dislike'+num).html(data);
+					        $('.cal_eval_dislike'+num).css('border','solid 1px blue');
+							$('.cal_eval_like'+num).attr('onclick','void(0)');
+							$('.cal_eval_dislike'+num).attr('onclick','void(0)');
+					})
+					.fail(function( jqXHR, textStatus, errorThrown ) {
+					       
+					})
+					.always(function( jqXHR, textStatus ) {
+					        
+					});
+		}
+		
+		// ***************BUD CREATION***************
+		
+		$('#bud_create').on('click',function(){
+			$('#create_result').html("<img src='/image/loading.gif' class='loader'>");
+			dayName = $('#add_bud_form [name=dayName]').val();
+			forWhom = $('#add_bud_form [name=forWhom]').val();
+			concept = $('#add_bud_form [name=concept]').val();
+			month = $('#add_bud_form [name=month]').val();
+			day = $('#add_bud_form [name=day]').val();
+			
+			$.ajax({
+						type: 'GET',
+						url: '/calendar/ajaxcreate',
+						data: {
+							dayname: dayName,
+							forwhom : forWhom,
+							concept : concept,
+							month : month,
+							day : day
+						},
+						dataType: 'text'
+					})
+					.done(function( data, textStatus, jqXHR ) {
+					        $('#create_result').html(data);
+					})
+					.fail(function( jqXHR, textStatus, errorThrown ) {
+					       
+					})
+					.always(function( jqXHR, textStatus ) {
+					        
+					});
+		});
+	})
+</script>
+
+<div class="main_contents_container">
+	
+	<!--デフォルトのコンテンツ-->
+	<div class="main_contents" id="default_contents">
+		<h3>ここにこのページの説明を書く</h3>
+		<p>芽：提案されたやつ</p>
+		<p>花：提案されて評価をえたやつ</p>
+	</div>
+	
+	<!--芽をみるのコンテンツ-->
+	<div class="main_contents" id="see_bud_contents">
+		<div class="header">
+			<a class="close_button" href="javascript:void(0)" id="see_bud_close"></a>
+		</div>
+		<div class="search">
+			<form name="bud_search_form" id="bud_search_form">
+				<!--<div class="search_date">-->
+				<!--	<input type="date" name="fromMonth" min="<%#= Date.today.year.to_s+'-01-01' %>" max="<%= Date.today.year.to_s+'-12-31' %>">-->
+					<!--<input type="number" name="fromMonth" min="1" max="12" placeholder="<%#= Date.today.month %>">月-->
+				<!--</div>-->
+				<!--<div class="search_date">-->
+				<!--	<input type="number" name="fromDay" min="1" placeholder="<%#= Date.today.day %>">日-->
+				<!--</div>-->
+				<!--<div class="search_date">-->
+				<!--	<input type="number" name="toMonth" min="1" max="12" placeholder="<%#= Date.today.month %>">月-->
+				<!--</div>-->
+				<!--<div class="search_date">-->
+				<!--	<input type="number" name="toDay" min="1" placeholder="<%#= Date.today.day %>">日-->
+				<!--</div>-->
+				<div class="search_word">
+					<input type="search" name="searchWord" placeholder="どんな日がいい？誰に渡したい？">
+				</div>
+    		</form>
+    		<a class="search_button" id="bud_search" href="javascript:void(0)"></a>
+		</div>
+		<div class="search_result" id="bud_result">
+			<!--<div class="day_contents">-->
+			<!--	<div class="day_date">6月20日</div>-->
+			<!--	<div class="day_name">こんにちはの日</div>-->
+			<!--	<div class="day_concept">こんにちはは重要な言葉．こんにちはを言い合える人にプレゼントを渡そう．</div>-->
+			<!--	<div class="day_for_title">こんな人にプレゼントを渡そう!!</div>-->
+			<!--	<div class="day_for">恋人</div>-->
+			<!--	<div class="day_evals">-->
+			<!--	    <div class="day_eval" id="like_eval">-->
+			<!--			<a class="day_evalbtn" id="likebtn" href="javascript:void(0);"></a>-->
+			<!--			<div class="day_evalnum" id="likenum">98</div>-->
+			<!--		</div>-->
+			<!--		<div class="day_eval" id="dislike_eval">-->
+			<!--			<a class="day_evalbtn" id="dislikebtn" href="javascript:void(0);"></a>-->
+			<!--			<div class="day_evalnum" id="dislikenum">48</div>-->
+			<!--	    </div>	-->
+			<!--	</div>-->
+			<!--</div>-->
+			
+			<div class="day_contents">
+				<h3>ここではまだ芽であるギフトデイのアイディアを検索・表示する部分です</h3>
+				<h4>上の検索バーで検索してください</h4>
+			</div>
+			
+		</div>
+	</div>
+	
+	<!--芽を追加するのコンテンツ-->
+	<div class="main_contents" id="add_bud_contents">
+		<div class="header">
+			<a class="close_button" href="javascript:void(0)" id="add_bud_close"></a>
+		</div>
+		<div class="create">
+			<form name="add_bud_form" id="add_bud_form">
+				<label>日付：<br><input id="date" type="date" name="date"></label><br>
+				    <input type="radio" name="dateType" value="1">毎年
+					<input type="radio" name="dateType" value="2">毎月
+					<input type="radio" name="dateType" value="3">毎週<br>	
+	    		<label>名称：<br><input id="dayName" type="text" name="dayName" placeholder="バレンタインデー"></label><br>
+	    		<label>プレゼントを渡す相手：<br><input id="forWhom" type="text" name="forWhom" placeholder="恋人"></label><br>
+	    		<label>この日のコンセプト：<br><textarea id="concept" type="text" name="concept" placeholder="特に彼女から彼氏へチョコレートなどのプレゼントをあげる日"></textarea></label><br>
+	    	</form>
+	    	<a class="create_button" id="bud_create" href="javascript:void(0)"><h3>+ 新しい芽を作る</h3></a>
+		</div>
+		<div id="create_result">
+			<h4>上記に必要事項を記入して芽を作成する</h4>
+		</div>
+	</div>
+	
+	<!--花をみるのコンテンツ-->
+	<div class="main_contents" id="see_flower_contents">
+		<div class="header">
+			<a class="close_button" href="javascript:void(0)" id="see_flower_close"></a>
+		</div>
+		<div class="search">
+			<form name="flower_search_form" id="flower_search_form">
+				<!--<div class="search_date">-->
+				<!--	<input type="number" name="fromMonth" placeholder="<%#= Date.today.month %>">月-->
+				<!--</div>-->
+				<!--<div class="search_date">-->
+				<!--	<input type="number" name="fromDay" placeholder="<%#= Date.today.day %>">日-->
+				<!--</div>-->
+				<!--<div class="search_date">-->
+				<!--	<input type="number" name="toMonth" placeholder="<%#= Date.today.month %>">月-->
+				<!--</div>-->
+				<!--<div class="search_date">-->
+				<!--	<input type="number" name="toDay" placeholder="<%#= Date.today.day %>">日-->
+				<!--</div>-->
+				<div class="search_word">
+					<input type="search" name="searchWord" placeholder="どんな日がいい？誰に渡したい？">
+				</div>
+    		</form>
+    		<a class="search_button" id="flower_search" href="javascript:void(0)"></a>
+		</div>
+		<div class="search_result" id="flower_result">
+			<div class="day_contents">
+				<h3>ここでは花となったギフトデイのアイディアを検索・表示する部分です</h3>
+				<h4>上の検索バーで検索してください</h4>
+			</div>
+			<!--<div class="day_contents">-->
+			<!--	<div class="day_date">6月20日</div>-->
+			<!--	<div class="day_name">こんにちはの日</div>-->
+			<!--	<div class="day_concept">こんにちはは重要な言葉．こんにちはを言い合える人にプレゼントを渡そう．</div>-->
+			<!--	<div class="day_for_title">こんな人にプレゼントを渡そう!!</div>-->
+			<!--	<div class="day_for">恋人</div>-->
+			<!--	<div class="day_evals">-->
+			<!--	    <div class="day_eval" id="like_eval">-->
+			<!--			<a class="day_evalbtn" id="likebtn" href="javascript:void(0);">LIKE</a>-->
+			<!--			<div class="day_evalnum" id="likenum">98</div>-->
+			<!--		</div>-->
+			<!--		<div class="day_eval" id="dislike_eval">-->
+			<!--			<a class="day_evalbtn" id="dislikebtn" href="javascript:void(0);">DISLIKE</a>-->
+			<!--			<div class="day_evalnum" id="dislikenum">48</div>-->
+			<!--	    </div>	-->
+			<!--	</div>-->
+			<!--</div>-->
+		</div>
+	</div>
+	
+</div>
