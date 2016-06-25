@@ -60,8 +60,10 @@ class WebhookController < ApplicationController
           # res = client.send([from_mid], "今日の運はどうかな？")
           res = client.send([from_mid], "今日の運はこんな感じ！")
           @gift=Gift.offset( rand(Gift.count) ).first
-          message=message=@gift.name+"/"+@gift.company_name+"\n"+@gift.url+"\n"+"価格:"+priceView(@gift.price)
-          res = client.sendImage([from_mid], "https://mocca-giftfinder.herokuapp.com/gifts/"+@gift.id.to_s+"/img", "https://mocca-giftfinder.herokuapp.com/gifts/"+@gift.id.to_s+"/img" )
+          message=message=@gift.name+"/"+@gift.company_name+"\n"+@gift.url+"\n"
+          
+          #画像送信とりあえず今は無し
+          # res = client.sendImage([from_mid], "https://mocca-giftfinder.herokuapp.com/gifts/"+@gift.id.to_s+"/img", "https://mocca-giftfinder.herokuapp.com/gifts/"+@gift.id.to_s+"/img" )
           res = client.send([from_mid], message)
           
           # message="Web版も試してね！\nhttps://mocca-giftfinder.herokuapp.com/"
@@ -120,8 +122,9 @@ class WebhookController < ApplicationController
             down_calc(@expTop1.id,1)
             
             #@expTop1のギフトに関して，その画像,名前(会社名も)，URLと価格帯を送信
-            message=@expTop1.name+"/"+@expTop1.company_name+"\n"+@expTop1.url+"\n"+"価格:"+priceView(@expTop1.price)
-            res = client.sendImage([from_mid], "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img", "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img" )
+            message=@expTop1.name+"/"+@expTop1.company_name+"\n"+@expTop1.url+"\n"
+            
+            # res = client.sendImage([from_mid], "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img", "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img" )
             res = client.send([from_mid], message)
             
             message="このプレゼントどうかな？\nいい？ちょっと違う？"
@@ -146,8 +149,9 @@ class WebhookController < ApplicationController
             down_calc(@expTop1.id,1)
             
             #@expTop1のギフトに関して，その画像,名前(会社名も)，URLと価格帯を送信
-            message=message=@expTop1.name+"/"+@expTop1.company_name+"\n"+@expTop1.url+"\n"+"価格:"+priceView(@expTop1.price)
-            res = client.sendImage([from_mid], "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img", "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img" )
+            message=message=@expTop1.name+"/"+@expTop1.company_name+"\n"+@expTop1.url+"\n"
+            
+            # res = client.sendImage([from_mid], "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img", "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img" )
             res = client.send([from_mid], message)
             
             message="このプレゼントどうかな？\nいい？ちょっと違う？"

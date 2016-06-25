@@ -17,37 +17,14 @@ class CalendarsController < ApplicationController
   # GET /calendars
   # GET /calendars.json
   def index
-    @calendars = Calendar.all
-    
-    # #keyがカレンダーでバリューが今日の日付からの差
-    # @calHash = Hash.new(0)
-    
-    # #今年
-    # @thisYear=Date.today.year
-    # @today=Date.today.yday
-    
-    # @calendars.each do |cal|
-    #     begin
-    #       @konohi=Date.new(@thisYear.to_i,cal.month.to_i,cal.day.to_i)
-    #     rescue => e
-    #     logger.error e
-    #     logger.error e.backtrace.join("\n")
-    #     end
-    #     @sa=@konohi.yday-@today
-    #     if @sa<0 then
-    #       orderNum=365+@sa
-    #     else
-    #       orderNum=@sa
-    #     end
-    #     @calHash[cal]=orderNum
-    # end
-    
-    # @nearestDay= @calHash.sort_by{|key, value| value}[0][0]
-    # @length= @calHash.sort_by{|key, value| value}[0][1]
+    # @calendars = Calendar.all
     
     render :layout => 'home'
   end
   
+  #************************Ajax****************************
+  
+  #当日に近いギフト・デイを探す
   def nearday
     dayIndex=params[:index].to_i
     
@@ -61,16 +38,16 @@ class CalendarsController < ApplicationController
     
     #今年
     @thisYear=Date.today.year
-    @today=Date.today.yday
+    @today=Date.today
     
     @calendars.each do |cal|
         begin
-          @konohi=Date.new(@thisYear.to_i,cal.month.to_i,cal.day.to_i)
+          @konohi=Date.new(cal.year.to_i ,cal.month.to_i ,cal.day.to_i)
         rescue => e
         logger.error e
         logger.error e.backtrace.join("\n")
         end
-        orderNum=(@konohi.yday-@today)%365
+        orderNum=(@konohi-@today).to_i
         @calHash[cal]=orderNum
     end
     
@@ -83,71 +60,34 @@ class CalendarsController < ApplicationController
 		<div class="nearday_for">プレゼントを渡そう!!</div>'
   end
   
+  #芽を探す
   def search_bud
     searchWord  = params[:searchword]
     searchWordArray = searchWord.split(",")
-    # fromMonth = params[:frommonth].to_i
-    # fromDay = params[:fromday].to_i
-    # toMonth = params[:tomonth].to_i
-    # toDay = params[:today].to_i
+    fromYear = params[:fromyear].to_i
+    fromMonth = params[:frommonth].to_i
+    fromDay = params[:fromday].to_i
+    toYear = params[:toyear].to_i
+    toMonth = params[:tomonth].to_i
+    toDay = params[:today].to_i
     
-    # case fromDay
-    # when 0 then
-    #   fromDay=1
-    # when (1..12) then
-    # else
-    #   fromDay=
+    if toYear==0 && toMonth==0 && toDay==0 then
+      toYear = 2999
+      toMonth = 12
+      toDay = 31
+    end
     
-    # if fromMonth==0 then
-    #   fromMonth==1
-    # else
-    #   if fromMonth>12 then
-        
-    # end
+    @calendars = Giftcalendar.order('year,month,day')
     
+    @calendars = @calendars.where('year >= ?', fromYear)
+    @calendars = @calendars.where('month >= ?', fromMonth)
+    @calendars = @calendars.where('day >= ?', fromDay)
+    @calendars = @calendars.where('year <= ?', toYear)
+    @calendars = @calendars.where('month <= ?', toMonth)
+    @calendars = @calendars.where('day <= ?', toDay)
     
-    # if 
+    # @calendars = @calendars.where(judge_num: 0)
     
-    # @calendars = Calendar.order('month, day')
-    
-    # #keyがカレンダーオブジェクトでvalueがyday
-    # @calHash = Hash.new(0)
-    
-    # @thisYear=Date.today.year
-    # begin
-    #   @fromDate=Date.new(@thisYear.to_i,fromMonth,fromDay)
-    #   @fromDateYday=Date.new(@thisYear.to_i,fromMonth,fromDay).yday
-    # rescue => e
-    # logger.error e
-    # logger.error e.backtrace.join("\n")
-    # end
-    
-    # # @fromDateYday=Date.new(@thisYear.to_i,fromMonth,fromDay).yday
-    
-    # begin
-    #   @toDate=Date.new(@thisYear.to_i,toMonth,toDay)
-    #   @toDateYday=Date.new(@thisYear.to_i,toMonth,toDay).yday
-    # rescue => e
-    # logger.error e
-    # logger.error e.backtrace.join("\n")
-    # end
-    
-    # # @toDateYday=Date.new(@thisYear.to_i,toMonth,toDay).yday
-    
-    # @calendars.each do |cal|
-    #     begin
-    #       @konohi=Date.new(@thisYear.to_i,cal.month.to_i,cal.day.to_i)
-    #       @calHash[cal]=@konohi.yday
-    #     rescue => e
-    #     logger.error e
-    #     logger.error e.backtrace.join("\n")
-    #     end
-    #     # @calHash[cal]=@konohi.yday
-    # end
-    
-    # @calendars= @calHash.select {|k,v| v>=@fromDateYday }.select {|k,v| v<=@toDateYday }.keys
-    @calendars = Giftcalendar.order('month,day')
-    @calendars = @calendars.where(judge_num: 0)
     searchWordArray.each do |swa|
       @calendars=@calendars.where("name like '%" + swa + "%' OR for_whom like '%" + swa +"%'")
     end
@@ -158,7 +98,12 @@ class CalendarsController < ApplicationController
       num = @calendars.count
       #responseText="<div class='gdtitle'>該当するギフトデーが"+num.to_s+"件あります</div>"
       @calendars.each do |cal|
-        responseText+='<div class="day_contents">
+        responseText+='<div class="day_contents_container"><div class="share">
+    <div class="share-box"><a class="share-button twitter" href="http://twitter.com/intent/tweet?text='+cal.month.to_s+'月'+cal.day.to_s+'日は'+cal.name+'&url=https://mocca-giftfinder.herokuapp.com" onclick="window.open(encodeURI(decodeURI(this.href)), "tweetwindow", "width=550, height=450, personalbar=0, toolbar=0, scrollbars=1, resizable=1" ); return false;" target="_blank"><i class="fontawesome-twitter"></i>ツイート</a></div>
+    <div class="share-box"><a class="share-button facebook" href="http://www.facebook.com/share.php?u=https://mocca-giftfinder.herokuapp.com" onclick="window.open(this.href, "window", "width=550, height=450,personalbar=0,toolbar=0,scrollbars=1,resizable=1"); return false;"><i class="fontawesome-facebook"></i>シェア</a></div>
+    <div class="share-box"><a class="share-button line" href="http://line.me/R/msg/text/?'+cal.month.to_s+'月'+cal.day.to_s+'日は'+cal.name+'">LINE</a></div>
+    <div class="share-box"><a class="share-button googleCalendar" href="https://www.google.com/calendar/render?action=TEMPLATE&text='+cal.name+'&dates='+Date.new(cal.year.to_i,cal.month.to_i,cal.day.to_i).strftime("%Y%m%d")+'/'+Date.new(cal.year.to_i,cal.month.to_i,cal.day.to_i).strftime("%Y%m%d")+'&location=&trp=true&trp=undefined&trp=true&sprop="></a></div>
+</div><div class="day_contents type'+cal.judge_num.to_s+'">
 				<div class="day_date">'+cal.month.to_s+'月'+cal.day.to_s+'日</div>
 				<div class="day_name">'+cal.name+'</div>
 				<div class="day_concept">'+cal.concept+'</div>
@@ -174,7 +119,7 @@ class CalendarsController < ApplicationController
 						<div class="day_evalnum cal_dislike'+cal.id.to_s+'" id="dislikenum">'+cal.dislike_count.to_s+'</div>
 				    </div>	
 				</div>
-			</div>'
+			</div></div>'
       end
     end
     render text: responseText
@@ -248,59 +193,6 @@ class CalendarsController < ApplicationController
   
     
 
-  # GET /calendars/1
-  # GET /calendars/1.json
-  def show
-  end
-
-  # GET /calendars/new
-  def new
-    @calendar = Calendar.new
-  end
-
-  # GET /calendars/1/edit
-  def edit
-  end
-
-  # POST /calendars
-  # POST /calendars.json
-  def create
-    @calendar = Calendar.new(calendar_params)
-
-    respond_to do |format|
-      if @calendar.save
-        format.html { redirect_to @calendar, notice: 'Calendar was successfully created.' }
-        format.json { render :show, status: :created, location: @calendar }
-      else
-        format.html { render :new }
-        format.json { render json: @calendar.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /calendars/1
-  # PATCH/PUT /calendars/1.json
-  def update
-    respond_to do |format|
-      if @calendar.update(calendar_params)
-        format.html { redirect_to @calendar, notice: 'Calendar was successfully updated.' }
-        format.json { render :show, status: :ok, location: @calendar }
-      else
-        format.html { render :edit }
-        format.json { render json: @calendar.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /calendars/1
-  # DELETE /calendars/1.json
-  def destroy
-    @calendar.destroy
-    respond_to do |format|
-      format.html { redirect_to calendars_url, notice: 'Calendar was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
   
   def getevent
     month=params[:month]
@@ -392,7 +284,7 @@ class CalendarsController < ApplicationController
           if Giftcalendar.where(month: @month, day: getDate(@year,@month,i)).empty? then
             responseText+='<tr><td class="border_line">'+getDate(@year,@month,i)+'</td>'
           else
-            responseText+='<tr><td class="border_line"><a  class="exist" onclick="getInfo('+@year.to_s+','+@month.to_s+','+i.to_s+')">'+getDate(@year,@month,i)+'</a></td>'
+            responseText+='<tr><td class="border_line"><a  class="exist" onclick="getInfo('+@year.to_s+','+@month.to_s+','+getDate(@year,@month,i)+')">'+getDate(@year,@month,i)+'</a></td>'
           end
         end
       when 0 then
@@ -402,7 +294,7 @@ class CalendarsController < ApplicationController
           if Giftcalendar.where(month: @month, day: getDate(@year,@month,i)).empty? then
             responseText+='<td class="border_line">'+getDate(@year,@month,i)+'</td></tr>'
           else
-            responseText+='<td class="border_line"><a  class="exist" onclick="getInfo('+@year.to_s+','+@month.to_s+','+i.to_s+')">'+getDate(@year,@month,i)+'</a></td></tr>'
+            responseText+='<td class="border_line"><a  class="exist" onclick="getInfo('+@year.to_s+','+@month.to_s+','++getDate(@year,@month,i)+')">'+getDate(@year,@month,i)+'</a></td></tr>'
           end
         end
       else
@@ -412,7 +304,7 @@ class CalendarsController < ApplicationController
           if Giftcalendar.where(month: @month, day: getDate(@year,@month,i)).empty? then
             responseText+='<td class="border_line">'+getDate(@year,@month,i)+'</td>'
           else
-            responseText+='<td class="border_line"><a  class="exist" onclick="getInfo('+@year.to_s+','+@month.to_s+','+i.to_s+')">'+getDate(@year,@month,i)+'</a></td>'
+            responseText+='<td class="border_line"><a  class="exist" onclick="getInfo('+@year.to_s+','+@month.to_s+','++getDate(@year,@month,i)+')">'+getDate(@year,@month,i)+'</a></td>'
           end
         end
       end
@@ -442,8 +334,14 @@ class CalendarsController < ApplicationController
       if res<1 then
         res=""
       else
-        if res>(Date.new(year,month+1,1).yday-Date.new(year,month,1).yday) then
-          res=""
+        if month==12 then
+          if res>(Date.new(year+1,1,1)-Date.new(year,month,1)) then
+            res=""
+          end
+        else
+          if res>(Date.new(year,month+1,1)-Date.new(year,month,1)) then
+            res=""
+          end
         end
       end
       
