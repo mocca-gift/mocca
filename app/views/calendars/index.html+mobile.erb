@@ -134,7 +134,7 @@
 	</div>
 	<div class="create">
 		<form name="add_bud_form" id="add_bud_form">
-			<label>日付：<br><input id="date" type="date" name="date" value='2016-01-01'></label><br>
+			<label>日付：<br><input id="date" type="date" name="date" value='<%= Date.new(cal.year.to_i,cal.month.to_i,cal.day.to_i).strftime("%Y-%m-%d") %>'></label><br>
 			 <!--   <input type="radio" name="dateType" value="1">毎年-->
 				<!--<input type="radio" name="dateType" value="2">毎月-->
 				<!--<input type="radio" name="dateType" value="3">毎週<br>	-->
@@ -535,7 +535,7 @@
 			<input type="search" name="searchWord" placeholder="どんな日がいい？誰に渡したい？">
 		</div>
 		<div class="search_date">
-			<input id="fromdate" type="date" name="fromDate" value='<%= Date.today.year.to_s %>+"-"+<%= Date.today.month.to_s %>+"-"+<%= Date.today.day.to_s %>' max="2999-12-31">～<input id="todate" type="date" name="toDate" value='<%= (Date.today.year+1).to_s %>+"-"+<%= Date.today.month.to_s %>+"-"+<%= Date.today.day.to_s %>' max="2999-12-31"> 
+			<input id="fromdate" type="date" name="fromDate" value='<%= Date.new(cal.year.to_i,cal.month.to_i,cal.day.to_i).strftime("%Y-%m-%d") %>' max="2999-12-31">～<input id="todate" type="date" name="toDate" value='<%= Date.new(cal.year.to_i+1,cal.month.to_i,cal.day.to_i).strftime("%Y-%m-%d") %>' max="2999-12-31"> 
 		</div>
 	</form>
 	<a class="search_button" id="bud_search" href="javascript:void(0)"></a>
