@@ -2,39 +2,7 @@
  initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
 
 <style>
-	.add_bud_button {
-		display: block;
-		width: 100px;
-		height: 100px;
-		position: absolute;
-		background-size: contain;
-		background-position: center;
-		background-repeat: no-repeat;
-		border: solid 3px white;
-		top: 50px;
-		right: 50px;
-		background-image: url('/image/bud.png');
-		background-color: rgb(90,165,114);
-		border-radius: 50%;
-		position: fixed;
-		z-index: 100;
-	}
-	.add_bud_button::after {
-		content: "";
-		position: relative;
-		top: 50%;
-		left: 55%;
-		display:block;
-		width:30px;
-		height:30px;
-		background-image: url("/image/add.png"); 
-		background-size:contain;
-		background-position: center;
-	}
 	
-	.add_bud_button:hover {
-		border: solid 5px rgb(245,176,144);
-	}
 	
 	.add_bud_container {
 		width: 250px;
@@ -48,6 +16,22 @@
 		background-color: white;
 		z-index: 102;
 		display: none;
+		padding: 10px;
+	}
+	.create_result {
+		width: 250px;
+		height: 400px;
+		position: absolute;
+		top: 50%;
+		margin-top: -200px;
+		left: 50%;
+		margin-left: -125px;
+		position: fixed;
+		background-color: white;
+		z-index: 103;
+		display: none;
+		padding: 10px;
+		text-align: center;
 	}
 	.background {
 		width: 100%;
@@ -59,6 +43,19 @@
 		background-color: rgba(0,0,0,0.7);
 		z-index: 101;
 		display: none;
+	}
+	
+	input {
+		text-align: center;
+	}
+
+	textarea:focus {
+		background-color: pink;
+	}
+	.create_button {
+		padding: 10px;
+		border: solid 1px blue;
+		border-radius: 10px
 	}
 </style>
 
@@ -102,6 +99,7 @@
 					})
 					.done(function( data, textStatus, jqXHR ) {
 					        $('#create_result').html(data);
+					        $('.create_result').fadeIn();
 					})
 					.fail(function( jqXHR, textStatus, errorThrown ) {
 					       
@@ -110,10 +108,18 @@
 					        
 					});
 		});
+		$('#create_again').on('click',function(){
+		    $('.create_result').fadeOut();
+		});
+		$('#create_result_close').on('click',function(){
+		    $('.create_result').fadeOut();
+		    $('.add_bud_container').fadeOut();
+		    $('.background').fadeOut();
+		});
 	})
 </script>
 
-<a class="add_bud_button" href="javascript:void(0);"></a>
+
 
 <div class="background">
 </div>
@@ -130,13 +136,15 @@
 				<!--<input type="radio" name="dateType" value="3">毎週<br>	-->
     		<label>名称：<br><input id="dayName" type="text" name="dayName" placeholder="バレンタインデー"></label><br>
     		<label>プレゼントを渡す相手：<br><input id="forWhom" type="text" name="forWhom" placeholder="恋人"></label><br>
-    		<label>この日のコンセプト：<br><textarea id="concept" type="text" name="concept" placeholder="特に彼女から彼氏へチョコレートなどのプレゼントをあげる日"></textarea></label><br>
+    		<label>この日のコンセプト：<br><textarea id="concept" type="text" name="concept" col="4"></textarea></label><br>
     	</form>
-    	<a class="create_button" id="bud_create" href="javascript:void(0)"><h3>+ 新しい芽を作る</h3></a>
+    	<a class="create_button" id="bud_create" href="javascript:void(0)"><i class="glyphicon glyphicon-plus-sign"></i> 新しい芽を作る</a>
 	</div>
-	<div id="create_result">
-		<h4>上記に必要事項を記入して芽を作成する</h4>
-	</div>
+</div>
+<div class="create_result">
+	<a class="close_button" href="javascript:void(0)" id="create_result_close"></a>
+	<div id="create_result"></div>
+	<a class="create_button" id="create_again" href="javascript:void(0);"><i class="glyphicon glyphicon-repeat"></i> もう一度作る</a>
 </div>
 
 
@@ -183,43 +191,71 @@
 </style>
 <!--Title-->
 <style>
-	.title {
-		width: 100%;
-		height: 150px;
-		line-height: 100px;
-		text-align: center;
-		/*background-image: url('/image/heartback.jpg');*/
-		/*background-size: cover;*/
-		
+	.navbar {
+	  background-color: #FFFFFF;
+	  position: relative;
 	}
-	.title::before {
-		content: "";
+	
+	.add_bud_button {
+		display: block;
+		width: 30px;
+		height: 30px;
 		position: absolute;
-		top: 10px;
-		left: 50%;
-		margin-left: -220px;
+		background-size: contain;
+		background-position: center;
+		background-repeat: no-repeat;
+		border: solid 3px white;
+		top: 50%;
+		margin-top: -15px;
+		right: 10px;
+		background-image: url('/image/bud.png');
+		background-color: rgb(90,165,114);
+		border-radius: 50%;
+		/*position: fixed;*/
+		z-index: 100;
+	}
+	.add_bud_button::after {
+		content: "";
+		position: relative;
+		top: 50%;
+		left: 55%;
 		display:block;
-		width:60px;
-		height:60px;
-		background-image: url("/image/giftday.png"); 
+		width:30px;
+		height:30px;
+		background-image: url("/image/add.png"); 
 		background-size:contain;
 		background-position: center;
 	}
-	.title h1, .title h3 {
-		margin: 0;
+	
+	.add_bud_button:hover {
+		border: solid 5px rgb(245,176,144);
 	}
 </style>
-<div class="title">
-	<h1 style="line-height:90px;">Gift Calendar</h1>
-	<h3 style="line-height:60px;" class="subtitle"><strong>素敵な日</strong>に素敵なプレゼントを渡しましょう．</h3>
-</div>
+<nav class="navbar navbar-fixed-top">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="/"><i class="glyphicon glyphicon-home"></i> GIFT CALENDAR</a>
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav-content">
+          <span class="icon-bar" style="background-color:#000000;"></span>
+          <span class="icon-bar" style="background-color:#000000;"></span>
+          <span class="icon-bar" style="background-color:#000000;"></span>
+        </button>
+      </div>  
+      <!--<div id="nav-content" class="collapse navbar-collapse">-->
+      <!--  <ul class="nav navbar-nav">-->
+      <!--    <li><a href="/qflow" data-no-turbolink="1">Question<BR>質問で探す</a></li>-->
+      <!--    <li><a href="/new_arrival" data-no-turbolink="1">New<BR>新しいアイテム</a></li>-->
+      <!--    <li><a href="/info" data-no-turbolink="1">Information<BR>お問い合わせ</a></li>-->
+      <!--  </ul>-->
+      <!--</div>-->
+      <a class="add_bud_button" href="javascript:void(0);"></a>
+    </nav>
 
 <style>
 	.nearday {
 		width: 100%;
 		/*margin-left: 5%;*/
-		margin-top: 30px;
-		height: 150px;
+		margin-top: 20px;
+		height: 100px;
 		position: relative;
 		background-color: rgba(255,255,255,0.7);
 		border-top: double 5px  rgb(161,104,154);
@@ -259,7 +295,7 @@
 	}
 	.nearday_name h3 {
 		margin: 0;
-		line-height: 60px;
+		line-height: 40px;
 	}
 	.nearday_name {
 		display: block;
@@ -274,12 +310,12 @@
 	}
     .nearday_for_text h4 {
 		margin: 0;
-		line-height: 37.5px;
+		line-height: 25px;
 	}
 	.nearday_for {
 		width: 100%;
 		height: 15%;
-		line-height: 22.5px;
+		line-height: 15px;
 		text-align: center;
 	}
 </style>
@@ -368,7 +404,7 @@
 
 <style>
 		.search {
-		width: 87%;
+		width: 80%;
 		height: 40px;
 		margin-left: 5%;
 		position:relative;
@@ -387,11 +423,15 @@
 		/*-moz-appearance: none;*/
 		/*appearance: none;*/
 	}
+	textarea {
+		border: solid 1px gray;
+		height: 100px;
+	}
 	input[type="text"]{
 		/*border-bottom: solid 1px gray;*/
 	}
 	.search_date {
-		width: 49%;
+		width: 100%;
 		height: 40px;
 		line-height: 40px;
 		float: left;
@@ -407,7 +447,7 @@
 		line-height: 20px;
 	}
 	.search_word {
-		width: 49%;
+		width: 100%;
 		height: 40px;
 		border-left: solid 1px gray;
 		border-top: solid 1px gray;
@@ -433,7 +473,7 @@
 	  	width: 40px;
 	  	position: absolute;
 	  	top: 0px;
-	  	left: 98%;
+	  	left: 100%;
 	  	background-size: contain;
 	  	background-position: center;
 	  	background-repeat: no-repeat;
@@ -442,14 +482,14 @@
 	  	border: solid 1px gray;
 	}
 </style>
-<h3 style="text-align:center;">ギフト・デイを検索しよう!!</h3>
+<h3 style="text-align:center;"></h3>
 <div class="search">
 	<form name="bud_search_form" id="bud_search_form">
 		<div class="search_word">
 			<input type="search" name="searchWord" placeholder="どんな日がいい？誰に渡したい？">
 		</div>
 		<div class="search_date">
-			<input id="fromdate" type="date" name="fromDate" max="2999-12-31">～<input id="todate" type="date" name="toDate" max="2999-12-31"> 
+			<input id="fromdate" type="date" name="fromDate" placeholder="いつから？" max="2999-12-31">～<input id="todate" type="date" name="toDate" placeholder="いつまで？" max="2999-12-31"> 
 		</div>
 	</form>
 	<a class="search_button" id="bud_search" href="javascript:void(0)"></a>
@@ -798,7 +838,7 @@
 				})
 				.done(function( data, textStatus, jqXHR ) {
 				        $('.cal_like'+num).html(data);
-				        $('.cal_eval_like'+num).css('border','solid 1px blue');
+				        // $('.cal_eval_like'+num).css('border','solid 1px blue');
 						$('.cal_eval_like'+num).attr('onclick','void(0)');
 						$('.cal_eval_dislike'+num).attr('onclick','void(0)');
 				})
@@ -823,7 +863,7 @@
 					})
 					.done(function( data, textStatus, jqXHR ) {
 					        $('.cal_dislike'+num).html(data);
-					        $('.cal_eval_dislike'+num).css('border','solid 1px blue');
+					        // $('.cal_eval_dislike'+num).css('border','solid 1px blue');
 							$('.cal_eval_like'+num).attr('onclick','void(0)');
 							$('.cal_eval_dislike'+num).attr('onclick','void(0)');
 					})
@@ -862,11 +902,6 @@
 	    .create {
 	    	width: 90%;
 	    	margin-left: 5%;
-	    }
-	    #create_result {
-	    	width: 90%;
-	    	margin-left: 5%;
-	    	margin-top: 50px;
 	    }
 	    .create_button {
 	    	width: 200px;
@@ -987,7 +1022,9 @@
 				dataType: 'text'
 			})
 			.done(function( data, textStatus, jqXHR ) {
-			        $('.day_info').html(data);
+			        $('#day_result').html(data);
+			        $('.day_info').fadeIn();
+			        $('.background').fadeIn();
 			})
 			.fail(function( jqXHR, textStatus, errorThrown ) {
 			       
@@ -999,7 +1036,7 @@
 	})
 </script>
 
-<h3 style="text-align:center;">ギフト・カレンダー</h3>
+<h3 style="text-align:center;"></h3>
 
 <div class="main_contents_container">
 	
@@ -1030,41 +1067,57 @@
 			.show_calendar th{
 				width: 60px;
 				text-align: center;
+				border-bottom: double 10px gray;
+				border-top: double 10px gray;
 				background-color: gray;
 			}	
 			.show_calendar td {
-				height: 60px;
+				height: 40px;
 				/*border-bottom: solid 1px gray;*/
 			}
 			.calendar {
-				height: 360px;
+				height: 240px;
 				position: relative;
 				width: 100%;
 				text-align: center;
 			}
-			/*.exist {*/
+			td {
+				position: relative;
+			}
+			.exist {
+				display: block;
+				line-height: 26px;
+				top: 5px;
+				position: absolute;
+				left: 50%;
+				margin-left: -15px;
+				height: 30px;
+				width: 30px;
+				border: solid 2px blue;
+				border-radius: 150px;
+			}
+			/*.exist::after {*/
+			/*	position: relative;*/
+			/*	display: block;*/
+			/*	content="";*/
+			/*	top: 0px;*/
+			/*	left: 15px;*/
+			/*	width: 60px;*/
+			/*	height: 60px;*/
 			/*	background-color: red;*/
 			/*	border-radius: 30px;*/
 			/*}*/
-			.exist::after {
-				position: relative;
-				display: block;
-				content="";
-				top: 0px;
-				left: 15px;
-				width: 60px;
-				height: 60px;
-				background-color: red;
-				border-radius: 30px;
-			}
 			.border_line {
 				border-bottom: solid 1px gray;
 			}
+			h3.show_month {
+				margin: 0;
+			}
 		</style>
 		<div class="calendar_header">
-			<a class="prev_btn" href="javascript:void(0);">←PREV</a>
-			<a class="next_btn" href="javascript:void(0);">NEXT→</a>
-			<h4 class="show_month"><%= Date.today.year %>年 <%= Date.today.month %>月</h4>
+			<a class="prev_btn" href="javascript:void(0);"><i class="glyphicon glyphicon-menu-left"></i></a>
+			<a class="next_btn" href="javascript:void(0);"><i class="glyphicon glyphicon-menu-right"></i></a>
+			<h3 class="show_month"><%= Date.today.year %>年 <%= Date.today.month %>月</h3>
 			
 		</div>
 		
@@ -1141,8 +1194,38 @@
 	</div>
 	
 </div>
-
-<div class="day_info"></div>
+<style>
+	.day_info {
+		height: 500px;
+		width: 300px;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		margin-top: -250px;
+		margin-left: -150px;
+		background-color: white;
+		display: none;
+		position: fixed;
+		z-index: 102;
+	}
+	
+</style>
+<script>
+	$(function(){
+		
+		$('#see_day_close').on('click',function(){
+			$('.day_info').fadeOut();
+			$('.background').fadeOut();
+		});
+	})
+</script>
+<div class="day_info">
+	<div class="header">
+		<a class="close_button" href="javascript:void(0)" id="see_day_close"></a>
+	</div>
+	<div class="search_result" id="day_result">
+	</div>
+</div>
 
 
 

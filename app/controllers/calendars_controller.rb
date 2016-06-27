@@ -102,7 +102,7 @@ class CalendarsController < ApplicationController
     <div class="share-box"><a class="share-button twitter" href="http://twitter.com/intent/tweet?text='+cal.month.to_s+'月'+cal.day.to_s+'日は'+cal.name+'&url=https://mocca-giftfinder.herokuapp.com" onclick="window.open(encodeURI(decodeURI(this.href)), "tweetwindow", "width=550, height=450, personalbar=0, toolbar=0, scrollbars=1, resizable=1" ); return false;" target="_blank"><i class="fontawesome-twitter"></i>ツイート</a></div>
     <div class="share-box"><a class="share-button facebook" href="http://www.facebook.com/share.php?u=https://mocca-giftfinder.herokuapp.com" onclick="window.open(this.href, "window", "width=550, height=450,personalbar=0,toolbar=0,scrollbars=1,resizable=1"); return false;"><i class="fontawesome-facebook"></i>シェア</a></div>
     <div class="share-box"><a class="share-button line" href="http://line.me/R/msg/text/?'+cal.month.to_s+'月'+cal.day.to_s+'日は'+cal.name+'">LINE</a></div>
-    <div class="share-box"><a class="share-button googleCalendar" href="https://www.google.com/calendar/render?action=TEMPLATE&text='+cal.name+'&dates='+Date.new(cal.year.to_i,cal.month.to_i,cal.day.to_i).strftime("%Y%m%d")+'/'+Date.new(cal.year.to_i,cal.month.to_i,cal.day.to_i).strftime("%Y%m%d")+'&location=&trp=true&trp=undefined&trp=true&sprop="></a></div>
+    <div class="share-box"><a class="share-button googleCalendar" href="https://www.google.com/calendar/gp?pli=1#~calendar:view=e&bm=1&action=TEMPLATE&text='+cal.name+'&dates='+Date.new(cal.year.to_i,cal.month.to_i,cal.day.to_i).strftime("%Y%m%d")+'/'+Date.new(cal.year.to_i,cal.month.to_i,cal.day.to_i).strftime("%Y%m%d")+'&location=&trp=true&trp=undefined&trp=true&sprop="></a></div>
 </div><div class="day_contents type'+cal.judge_num.to_s+'">
 				<div class="day_date">'+cal.month.to_s+'月'+cal.day.to_s+'日</div>
 				<div class="day_name">'+cal.name+'</div>
@@ -237,9 +237,17 @@ class CalendarsController < ApplicationController
     year = params[:year]
     month = params[:month]
     day = params[:day]
-    if Giftcalendar.where(name: dayName).empty? && forWhom!="" then
+    if forWhom!="" && dayName!="" && year!="" && month!="" && day!="" then
       Giftcalendar.create(year: year, month: month, day: day, name: dayName, for_whom: forWhom, concept: concept, judge_num: 0 , like_count: 0 , dislike_count: 0)
-      responseText="<strong>"+dayName+"</strong>は無事登録されました"
+      responseText="<div><strong>日付:</strong></div>
+                      <div>"+year.to_s+"年"+month.to_s+"月"+day.to_s+"日</div>
+                    <div><strong>名称:</strong></div>
+                      <div>"+dayName+"</div>
+                    <div><strong>プレゼントを渡す相手:</strong></div>
+                      <div>"+forWhom+"</div>
+                    <div><strong>この日のコンセプト:</strong></div>
+                      <div>"+concept+"</div>
+                    <div>登録されました</div>"
     else
       responseText="登録に失敗しました"
     end
@@ -281,30 +289,30 @@ class CalendarsController < ApplicationController
         if getDate(@year,@month,i)=="" then
           responseText+='<tr><td>'+getDate(@year,@month,i)+'</td>'
         else
-          if Giftcalendar.where(month: @month, day: getDate(@year,@month,i)).empty? then
+          if Giftcalendar.where(year: @year, month: @month, day: getDate(@year,@month,i)).empty? then
             responseText+='<tr><td class="border_line">'+getDate(@year,@month,i)+'</td>'
           else
-            responseText+='<tr><td class="border_line"><a  class="exist" onclick="getInfo('+@year.to_s+','+@month.to_s+','+getDate(@year,@month,i)+')">'+getDate(@year,@month,i)+'</a></td>'
+            responseText+='<tr><td class="border_line"><a  class="exist" href="javascript:void(0);" onclick="getInfo('+@year.to_s+','+@month.to_s+','+getDate(@year,@month,i)+')">'+getDate(@year,@month,i)+'</a></td>'
           end
         end
       when 0 then
         if getDate(@year,@month,i)=="" then
           responseText+='<td>'+getDate(@year,@month,i)+'</td></tr>'
         else
-          if Giftcalendar.where(month: @month, day: getDate(@year,@month,i)).empty? then
+          if Giftcalendar.where(year: @year, month: @month, day: getDate(@year,@month,i)).empty? then
             responseText+='<td class="border_line">'+getDate(@year,@month,i)+'</td></tr>'
           else
-            responseText+='<td class="border_line"><a  class="exist" onclick="getInfo('+@year.to_s+','+@month.to_s+','++getDate(@year,@month,i)+')">'+getDate(@year,@month,i)+'</a></td></tr>'
+            responseText+='<td class="border_line"><a  class="exist" href="javascript:void(0);" onclick="getInfo('+@year.to_s+','+@month.to_s+','++getDate(@year,@month,i)+')">'+getDate(@year,@month,i)+'</a></td></tr>'
           end
         end
       else
         if getDate(@year,@month,i)=="" then
           responseText+='<td>'+getDate(@year,@month,i)+'</td>'
         else
-          if Giftcalendar.where(month: @month, day: getDate(@year,@month,i)).empty? then
+          if Giftcalendar.where(year: @year, month: @month, day: getDate(@year,@month,i)).empty? then
             responseText+='<td class="border_line">'+getDate(@year,@month,i)+'</td>'
           else
-            responseText+='<td class="border_line"><a  class="exist" onclick="getInfo('+@year.to_s+','+@month.to_s+','++getDate(@year,@month,i)+')">'+getDate(@year,@month,i)+'</a></td>'
+            responseText+='<td class="border_line"><a  class="exist" href="javascript:void(0);" onclick="getInfo('+@year.to_s+','+@month.to_s+','++getDate(@year,@month,i)+')">'+getDate(@year,@month,i)+'</a></td>'
           end
         end
       end
