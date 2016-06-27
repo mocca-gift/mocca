@@ -173,16 +173,17 @@ class CalendarsController < ApplicationController
       @calendar.update(like_count: @calendar.like_count.to_i+1)
       if @calendar.like_count==@limit_num then
         @calendar.update(judge_num: 1)
-        responseText="Upgraded"
+        responseText=@calendar.like_count.to_s
       else
         responseText=@calendar.like_count.to_s
       end
     when "down" then
       @calendar=Giftcalendar.find(index)
       @calendar.update(dislike_count: @calendar.dislike_count.to_i+1)
+      disNum=@calendar.dislike_count.to_i
       if @calendar.judge_num==0 && @calendar.dislike_count==@limit_num then
         @calendar.destroy
-        responseText="Destroyed"
+        responseText=disNum.to_s
       else
         responseText=@calendar.dislike_count.to_s
       end
