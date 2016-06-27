@@ -525,7 +525,7 @@
 			<input type="search" name="searchWord" placeholder="どんな日がいい？誰に渡したい？">
 		</div>
 		<div class="search_date">
-			<input id="fromdate" type="date" name="fromDate" value='<%= Date.today.year.to_s %>+"-"+<%= Date.today.month.to_s %>+"-"+<%= Date.today.day.to_s %>' max="2999-12-31">～<input id="todate" type="date" name="toDate" value='<%= (Date.today-1.year).year.to_s %>+"-"+<%= Date.today.month.to_s %>+"-"+<%= Date.today.day.to_s %>' max="2999-12-31"> 
+			<input id="fromdate" type="date" name="fromDate" value='<%= Date.today.year.to_s %>+"-"+<%= Date.today.month.to_s %>+"-"+<%= Date.today.day.to_s %>' max="2999-12-31">～<input id="todate" type="date" name="toDate" value='<%= (Date.today.year+1).to_s %>+"-"+<%= Date.today.month.to_s %>+"-"+<%= Date.today.day.to_s %>' max="2999-12-31"> 
 		</div>
 	</form>
 	<a class="search_button" id="bud_search" href="javascript:void(0)"></a>
