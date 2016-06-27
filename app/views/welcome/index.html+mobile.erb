@@ -63,8 +63,177 @@
     <div class="header">
         <img class="logo" src="/image/largelogo.png">
     </div>
+    <style>
+    	.nearday {
+    		width: 100%;
+    		/*margin-left: 5%;*/
+    		margin-top: 20px;
+    		height: 100px;
+    		position: relative;
+    		background-color: rgba(255,255,255,0.7);
+    		border-top: double 5px  rgb(161,104,154);
+    		border-bottom: double 5px  rgb(161,104,154);
+    	}
+    	.move_btn {
+    		display: block;
+    		width: 15%;
+    		height: 100%;
+    		position: absolute;
+    		background-size: 30px 60px;
+    		background-position: center;
+    		background-repeat: no-repeat;
+    	}
+    	.backto {
+    		background-image: url('/image/left.png');
+    		top: 0;
+    		left: 0;
+    	}
+    	.nextto {
+    		background-image: url('/image/right.png');
+    		top: 0;
+    		right: 0;
+    	}
+    	.nearday_container {
+    		width: 70%;
+    		height: 100%;
+    		margin-left: 15%;
+    		margin-right: 15%;
+    		position: relative;
+    	}
+    	.nearday_date {
+    		width: 100%;
+    		height: 20%;
+    		line-height: 200%;
+    		text-align: center;
+    	}
+    	.nearday_name h3 {
+    		margin: 0;
+    		line-height: 40px;
+    	}
+    	.nearday_name {
+    		display: block;
+    		width: 100%;
+    		height: 40%;
+    		text-align: center;
+    	}
+    	.nearday_for_text {
+    		width: 100%;
+    		height: 25%;
+    		text-align: center;
+    	}
+        .nearday_for_text h4 {
+    		margin: 0;
+    		line-height: 25px;
+    	}
+    	.nearday_for {
+    		width: 100%;
+    		height: 15%;
+    		line-height: 15px;
+    		text-align: center;
+    	}
+    </style>
+    
+    <script>
+    	$(function(){
+    		var dayIndex=0;
+    		$('.nearday_container').html("<img src='/image/loading.gif' class='loader'>");
+    		$.ajax({
+    			type: 'GET',
+    			url: '/calendar/nearday',
+    			data: {
+    				index: dayIndex
+    			},
+    			dataType: 'text'
+    		})
+    		.done(function( data, textStatus, jqXHR ) {
+    		        $('.nearday_container').html(data);
+    		})
+    		.fail(function( jqXHR, textStatus, errorThrown ) {
+    		       
+    		})
+    		.always(function( jqXHR, textStatus ) {
+    		        
+    		});
+    		
+    		
+    		$('.backto').on('click',function(){
+    				$('.nearday_container').html("<img src='/image/loading.gif' class='loader'>");
+    				dayIndex--;
+    				$.ajax({
+    					type: 'GET',
+    					url: '/calendar/nearday',
+    					data: {
+    						index: dayIndex
+    					},
+    					dataType: 'text'
+    				})
+    				.done(function( data, textStatus, jqXHR ) {
+    				        $('.nearday_container').html(data);
+    				})
+    				.fail(function( jqXHR, textStatus, errorThrown ) {
+    				       
+    				})
+    				.always(function( jqXHR, textStatus ) {
+    				        
+    				});
+    		});
+    		
+    		$('.nextto').on('click',function(){
+    				$('.nearday_container').html("<img src='/image/loading.gif' class='loader'>");
+    				dayIndex++;
+    				$.ajax({
+    					type: 'GET',
+    					url: '/calendar/nearday',
+    					data: {
+    						index: dayIndex
+    					},
+    					dataType: 'text'
+    				})
+    				.done(function( data, textStatus, jqXHR ) {
+    				        $('.nearday_container').html(data);
+    				})
+    				.fail(function( jqXHR, textStatus, errorThrown ) {
+    				       
+    				})
+    				.always(function( jqXHR, textStatus ) {
+    				        
+    				});
+    		});
+    	})
+    </script>
+    
+    <div class="nearday">
+    	<a class="backto move_btn" href="javascript:void(0);"></a>
+    	<a class="nextto move_btn" href="javascript:void(0);"></a>
+    	<div class="nearday_container">
+    		<div class="nearday_date">6月20日</div>
+    		<a class="nearday_name" href="javascript:void(0);"><h3>こんにちはの日</h3></a>
+    		<div class="nearday_for_text"><h4>こんな人にプレゼントを渡そう!!</h4></div>
+    		<div class="nearday_for">恋人</div>
+    	</div>
+    </div>
+    
+    <style>
+	.tocalendar_btn {
+		display: block;
+		text-align: center;
+		width: 80%;
+		margin-left: 10%;
+		height: 40px;
+		line-height: 40px;
+		border: solid 2px blue;
+		border-radius: 15px;
+		margin-top: 10px;
+		
+		background-color: white;
+		z-index: 51;
+	}
+</style>
+<a class="tocalendar_btn" href="/calendars">カレンダーはこちらから <i class="glyphicon glyphicon-triangle-right"></i></a>
+
     <div class="about">
-      <h3>MOCCAはギフトをあげたいけど<BR><BR>何をあげたらいいか分からない...<BR><BR>そんな時に役に立つサイトです</h3>    
+      <h3>MOCCAは素敵なプレゼント/ギフトを選ぶを叶えます。<BR>
+	          "Q"をクリックして、<BR>一緒にプレゼント/ギフトを探しましょう!!</h3>    
     </div>
     <a class="tab q" href="/qflow" data-no-turbolink="1"></a>
     <a class="tab n" href="/new_arrival" data-no-turbolink="1"></a>
