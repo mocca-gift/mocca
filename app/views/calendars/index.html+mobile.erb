@@ -202,15 +202,15 @@
 	
 	.add_bud_button {
 		display: block;
-		width: 30px;
-		height: 30px;
+		width: 40px;
+		height: 40px;
 		position: absolute;
 		background-size: contain;
 		background-position: center;
 		background-repeat: no-repeat;
 		border: solid 3px white;
 		top: 50%;
-		margin-top: -15px;
+		margin-top: -20px;
 		right: 10px;
 		background-image: url('/image/bud.png');
 		background-color: rgb(90,165,114);
@@ -224,8 +224,8 @@
 		top: 50%;
 		left: 55%;
 		display:block;
-		width:30px;
-		height:30px;
+		width:10px;
+		height:10px;
 		background-image: url("/image/add.png"); 
 		background-size:contain;
 		background-position: center;
@@ -234,15 +234,18 @@
 	.add_bud_button:hover {
 		border: solid 5px rgb(245,176,144);
 	}
+	a:link {
+		text-decoration:none;
+	}
 </style>
 <nav class="navbar navbar-fixed-top">
       <div class="navbar-header">
         <a class="navbar-brand" href="/"><i class="glyphicon glyphicon-home"></i> GIFT CALENDAR</a>
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav-content">
-          <span class="icon-bar" style="background-color:#000000;"></span>
-          <span class="icon-bar" style="background-color:#000000;"></span>
-          <span class="icon-bar" style="background-color:#000000;"></span>
-        </button>
+        <!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav-content">-->
+        <!--  <span class="icon-bar" style="background-color:#000000;"></span>-->
+        <!--  <span class="icon-bar" style="background-color:#000000;"></span>-->
+        <!--  <span class="icon-bar" style="background-color:#000000;"></span>-->
+        <!--</button>-->
       </div>  
       <!--<div id="nav-content" class="collapse navbar-collapse">-->
       <!--  <ul class="nav navbar-nav">-->
@@ -409,7 +412,7 @@
 <style>
 		.search {
 		width: 80%;
-		height: 40px;
+		height: 80px;
 		margin-left: 5%;
 		position:relative;
 		/*float:left;*/
@@ -442,6 +445,7 @@
 		border-left: solid 1px gray;
 		border-top: solid 1px gray;
 		border-bottom: solid 1px gray;
+		border-right: solid 1px gray;
 		float: left;
 		
 	}
@@ -890,7 +894,7 @@
 		margin-left: 5%;
 		/*margin-top: 50px;*/
 		margin-bottom: 50px;
-		height: 500px;
+		height: 350px;
 		position: relative;
 		background-color: rgba(255,255,255,0.7);
 		border: solid 5px rgb(0,30,67);
