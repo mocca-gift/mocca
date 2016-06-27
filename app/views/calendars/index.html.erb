@@ -135,7 +135,7 @@
     		<label>プレゼントを渡す相手：<br><input id="forWhom" type="text" name="forWhom" placeholder="恋人"></label><br>
     		<label>この日のコンセプト：<br><textarea id="concept" type="text" name="concept" col="4"></textarea></label><br>
     	</form>
-    	<a class="create_button" id="bud_create" href="javascript:void(0)"><i class="glyphicon glyphicon-plus-sign"></i> 新しい芽を作る</a>
+    	<a class="create_button" id="bud_create" href="javascript:void(0)"><i class="glyphicon glyphicon-plus-sign"></i> 新しい日を作る</a>
 	</div>
 </div>
 <div class="create_result">
@@ -193,14 +193,14 @@
 <style>
 	.title {
 		width: 100%;
-		height: 150px;
-		line-height: 100px;
+		height: 80px;
+		line-height: 80px;
 		text-align: center;
-		background-image: url('/image/giftpic.png');
-		background-size: 100% 150px;
-		border-radius: 30px;
-		color: #666699;
-		text-shadow: 1px 1px 1px black;
+		/*background-image: url('/image/giftpic.png');*/
+		/*background-size: 100% 150px;*/
+		background-color: white;
+		/*border-radius: 30px;*/
+		/*text-shadow: 1px 1px 1px black;*/
 		position: relative;
 		
 	}
@@ -222,43 +222,63 @@
 	}
 	.add_bud_button {
 		display: block;
-		width: 100px;
-		height: 100px;
+		width: 60px;
+		height: 60px;
 		position: absolute;
 		background-size: contain;
 		background-position: center;
 		background-repeat: no-repeat;
 		border: solid 3px white;
 		top: 50%;
-		margin-top: -50px;
-		right: 50px;
-		background-image: url('/image/bud.png');
-		background-color: rgb(90,165,114);
+		margin-top: -30px;
+		right: 30px;
+		background-image: url('/image/add.png');
+		/*background-color: rgb(90,165,114);*/
 		border-radius: 50%;
 		/*position: fixed;*/
 		z-index: 100;
 	}
-	.add_bud_button::after {
-		content: "";
-		position: relative;
-		top: 50%;
-		left: 55%;
-		display:block;
-		width:30px;
-		height:30px;
-		background-image: url("/image/add.png"); 
-		background-size:contain;
-		background-position: center;
-	}
+	/*.add_bud_button::after {*/
+	/*	content: "";*/
+	/*	position: relative;*/
+	/*	top: 50%;*/
+	/*	left: 55%;*/
+	/*	display:block;*/
+	/*	width:30px;*/
+	/*	height:30px;*/
+	/*	background-image: url("/image/add.png"); */
+	/*	background-size:contain;*/
+	/*	background-position: center;*/
+	/*}*/
 	
-	.add_bud_button:hover {
+	.homebtn:hover , .add_bud_button:hover {
 		border: solid 5px rgb(245,176,144);
+	}
+	.homebtn {
+		display: block;
+		width: 60px;
+		height: 60px;
+		position: absolute;
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
+		border: solid 3px white;
+		top: 50%;
+		margin-top: -30px;
+		right: 100px;
+		border-radius: 50%;
+		background-image: url('/image/giftpic.png');
+		/*position: fixed;*/
+		z-index: 100;
+		line-height: 54px;
+		text-indent: -9999px;
 	}
 </style>
 <div class="title">
 	<a class="add_bud_button" href="javascript:void(0);"></a>
-	<h1 style="line-height:90px;">Gift Calendar</h1>
-	<h3 style="line-height:60px;" class="subtitle"><strong>素敵な日</strong>に素敵なプレゼントを渡しましょう．</h3>
+	<a class="homebtn" href="/">MOCCA</a>
+	<h1 style="line-height:80px;">MoccaLendar</h1>
+	<!--<h3 style="line-height:60px;" class="subtitle"><strong>素敵な日</strong>に素敵なプレゼントを渡しましょう．</h3>-->
 </div>
 
 <style>

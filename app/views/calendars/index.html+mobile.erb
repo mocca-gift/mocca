@@ -134,7 +134,7 @@
 	</div>
 	<div class="create">
 		<form name="add_bud_form" id="add_bud_form">
-			<label>日付：<br><input id="date" type="date" name="date"></label><br>
+			<label>日付：<br><input id="date" type="date" name="date" value='<%= Date.today.year.to_s %>+"-"+<%= Date.today.month.to_s %>+"-"+<%= Date.today.day.to_s %>'></label><br>
 			 <!--   <input type="radio" name="dateType" value="1">毎年-->
 				<!--<input type="radio" name="dateType" value="2">毎月-->
 				<!--<input type="radio" name="dateType" value="3">毎週<br>	-->
@@ -212,30 +212,57 @@
 		top: 50%;
 		margin-top: -20px;
 		right: 10px;
-		background-image: url('/image/bud.png');
-		background-color: rgb(90,165,114);
+		background-image: url('/image/add.png');
+		/*background-color: rgb(90,165,114);*/
 		border-radius: 50%;
 		/*position: fixed;*/
 		z-index: 100;
 	}
-	.add_bud_button::after {
-		content: "";
-		position: relative;
-		top: 50%;
-		left: 55%;
-		display:block;
-		width:10px;
-		height:10px;
-		background-image: url("/image/add.png"); 
-		background-size:contain;
-		background-position: center;
-	}
+	/*.add_bud_button::after {*/
+	/*	content: "";*/
+	/*	position: relative;*/
+	/*	top: 50%;*/
+	/*	left: 55%;*/
+	/*	display:block;*/
+	/*	width:10px;*/
+	/*	height:10px;*/
+	/*	background-image: url("/image/add.png"); */
+	/*	background-size:contain;*/
+	/*	background-position: center;*/
+	/*}*/
 	
-	.add_bud_button:hover {
+	.homebtn:hover , .add_bud_button:hover {
 		border: solid 5px rgb(245,176,144);
 	}
-	a:link {
+	nav a:link {
 		text-decoration:none;
+		color: black;
+	}
+	nav a:visited {
+		text-decoration:none;
+		color: black;
+	}
+	nav a:active {
+		text-decoration:none;
+		color: black;
+	}
+	.homebtn {
+		display: block;
+		width: 40px;
+		height: 40px;
+		position: absolute;
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
+		border: solid 3px white;
+		top: 50%;
+		margin-top: -20px;
+		right: 60px;
+		background-image: url('/image/giftpic.png');
+		/*background-color: rgb(90,165,114);*/
+		border-radius: 50%;
+		/*position: fixed;*/
+		z-index: 100;
 	}
 </style>
 <nav class="navbar navbar-fixed-top">
@@ -255,6 +282,7 @@
       <!--  </ul>-->
       <!--</div>-->
       <a class="add_bud_button" href="javascript:void(0);"></a>
+      <a class="homebtn" href="/"></a>
     </nav>
 
 <style>
@@ -497,7 +525,7 @@
 			<input type="search" name="searchWord" placeholder="どんな日がいい？誰に渡したい？">
 		</div>
 		<div class="search_date">
-			<input id="fromdate" type="date" name="fromDate" placeholder="いつから？" max="2999-12-31">～<input id="todate" type="date" name="toDate" placeholder="いつまで？" max="2999-12-31"> 
+			<input id="fromdate" type="date" name="fromDate" value='<%= Date.today.year.to_s %>+"-"+<%= Date.today.month.to_s %>+"-"+<%= Date.today.day.to_s %>' max="2999-12-31">～<input id="todate" type="date" name="toDate" value='<%= Date.today.1.year.since.year.to_s %>+"-"+<%= Date.today.month.to_s %>+"-"+<%= Date.today.day.to_s %>' max="2999-12-31"> 
 		</div>
 	</form>
 	<a class="search_button" id="bud_search" href="javascript:void(0)"></a>
