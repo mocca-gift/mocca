@@ -642,10 +642,10 @@
 	  	background-repeat: no-repeat;
 	}
 	#likebtn {
-		background-image: url('/image/heart.png');
+		background-image: url('/image/likebtn.jpg');
 	}
 	#dislikebtn {
-		background-image: url('/image/dislike.png');
+		background-image: url('/image/dislikebtn.jpg');
 	}
 	.day_evalnum {
 		height: 25px;
@@ -846,7 +846,8 @@
 				})
 				.done(function( data, textStatus, jqXHR ) {
 				        $('.cal_like'+num).html(data);
-				        // $('.cal_eval_like'+num).css('border','solid 1px blue');
+				        $('.cal_eval_like'+num).css('border','solid 1px green');
+				        $('.cal_eval_like'+num).css('border-radius','50%');
 						$('.cal_eval_like'+num).attr('onclick','void(0)');
 						$('.cal_eval_dislike'+num).attr('onclick','void(0)');
 				})
@@ -871,7 +872,8 @@
 					})
 					.done(function( data, textStatus, jqXHR ) {
 					        $('.cal_dislike'+num).html(data);
-					        // $('.cal_eval_dislike'+num).css('border','solid 1px blue');
+					        $('.cal_eval_dislike'+num).css('border','solid 1px red');
+					        $('.cal_eval_dislike'+num).css('border-radius','50%');
 							$('.cal_eval_like'+num).attr('onclick','void(0)');
 							$('.cal_eval_dislike'+num).attr('onclick','void(0)');
 					})
@@ -894,7 +896,7 @@
 		margin-left: 5%;
 		/*margin-top: 50px;*/
 		margin-bottom: 50px;
-		height: 350px;
+		height: 400px;
 		position: relative;
 		background-color: rgba(255,255,255,0.7);
 		border: solid 5px rgb(0,30,67);
