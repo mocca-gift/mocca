@@ -15,6 +15,8 @@
 
     
     <style>
+    	
+    @import url(http://fonts.googleapis.com/earlyaccess/notosansjapanese.css);
     
     html {
       height:100%;
@@ -23,14 +25,38 @@
      body {
       height:100%;
       /*background-color: rgb(0,30,67);*/
-      font-family:  "Meiryo UI", メイリオ, Osaka, 'MS PGothic', arial, helvetica, sans-serif;
+      font-family:  'Meiryo UI','Noto Sans Japanese',aaux-next,Helvetica,Arial,"Hiragino Kaku Gothic Pro","ヒラギノ角ゴ Pro W3",メイリオ,Meiryo,"ＭＳ Ｐゴシック",sans-serif;
       /*position: relative;*/
-      background-image: url("/image/ribbon.jpg");
-      background-size: contain;
+      background-image: url("/image/sky.jpg");
+      background-size: cover;
       background-repeat: no-repeat;
       background-position: center;
-      /*background-attachment: fixed;*/
+      background-attachment: fixed;
       background-color: white;
+      /*-webkit-background-size: 80px 80px;*/
+      /*  -moz-background-size: 80px 80px;*/
+      /*  background-size: 80px 80px;*/
+      /*  background-color: #A9F5F2;*/
+      /*  background-image: -webkit-gradient(linear, 0 100%, 100% 0,*/
+      /*              color-stop(.25, #CEF6F5), color-stop(.25, transparent),*/
+      /*              color-stop(.5, transparent), color-stop(.5, #CEF6F5),*/
+      /*              color-stop(.75, #CEF6F5), color-stop(.75, transparent),*/
+      /*              to(transparent));*/
+      /*  background-image: -webkit-linear-gradient(45deg, #CEF6F5 25%, transparent 25%,*/
+      /*            transparent 50%, #CEF6F5 50%, #CEF6F5 75%,*/
+      /*            transparent 75%, transparent);*/
+      /*  background-image: -moz-linear-gradient(45deg, #CEF6F5 25%, transparent 25%,*/
+      /*            transparent 50%, #CEF6F5 50%, #CEF6F5 75%,*/
+      /*            transparent 75%, transparent);*/
+      /*  background-image: -ms-linear-gradient(45deg, #CEF6F5 25%, transparent 25%,*/
+      /*            transparent 50%, #CEF6F5 50%, #CEF6F5 75%,*/
+      /*            transparent 75%, transparent);*/
+      /*  background-image: -o-linear-gradient(45deg, #CEF6F5 25%, transparent 25%,*/
+      /*            transparent 50%, #CEF6F5 50%, #CEF6F5 75%,*/
+      /*            transparent 75%, transparent);*/
+      /*  background-image: linear-gradient(45deg, #CEF6F5 25%, transparent 25%,*/
+      /*            transparent 50%, #CEF6F5 50%, #CEF6F5 75%,*/
+      /*            transparent 75%, transparent);*/
     } 
     
     .wrapper {
@@ -51,6 +77,9 @@
         top: 20px;
         left: 50%;
         margin-left: -10%;
+      }
+      .header {
+      	position: relative;
       }
       
       /* Homepanels */
@@ -125,12 +154,141 @@
       /*  }*/
         
       /*}*/
+      .homebtn:hover , .add_bud_button:hover {
+				border: solid 5px rgb(245,176,144);
+			}
+			.homebtn {
+				display: block;
+				width: 60px;
+				height: 60px;
+				position: absolute;
+				background-size: cover;
+				background-position: center;
+				background-repeat: no-repeat;
+				border: solid 3px white;
+				top: 20px;
+				/*margin-top: -30px;*/
+				right: 220px;
+				border-radius: 50%;
+				background-image: url('/image/calendar-icon.png');
+				/*position: fixed;*/
+				z-index: 100;
+				line-height: 54px;
+				text-indent: -9999px;
+			}
+			.calendar_discription {
+				display: block;
+				text-align: center;
+				width: 200px;
+				height: 60px;
+				padding: 5px;
+				/*line-height: 50px;*/
+				border: solid 5px rgb(245,176,144);
+				/*border-radius: 20px;*/
+				position: absolute;
+				top: 20px;
+				right: 10px;
+				background-color: rgba(255,255,255,0.7);
+				z-index: 51;
+				display:none;
+				/*color: blue;*/
+			}
     </style>
+    <style>
+    .share {
+	    position: absolute;
+	    width: 300px;
+	    height: 60px;
+	    top: 20px;
+	    left: 40px;
+	  }
+	  .share-box {
+	    height: 60px;
+	    width: 60px;
+	    float: left;
+	    margin: 5px;
+	  }
+	  .share-button {
+	    display:block;
+	    width: 60px;
+	    height: 60px;
+	    border-radius: 30px;
+	    background-size: 60px 60px;
+	    text-indent: -9999px;
+	  }
+	  a.share-button:hover {
+	    -webkit-transform: scale(1.2);
+	    -moz-transform: scale(1.2);
+	    -o-transform: scale(1.2);
+	    -ms-transform: scale(1.2);
+	    transform: scale(1.2);
+	  }
+	  .phrase {
+	    background-image: url("/image/share.png");
+	  }
+	  .twitter {
+	    background-image: url('/image/Twitter.png');
+	    /*display: none;*/
+	  }
+	  .facebook {
+	    background-image: url('/image/Facebook.png');
+	    /*display: none;*/
+	  }
+	  .googlePlus {
+	    background-image: url('/image/Google+.png');
+	    /*display: none;*/
+	  }
+	  .line {
+	    background-image: url('/image/Line.png');
+	    /*display: none;*/
+	  }
+	  .share_btns {
+	  	/*display:none;*/
+	  }
+	  </style>
+    <script>
+    	$(function(){
+    		$('.homebtn').hover(
+    			function(){
+    			  $('.calendar_discription').fadeIn();
+    		  },
+    		  function(){
+    		  	$('.calendar_discription').fadeOut();
+    		  }
+    		);
+    		// i=0;
+    		// $('.phrase').on('click',function(){
+    		// 	switch(i%2){
+    		// 		case 0:
+    		// 			$('.share_btns').slideDown();
+    		// 			i++;
+    		// 			break;
+    		// 		case 1:
+    		// 			$('.share_btns').slideUp();
+    		// 			i++;
+    		// 			break;
+    		// 		default:
+    		// 		  break;
+    		// 	}
+    		// });
+    	})
+    </script>
   </head>
   <body>
     <div class="wrapper">
     <div class="header">
       <img class="logo" src="/image/largelogo.png">
+      <a class="homebtn" href="/calendars">MOCCA</a>
+      <div class="calendar_discription">カレンダーで<BR>いつプレゼントを渡すか決めよう!!</div>
+      <div class="share">
+		    <div class="share-box"><a class="share-button phrase" href="javascript:void(0);"></a></div>
+		    <div class="share_btns">
+		    	<div class="share-box"><a class="share-button twitter" href="http://twitter.com/intent/tweet?text=MOCCAでプレゼント探そう!!&url=https://mocca-giftfinder.herokuapp.com" onclick="window.open(encodeURI(decodeURI(this.href)), 'tweetwindow', 'width=550, height=450, personalbar=0, toolbar=0, scrollbars=1, resizable=1' ); return false;" target="_blank"><i class="fontawesome-twitter"></i>ツイート</a></div>
+			    <div class="share-box"><a class="share-button facebook" href="http://www.facebook.com/share.php?u=https://mocca-giftfinder.herokuapp.com" onclick="window.open(this.href, 'window', 'width=550, height=450,personalbar=0,toolbar=0,scrollbars=1,resizable=1'); return false;"><i class="fontawesome-facebook"></i>シェア</a></div>
+			    <!--<div class="share-box"><a class="share-button googlePlus" href="javascript:(function(){window.open('https://plusone.google.com/_/+1/confirm?hl=ja&url=https://mocca-giftfinder.herokuapp.com'+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title),'_blank');})();"><i class="fontawesome-google-plus"></i>+1</a></div>-->
+			    <div class="share-box"><a class="share-button line" href="http://line.me/R/msg/text/?MOCCAでプレゼント探そう!!%0D%0Ahttp://mocca-giftfinder.herokuapp.com">LINE</a></div>
+		    </div>
+	    </div><!-- / #share --> 
     </div>
     <style>
 	.nearday {
@@ -140,9 +298,9 @@
 		height: 150px;
 		position: absolute;
 		top: 80px;
-		background-color: rgba(255,255,255,0.7);
-		border-top: double 5px  rgb(161,104,154);
-		border-bottom: double 5px  rgb(161,104,154);
+		/*background-color: rgba(255,255,255,0.7);*/
+		/*border-top: double 5px  rgb(161,104,154);*/
+		/*border-bottom: double 5px  rgb(161,104,154);*/
 	}
 	.move_btn {
 		display: block;
@@ -165,11 +323,14 @@
 		right: 0;
 	}
 	.nearday_container {
-		width: 70%;
+		width: 50%;
 		height: 100%;
-		margin-left: 15%;
-		margin-right: 15%;
+		margin-left: 25%;
+		margin-right: 25%;
 		position: relative;
+		background-color: rgba(255,255,255,0.7);
+		border: double 5px pink;
+		border-radius: 75px;
 	}
 	.nearday_date {
 		width: 100%;
@@ -290,47 +451,34 @@
 		<div class="nearday_for">恋人</div>
 	</div>
 </div>
-<style>
-	.tocalendar_btn {
-		display: block;
-		text-align: center;
-		width: 200px;
-		height: 50px;
-		line-height: 50px;
-		border: solid 2px blue;
-		border-radius: 20px;
-		position: absolute;
-		top: 85px;
-		left: 70%;
-		background-color: white;
-		z-index: 51;
-	}
-</style>
-<a class="tocalendar_btn" href="/calendars">カレンダーはこちらから <i class="glyphicon glyphicon-triangle-right"></i></a>
+
 
 <style>
 	.description {
 		width: 700px;
-		height: 120px;
+		height: 370px;
 		padding: 15px;
 		/*border: solid 2px black;*/
 		border-radius: 30px;
 		position: absolute;
-		top: 250px;
+		top: 280px;
 		left: 50%;
 		margin-left: -350px;
 		color: black;
 		text-shadow: 2px 2px 10px white;
 		/*background-color: rgba(255,255,255,0.7);*/
+		background-image: url('/image/waku_airmail.gif');
+		background-size: 700px 370px;
 	}
 	.glyphicon-heart {
 		color: pink;
 	}
 </style>
-<div class="description"><h3 style="text-align:center;"> <i class="glyphicon glyphicon-heart"></i> <i class="glyphicon glyphicon-heart"></i> <i class="glyphicon glyphicon-heart"></i> <i class="glyphicon glyphicon-heart"></i> <i class="glyphicon glyphicon-heart"></i> <i class="glyphicon glyphicon-heart"></i> <i class="glyphicon glyphicon-heart"></i> <i class="glyphicon glyphicon-heart"></i> <i class="glyphicon glyphicon-heart"></i> <i class="glyphicon glyphicon-heart"></i> <i class="glyphicon glyphicon-heart"></i> <i class="glyphicon glyphicon-heart"></i> <i class="glyphicon glyphicon-heart"></i> <i class="glyphicon glyphicon-heart"></i> <i class="glyphicon glyphicon-heart"></i><BR><br>
-	          MOCCAは素敵なプレゼント/ギフトを選ぶを叶えます。<BR>
-	          "Q"をクリックして、一緒にプレゼント/ギフトを探しましょう!!<BR><br>
-	          <i class="glyphicon glyphicon-heart"></i> <i class="glyphicon glyphicon-heart"></i> <i class="glyphicon glyphicon-heart"></i> <i class="glyphicon glyphicon-heart"></i> <i class="glyphicon glyphicon-heart"></i> <i class="glyphicon glyphicon-heart"></i> <i class="glyphicon glyphicon-heart"></i>	<i class="glyphicon glyphicon-heart"></i> <i class="glyphicon glyphicon-heart"></i> <i class="glyphicon glyphicon-heart"></i> <i class="glyphicon glyphicon-heart"></i> <i class="glyphicon glyphicon-heart"></i> <i class="glyphicon glyphicon-heart"></i> <i class="glyphicon glyphicon-heart"></i> <i class="glyphicon glyphicon-heart"></i>
+<div class="description"><h3 style="text-align:center;"> 
+            <!--<i class="glyphicon glyphicon-heart"></i> <i class="glyphicon glyphicon-heart"></i> <i class="glyphicon glyphicon-heart"></i> <i class="glyphicon glyphicon-heart"></i> <i class="glyphicon glyphicon-heart"></i> <i class="glyphicon glyphicon-heart"></i> <i class="glyphicon glyphicon-heart"></i> <i class="glyphicon glyphicon-heart"></i> <i class="glyphicon glyphicon-heart"></i> <i class="glyphicon glyphicon-heart"></i> <i class="glyphicon glyphicon-heart"></i> <i class="glyphicon glyphicon-heart"></i> <i class="glyphicon glyphicon-heart"></i> <i class="glyphicon glyphicon-heart"></i> <i class="glyphicon glyphicon-heart"></i><BR><br>-->
+	          <BR>MOCCAは素敵なプレゼント/ギフトを選ぶを叶えます。<BR>
+	          "Q"をクリックして、<BR>一緒にプレゼント/ギフトを探しましょう!!<BR><br>
+	          <!--<i class="glyphicon glyphicon-heart"></i> <i class="glyphicon glyphicon-heart"></i> <i class="glyphicon glyphicon-heart"></i> <i class="glyphicon glyphicon-heart"></i> <i class="glyphicon glyphicon-heart"></i> <i class="glyphicon glyphicon-heart"></i> <i class="glyphicon glyphicon-heart"></i>	<i class="glyphicon glyphicon-heart"></i> <i class="glyphicon glyphicon-heart"></i> <i class="glyphicon glyphicon-heart"></i> <i class="glyphicon glyphicon-heart"></i> <i class="glyphicon glyphicon-heart"></i> <i class="glyphicon glyphicon-heart"></i> <i class="glyphicon glyphicon-heart"></i> <i class="glyphicon glyphicon-heart"></i>-->
 	          </h3></div>
       <ul class="homePanels">
         <li class="none"></li>
