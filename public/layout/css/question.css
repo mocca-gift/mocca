@@ -65,7 +65,7 @@
     }
     
     .choice:hover {
-      transform: scale(1.5);
+      border: solid 5px blue;
     }
     
     .yes-btn {
