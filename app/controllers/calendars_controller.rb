@@ -303,7 +303,7 @@ class CalendarsController < ApplicationController
           if Giftcalendar.where(year: @year, month: @month, day: getDate(@year,@month,i)).empty? then
             responseText+='<td class="border_line">'+getDate(@year,@month,i)+'</td></tr>'
           else
-            responseText+='<td class="border_line"><a  class="exist" href="javascript:void(0);" onclick="getInfo('+@year.to_s+','+@month.to_s+','++getDate(@year,@month,i)+')">'+getDate(@year,@month,i)+'</a></td></tr>'
+            responseText+='<td class="border_line"><a  class="exist" href="javascript:void(0);" onclick="getInfo('+@year.to_s+','+@month.to_s+','+getDate(@year,@month,i)+')">'+getDate(@year,@month,i)+'</a></td></tr>'
           end
         end
       else
@@ -313,7 +313,7 @@ class CalendarsController < ApplicationController
           if Giftcalendar.where(year: @year, month: @month, day: getDate(@year,@month,i)).empty? then
             responseText+='<td class="border_line">'+getDate(@year,@month,i)+'</td>'
           else
-            responseText+='<td class="border_line"><a  class="exist" href="javascript:void(0);" onclick="getInfo('+@year.to_s+','+@month.to_s+','++getDate(@year,@month,i)+')">'+getDate(@year,@month,i)+'</a></td>'
+            responseText+='<td class="border_line"><a  class="exist" href="javascript:void(0);" onclick="getInfo('+@year.to_s+','+@month.to_s+','+getDate(@year,@month,i)+')">'+getDate(@year,@month,i)+'</a></td>'
           end
         end
       end
