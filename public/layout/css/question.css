@@ -70,26 +70,26 @@
     
     .yes-btn {
       background-image: url("/image/yes.png");
-      border-bottom: solid 3px rgb(0,0,255);
+      /*border-bottom: solid 3px rgb(0,0,255);*/
     }
     
     .no-btn {
       background-image: url("/image/no.png");
-      border-bottom: solid 3px rgb(255,0,0);
+      /*border-bottom: solid 3px rgb(255,0,0);*/
     }
       
     .choiceframe1{
-      width: 100px;
-      height: 100px;
-      margin-left: 200px;
-      margin-right: 60px;
+      width: 150px;
+      height: 80px;
+      margin-left: 175px;
+      margin-right: 35px;
       float:left;
     }
     .choiceframe2{
-      width: 100px;
-      height: 100px;
-      margin-left: 60px;
-      margin-right: 200px;
+      width: 150px;
+      height: 80px;
+      margin-left: 35px;
+      margin-right: 175px;
       float:left;
     }
     
