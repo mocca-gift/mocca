@@ -54,7 +54,7 @@ class CalendarsController < ApplicationController
     @nearestDay= @calHash.sort_by{|key, value| value}[dayIndex][0]
     @length= @calHash.sort_by{|key, value| value}[dayIndex][1]
     
-    render text: '	<div class="nearday_date">'+@nearestDay.month.to_s+'月'+@nearestDay.day.to_s+'日</div>
+    render text: '	<div class="nearday_date">'+@nearestDay.year.to_s+'年'+@nearestDay.month.to_s+'月'+@nearestDay.day.to_s+'日</div>
 		<div class="nearday_name"><h3>'+@nearestDay.name+'</h3></div>
 		<div class="nearday_for_text"><h4>'+@nearestDay.for_whom+'に</h4></div>
 		<div class="nearday_for">プレゼントを渡そう!!</div>'
