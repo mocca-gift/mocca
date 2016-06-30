@@ -2,8 +2,8 @@
  initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
  
  <!-- Bootstrap -->
-    <link href="/bootstrap/css/bootstrap.css" rel="stylesheet">
-    <script src="/bootstrap/js/bootstrap.min.js"></script>
+    <!--<link href="/bootstrap/css/bootstrap.css" rel="stylesheet">-->
+    <!--<script src="/bootstrap/js/bootstrap.min.js"></script>-->
 
 <style>
 	
@@ -700,27 +700,27 @@
 		display:block;
 		width:30px;
 		height:30px;
-		background-image: url("/image/bud.png"); 
+		background-image: url("/image/shosin.png"); 
 		background-size:contain;
 		background-position: center;
-		background-color: green;
+		/*background-color: green;*/
 		
 	}
 	
-	.type1::after {
-		content: "";
-		position: relative;
-		top: -210px;
-		left: 0px;
-		display:block;
-		width:30px;
-		height:30px;
-		background-image: url("/image/flower.png"); 
-		background-size:contain;
-		background-position: center;
-		background-color: pink;
+	/*.type1::after {*/
+	/*	content: "";*/
+	/*	position: relative;*/
+	/*	top: -210px;*/
+	/*	left: 0px;*/
+	/*	display:block;*/
+	/*	width:30px;*/
+	/*	height:30px;*/
+	/*	background-image: url("/image/flower.png"); */
+	/*	background-size:contain;*/
+	/*	background-position: center;*/
+	/*	background-color: pink;*/
 		
-	}
+	/*}*/
 	
 </style>
 
@@ -995,8 +995,14 @@
 			cal_year=Math.floor(cal_num/12);
 			if (cal_num%12==1){
 				cal_month=12;
+				cal_year=cal_year-1;
 			} else {
-				cal_month=cal_num%12-1;
+				if (cal_num%12==0){
+					cal_year=cal_year-1;
+					cal_month=11;
+				} else {
+				  cal_month=cal_num%12-1;
+				}
 			}
 			// cal_num=cal_year*12+cal_month-1;
 			$.ajax({
