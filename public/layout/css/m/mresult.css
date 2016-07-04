@@ -60,6 +60,7 @@
   height: 55px;
   overflow: scroll;
   margin-left: -100px;
+  line-height: 55px;
 }
 
 .giftname_container:after {
@@ -70,7 +71,7 @@
 
 .giftname h4{
   /*margin-top: 0;*/
-  line-height: 55px;
+  /*line-height: 55px;*/
 }
 .companyname_container {
   position: absolute;
