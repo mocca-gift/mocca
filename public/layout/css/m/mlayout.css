@@ -26,7 +26,8 @@ a:active {
 
 
 .navbar {
-  background-color: rgba(240,187,96,0.7);
+  background-color: white;
+  border-bottom: solid 3px rgb(240,187,96);
 }
 
   
