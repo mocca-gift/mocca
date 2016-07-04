@@ -28,7 +28,7 @@ a:active {
 .navbar {
   background-color: white;
   /*border-bottom: solid 3px pink;*/
-  box-shadow: 0px 10px 10px 10px rgba(0,0,0,0.4);
+  box-shadow: 0px 5px 5px 5px rgba(0,0,0,0.4);
 }
 
   
