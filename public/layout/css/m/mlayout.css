@@ -27,7 +27,8 @@ a:active {
 
 .navbar {
   background-color: white;
-  border-bottom: solid 3px pink;
+  /*border-bottom: solid 3px pink;*/
+  box-shadow: 0px 10px 10px 10px rgba(0,0,0,0.4);
 }
 
   
@@ -37,7 +38,7 @@ a:active {
   margin-left: 5%;
   background-color: rgba(255,255,255,0.7);
   padding: 10px;
-  margin-top: 60px;
+  margin-top: 75px;
   border: solid 3px rgb(0,30,67);
  }
 
