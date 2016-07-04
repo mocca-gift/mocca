@@ -60,7 +60,7 @@
   width: 100%;
   height: 100%;
   display: none;
-  background-color: #FFFFFF;
+  background-color: rgba(0,0,0,0);
   position: absolute;
   top: 0px;
   left: 0px;
