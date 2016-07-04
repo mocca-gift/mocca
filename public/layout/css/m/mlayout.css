@@ -38,7 +38,7 @@ a:active {
   margin-left: 5%;
   background-color: rgba(255,255,255,0.7);
   padding: 10px;
-  padding-top: 75px;
+  margin-top: 75px;
   border: solid 3px rgb(0,30,67);
  }
 
