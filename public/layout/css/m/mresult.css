@@ -40,6 +40,7 @@
   width: 200px;
   margin: auto;
   border: solid 2px pink;
+  border-radius: 100px;
 }
 
 
@@ -68,7 +69,8 @@
 }
 
 .giftname h4{
-  margin-top: 0;
+  /*margin-top: 0;*/
+  line-height: 55px;
 }
 .companyname_container {
   position: absolute;

@@ -5,8 +5,8 @@ body {
   height: 100%;
   font-family:  "Meiryo UI", メイリオ, Osaka, 'MS PGothic', arial, helvetica, sans-serif;
   background-image: url("/image/sky.jpg");
-  background-size: contain;
-  background-repeat: no-repeat;
+  background-size: cover;
+  /*background-repeat: no-repeat;*/
   background-position: center;
   position: relative;
 }
