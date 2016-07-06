@@ -113,9 +113,12 @@ class ResultController < ApplicationController
 
         #Bayes更新なしの期待値上位3件取得
         @expTop3_new = Array.new(3,Gift.find_by_id(1))
-          @expTop3_new[0]=@giftExp45_new.sort_by{|key, value| -value}[0][0]
-          @expTop3_new[1]=@giftExp3_new.sort_by{|key, value| -value}[0][0]
-          @expTop3_new[2]=@giftExp12_new.sort_by{|key, value| -value}[0][0]
+        #   @expTop3_new[0]=@giftExp45_new.sort_by{|key, value| -value}[0][0]
+        #   @expTop3_new[1]=@giftExp3_new.sort_by{|key, value| -value}[0][0]
+        #   @expTop3_new[2]=@giftExp12_new.sort_by{|key, value| -value}[0][0]
+        @expTop3_new[0]=@giftExp45_new.sort_by{rand}[0][0]
+        @expTop3_new[1]=@giftExp3_new.sort_by{rand}[0][0]
+        @expTop3_new[2]=@giftExp12_new.sort_by{rand}[0][0]
         
         #Bayes更新ありとなしを結合
         @giftRes=Array.new()
