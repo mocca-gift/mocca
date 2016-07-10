@@ -21,19 +21,19 @@
 </head>
 <body>
   <!-- user_signed_in? はユーザがログインしているか調べるdeviseのHelperメソッド -->
-  <% if user_signed_in? %> 
+  <%# if user_signed_in? %> 
     <!-- current_user は現在ログインしているUserオブジェクトを返すdeviseのHelperメソッド -->
     <!-- *_path はUserモデルを作成したときに、
       deviseにより自動で作成されてますので、rake routesで確認できます -->
-    Logged in as <strong><%= current_user.name %></strong>.
-    <%= link_to 'プロフィール変更', edit_user_registration_path %> |
-    <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
-  <% else %>
-    <%= link_to "サインイン", new_user_registration_path %> |
-    <%= link_to "ログイン", new_user_session_path %>
-  <% end %>
+    <!--Logged in as <strong><%#= current_user.name %></strong>.-->
+    <%#= link_to 'プロフィール変更', edit_user_registration_path %> |
+    <%#= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+  <%# else %>
+    <%#= link_to "サインイン", new_user_registration_path %> |
+    <%#= link_to "ログイン", new_user_session_path %>
+  <%# end %>
   
-  <%= link_to image_tag('/image/Facebook.png'), user_facebook_omniauth_authorize_path %>
+  <%#= link_to image_tag('/image/Facebook.png'), user_facebook_omniauth_authorize_path %>
 
 <%= yield %>
 
