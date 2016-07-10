@@ -31,7 +31,7 @@
       <tr>
         <td><%= gift.id %></td>
         <td><%= gift.name %></td>
-        <td><%= gift.url %></td>
+        <td><%= gift.url[0,10]+"..." %></td>
         <td><%= image_tag(img_gift_path(gift), :height => "100px") %></td>
         <td><%= gift.img_content_type %></td>
         <td><%= gift.company_name %></td>

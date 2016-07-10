@@ -16,6 +16,12 @@ gem "faraday_middleware"
 #for FB Bot
 gem "rest-client"
 
+#for FB Login
+gem 'devise'
+gem 'omniauth'
+gem 'omniauth-facebook'
+
+
 group :development, :test do
   gem 'sqlite3',     '1.3.9'
   gem 'byebug',      '3.4.0'
