@@ -31,7 +31,7 @@ class WebhookController < ApplicationController
     #受信したメッセージ
     text_message = event['message']['text']
     #メッセージ送信者のID
-    userId =params[:source][0]["userId"]
+    userId =event["source"]["userId"]
     
     client = LineClient.new(CHANNEL_ACCESS_TOKEN, OUTBOUND_PROXY)
     # client = LineClient.new(CHANNEL_ID, CHANNEL_SECRET, CHANNEL_MID, OUTBOUND_PROXY)
