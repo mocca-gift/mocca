@@ -30,20 +30,36 @@ class LineClient
     res
   end
 
-  def reply(replyToken, text)
-
-    messages = [
-      {
-        "type" => "text" ,
-        "text" => text
-      }
-    ]
+  def reply(replyToken, texts)
+    messages = Array.new
+    
+    for text in texts do
+      message = {
+          "type" => "text" ,
+          "text" => text
+        }
+        
+      messages.push(message)
+    end
 
     body = {
       "replyToken" => replyToken ,
       "messages" => messages
     }
     post('/v2/bot/message/reply', body.to_json)
+  end
+  
+  # def send(line_ids, message)
+  #   post('/v1/events', {
+  #       to: line_ids,
+  #       content: {
+  #           contentType: ContentType::TEXT,
+  #           toType: ToType::USER,
+  #           text: message
+  #       },
+  #       toChannel: TO_CHANNEL,
+  #       eventType: EVENT_TYPE
+  #   })
   end
 
 end

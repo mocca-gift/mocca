@@ -30,6 +30,8 @@ class WebhookController < ApplicationController
     replyToken = event["replyToken"]
     #受信したメッセージ
     text_message = event['message']['text']
+    #メッセージ送信者のID
+    userId =params[:source]["userId"]
     
     client = LineClient.new(CHANNEL_ACCESS_TOKEN, OUTBOUND_PROXY)
     # client = LineClient.new(CHANNEL_ID, CHANNEL_SECRET, CHANNEL_MID, OUTBOUND_PROXY)
@@ -37,20 +39,20 @@ class WebhookController < ApplicationController
     case event_type
     when "message"
       #メッセージ送信者の履歴が過去になければ(質問フローの中にいないなら)
-      if Talk.find_by(:user => replyToken)==nil then
-        res = client.reply(replyToken, "ようこそMOCCAへ\n素敵なプレゼントを\n一緒に探そう！")
-        res = client.reply(replyToken, "どうやって探す？\n\nQ:質問に答えて探す!\nR:運に任せて探す!")
-        @talk=Talk.create(:user => replyToken, :text => "")
+      if Talk.find_by(:user => userId)==nil then
+        res = client.reply(replyToken, ["ようこそMOCCAへ\n素敵なプレゼントを\n一緒に探そう！", "どうやって探す？\n\nQ:質問に答えて探す!\nR:運に任せて探す!"])
+        # res = client.reply(replyToken, "どうやって探す？\n\nQ:質問に答えて探す!\nR:運に任せて探す!")
+        @talk=Talk.create(:user => userId, :text => "")
       else
         
         #前回使用より30分以上経過していたらリセット***************************************************(1)
-        if (Time.now - Talk.find_by(:user => replyToken).updated_at )> 30*60 then
-          @talk=Talk.find_by(:user => replyToken)
+        if (Time.now - Talk.find_by(:user => userId).updated_at )> 30*60 then
+          @talk=Talk.find_by(:user => userId)
           @talk.update(:text => "")
         else
         end
         
-        if Talk.find_by(:user => replyToken).text=="" then
+        if Talk.find_by(:user => userId).text=="" then
           #メッセージが"Q"なら質問フローを開始する
           case text_message.upcase
           when "Q","Ｑ" then
@@ -61,35 +63,37 @@ class WebhookController < ApplicationController
               qarray+=","
               qarray+=q.id.to_s
             end
-            res = client.reply(replyToken, "プレゼントを渡す相手を想像して...")
-            res = client.reply(replyToken, "はい(y)/いいえ(n)で答えてね\nまずは5問！")
+            # res = client.reply(replyToken, ["プレゼントを渡す相手を想像して...","はい(y)/いいえ(n)で答えてね\nまずは5問！"])
+            # res = client.reply(replyToken, "はい(y)/いいえ(n)で答えてね\nまずは5問！")
             # res = client.reply(replyToken, "まずは5問！")
             message=@questions[0].body
-            @talk=Talk.find_by(:user => replyToken)
+            @talk=Talk.find_by(:user => userId)
             @talk.update(:text => "0",:question => qarray)
-            res = client.reply(replyToken, message)
+            res = client.reply(replyToken, ["プレゼントを渡す相手を想像して...","はい(y)/いいえ(n)で答えてね\nまずは5問！", message])
+            # res = client.reply(replyToken, message)
           when "R","Ｒ" then
             # res = client.reply(replyToken, "今日の運はどうかな？")
-            res = client.reply(replyToken, "今日の運はこんな感じ！")
+            # res = client.reply(replyToken, "今日の運はこんな感じ！")
             @gift=Gift.offset( rand(Gift.count) ).first
             message=message=@gift.name+"/"+@gift.company_name+"\n"+@gift.url+"\n"
             
             #画像送信とりあえず今は無し
             # res = client.sendImage([replyToken], "https://mocca-giftfinder.herokuapp.com/gifts/"+@gift.id.to_s+"/img", "https://mocca-giftfinder.herokuapp.com/gifts/"+@gift.id.to_s+"/img" )
-            res = client.reply(replyToken, message)
+            # res = client.reply(replyToken, message)
             
             # message="Web版も試してね！\nhttps://mocca-giftfinder.herokuapp.com/"
             # res = client.reply(replyToken, message)
-            res = client.reply(replyToken, "もっと探す？\n\nQ:質問に答えて探す!\nR:運に任せて探す!")
+            res = client.reply(replyToken, ["今日の運はこんな感じ！", message, "もっと探す？\n\nQ:質問に答えて探す!\nR:運に任せて探す!"])
+            # res = client.reply(replyToken, "もっと探す？\n\nQ:質問に答えて探す!\nR:運に任せて探す!")
           else
             #"Q""R"以外のメッセージが来た場合
-            res = client.reply(replyToken, "どうやって探す？\n\nQ:質問に答えて探す!\nR:運に任せて探す!")
+            res = client.reply(replyToken, ["どうやって探す？\n\nQ:質問に答えて探す!\nR:運に任せて探す!"])
           end
           
         else
           #メッセージ送信者の履歴が過去にあれば(質問フローの中にいれば)
           #Talkモデルに格納したデータを取ってくる
-          @talk=Talk.find_by(:user => replyToken)
+          @talk=Talk.find_by(:user => userId)
           @qarray=@talk.question.split(",")
           @ansarray=@talk.text.split(",")
           i=@ansarray.count
@@ -104,18 +108,18 @@ class WebhookController < ApplicationController
             when *yes_array then
               message=Question.find_by_id(@qarray[i+1]).body
               @talk.update(:text => @talk.text+",1")
-              res = client.reply(replyToken, message)
+              res = client.reply(replyToken, [message])
             when *no_array then
               message=Question.find_by_id(@qarray[i+1]).body
               @talk.update(:text => @talk.text+",2")
-              res = client.reply(replyToken, message)
+              res = client.reply(replyToken, [message])
             else
-              message="はい/いいえで答えてね"
-              res = client.reply(replyToken, message)
+              # message="はい/いいえで答えてね"
+              # res = client.reply(replyToken, message)
               
               #質問の再表示****************************************************************************(2)
               message=Question.find_by_id(@qarray[i]).body
-              res = client.reply(replyToken, message)
+              res = client.reply(replyToken, ["はい/いいえで答えてね", message])
   # ここでもう一度質問を表示したい
             end
           #答えた質問が5個なら  
@@ -124,7 +128,7 @@ class WebhookController < ApplicationController
       # ↓YES--------------------------------------------------------------------------
             when *yes_array then
               # res = client.reply(replyToken, "こんなプレゼントはどうかな...")
-              res = client.reply(replyToken, "ちょっと待っててね...")
+              # res = client.reply(replyToken, "ちょっと待っててね...")
               @talk.update(:text => @talk.text+",1")
               # ベイズ計算をする。というか@expTop1を生成する
               bayes_calc
@@ -137,11 +141,11 @@ class WebhookController < ApplicationController
               message=@expTop1.name+"/"+@expTop1.company_name+"\n"+@expTop1.url+"\n"
               
               # res = client.sendImage([replyToken], "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img", "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img" )
-              res = client.reply(replyToken, message)
+              res = client.reply(replyToken, ["ちょっと待っててね...", message, "このプレゼントどうかな？\nいい？ちょっと違う？"])
               
-              message="このプレゼントどうかな？\nいい？ちょっと違う？"
+              # message="このプレゼントどうかな？\nいい？ちょっと違う？"
               # message="Web版も試してね！\nhttps://mocca-giftfinder.herokuapp.com/"
-              res = client.reply(replyToken, message)
+              # res = client.reply(replyToken, message)
               #Talkモデルのquestionの最後(6番目)にギフトのidを付加する
               @talk.update(:question => @talk.question+","+@expTop1.id.to_s)
               # message=@expTop1.id.to_s
@@ -151,7 +155,7 @@ class WebhookController < ApplicationController
       # ↓NO----------------------------------------------------------------------------
             when *no_array then
               # res = client.reply(replyToken, "こんなプレゼントはどうかな...")
-              res = client.reply(replyToken, "ちょっと待っててね...")
+              # res = client.reply(replyToken, "ちょっと待っててね...")
               @talk.update(:text => @talk.text+",2")
               # ベイズ計算をする。というか@expTop1を生成する
               bayes_calc
@@ -164,11 +168,11 @@ class WebhookController < ApplicationController
               message=message=@expTop1.name+"/"+@expTop1.company_name+"\n"+@expTop1.url+"\n"
               
               # res = client.sendImage([replyToken], "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img", "https://mocca-giftfinder.herokuapp.com/gifts/"+@expTop1.id.to_s+"/img" )
-              res = client.reply(replyToken, message)
+              res = client.reply(replyToken, ["ちょっと待っててね...", message,"このプレゼントどうかな？\nいい？ちょっと違う？"] )
               
-              message="このプレゼントどうかな？\nいい？ちょっと違う？"
+              # message="このプレゼントどうかな？\nいい？ちょっと違う？"
               # message="Web版もお試し下さい\nhttps://mocca-giftfinder.herokuapp.com/"
-              res = client.reply(replyToken, message)
+              # res = client.reply(replyToken, message)
               #Talkモデルのquestionの最後(6番目)にギフトのidを付加する
               @talk.update(:question => @talk.question+","+@expTop1.id.to_s)
               # message=@expTop1.id.to_s
