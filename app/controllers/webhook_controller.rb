@@ -17,8 +17,8 @@ class WebhookController < ApplicationController
     unless is_validate_signature
       render :nothing => true, status: 470
     end
-    result = params[:result][0]
-    logger.info({from_line: result})
+    # result = params[:result][0]
+    # logger.info({from_line: result})
     
     #受信したメッセージ
     # text_message = result['content']['text']
