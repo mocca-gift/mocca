@@ -182,7 +182,7 @@ class WebhookController < ApplicationController
       # ↑NO----------------------------------------------------------------------------
             else
               message="はい/いいえで答えてね"
-              res = client.reply(replyToken, message)
+              res = client.reply(replyToken, [message])
             end
             
           else
@@ -191,7 +191,7 @@ class WebhookController < ApplicationController
             up_calc(@qarray[6],1)
             down_calc(@qarray[6],-1)
             # res = client.reply(replyToken, "ありがとう！\nWeb版も使ってみてね！\nhttps://mocca-giftfinder.herokuapp.com")
-            res = client.reply(replyToken, "ありがとう！\nまた一緒に探そうね！")
+            res = client.reply(replyToken, ["ありがとう！\nまた一緒に探そうね！"])
             @talk.update(:text => "")
             # message=@qarray[6].to_s+"up"
             # res = client.reply(replyToken, message)
@@ -199,12 +199,12 @@ class WebhookController < ApplicationController
             up_calc(@qarray[6],-1)
             down_calc(@qarray[6],1)
             # res = client.reply(replyToken, "そっか...またチャレンジしてね！\nWeb版も試してね！\nhttps://mocca-giftfinder.herokuapp.com/")
-            res = client.reply(replyToken, "もう一回やってみて！質問が変わるよ！")
+            res = client.reply(replyToken, ["もう一回やってみて！質問が変わるよ！"])
             @talk.update(:text => "")
             # message=@qarray[6].to_s+"down"
             # res = client.reply(replyToken, message)
             end
-          res = client.reply(replyToken, "どうやって探す？\n\nQ:質問に答えて探す!\nR:運に任せて探す!")
+          res = client.reply(replyToken, ["どうやって探す？\n\nQ:質問に答えて探す!\nR:運に任せて探す!"])
           end
         end
       end
