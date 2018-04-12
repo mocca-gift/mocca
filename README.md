@@ -1,1 +1,2 @@
-# Mocca is gift recomendation application"
+# Mocca is gift recomendation application
+# Mocca はプレゼントリコメンドアプリケーションです
